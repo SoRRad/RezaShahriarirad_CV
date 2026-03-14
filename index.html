@@ -102,39 +102,38 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .leadership-desc{font-size:.88rem;color:var(--text-muted);line-height:1.7}
 
 /* PUBLICATIONS */
-.pub-metrics-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:rgba(10,22,40,.08);border:1px solid var(--mist);border-radius:4px;overflow:hidden;margin-bottom:2.5rem}
-.pub-metric-cell{padding:1.1rem 1rem;background:var(--white);text-align:center}
-.pub-metric-num{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:300;color:var(--navy);line-height:1;margin-bottom:.25rem}
+.pub-metrics-bar{display:flex;flex-wrap:wrap;gap:1px;background:rgba(10,22,40,.08);border:1px solid var(--mist);border-radius:4px;overflow:hidden;margin-bottom:2rem}
+.pub-metric-cell{padding:.7rem .9rem;background:var(--white);text-align:center;flex:1;min-width:80px}
+.pub-metric-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;color:var(--navy);line-height:1;margin-bottom:.15rem}
 .pub-metric-num.live{color:var(--gold)}
-.pub-metric-label{font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted)}
+.pub-metric-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted)}
 
-.pub-controls{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2rem;align-items:center}
-.pub-filter{display:flex;gap:.35rem;flex-wrap:wrap}
-.filter-btn{padding:.4rem .9rem;border:1px solid var(--mist);background:transparent;border-radius:2px;font-size:.72rem;font-weight:400;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;transition:all .15s;font-family:'DM Sans',sans-serif}
+.pub-controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.8rem;align-items:center}
+.pub-filter{display:flex;gap:.3rem;flex-wrap:wrap}
+.filter-btn{padding:.35rem .8rem;border:1px solid var(--mist);background:transparent;border-radius:2px;font-size:.68rem;font-weight:400;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .filter-btn.active,.filter-btn:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy)}
-.pub-search{flex:1;min-width:180px;padding:.4rem .9rem;border:1px solid var(--mist);border-radius:2px;font-size:.82rem;color:var(--text);background:var(--white);font-family:'DM Sans',sans-serif;outline:none}
+.pub-search{flex:1;min-width:160px;padding:.35rem .8rem;border:1px solid var(--mist);border-radius:2px;font-size:.8rem;color:var(--text);background:var(--white);font-family:'DM Sans',sans-serif;outline:none}
 .pub-search:focus{border-color:var(--gold)}
-.pub-count{font-size:.75rem;color:var(--text-muted);white-space:nowrap}
+.pub-count{font-size:.72rem;color:var(--text-muted);white-space:nowrap}
+
+.pub-note{font-size:.73rem;color:var(--text-muted);margin-bottom:1rem;font-style:italic}
 
 .pub-list{display:flex;flex-direction:column}
-.pub-item{padding:1.1rem 0;border-bottom:1px solid rgba(0,0,0,.07);display:grid;grid-template-columns:60px 1fr;gap:1rem;transition:background .15s}
-.pub-item:hover{background:rgba(184,149,58,.04);margin:0 -.8rem;padding:1.1rem .8rem}
-.pub-year-col{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--text-muted);padding-top:2px;text-align:right;line-height:1.8}
-.pub-badge{display:inline-block;margin-top:.35rem;padding:1px 7px;font-size:.59rem;letter-spacing:.07em;text-transform:uppercase;border-radius:2px;font-weight:500;white-space:nowrap}
+.pub-item{padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.07);display:grid;grid-template-columns:72px 1fr;gap:1rem}
+.pub-item:hover{background:rgba(184,149,58,.04);margin:0 -.6rem;padding:.9rem .6rem}
+.pub-year-col{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-muted);padding-top:2px;text-align:right;line-height:1.7;flex-shrink:0}
+.pub-type-badge{display:block;margin-top:.3rem;padding:2px 5px;font-size:.56rem;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;font-weight:500;text-align:center;line-height:1.3}
 .badge-original{background:#e8f0f7;color:#1a4d7c}
 .badge-case{background:#f0ebe0;color:#7a5a1a}
 .badge-letter{background:#edf5ea;color:#2d6b22}
-.pub-title{font-size:.9rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.3rem}
+.pub-title{font-size:.88rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.25rem}
 .pub-title a{color:inherit;text-decoration:none}
 .pub-title a:hover{color:var(--gold)}
-.pub-meta{font-size:.75rem;color:var(--text-muted);line-height:1.6}
-.pub-journal{font-style:italic}
-.author-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.3rem}
-.author-tag{font-size:.59rem;padding:1px 6px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
-.tag-first{background:#faeeda;color:#854f0b}
-.tag-last{background:#e1f5ee;color:#0f6e56}
-.tag-corresponding{background:#fbeaf0;color:#993556}
-.tag-co-first{background:#eeedfe;color:#3c3489}
+.pub-authors{font-size:.73rem;color:var(--text-muted);line-height:1.6;margin-bottom:.1rem}
+.pub-authors b{color:var(--text);font-weight:500}
+.pub-journal{font-size:.73rem;font-style:italic;color:var(--steel)}
+.pub-journal a{color:var(--steel);text-decoration:none}
+.pub-journal a:hover{color:var(--gold)}
 
 /* AWARDS & PATENTS */
 .awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
@@ -161,20 +160,21 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 
 /* PRESENTATIONS */
 .pres-list{display:flex;flex-direction:column}
-.pres-item{display:grid;grid-template-columns:62px 1fr;gap:1rem;padding:1.1rem 0;border-bottom:1px solid rgba(0,0,0,.07)}
-.pres-year{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--text-muted);padding-top:2px;text-align:right;line-height:1.8}
-.pres-badge{display:inline-block;margin-bottom:.3rem;padding:1px 7px;font-size:.59rem;letter-spacing:.07em;text-transform:uppercase;border-radius:2px;font-weight:500}
-.badge-poster{background:#e8f0f7;color:#1a4d7c}
-.badge-oral{background:#fdf0e0;color:#8a5a0a}
-.pres-title{font-size:.9rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.2rem}
-.pres-venue{font-size:.76rem;color:var(--text-muted);font-style:italic}
+.pres-item{display:grid;grid-template-columns:88px 1fr;gap:1rem;padding:.95rem 0;border-bottom:1px solid rgba(0,0,0,.07);align-items:start}
+.pres-date-col{text-align:right}
+.pres-year-txt{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);display:block;line-height:1.6}
+.pres-type{display:inline-block;margin-top:.25rem;padding:2px 6px;font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;border-radius:2px;font-weight:500;border:1px solid}
+.pres-type.oral{background:#fdf0e0;color:#8a5a0a;border-color:#e8c88a}
+.pres-type.poster{background:#e8f0f7;color:#1a4d7c;border-color:#a8c4e0}
+.pres-title{font-size:.88rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.2rem}
+.pres-venue{font-size:.74rem;color:var(--text-muted);font-style:italic}
 
 /* REVIEWER */
 .reviewer-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;padding:1.5rem;background:var(--navy);border-radius:4px}
 .reviewer-stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold-light);line-height:1}
 .reviewer-stat-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--silver);margin-top:.2rem}
-.journal-grid{display:flex;flex-wrap:wrap;gap:.5rem}
-.journal-pill{padding:.3rem .7rem;border:1px solid var(--mist);border-radius:2px;font-size:.75rem;color:var(--text-mid);text-decoration:none;transition:all .15s;display:inline-block}
+.journal-grid{display:flex;flex-wrap:wrap;gap:.3rem}
+.journal-pill{padding:.18rem .5rem;border:1px solid var(--mist);border-radius:2px;font-size:.68rem;color:var(--text-mid);text-decoration:none;transition:all .15s;display:inline-block;line-height:1.5}
 .journal-pill:hover{border-color:var(--gold);color:var(--gold)}
 .editor-list{margin-bottom:1.8rem}
 .editor-item{display:flex;align-items:baseline;gap:.8rem;padding:.7rem 0;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -182,6 +182,14 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .editor-journal{font-size:.9rem;color:var(--text)}
 .editor-journal a{color:var(--gold);text-decoration:none}
 .editor-period{font-size:.78rem;color:var(--text-muted);font-style:italic;margin-left:auto}
+
+/* HOBBIES */
+.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.hobby-card{display:flex;align-items:flex-start;gap:.8rem;padding:1.1rem;border:1px solid var(--mist);border-radius:4px;transition:border-color .2s}
+.hobby-card:hover{border-color:var(--gold)}
+.hobby-icon{font-size:1.3rem;line-height:1;flex-shrink:0;margin-top:.1rem}
+.hobby-name{font-size:.9rem;font-weight:400;color:var(--text);margin-bottom:.15rem}
+.hobby-desc{font-size:.76rem;color:var(--text-muted);line-height:1.5}
 
 /* REFERENCES */
 .refs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem}
@@ -239,6 +247,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <li><a href="#patents">Patents</a></li>
     <li><a href="#reviewer">Editorial</a></li>
     <li><a href="#presentations">Presentations</a></li>
+    <li><a href="#hobbies">Interests</a></li>
     <li><a href="#references">References</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -252,6 +261,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <a href="#patents" onclick="closeMenu()">Patents</a>
   <a href="#reviewer" onclick="closeMenu()">Editorial</a>
   <a href="#presentations" onclick="closeMenu()">Presentations</a>
+  <a href="#hobbies" onclick="closeMenu()">Interests</a>
   <a href="#references" onclick="closeMenu()">References</a>
 </div>
 
@@ -261,16 +271,16 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <div class="hero-grid"></div>
   <div class="hero-content">
     <div class="hero-left">
-      <div class="hero-eyebrow">Physician · Researcher · Surgeon</div>
+      <div class="hero-eyebrow">Physician · Researcher</div>
       <h1>Reza<br><span class="hero-title-accent">Shahriarirad,</span><br>M.D.</h1>
       <div class="hero-credentials">
         <strong>Research Fellow, Surgery Innovation Center</strong><br>
         Mayo Clinic · Rochester, Minnesota<br>
-        ORCID: 0000-0001-5454-495X &nbsp;·&nbsp; Stanford World's Top 2% Scientists (2023)
+        ORCID: 0000-0001-5454-495X
       </div>
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
-        <a href="/cdn-cgi/l/email-protection#50027e2338313822393122396169696510373d31393c7e333f3d" class="btn-outline">Get in Touch</a>
+        <a href="mailto:R.shahriari1995@gmail.com" class="btn-outline">Get in Touch</a>
       </div>
     </div>
     <div class="hero-right">
@@ -313,7 +323,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <div class="about-grid">
     <div class="about-text">
       <p>Dr. Reza Shahriarirad is a physician-researcher and Research Fellow at the <strong>Surgery Innovation Center, Mayo Clinic</strong> in Rochester, Minnesota. His work spans minimally invasive surgery, artificial intelligence in medicine, and translational surgical research.</p>
-      <p>With over 193 peer-reviewed publications, an H-index of 24, and recognition among <strong>Stanford's World Top 2% Scientists (2023)</strong>, Dr. Shahriarirad has established a prolific international research career. He has served as corresponding author on 68 publications, last/senior author on 50, and first author on 20.</p>
+      <p>With over 193 peer-reviewed publications, an H-index of 24, Dr. Shahriarirad has established a prolific international research career. He has served as corresponding author on 68 publications, last/senior author on 50, and first author on 20.</p>
       <p>He is an active peer reviewer for 67 international journals with 149 completed reviews, and has served as Guest Editor at <em>PLOS One</em> and Associate Editor at the <em>Shiraz E-Medical Journal</em>. His research interests include surgery, minimally invasive surgery, and artificial intelligence.</p>
       <div class="about-links">
         <a href="https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en" target="_blank" class="profile-link">Google Scholar</a>
@@ -323,13 +333,14 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <a href="https://www.webofscience.com/wos/author/record/ABC-9194-2020" target="_blank" class="profile-link">Web of Science</a>
         <a href="https://www.linkedin.com/in/reza-shahriarirad/" target="_blank" class="profile-link">LinkedIn</a>
         <a href="https://orcid.org/0000-0001-5454-495X" target="_blank" class="profile-link">ORCID</a>
-        <a href="https://topresearcherslist.com/Home/Profile/760111" target="_blank" class="profile-link">Top 2% Scientists</a>
+        <a href="https://github.com/SoRRad" target="_blank" class="profile-link">GitHub</a>
       </div>
     </div>
     <div>
       <div class="contact-block">
         <h3>Contact</h3>
-        <div class="contact-item"><span>Email</span><a href="/cdn-cgi/l/email-protection#ffadd18c979e978d969e8d96cec6c6cabf98929e9693d19c9092"><span class="__cf_email__" data-cfemail="edbfc39e858c859f848c9f84dcd4d4d8ad8a808c8481c38e8280">[email&#160;protected]</span></a></div>
+        <div class="contact-item"><span>Email</span><a href="mailto:R.shahriari1995@gmail.com">R.shahriari1995@gmail.com</a></div>
+        <div class="contact-item"><span>Mayo Email</span><a href="mailto:Shahriarirad.reza@mayo.edu">Shahriarirad.reza@mayo.edu</a></div>
         <div class="contact-item"><span>Phone</span><span>+1-507-218-6077</span></div>
         <div class="contact-item"><span>Location</span><span>Rochester, Minnesota, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
@@ -351,31 +362,24 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-period">2024 – Present</div>
-          <div class="timeline-header">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Mayo_Clinic_logo.svg/240px-Mayo_Clinic_logo.svg.png" alt="Mayo Clinic" class="timeline-logo" onerror="this.style.display='none'">
-            <div><div class="timeline-role">Research Fellow</div><div class="timeline-org">Surgery Innovation Center · Mayo Clinic, Rochester, MN</div></div>
-          </div>
+          <div class="timeline-role">Research Fellow</div>
+          <div class="timeline-org">Surgery Innovation Center · Mayo Clinic, Rochester, MN</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2018 – 2024</div>
-          <div class="timeline-header">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Shiraz_University_of_Medical_Sciences_logo.png/120px-Shiraz_University_of_Medical_Sciences_logo.png" alt="SUMS" class="timeline-logo" onerror="this.outerHTML='<div class=\'timeline-logo-placeholder\'>SUMS</div>'">
-            <div><div class="timeline-role">Senior Researcher &amp; Project Manager</div><div class="timeline-org">Thoracic &amp; Vascular Surgery Research Center · Shiraz University of Medical Sciences</div></div>
-          </div>
+          <div class="timeline-role">Senior Researcher &amp; Project Manager</div>
+          <div class="timeline-org">Thoracic &amp; Vascular Surgery Research Center · Shiraz University of Medical Sciences</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2020 – 2022</div>
-          <div class="timeline-header">
-            <div class="timeline-logo-placeholder">MOH<br>Iran</div>
-            <div><div class="timeline-role">General Practitioner — Emergency Department</div><div class="timeline-org">Khatam-al-Anbiya Hospital · Bushehr, Iran</div><div class="timeline-desc">Ministry of Health mandatory medical service.</div></div>
-          </div>
+          <div class="timeline-role">General Practitioner — Emergency Department</div>
+          <div class="timeline-org">Khatam-al-Anbiya Hospital · Bushehr, Iran</div>
+          <div class="timeline-desc">Ministry of Health mandatory medical service.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2014 – 2020</div>
-          <div class="timeline-header">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Shiraz_University_of_Medical_Sciences_logo.png/120px-Shiraz_University_of_Medical_Sciences_logo.png" alt="SUMS" class="timeline-logo" onerror="this.outerHTML='<div class=\'timeline-logo-placeholder\'>SUMS</div>'">
-            <div><div class="timeline-role">Research Trainee</div><div class="timeline-org">Student Research Committee · Shiraz University of Medical Sciences</div></div>
-          </div>
+          <div class="timeline-role">Research Trainee</div>
+          <div class="timeline-org">Student Research Committee · Shiraz University of Medical Sciences</div>
         </div>
       </div>
     </div>
@@ -384,17 +388,13 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-period">2013 – 2020</div>
-          <div class="timeline-header">
-            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Shiraz_University_of_Medical_Sciences_logo.png/120px-Shiraz_University_of_Medical_Sciences_logo.png" alt="SUMS" class="timeline-logo" onerror="this.outerHTML='<div class=\'timeline-logo-placeholder\'>SUMS</div>'">
-            <div><div class="timeline-role">Doctor of Medicine (M.D.)</div><div class="timeline-org">Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)</div></div>
-          </div>
+          <div class="timeline-role">Doctor of Medicine (M.D.)</div>
+          <div class="timeline-org">Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2009 – 2013</div>
-          <div class="timeline-header">
-            <div class="timeline-logo-placeholder">SAM-<br>PAD</div>
-            <div><div class="timeline-role">High School Diploma</div><div class="timeline-org">National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran</div></div>
-          </div>
+          <div class="timeline-role">High School Diploma</div>
+          <div class="timeline-org">National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran</div>
         </div>
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
@@ -434,21 +434,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <h2>Leadership &amp; Community Service</h2>
   <div class="leadership-card">
     <div class="leadership-period">2020 – Present</div>
-    <div class="leadership-title">Research Project Inspector</div>
-    <div class="leadership-org">Shiraz University of Medical Sciences · Shiraz, Iran</div>
-    <div class="leadership-desc">Oversight and review of research projects across the university's medical research departments, ensuring quality, ethics compliance, and methodological rigor.</div>
-  </div>
-  <div class="leadership-card">
-    <div class="leadership-period">2020 – Present</div>
-    <div class="leadership-title">Research Mentoring Program — Founder &amp; Director</div>
-    <div class="leadership-org">Shiraz University of Medical Sciences · Shiraz, Iran</div>
-    <div class="leadership-desc">Founded and led the Research Mentoring Program at Shiraz University, personally mentoring 15 medical students in research methodology, scientific writing, and publication strategy. The program has resulted in over 50 peer-reviewed publications from participating students.</div>
-  </div>
-  <div class="leadership-card">
-    <div class="leadership-period">Ongoing</div>
-    <div class="leadership-title">Hobbies &amp; Extracurricular</div>
-    <div class="leadership-org">Personal</div>
-    <div class="leadership-desc">Professional guitarist with several live stage and group performances · Basketball (member of middle and high school team) · Camping and traveling · Computer and console gaming.</div>
+    <div class="leadership-title">Research Project Inspector &amp; Mentoring Program — Founder and Director</div>
+    <div class="leadership-org">Thoracic and Vascular Surgery Research Center · Shiraz University of Medical Sciences · Shiraz, Iran</div>
+    <div class="leadership-desc">Oversight and review of research projects across the Thoracic and Vascular Surgery Research Center, ensuring quality, ethics compliance, and methodological rigor. Concurrently founded and leads the Research Mentoring Program, personally mentoring 15 medical students in research methodology, scientific writing, and publication strategy — resulting in over 50 peer-reviewed publications from participating students.</div>
   </div>
 </div>
 </div>
@@ -476,10 +464,15 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <button class="filter-btn" onclick="filterPubs('original',this)">Original Articles</button>
       <button class="filter-btn" onclick="filterPubs('case',this)">Case Reports</button>
       <button class="filter-btn" onclick="filterPubs('letter',this)">Letters</button>
+      <button class="filter-btn" onclick="filterPubs('first',this)">1st Author</button>
+      <button class="filter-btn" onclick="filterPubs('corresponding',this)">Corresponding</button>
+      <button class="filter-btn" onclick="filterPubs('last',this)">Last Author</button>
+      <button class="filter-btn" onclick="filterPubs('co-first',this)">Co-first</button>
     </div>
-    <input type="text" class="pub-search" placeholder="Search by title, author, journal…" oninput="searchPubs(this.value)" id="pub-search">
+    <input type="text" class="pub-search" placeholder="Search title, author, journal…" oninput="searchPubs(this.value)" id="pub-search">
     <span class="pub-count" id="pub-count"></span>
   </div>
+  <p class="pub-note">* denotes corresponding author. My name is highlighted in bold.</p>
 
   <div class="pub-list" id="pub-list"></div>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
@@ -517,7 +510,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div class="patent-item">
       <div class="patent-date">Apr 2021</div>
       <div>
-        <span class="patent-badge">Patent</span>
         <div class="patent-title">A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images</div>
         <div class="patent-id">Issuer: IR &nbsp;·&nbsp; Registration No. 140050140003000416</div>
       </div>
@@ -525,7 +517,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div class="patent-item">
       <div class="patent-date">Oct 2020</div>
       <div>
-        <span class="patent-badge">Patent</span>
         <div class="patent-title">Utilization of Chest Tube in Pediatric Caustic Injuries: A New Method for Esophageal Stenting</div>
         <div class="patent-id">Issuer: IR &nbsp;·&nbsp; Registration No. 139950140003006653</div>
       </div>
@@ -573,23 +564,49 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <div class="section-label">Academic Engagements</div>
   <h2>Presentations</h2>
   <div class="pres-list">
-    <div class="pres-item"><div class="pres-year">Jun 2026</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div><div class="pres-venue">Plastic Surgery Research Council (PSRC)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Mar 2026</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div><div class="pres-venue">Society of Surgical Oncology (SSO)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Dec 2025</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div><div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div></div></div>
-    <div class="pres-item"><div class="pres-year">Oct 2025</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
-    <div class="pres-item"><div class="pres-year">Oct 2025</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy (With or Without Reconstruction) Interactive Care Plan</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
-    <div class="pres-item"><div class="pres-year">Jul 2025</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div><div class="pres-venue">Mayo Clinic AI Summit</div></div></div>
-    <div class="pres-item"><div class="pres-year">Apr 2025</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN for Suspected Lung Cancer): A Pilot Study</div><div class="pres-venue">Advanced Robotic Surgery Conference 2025</div></div></div>
-    <div class="pres-item"><div class="pres-year">Dec 2022</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div><div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div></div></div>
-    <div class="pres-item"><div class="pres-year">Oct 2022</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy: A Clinical Trial</div><div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Oct 2021</div><div><span class="pres-badge badge-oral">Oral</span><div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div><div class="pres-venue">10th National Burn Congress 2021</div></div></div>
-    <div class="pres-item"><div class="pres-year">Jul 2021</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div><div class="pres-venue">Transplantation (International Congress)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Sep 2020</div><div><span class="pres-badge badge-oral">Oral</span><div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div><div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Oct 2019</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran</div><div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Apr 2016</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div><div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div></div></div>
-    <div class="pres-item"><div class="pres-year">Mar 2016</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Successful Use of Persian Medicine Preparation, Ma'aljobon in a Patient with Chronic Cough</div><div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div></div></div>
-    <div class="pres-item"><div class="pres-year">Jun 2015</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
-    <div class="pres-item"><div class="pres-year">Jun 2015</div><div><span class="pres-badge badge-poster">Poster</span><div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2026</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div><div class="pres-venue">Plastic Surgery Research Council (PSRC)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Mar 2026</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div><div class="pres-venue">Society of Surgical Oncology (SSO)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Dec 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div><div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy (With or Without Reconstruction) Interactive Care Plan</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jul 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div><div class="pres-venue">Mayo Clinic AI Summit</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Apr 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN for Suspected Lung Cancer): A Pilot Study</div><div class="pres-venue">Advanced Robotic Surgery Conference 2025</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Dec 2022</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div><div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2022</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy: A Clinical Trial</div><div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2021</span><span class="pres-type oral">Oral</span></div><div><div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div><div class="pres-venue">10th National Burn Congress 2021</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jul 2021</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div><div class="pres-venue">Transplantation (International Congress)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Sep 2020</span><span class="pres-type oral">Oral</span></div><div><div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div><div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2019</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran</div><div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Apr 2016</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div><div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Mar 2016</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Successful Use of Persian Medicine Preparation, Ma'aljobon in a Patient with Chronic Cough</div><div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2015</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
+    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2015</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
+  </div>
+</div>
+</div>
+
+<!-- HOBBIES -->
+<div class="section-alt" id="hobbies">
+<div class="section-wrap">
+  <div class="section-label">Personal</div>
+  <h2>Extracurricular &amp; Interests</h2>
+  <div class="hobbies-grid">
+    <div class="hobby-card">
+      <div class="hobby-icon">🎸</div>
+      <div><div class="hobby-name">Guitar</div><div class="hobby-desc">Professional guitarist with several live stage and group performances.</div></div>
+    </div>
+    <div class="hobby-card">
+      <div class="hobby-icon">🏀</div>
+      <div><div class="hobby-name">Basketball</div><div class="hobby-desc">Member of middle and high school basketball team.</div></div>
+    </div>
+    <div class="hobby-card">
+      <div class="hobby-icon">🏕️</div>
+      <div><div class="hobby-name">Camping &amp; Travel</div><div class="hobby-desc">Enjoys outdoor camping and international travel.</div></div>
+    </div>
+    <div class="hobby-card">
+      <div class="hobby-icon">🎮</div>
+      <div><div class="hobby-name">Gaming</div><div class="hobby-desc">Computer and console gaming enthusiast.</div></div>
+    </div>
   </div>
 </div>
 </div>
@@ -599,7 +616,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 <div class="section-wrap">
   <div class="section-label">Professional Network</div>
   <h2>References</h2>
-  <p style="font-size:.86rem;color:var(--text-muted);margin-bottom:2rem">Contact information available upon request.</p>
   <div class="refs-grid" id="refs-grid"></div>
 </div>
 </div>
@@ -619,7 +635,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── MOBILE MENU ── */
 function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
 function closeMenu(){document.getElementById('mobile-menu').classList.remove('open')}
@@ -860,37 +876,46 @@ const publications = [
 let currentFilter='all', currentSearch='', showingAll=false;
 const SHOW=25;
 
-function tagHtml(tags){
-  const map={first:'<span class="author-tag tag-first">1st Author</span>',last:'<span class="author-tag tag-last">Last Author</span>',corresponding:'<span class="author-tag tag-corresponding">Corresponding</span>','co-first':'<span class="author-tag tag-co-first">Co-first</span>'};
-  return tags.map(t=>map[t]||'').join('');
+/* month lookup from year string — we embed month in the pub data via a yearMonth field */
+function boldName(str){
+  return str.replace(/(Shahriarirad R)/g,'<b>$1</b>');
 }
 
 function renderPubs(){
   const list=document.getElementById('pub-list');
   const countEl=document.getElementById('pub-count');
   const moreEl=document.getElementById('pub-more');
-  const typeMap={original:'Original Article',case:'Case Report',letter:'Letter to Editor'};
-  const classMap={original:'badge-original',case:'badge-case',letter:'badge-letter'};
+  const typeMap={original:'Original Article',case:'Case Report',letter:'Letter',first:'Original Article'};
+  const classMap={original:'badge-original',case:'badge-case',letter:'badge-letter',first:'badge-original'};
 
   let filtered=publications.filter(p=>{
-    const matchType=currentFilter==='all'||p.type===currentFilter;
+    let matchType=true;
+    if(currentFilter==='all') matchType=true;
+    else if(['original','case','letter'].includes(currentFilter)) matchType=p.type===currentFilter||p.type==='first'&&currentFilter==='original';
+    else matchType=p.tags&&p.tags.includes(currentFilter);
     const q=currentSearch.toLowerCase();
     return matchType&&(!q||p.title.toLowerCase().includes(q)||p.authors.toLowerCase().includes(q)||p.journal.toLowerCase().includes(q));
   });
 
   const displayed=showingAll?filtered:filtered.slice(0,SHOW);
-  countEl.textContent=`Showing ${displayed.length} of ${filtered.length} publications`;
+  countEl.textContent=`Showing ${displayed.length} of ${filtered.length}`;
   moreEl.style.display=(filtered.length>SHOW&&!showingAll)?'block':'none';
 
-  list.innerHTML=displayed.map(p=>`
-    <div class="pub-item">
-      <div class="pub-year-col">${p.year}<br><span class="pub-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span></div>
+  list.innerHTML=displayed.map(p=>{
+    const ym=p.yearMonth||p.year;
+    const badge=`<span class="pub-type-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span>`;
+    const titleHtml=p.url?`<a href="${p.url}" target="_blank">${p.title}</a>`:p.title;
+    const authHtml=boldName(p.authors);
+    const journalHtml=p.journalUrl?`<a href="${p.journalUrl}" target="_blank">${p.journal}</a>`:p.journal;
+    return `<div class="pub-item">
+      <div class="pub-year-col">${ym}${badge}</div>
       <div>
-        <div class="pub-title">${p.url?`<a href="${p.url}" target="_blank">${p.title} ↗</a>`:p.title}</div>
-        <div class="pub-meta">${p.authors}<br><span class="pub-journal">${p.journal}</span></div>
-        ${p.tags&&p.tags.length?`<div class="author-tags">${tagHtml(p.tags)}</div>`:''}
+        <div class="pub-title">${titleHtml}</div>
+        <div class="pub-authors">${authHtml}</div>
+        <div class="pub-journal">${journalHtml}</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function filterPubs(type,btn){currentFilter=type;showingAll=false;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPubs()}
@@ -900,27 +925,79 @@ renderPubs();
 
 /* ── JOURNALS REVIEWED ── */
 const journals=[
-  "American Journal of Tropical Medicine & Hygiene","Annals of Medicine and Surgery","Asian Journal of Research and Reports in Neurology",
-  "BMJ Case Reports","BMJ Open","BMC Research Notes","Bulletin of Emergency and Trauma","Cancer Management and Research",
-  "Case Reports in Infectious Diseases","Clinical Case Reports","Clinical Medicine Insights","Community Health Equity Research and Policy",
-  "Critical Care Research and Practice","Cureus","Current Research in Psychiatry","Ear, Nose & Throat Journal","Educational Research Journal",
-  "Emergency Medicine International","European Journal of Dermatology","Expert Review of Endocrinology & Metabolism",
-  "Frontiers in Medicine","Frontiers in Oncology","Frontiers in Neurology","Frontiers in Public Health","Frontiers in Psychiatry","Frontiers in Surgery",
-  "Future Cardiology","GERMS","Gland Surgery","Global Pediatric Health","Heliyon","Health Science Reports",
-  "International Journal of Advanced and Applied Sciences","International Journal of Journalism and Mass Communication",
-  "International Journal of Surgery","International Journal of Tropical Disease and Health","Infection and Drug Resistance",
-  "Intensive Care Research","International Quarterly of Community Health Education",
-  "International Research Journal of Gastroenterology and Hepatology",
-  "JMIR Formative Research","JMIR Public Health and Surveillance","JMIR Research Protocols","JMIRx Med",
-  "Journal of Clinical Medicine","Journal of Medical Internet Research","Journal of Multidisciplinary Healthcare",
-  "Journal of Nursing and Healthcare Management","Journal of Personalized Medicine","Journal of Pain Research",
-  "Journal of Pharmaceutical Research International","Journal of Radiology Case Reports",
-  "Langenbeck's Archives of Surgery","Libyan Journal of Medicine","PeerJ Journal","Mediastinum",
-  "PLOS Global Public Health","PLOS One","Postgraduate Medicine","Risk Management and Healthcare Policy",
-  "Shiraz E Medical Journal","Scientific Reports","Therapeutic Advances in Respiratory Disease",
-  "The Breast","The International Research Journal of Public and Environmental Health","Trauma","World Journal of Surgical Oncology"
+  {name:"American Journal of Tropical Medicine & Hygiene"},
+  {name:"Annals of Medicine and Surgery"},
+  {name:"Asian Journal of Research and Reports in Neurology"},
+  {name:"BMJ Case Reports",url:"https://casereports.bmj.com/pages/thank-you-to-our-reviewers/"},
+  {name:"BMJ Open",url:"https://bmjopen.bmj.com/pages/thank-you-to-our-reviewers/"},
+  {name:"BMC Research Notes"},
+  {name:"Bulletin of Emergency and Trauma"},
+  {name:"Cancer Management and Research"},
+  {name:"Case Reports in Infectious Diseases"},
+  {name:"Clinical Case Reports"},
+  {name:"Clinical Medicine Insights"},
+  {name:"Community Health Equity Research and Policy"},
+  {name:"Critical Care Research and Practice"},
+  {name:"Cureus"},
+  {name:"Current Research in Psychiatry"},
+  {name:"Ear, Nose & Throat Journal"},
+  {name:"Educational Research Journal"},
+  {name:"Emergency Medicine International"},
+  {name:"European Journal of Dermatology"},
+  {name:"Expert Review of Endocrinology & Metabolism"},
+  {name:"Frontiers in Medicine"},
+  {name:"Frontiers in Oncology"},
+  {name:"Frontiers in Neurology",url:"https://www.frontiersin.org/articles/10.3389/fneur.2022.945961/full"},
+  {name:"Frontiers in Public Health"},
+  {name:"Frontiers in Psychiatry"},
+  {name:"Frontiers in Surgery",url:"https://www.frontiersin.org/articles/10.3389/fsurg.2022.907234/full"},
+  {name:"Future Cardiology"},
+  {name:"GERMS"},
+  {name:"Gland Surgery"},
+  {name:"Global Pediatric Health"},
+  {name:"Heliyon"},
+  {name:"Health Science Reports"},
+  {name:"International Journal of Advanced and Applied Sciences"},
+  {name:"International Journal of Journalism and Mass Communication"},
+  {name:"International Journal of Surgery"},
+  {name:"International Journal of Tropical Disease and Health"},
+  {name:"Infection and Drug Resistance",url:"https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=28&year=2022"},
+  {name:"Intensive Care Research"},
+  {name:"International Quarterly of Community Health Education"},
+  {name:"International Research Journal of Gastroenterology and Hepatology"},
+  {name:"JMIR Formative Research"},
+  {name:"JMIR Public Health and Surveillance"},
+  {name:"JMIR Research Protocols"},
+  {name:"JMIRx Med"},
+  {name:"Journal of Clinical Medicine"},
+  {name:"Journal of Medical Internet Research"},
+  {name:"Journal of Multidisciplinary Healthcare",url:"https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=7&year=2021"},
+  {name:"Journal of Nursing and Healthcare Management"},
+  {name:"Journal of Personalized Medicine",url:"https://www.mdpi.com/2075-4426/12/4/541/review_report"},
+  {name:"Journal of Pain Research",url:"https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=41&year=2022"},
+  {name:"Journal of Pharmaceutical Research International"},
+  {name:"Journal of Radiology Case Reports"},
+  {name:"Langenbeck's Archives of Surgery"},
+  {name:"Libyan Journal of Medicine"},
+  {name:"PeerJ Journal"},
+  {name:"Mediastinum"},
+  {name:"PLOS Global Public Health"},
+  {name:"PLOS One"},
+  {name:"Postgraduate Medicine"},
+  {name:"Risk Management and Healthcare Policy",url:"https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=56&year=2021"},
+  {name:"Shiraz E Medical Journal",url:"https://semj.brieflands.com/en/people/certificate/24156995f52b22cd8"},
+  {name:"Scientific Reports"},
+  {name:"Therapeutic Advances in Respiratory Disease"},
+  {name:"The Breast"},
+  {name:"The International Research Journal of Public and Environmental Health"},
+  {name:"Trauma"},
+  {name:"World Journal of Surgical Oncology"}
 ];
-document.getElementById('journal-grid').innerHTML=journals.map(j=>`<span class="journal-pill">${j}</span>`).join('');
+document.getElementById('journal-grid').innerHTML=journals.map(j=>
+  j.url
+    ? `<a href="${j.url}" target="_blank" class="journal-pill">${j.name} ↗</a>`
+    : `<span class="journal-pill">${j.name}</span>`
+).join('');
 
 /* ── REFERENCES ── */
 const refs=[
@@ -936,4 +1013,10 @@ const refs=[
 ];
 document.getElementById('refs-grid').innerHTML=refs.map(r=>`
   <div class="ref-card">
-    <div class="ref-name">${r.name
+    <div class="ref-name">${r.name}</div>
+    <div class="ref-role">${r.role}<br><em style="font-size:.73rem">${r.inst}</em></div>
+    <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" class="ref-link">${l.label} ↗</a>`).join('')}</div>
+  </div>`).join('');
+</script>
+</body>
+</html>
