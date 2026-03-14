@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Admin — Reza Shahriarirad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy-mid:#152240;--gold:#b8953a;--gold-light:#d4ae5a;--mist:#c8d4e0;--silver:#8fa3bc;--steel:#4a607e;--text-muted:#6b84a0;--white:#f8fafc}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 80% 10%,rgba(184,149,58,.05) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 5% 90%,rgba(100,130,180,.06) 0%,transparent 60%)}
+.layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+@media(max-width:768px){.layout{grid-template-columns:1fr}}
+.sidebar{background:rgba(0,0,0,.3);border-right:1px solid rgba(200,212,224,.08);padding:2rem 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sidebar-header{padding:0 1.5rem 1.5rem;border-bottom:1px solid rgba(200,212,224,.08);margin-bottom:1rem}
+.sidebar-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-light);line-height:1.3}
+.sidebar-sub{font-size:.65rem;color:var(--silver);margin-top:.3rem}
+.nav-section{font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);padding:.6rem 1.5rem .3rem;margin-top:.5rem}
+.nav-item{display:flex;align-items:center;gap:.55rem;padding:.55rem 1.5rem;cursor:pointer;transition:background .15s,color .15s;font-size:.8rem;color:var(--silver);border-left:2px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,.04);color:var(--mist)}
+.nav-item.active{background:rgba(184,149,58,.1);color:var(--gold-light);border-left-color:var(--gold)}
+.nav-item svg{width:14px;height:14px;fill:currentColor;flex-shrink:0;opacity:.7}
+.nav-badge{margin-left:auto;font-size:.58rem;background:rgba(184,149,58,.2);color:var(--gold);padding:1px 6px;border-radius:10px;font-family:'DM Mono',monospace}
+.main{padding:2.5rem;overflow-y:auto}
+@media(max-width:768px){.sidebar{display:none}.main{padding:1.5rem}}
+.page{display:none}.page.active{display:block}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--white)}
+.page-title em{color:var(--gold-light);font-style:italic}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(200,212,224,.1);border-radius:6px;padding:1.6rem;margin-bottom:1.2rem}
+.card-title{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.5rem}
+.card-title svg{width:13px;height:13px;fill:var(--gold)}
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.card-grid{grid-template-columns:1fr}}
+label{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--silver);margin-bottom:.4rem}
+input[type=text],input[type=number],input[type=password],textarea,select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(200,212,224,.15);border-radius:3px;padding:.6rem .85rem;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;margin-bottom:1rem}
+input:focus,textarea:focus,select:focus{border-color:rgba(184,149,58,.5);background:rgba(255,255,255,.08)}
+input::placeholder,textarea::placeholder{color:var(--steel)}
+textarea{resize:vertical;line-height:1.6}
+select option{background:var(--navy-mid)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:600px){.field-row{grid-template-columns:1fr}}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem}
+.btn{padding:.6rem 1.2rem;border-radius:3px;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:none;display:inline-flex;align-items:center;gap:.5rem}
+.btn svg{width:13px;height:13px;fill:currentColor}
+.btn-gold{background:var(--gold);color:var(--navy)}
+.btn-gold:hover:not(:disabled){background:var(--gold-light)}
+.btn-outline{background:transparent;border:1px solid rgba(200,212,224,.2);color:var(--mist)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold-light)}
+.btn-sm{padding:.4rem .8rem;font-size:.68rem}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-full{width:100%;justify-content:center;padding:.75rem}
+.status{display:none;padding:.75rem 1rem;border-radius:3px;font-size:.8rem;line-height:1.5;margin-top:.8rem}
+.status.success{display:block;background:rgba(45,122,79,.15);border:1px solid rgba(45,122,79,.3);color:#7dd4a8}
+.status.error{display:block;background:rgba(139,32,32,.15);border:1px solid rgba(139,32,32,.3);color:#f5a0a0}
+.status.loading{display:flex;align-items:center;gap:.7rem;background:rgba(255,255,255,.04);border:1px solid rgba(200,212,224,.1);color:var(--silver)}
+.spinner{width:14px;height:14px;border:2px solid rgba(200,212,224,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.counter-wrap{display:flex;border:1px solid rgba(200,212,224,.15);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+.counter-btn{width:44px;height:44px;background:rgba(255,255,255,.06);border:none;color:var(--gold-light);font-size:1.3rem;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.counter-btn:hover{background:rgba(184,149,58,.2)}
+.counter-input{flex:1;border:none!important;border-left:1px solid rgba(200,212,224,.1)!important;border-right:1px solid rgba(200,212,224,.1)!important;border-radius:0!important;margin-bottom:0!important;text-align:center;font-size:1rem}
+.list-item{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(200,212,224,.08);border-radius:4px;margin-bottom:.6rem}
+.list-item-body{flex:1;min-width:0}
+.list-item-title{font-size:.85rem;color:var(--white);margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-item-sub{font-size:.72rem;color:var(--text-muted)}
+.tags-grid{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.tag{padding:.3rem .7rem;background:rgba(255,255,255,.05);border:1px solid rgba(200,212,224,.1);border-radius:2px;font-size:.72rem;color:var(--mist);display:flex;align-items:center;gap:.4rem}
+.tag-remove{cursor:pointer;color:var(--steel);transition:color .15s;font-size:.9rem;line-height:1}
+.tag-remove:hover{color:#f5a0a0}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
+@media(max-width:600px){.stats-row{grid-template-columns:1fr 1fr}}
+.stat-box{background:rgba(255,255,255,.04);border:1px solid rgba(200,212,224,.08);border-radius:4px;padding:1rem;text-align:center}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--gold-light);line-height:1;margin-bottom:.25rem}
+.stat-label{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--silver)}
+.divider{height:1px;background:rgba(200,212,224,.08);margin:1.2rem 0}
+.help{font-size:.72rem;color:var(--text-muted);line-height:1.6;margin-top:-.5rem;margin-bottom:.9rem}
+.help a{color:var(--gold);text-decoration:none}
+.mobile-nav{display:none;background:rgba(0,0,0,.5);border-bottom:1px solid rgba(200,212,224,.08);padding:.8rem 1.5rem;flex-wrap:wrap;gap:.4rem}
+@media(max-width:768px){.mobile-nav{display:flex}}
+.mobile-nav-btn{padding:.35rem .7rem;background:rgba(255,255,255,.05);border:1px solid rgba(200,212,224,.1);border-radius:2px;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;color:var(--silver);cursor:pointer;transition:all .15s}
+.mobile-nav-btn.active{background:rgba(184,149,58,.15);border-color:rgba(184,149,58,.3);color:var(--gold-light)}
+</style>
+</head>
+<body>
+
+<div id="connect-page" style="padding:2rem;display:flex;align-items:center;justify-content:center;min-height:100vh">
+  <div style="width:100%;max-width:440px">
+    <div style="text-align:center;margin-bottom:2rem">
+      <div style="font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.6rem">
+        <span style="display:block;width:24px;height:1px;background:var(--gold)"></span>CV Admin Panel<span style="display:block;width:24px;height:1px;background:var(--gold)"></span>
+      </div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--white)">Reza <em style="color:var(--gold-light);font-style:italic">Shahriarirad,</em> M.D.</h1>
+      <p style="font-size:.82rem;color:var(--silver);margin-top:.7rem;line-height:1.7">Connect your GitHub repository to edit all CV sections,<br>update stats, and push changes live.</p>
+    </div>
+    <div class="card">
+      <div class="card-title"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6A5 5 0 007 6v2H6a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V10a2 2 0 00-2-2zm-6 9a2 2 0 110-4 2 2 0 010 4zm3.1-9H8.9V6a3.1 3.1 0 016.2 0v2z"/></svg>GitHub Access Token</div>
+      <label>Personal Access Token</label>
+      <input type="password" id="token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+      <p class="help">Generate at <a href="https://github.com/settings/tokens/new?scopes=repo&description=CV+Admin" target="_blank">github.com/settings/tokens</a> — select scope <strong>repo</strong>. Stored in memory only.</p>
+      <label>Repository</label>
+      <input type="text" id="repo-input" value="SoRRad/RezaShahriarirad_CV">
+      <button class="btn btn-gold btn-full" onclick="connect()">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>Connect & Load CV
+      </button>
+      <div id="connect-status" class="status"></div>
+    </div>
+  </div>
+</div>
+
+<div id="admin-layout" class="layout" style="display:none">
+  <div class="mobile-nav" id="mobile-nav"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-name">Reza Shahriarirad, M.D.</div>
+      <div class="sidebar-sub">CV Admin Panel</div>
+    </div>
+    <div class="nav-section">Overview</div>
+    <div class="nav-item active" onclick="nav('dashboard')" data-page="dashboard"><svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>Dashboard</div>
+    <div class="nav-section">Profile</div>
+    <div class="nav-item" onclick="nav('about')" data-page="about"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>About & Bio</div>
+    <div class="nav-item" onclick="nav('mayo')" data-page="mayo"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>Mayo Research</div>
+    <div class="nav-item" onclick="nav('experience')" data-page="experience"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-8-2h4v2h-4V4z"/></svg>Experience</div>
+    <div class="nav-section">Academic</div>
+    <div class="nav-item" onclick="nav('publications')" data-page="publications"><svg viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2z"/></svg>Publications<span class="nav-badge" id="pub-badge">193</span></div>
+    <div class="nav-item" onclick="nav('presentations')" data-page="presentations"><svg viewBox="0 0 24 24"><path d="M2 3a1 1 0 011-1h18a1 1 0 011 1v13a1 1 0 01-1 1H13v2h3v2H8v-2h3v-2H3a1 1 0 01-1-1V3z"/></svg>Presentations<span class="nav-badge" id="pres-badge">17</span></div>
+    <div class="nav-item" onclick="nav('reviewer')" data-page="reviewer"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Peer Reviews</div>
+    <div class="nav-section">CV Sections</div>
+    <div class="nav-item" onclick="nav('awards')" data-page="awards"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>Awards</div>
+    <div class="nav-item" onclick="nav('patents')" data-page="patents"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Patents</div>
+    <div class="nav-item" onclick="nav('hobbies')" data-page="hobbies"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>Hobbies</div>
+    <div class="nav-section">Deploy</div>
+    <div class="nav-item" onclick="nav('deploy')" data-page="deploy"><svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>Push & Deploy</div>
+    <div class="nav-item" onclick="disconnect()" style="margin-top:1rem;color:var(--steel)"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>Disconnect</div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="topbar"><div class="page-title">Dashboard</div><div style="font-size:.7rem;padding:.3rem .8rem;border-radius:2px;background:rgba(45,122,79,.15);border:1px solid rgba(45,122,79,.3);color:#7dd4a8;display:flex;align-items:center;gap:.4rem"><span style="width:6px;height:6px;border-radius:50%;background:currentColor;display:block"></span>Connected</div></div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num" id="d-reviews">—</div><div class="stat-label">Peer Reviews</div></div>
+        <div class="stat-box"><div class="stat-num" id="d-pubs">193</div><div class="stat-label">Publications</div></div>
+        <div class="stat-box"><div class="stat-num" id="d-pres">17</div><div class="stat-label">Presentations</div></div>
+        <div class="stat-box"><div class="stat-num" id="d-citations">—</div><div class="stat-label">Citations</div></div>
+      </div>
+      <div class="card-grid">
+        <div class="card" style="cursor:pointer" onclick="nav('reviewer')">
+          <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Log Peer Review</div>
+          <p style="font-size:.8rem;color:var(--silver);line-height:1.6;margin-bottom:.8rem">Record a completed review and push it live instantly.</p>
+          <button class="btn btn-gold btn-sm">Open →</button>
+        </div>
+        <div class="card" style="cursor:pointer" onclick="nav('publications')">
+          <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Publication</div>
+          <p style="font-size:.8rem;color:var(--silver);line-height:1.6;margin-bottom:.8rem">Add a new paper with authors, journal, and DOI.</p>
+          <button class="btn btn-gold btn-sm">Open →</button>
+        </div>
+        <div class="card" style="cursor:pointer" onclick="nav('mayo')">
+          <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>Mayo Research</div>
+          <p style="font-size:.8rem;color:var(--silver);line-height:1.6;margin-bottom:.8rem">Update IRB projects, description, and specialty tags.</p>
+          <button class="btn btn-gold btn-sm">Open →</button>
+        </div>
+        <div class="card" style="cursor:pointer" onclick="nav('presentations')">
+          <div class="card-title"><svg viewBox="0 0 24 24"><path d="M2 3h20v14H13v2h3v2H8v-2h3v-2H2V3z"/></svg>Add Presentation</div>
+          <p style="font-size:.8rem;color:var(--silver);line-height:1.6;margin-bottom:.8rem">Log a conference poster or oral talk.</p>
+          <button class="btn btn-gold btn-sm">Open →</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 017-7 7 7 0 017 7 7 7 0 01-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18z"/></svg>Activity This Session</div>
+        <div id="activity-log"><div style="font-size:.75rem;color:var(--text-muted);font-style:italic">No activity yet.</div></div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="page" id="page-about">
+      <div class="topbar"><div class="page-title">About & <em>Bio</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>Opening Paragraph</div>
+        <textarea id="bio-p1" rows="3">Dr. Reza Shahriarirad is a physician-researcher and Research Fellow at the Surgery Innovation Center, Mayo Clinic in Rochester, Minnesota. His work spans minimally invasive surgery, artificial intelligence in medicine, and translational surgical research.</textarea>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2z"/></svg>Metrics Paragraph</div>
+        <textarea id="bio-p2" rows="4">With over 193 peer-reviewed publications, an H-index of 24, Dr. Shahriarirad has established a prolific international research career. He has served as corresponding author on 68 publications, last/senior author on 50, and first author on 20. He is an active peer reviewer for 67 international journals with 149 completed reviews, and has served as Guest Editor at PLOS One and Associate Editor at the Shiraz E-Medical Journal.</textarea>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>Contact Info</div>
+        <div class="field-row">
+          <div><label>Email</label><input type="text" id="c-email" value="R.shahriari1995@gmail.com"></div>
+          <div><label>Mayo Email</label><input type="text" id="c-mayo" value="Shahriarirad.reza@mayo.edu"></div>
+        </div>
+        <div class="field-row">
+          <div><label>Phone</label><input type="text" id="c-phone" value="+1-507-218-6077"></div>
+          <div><label>Location</label><input type="text" id="c-location" value="Rochester, Minnesota, USA"></div>
+        </div>
+        <label>Research Interests</label>
+        <input type="text" id="c-interests" value="Surgery · Minimally Invasive Surgery · Artificial Intelligence">
+      </div>
+      <button class="btn btn-gold btn-full" onclick="saveAbout()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push About to GitHub</button>
+      <div id="about-status" class="status"></div>
+    </div>
+
+    <!-- MAYO RESEARCH -->
+    <div class="page" id="page-mayo">
+      <div class="topbar"><div class="page-title">Mayo <em>Research</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>IRB-Approved Projects</div>
+        <div class="field-row">
+          <div>
+            <label>Number of projects</label>
+            <div class="counter-wrap"><button class="counter-btn" onclick="adj('mayo-count',-1)">−</button><input type="number" id="mayo-count" class="counter-input" value="30" min="1"><button class="counter-btn" onclick="adj('mayo-count',1)">+</button></div>
+          </div>
+          <div><label>Display text (shown on site)</label><input type="text" id="mayo-display" value="30" placeholder="30 or 30+"></div>
+        </div>
+        <label>Description paragraph</label>
+        <textarea id="mayo-desc" rows="4">Since joining the Surgery Innovation Center, Dr. Shahriarirad has been involved in over IRB-PROJECTS IRB-approved research projects spanning a broad range of surgical specialties. His work encompasses clinical trial design, translational device evaluation, surgical innovation, and multidisciplinary collaboration — including leading internal competitive proposal submissions and engaging with industry partners.</textarea>
+        <p class="help">Use <strong>IRB-PROJECTS</strong> as a placeholder — it will be replaced with the display text above.</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-2 .9-2 2L3 19a2 2 0 002 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2z"/></svg>Specialty Tags</div>
+        <p class="help">Click × to remove a tag, or add new specialties below.</p>
+        <div class="tags-grid" id="mayo-tags-display"></div>
+        <div class="field-row" style="align-items:end">
+          <input type="text" id="mayo-tag-input" placeholder="New specialty…" onkeydown="if(event.key==='Enter')addMayoTag()" style="margin-bottom:0">
+          <button class="btn btn-outline btn-sm" onclick="addMayoTag()" style="height:40px">+ Add</button>
+        </div>
+      </div>
+      <button class="btn btn-gold btn-full" onclick="saveMayo()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Mayo Research to GitHub</button>
+      <div id="mayo-status" class="status"></div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="page" id="page-experience">
+      <div class="topbar"><div class="page-title">Experience & <em>Education</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>Current Position</div>
+        <div class="field-row">
+          <div><label>Period</label><input type="text" id="pos-period" value="2024 – Present"></div>
+          <div><label>Role</label><input type="text" id="pos-role" value="Research Fellow"></div>
+        </div>
+        <label>Institution</label>
+        <input type="text" id="pos-org" value="Surgery Innovation Center · Mayo Clinic, Rochester, MN">
+        <label>Description (optional)</label>
+        <textarea id="pos-desc" rows="2" placeholder="Brief description of your work…"></textarea>
+      </div>
+      <button class="btn btn-gold btn-full" onclick="saveExperience()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Current Position to GitHub</button>
+      <div id="exp-status" class="status"></div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="page" id="page-publications">
+      <div class="topbar"><div class="page-title">Publications</div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add New Publication</div>
+        <div class="field-row">
+          <div><label>Year</label><input type="text" id="pub-year" placeholder="2026"></div>
+          <div><label>Type</label><select id="pub-type"><option value="original">Original Article</option><option value="case">Case Report</option><option value="letter">Letter to Editor</option></select></div>
+        </div>
+        <label>Title</label>
+        <input type="text" id="pub-title" placeholder="Full publication title…">
+        <label>Authors <span style="font-size:.65rem;color:var(--text-muted);text-transform:none;letter-spacing:0">(Shahriarirad R* for corresponding)</span></label>
+        <input type="text" id="pub-authors" placeholder="Shahriarirad R*, Co-author A, Senior Author Z">
+        <div class="field-row">
+          <div><label>Journal</label><input type="text" id="pub-journal" placeholder="Journal Name"></div>
+          <div><label>DOI / URL</label><input type="text" id="pub-url" placeholder="https://doi.org/…"></div>
+        </div>
+        <button class="btn btn-gold btn-full" onclick="addPublication()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add & Push to GitHub</button>
+        <div id="pub-status" class="status"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>Most Recent Publications</div>
+        <div id="pub-recent-list"><div style="font-size:.75rem;color:var(--text-muted);font-style:italic">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- PRESENTATIONS -->
+    <div class="page" id="page-presentations">
+      <div class="topbar"><div class="page-title">Presentations</div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add New Presentation</div>
+        <div class="field-row-3">
+          <div><label>Date</label><input type="text" id="pres-date" placeholder="Mar 2026"></div>
+          <div><label>Type</label><select id="pres-type"><option value="poster">Poster</option><option value="oral">Oral</option></select></div>
+          <div><label>Year</label><input type="text" id="pres-year" placeholder="2026"></div>
+        </div>
+        <label>Title</label>
+        <input type="text" id="pres-title" placeholder="Presentation title…">
+        <label>Venue / Conference</label>
+        <input type="text" id="pres-venue" placeholder="Conference name…">
+        <button class="btn btn-gold btn-full" onclick="addPresentation()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add & Push to GitHub</button>
+        <div id="pres-status" class="status"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>All Presentations</div>
+        <div id="pres-list"><div style="font-size:.75rem;color:var(--text-muted);font-style:italic">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- PEER REVIEWS -->
+    <div class="page" id="page-reviewer">
+      <div class="topbar"><div class="page-title">Peer <em>Reviews</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Current Counts</div>
+        <div class="stats-row" style="grid-template-columns:1fr 1fr 1fr">
+          <div class="stat-box"><div class="stat-num" id="rev-current">—</div><div class="stat-label">Reviews</div></div>
+          <div class="stat-box"><div class="stat-num" id="rev-journals">67</div><div class="stat-label">Journals</div></div>
+          <div class="stat-box"><div class="stat-num" id="rev-manuscripts">129</div><div class="stat-label">Manuscripts</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Log a New Review</div>
+        <label>New total count</label>
+        <div class="counter-wrap"><button class="counter-btn" onclick="adj('rev-new',,-1)">−</button><input type="number" id="rev-new" class="counter-input" value="150" min="1"><button class="counter-btn" onclick="adj('rev-new',1)">+</button></div>
+        <div class="field-row">
+          <div><label>Journal (optional)</label><input type="text" id="rev-journal" placeholder="e.g. Annals of Surgery"></div>
+          <div><label>Updated manuscripts count</label><input type="number" id="rev-mss-new" placeholder="129"></div>
+        </div>
+        <label>Note (optional)</label>
+        <input type="text" id="rev-note" placeholder="Topic or notes…">
+        <button class="btn btn-gold btn-full" onclick="saveReviews()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push to GitHub</button>
+        <button class="btn btn-outline btn-full" onclick="triggerWorkflow()" style="margin-top:.6rem">↻ Also trigger workflow (regenerates DOCX)</button>
+        <div id="rev-status" class="status"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 0114 0 7 7 0 01-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18z"/></svg>Session History</div>
+        <div id="rev-history"><div style="font-size:.75rem;color:var(--text-muted);font-style:italic">No updates yet this session.</div></div>
+      </div>
+    </div>
+
+    <!-- AWARDS -->
+    <div class="page" id="page-awards">
+      <div class="topbar"><div class="page-title">Awards & <em>Honours</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>Add Award</div>
+        <div class="field-row">
+          <div><label>Date / Year</label><input type="text" id="award-year" placeholder="December 2026"></div>
+          <div><label>URL (optional)</label><input type="text" id="award-url" placeholder="https://…"></div>
+        </div>
+        <label>Award Title</label><input type="text" id="award-title" placeholder="Award name">
+        <label>Organization</label><input type="text" id="award-org" placeholder="Issuing institution">
+        <button class="btn btn-gold btn-full" onclick="addAward()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add & Push to GitHub</button>
+        <div id="award-status" class="status"></div>
+      </div>
+      <div class="card"><div class="card-title">Current Awards</div><div id="awards-list"></div></div>
+    </div>
+
+    <!-- PATENTS -->
+    <div class="page" id="page-patents">
+      <div class="topbar"><div class="page-title">Patents & <em>Innovations</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Add Patent</div>
+        <div class="field-row">
+          <div><label>Date</label><input type="text" id="pat-date" placeholder="Jan 2026"></div>
+          <div><label>Registration No.</label><input type="text" id="pat-reg" placeholder="140050140003000000"></div>
+        </div>
+        <label>Title</label><input type="text" id="pat-title" placeholder="Patent title">
+        <label>Issuer</label><input type="text" id="pat-issuer" value="IR">
+        <button class="btn btn-gold btn-full" onclick="addPatent()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add & Push to GitHub</button>
+        <div id="patent-status" class="status"></div>
+      </div>
+      <div class="card"><div class="card-title">Current Patents</div><div id="patents-list"></div></div>
+    </div>
+
+    <!-- HOBBIES -->
+    <div class="page" id="page-hobbies">
+      <div class="topbar"><div class="page-title">Interests & <em>Hobbies</em></div></div>
+      <div class="card">
+        <div class="card-title">Current Hobbies</div>
+        <div id="hobbies-list"></div>
+        <div class="divider"></div>
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Hobby</div>
+        <div class="field-row">
+          <div><label>Icon (emoji)</label><input type="text" id="hobby-icon" placeholder="🎵" style="text-align:center;font-size:1.2rem"></div>
+          <div><label>Name</label><input type="text" id="hobby-name" placeholder="e.g. Running"></div>
+        </div>
+        <label>Description</label><input type="text" id="hobby-desc" placeholder="Brief description…">
+        <button class="btn btn-gold btn-full" onclick="addHobby()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add & Push to GitHub</button>
+        <div id="hobby-status" class="status"></div>
+      </div>
+    </div>
+
+    <!-- DEPLOY -->
+    <div class="page" id="page-deploy">
+      <div class="topbar"><div class="page-title">Push & <em>Deploy</em></div></div>
+      <div class="card">
+        <div class="card-title"><svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>Trigger Workflow</div>
+        <p style="font-size:.82rem;color:var(--silver);line-height:1.6;margin-bottom:1.2rem">Runs the GitHub Actions workflow — fetches latest Scholar stats and regenerates the downloadable DOCX CV.</p>
+        <button class="btn btn-gold btn-full" onclick="triggerWorkflow()"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>Trigger Update Workflow</button>
+        <div id="deploy-status" class="status"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Repository</div>
+        <div style="font-family:'DM Mono',monospace;font-size:.78rem;color:var(--silver);line-height:2.2">
+          <div>Repo: <span style="color:var(--gold-light)" id="info-repo">—</span></div>
+          <div>Branch: <span style="color:var(--gold-light)">main</span></div>
+          <div>Site: <span id="info-url">—</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let GH_TOKEN='',GH_REPO='SoRRad/RezaShahriarirad_CV';
+const BRANCH='main';
+let currentStats=null;
+const activityLog=[],reviewHistory=[];
+let mayoTags=['Plastic & Reconstructive Surgery','Bariatric & Abdominal Wall Reconstruction','Thoracic Surgery','Cardiac Surgery','Oral & Maxillofacial Surgery','Gastrointestinal Surgery','Trauma Surgery','Surgical AI & Innovation'];
+let hobbies=[{icon:'🎸',name:'Guitar',desc:'Professional guitarist with several live stage and group performances.'},{icon:'🏀',name:'Basketball',desc:'Member of middle and high school basketball team.'},{icon:'🏕️',name:'Camping & Travel',desc:'Enjoys outdoor camping and international travel.'},{icon:'🎮',name:'Gaming',desc:'Computer and console gaming enthusiast.'}];
+let presentations=[];
+let awards=[{year:'December 2023',title:'World Top 2% Scientists',org:"Elsevier / Stanford World's Top 2% Scientists Report",url:'https://topresearcherslist.com/Home/Profile/760111'},{year:'October 2020',title:'National Outstanding Student Researcher',org:'Ministry of Health and Medical Education · National Student Research Committee, Iran',url:''}];
+let patents=[{date:'Apr 2021',title:'A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images',issuer:'IR',reg:'140050140003000416'},{date:'Oct 2020',title:'Utilization of Chest Tube in Pediatric Caustic Injuries: A New Method for Esophageal Stenting',issuer:'IR',reg:'139950140003006653'}];
+
+async function connect(){
+  const token=document.getElementById('token-input').value.trim();
+  const repo=document.getElementById('repo-input').value.trim();
+  if(!token||!repo){st('connect-status','error','Please enter token and repository.');return;}
+  GH_TOKEN=token;GH_REPO=repo;
+  st('connect-status','loading','Connecting…');
+  const ok=await loadStats();
+  if(!ok){st('connect-status','error','Could not connect. Check token (repo scope) and repository name.');return;}
+  document.getElementById('connect-page').style.display='none';
+  document.getElementById('admin-layout').style.display='grid';
+  buildMobileNav();initPages();
+}
+function disconnect(){GH_TOKEN='';GH_REPO='';document.getElementById('admin-layout').style.display='none';document.getElementById('connect-page').style.display='flex';}
+
+function gh(path,opts={}){return fetch(`https://api.github.com/repos/${GH_REPO}/${path}`,{headers:{'Authorization':'Bearer '+GH_TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},...opts});}
+async function getFile(p){const r=await gh(`contents/${p}?ref=${BRANCH}`);if(!r.ok)return null;const d=await r.json();return{content:atob(d.content.replace(/\n/g,'')),sha:d.sha};}
+async function putFile(p,sha,content,msg){const r=await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${p}`,{method:'PUT',headers:{'Authorization':'Bearer '+GH_TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:BRANCH})});if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.message||r.status);}const d=await r.json();return d.content.sha;}
+
+async function loadStats(){
+  try{const f=await getFile('cv_live_stats.json');if(!f)return false;
+  currentStats=JSON.parse(f.content);
+  const rv=currentStats.peerReviews||'149';
+  setEl('d-reviews',rv);setEl('rev-current',rv);setEl('rev-journals',currentStats.journals||'67');
+  setEl('rev-manuscripts',currentStats.manuscripts||'129');setEl('d-citations',currentStats.citations||'—');
+  setEl('d-pubs',currentStats.pubCount||'193');
+  document.getElementById('rev-new').value=String(parseInt(rv)+1);
+  setEl('info-repo',GH_REPO);
+  const[owner,repo]=GH_REPO.split('/');
+  document.getElementById('info-url').innerHTML=`<a href="https://${owner}.github.io/${repo}" target="_blank" style="color:var(--gold-light)">${owner}.github.io/${repo}</a>`;
+  return true;}catch(e){return false;}
+}
+function setEl(id,val){const e=document.getElementById(id);if(!e)return;(e.tagName==='INPUT'||e.tagName==='TEXTAREA')?e.value=val:e.textContent=val;}
+function st(id,type,msg){const e=document.getElementById(id);if(!e)return;e.className='status '+type;e.innerHTML=type==='loading'?`<div class="spinner"></div><span>${msg}</span>`:msg;}
+function adj(id,d){const e=document.getElementById(id);if(e)e.value=Math.max(1,(parseInt(e.value)||0)+d);}
+function nav(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.querySelectorAll('.mobile-nav-btn').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+id)?.classList.add('active');document.querySelector(`[data-page="${id}"]`)?.classList.add('active');document.querySelector(`.mobile-nav-btn[data-page="${id}"]`)?.classList.add('active');}
+function buildMobileNav(){const nav=document.getElementById('mobile-nav');const pages=['dashboard','reviewer','publications','presentations','mayo','awards','deploy'];const labels=['Home','Reviews','Pubs','Talks','Mayo','Awards','Deploy'];nav.innerHTML=pages.map((p,i)=>`<button class="mobile-nav-btn ${i===0?'active':''}" data-page="${p}" onclick="nav('${p}')">${labels[i]}</button>`).join('');}
+function logAct(msg){const ts=new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});activityLog.unshift({ts,msg});document.getElementById('activity-log').innerHTML=activityLog.slice(0,8).map(a=>`<div style="display:flex;gap:.6rem;padding:.4rem 0;border-bottom:1px solid rgba(200,212,224,.06);font-size:.75rem"><span style="color:var(--text-muted);font-family:'DM Mono',monospace;white-space:nowrap">${a.ts}</span><span style="color:var(--silver)">${a.msg}</span></div>`).join('');}
+
+function initPages(){renderMayoTags();renderHobbies();renderAwards();renderPatents();loadPresentations();loadRecentPubs();}
+
+// Mayo
+function renderMayoTags(){document.getElementById('mayo-tags-display').innerHTML=mayoTags.map((t,i)=>`<div class="tag">${t}<span class="tag-remove" onclick="removeMayoTag(${i})">×</span></div>`).join('');}
+function addMayoTag(){const v=document.getElementById('mayo-tag-input').value.trim();if(!v)return;mayoTags.push(v);document.getElementById('mayo-tag-input').value='';renderMayoTags();}
+function removeMayoTag(i){mayoTags.splice(i,1);renderMayoTags();}
+
+async function saveMayo(){
+  st('mayo-status','loading','Updating…');
+  try{
+    const f=await getFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+    const display=document.getElementById('mayo-display').value||document.getElementById('mayo-count').value;
+    let desc=document.getElementById('mayo-desc').value.replace('IRB-PROJECTS',display);
+    h=h.replace(/over <strong>[^<]*IRB-approved research projects<\/strong>/,`over <strong>${display} IRB-approved research projects</strong>`);
+    const tagsHtml=mayoTags.map(t=>`<div class="research-tag">${t.replace(/&/g,'&amp;')}</div>`).join('\n          ');
+    h=h.replace(/<div class="research-grid">[\s\S]*?<\/div>\s*<\/div>\s*<div class="about-links">/,`<div class="research-grid">\n          ${tagsHtml}\n        </div>\n      </div>\n      <div class="about-links">`);
+    await putFile('index.html',f.sha,h,`Update Mayo research: ${display} projects`);
+    logAct(`Updated Mayo research (${display} projects, ${mayoTags.length} tags)`);
+    st('mayo-status','success',`✓ Updated: ${display} projects, ${mayoTags.length} specialty tags.`);
+  }catch(e){st('mayo-status','error','Error: '+e.message);}
+}
+
+async function saveAbout(){
+  st('about-status','loading','Updating…');
+  try{
+    const f=await getFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+    const updates={'Email':document.getElementById('c-email').value,'Mayo Email':document.getElementById('c-mayo').value,'Phone':document.getElementById('c-phone').value,'Location':document.getElementById('c-location').value,'Research Interests':document.getElementById('c-interests').value};
+    for(const[label,val]of Object.entries(updates)){h=h.replace(new RegExp(`(<span>${label}<\/span>)(<a[^>]*>|<span>)[^<]+(</)`),`$1<span>${val}$3`);}
+    await putFile('index.html',f.sha,h,'Update About section');
+    logAct('Updated About / Contact info');
+    st('about-status','success','✓ About section updated.');
+  }catch(e){st('about-status','error','Error: '+e.message);}
+}
+
+async function saveExperience(){
+  st('exp-status','loading','Updating…');
+  try{
+    const f=await getFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+    const period=document.getElementById('pos-period').value;
+    const role=document.getElementById('pos-role').value;
+    const org=document.getElementById('pos-org').value;
+    h=h.replace(/(<div class="timeline-item">\s*<div class="timeline-period">)[^<]+(<\/div>\s*<div class="timeline-role">)[^<]+(<\/div>\s*<div class="timeline-org">)[^<]+(<\/div>)/,`$1${period}$2${role}$3${org}$4`);
+    await putFile('index.html',f.sha,h,`Update position: ${role}`);
+    logAct(`Updated position: ${role}`);
+    st('exp-status','success','✓ Current position updated.');
+  }catch(e){st('exp-status','error','Error: '+e.message);}
+}
+
+async function addPublication(){
+  const year=document.getElementById('pub-year').value.trim();
+  const type=document.getElementById('pub-type').value;
+  const title=document.getElementById('pub-title').value.trim();
+  const authors=document.getElementById('pub-authors').value.trim();
+  const journal=document.getElementById('pub-journal').value.trim();
+  const url=document.getElementById('pub-url').value.trim();
+  if(!title||!authors||!journal){st('pub-status','error','Title, authors, and journal required.');return;}
+  st('pub-status','loading','Adding publication…');
+  try{
+    const pf=await getFile('cv_pubs.json');if(!pf)throw new Error('Could not read cv_pubs.json');
+    const pubs=JSON.parse(pf.content);
+    pubs.unshift({n:pubs.length+1,year,type,title,authors,journal,url});
+    pubs.forEach((p,i)=>p.n=i+1);
+    await putFile('cv_pubs.json',pf.sha,JSON.stringify(pubs,null,2),`Add: ${title.substring(0,50)}`);
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const entry=`\n  {n:${pubs.length},year:"${year}",type:"${type}",tags:[],cat:[],title:"${title.replace(/"/g,'\\"')}",authors:"${authors.replace(/"/g,'\\"')}",journal:"${journal.replace(/"/g,'\\"')}",url:"${url}"},`;
+    h=h.replace('const publications = [','const publications = ['+entry);
+    h=h.replace(/id="hero-pubs">\d+</,`id="hero-pubs">${pubs.length}<`);
+    await putFile('index.html',hf.sha,h,`Add pub to site: ${title.substring(0,40)}`);
+    if(currentStats){const sf=await getFile('cv_live_stats.json');if(sf){const s=JSON.parse(sf.content);s.pubCount=String(pubs.length);await putFile('cv_live_stats.json',sf.sha,JSON.stringify(s,null,2),'Update pub count');}}
+    setEl('pub-badge',String(pubs.length));setEl('d-pubs',String(pubs.length));
+    logAct(`Added publication: ${title.substring(0,50)}…`);
+    st('pub-status','success',`✓ Added. Total: ${pubs.length} publications.`);
+    ['pub-year','pub-title','pub-authors','pub-journal','pub-url'].forEach(id=>document.getElementById(id).value='');
+    loadRecentPubs();
+  }catch(e){st('pub-status','error','Error: '+e.message);}
+}
+
+async function loadRecentPubs(){
+  try{const f=await getFile('cv_pubs.json');if(!f)return;const pubs=JSON.parse(f.content);
+  document.getElementById('pub-recent-list').innerHTML=pubs.slice(0,6).map(p=>`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${p.title}</div><div class="list-item-sub">${p.year} · ${p.journal}</div></div></div>`).join('');
+  setEl('pub-badge',String(pubs.length));setEl('d-pubs',String(pubs.length));}catch(e){}
+}
+
+async function addPresentation(){
+  const date=document.getElementById('pres-date').value.trim();
+  const type=document.getElementById('pres-type').value;
+  const year=document.getElementById('pres-year').value.trim()||date.slice(-4);
+  const title=document.getElementById('pres-title').value.trim();
+  const venue=document.getElementById('pres-venue').value.trim();
+  if(!title||!venue||!date){st('pres-status','error','Date, title, and venue required.');return;}
+  st('pres-status','loading','Adding presentation…');
+  try{
+    const pf=await getFile('cv_presentations.json');if(!pf)throw new Error('Could not read cv_presentations.json');
+    const pres=JSON.parse(pf.content);pres.unshift({date,type,year,title,venue});
+    await putFile('cv_presentations.json',pf.sha,JSON.stringify(pres,null,2),`Add presentation: ${title.substring(0,50)}`);
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const entry=`\n    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">${date}</span><span class="pres-type ${type}">${type.charAt(0).toUpperCase()+type.slice(1)}</span></div><div><div class="pres-title">${title}</div><div class="pres-venue">${venue}</div></div></div>`;
+    h=h.replace('<div class="pres-list">','<div class="pres-list">'+entry);
+    await putFile('index.html',hf.sha,h,`Add presentation: ${title.substring(0,40)}`);
+    presentations.unshift({date,type,year,title,venue});renderPresentations();
+    setEl('pres-badge',String(presentations.length));setEl('d-pres',String(presentations.length));
+    logAct(`Added presentation: ${title.substring(0,50)}…`);
+    st('pres-status','success','✓ Presentation added.');
+    ['pres-date','pres-year','pres-title','pres-venue'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){st('pres-status','error','Error: '+e.message);}
+}
+
+async function loadPresentations(){
+  try{const f=await getFile('cv_presentations.json');if(!f)return;presentations=JSON.parse(f.content);renderPresentations();setEl('pres-badge',String(presentations.length));setEl('d-pres',String(presentations.length));}catch(e){}
+}
+function renderPresentations(){document.getElementById('pres-list').innerHTML=presentations.map(p=>`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${p.title}</div><div class="list-item-sub">${p.date} [${p.type}] · ${p.venue}</div></div></div>`).join('');}
+
+async function saveReviews(){
+  const newCount=parseInt(document.getElementById('rev-new').value);
+  const journal=document.getElementById('rev-journal').value.trim();
+  const mss=document.getElementById('rev-mss-new').value.trim();
+  const note=document.getElementById('rev-note').value.trim();
+  if(!newCount){st('rev-status','error','Enter a valid count.');return;}
+  st('rev-status','loading','Updating…');
+  try{
+    const sf=await getFile('cv_live_stats.json');if(!sf)throw new Error('Could not read cv_live_stats.json');
+    const stats=JSON.parse(sf.content);stats.peerReviews=String(newCount);if(mss)stats.manuscripts=mss;
+    await putFile('cv_live_stats.json',sf.sha,JSON.stringify(stats,null,2),`Peer reviews → ${newCount}`);
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    h=h.replace(/(<div class="stat-num" id="hero-reviews">)\d+(<\/div>)/,`$1${newCount}$2`);
+    h=h.replace(/const liveData = \{[^}]+\}/,`const liveData = { citations: null, hindex: null, peerReviews: ${newCount}, journals: ${stats.journals||67} }`);
+    await putFile('index.html',hf.sha,h,`Update peer reviews to ${newCount}`);
+    const ts=new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const desc=[`Reviews → ${newCount}`,journal&&`· ${journal}`,note&&`· ${note}`].filter(Boolean).join(' ');
+    reviewHistory.unshift({date:ts,desc});renderRevHistory();
+    setEl('rev-current',String(newCount));setEl('d-reviews',String(newCount));
+    document.getElementById('rev-new').value=newCount+1;
+    document.getElementById('rev-journal').value='';document.getElementById('rev-note').value='';
+    logAct(`Updated peer reviews to ${newCount}`);
+    st('rev-status','success',`✓ Peer reviews updated to ${newCount}. Live on your website now.`);
+  }catch(e){st('rev-status','error','Error: '+e.message);}
+}
+function renderRevHistory(){document.getElementById('rev-history').innerHTML=reviewHistory.length?reviewHistory.map(h=>`<div style="display:flex;gap:.6rem;padding:.4rem 0;border-bottom:1px solid rgba(200,212,224,.06);font-size:.75rem"><span style="color:var(--text-muted);font-family:'DM Mono',monospace;white-space:nowrap">${h.date}</span><span style="color:var(--silver)">${h.desc}</span></div>`).join(''):'<div style="font-size:.75rem;color:var(--text-muted);font-style:italic">No updates yet.</div>';}
+
+async function addAward(){
+  const year=document.getElementById('award-year').value.trim();
+  const title=document.getElementById('award-title').value.trim();
+  const org=document.getElementById('award-org').value.trim();
+  const url=document.getElementById('award-url').value.trim();
+  if(!year||!title||!org){st('award-status','error','Year, title, and org required.');return;}
+  st('award-status','loading','Adding…');
+  try{
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const titleHtml=url?`<a href="${url}" target="_blank" style="color:inherit;text-decoration:none">${title} ↗</a>`:title;
+    const card=`\n    <div class="award-card">\n      <div class="award-year">${year}</div>\n      <div class="award-title">${titleHtml}</div>\n      <div class="award-org">${org}</div>\n    </div>`;
+    h=h.replace('<div class="awards-grid">','<div class="awards-grid">'+card);
+    await putFile('index.html',hf.sha,h,`Add award: ${title}`);
+    awards.unshift({year,title,org,url});renderAwards();
+    logAct(`Added award: ${title}`);st('award-status','success','✓ Award added.');
+    ['award-year','award-title','award-org','award-url'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){st('award-status','error','Error: '+e.message);}
+}
+function renderAwards(){document.getElementById('awards-list').innerHTML=awards.map(a=>`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${a.title}</div><div class="list-item-sub">${a.year} · ${a.org}</div></div></div>`).join('');}
+
+async function addPatent(){
+  const date=document.getElementById('pat-date').value.trim();
+  const title=document.getElementById('pat-title').value.trim();
+  const issuer=document.getElementById('pat-issuer').value.trim()||'IR';
+  const reg=document.getElementById('pat-reg').value.trim();
+  if(!date||!title){st('patent-status','error','Date and title required.');return;}
+  st('patent-status','loading','Adding…');
+  try{
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const item=`\n    <div class="patent-item">\n      <div class="patent-date">${date}</div>\n      <div>\n        <div class="patent-title">${title}</div>\n        <div class="patent-id">Issuer: ${issuer} &nbsp;·&nbsp; Registration No. ${reg}</div>\n      </div>\n    </div>`;
+    h=h.replace('<div class="patent-list">','<div class="patent-list">'+item);
+    await putFile('index.html',hf.sha,h,`Add patent: ${title.substring(0,50)}`);
+    patents.unshift({date,title,issuer,reg});renderPatents();
+    logAct(`Added patent: ${title.substring(0,40)}…`);st('patent-status','success','✓ Patent added.');
+    ['pat-date','pat-title','pat-reg'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){st('patent-status','error','Error: '+e.message);}
+}
+function renderPatents(){document.getElementById('patents-list').innerHTML=patents.map(p=>`<div class="list-item"><div class="list-item-body"><div class="list-item-title">${p.title}</div><div class="list-item-sub">${p.date} · ${p.issuer} · ${p.reg}</div></div></div>`).join('');}
+
+async function addHobby(){
+  const icon=document.getElementById('hobby-icon').value.trim();
+  const name=document.getElementById('hobby-name').value.trim();
+  const desc=document.getElementById('hobby-desc').value.trim();
+  if(!name){st('hobby-status','error','Name required.');return;}
+  st('hobby-status','loading','Adding…');
+  try{
+    const hf=await getFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const card=`\n    <div class="hobby-card">\n      <div class="hobby-icon">${icon||'⭐'}</div>\n      <div><div class="hobby-name">${name}</div><div class="hobby-desc">${desc}</div></div>\n    </div>`;
+    h=h.replace('<div class="hobbies-grid">','<div class="hobbies-grid">'+card);
+    await putFile('index.html',hf.sha,h,`Add hobby: ${name}`);
+    hobbies.push({icon:icon||'⭐',name,desc});renderHobbies();
+    logAct(`Added hobby: ${name}`);st('hobby-status','success','✓ Hobby added.');
+    ['hobby-icon','hobby-name','hobby-desc'].forEach(id=>document.getElementById(id).value='');
+  }catch(e){st('hobby-status','error','Error: '+e.message);}
+}
+function renderHobbies(){document.getElementById('hobbies-list').innerHTML=hobbies.map(h=>`<div class="list-item"><div style="font-size:1.4rem;flex-shrink:0">${h.icon}</div><div class="list-item-body"><div class="list-item-title">${h.name}</div><div class="list-item-sub">${h.desc}</div></div></div>`).join('');}
+
+async function triggerWorkflow(){
+  const activeId=document.querySelector('.page.active')?.id;
+  const statusId=activeId==='page-deploy'?'deploy-status':'rev-status';
+  st(statusId,'loading','Triggering…');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${GH_REPO}/actions/workflows/update-cv.yml/dispatches`,{method:'POST',headers:{'Authorization':'Bearer '+GH_TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},body:JSON.stringify({ref:BRANCH})});
+    if(r.ok||r.status===204){logAct('Triggered workflow');st(statusId,'success','✓ Workflow triggered. Check Actions tab in your repo.');}
+    else{const e=await r.json().catch(()=>({}));st(statusId,'error','Error: '+(e.message||r.status));}
+  }catch(e){st(statusId,'error','Error: '+e.message);}
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('connect-page').style.display!=='none')connect();});
+</script>
+</body>
+</html>
