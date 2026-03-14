@@ -1,0 +1,112 @@
+name: Update CV Weekly
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'   # Every Monday at 6am UTC
+  workflow_dispatch:        # Also lets you trigger it manually
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install docx
+
+      - name: Fetch live stats & regenerate CV
+        run: |
+          node << 'EOF'
+          const https = require('https');
+          const fs = require('fs');
+
+          // Fetch Google Scholar stats
+          function fetchScholar() {
+            return new Promise((resolve) => {
+              const url = 'https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en';
+              https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+                let html = '';
+                res.on('data', d => html += d);
+                res.on('end', () => {
+                  const blocks = [...html.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
+                  resolve({
+                    citations: blocks[0]?.[1]?.replace(/,/g,'') || '3248',
+                    hindex:    blocks[2]?.[1] || '24',
+                  });
+                });
+              }).on('error', () => resolve({ citations: '3248', hindex: '24' }));
+            });
+          }
+
+          // Fetch WoS peer review stats
+          function fetchWoS() {
+            return new Promise((resolve) => {
+              const url = 'https://www.webofscience.com/wos/author/record/ABC-9194-2020';
+              https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
+                let html = '';
+                res.on('data', d => html += d);
+                res.on('end', () => {
+                  const m = html.match(/(\d+)\s*peer\s*reviews?/i);
+                  resolve({ peerReviews: m?.[1] || '149', journals: '67' });
+                });
+              }).on('error', () => resolve({ peerReviews: '149', journals: '67' }));
+            });
+          }
+
+          async function main() {
+            const [scholar, wos] = await Promise.all([fetchScholar(), fetchWoS()]);
+            console.log('Scholar:', scholar);
+            console.log('WoS:', wos);
+
+            // Write stats to a JSON file the CV generator reads
+            fs.writeFileSync('cv_live_stats.json', JSON.stringify({
+              citations: scholar.citations,
+              hindex: scholar.hindex,
+              peerReviews: wos.peerReviews,
+              journals: wos.journals,
+              date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }),
+              pubCount: '193',
+              firstAuth: '20', secondAuth: '31', lastAuth: '50', corrAuth: '68',
+              manuscripts: '129',
+            }, null, 2));
+          }
+          main();
+          EOF
+
+      - name: Regenerate DOCX
+        run: |
+          node cv_generator.js \
+            citations=$(node -e "console.log(require('./cv_live_stats.json').citations)") \
+            hindex=$(node -e "console.log(require('./cv_live_stats.json').hindex)") \
+            peerReviews=$(node -e "console.log(require('./cv_live_stats.json').peerReviews)") \
+            journals=$(node -e "console.log(require('./cv_live_stats.json').journals)") \
+            date="$(node -e "console.log(require('./cv_live_stats.json').date)")"
+
+      - name: Update stats in index.html
+        run: |
+          node << 'EOF'
+          const fs = require('fs');
+          const stats = require('./cv_live_stats.json');
+          let html = fs.readFileSync('index.html', 'utf8');
+
+          // Update fallback numbers in the JS liveData block
+          html = html.replace(/liveData\.peerReviews\s*=\s*\d+/, `liveData.peerReviews = ${stats.peerReviews}`);
+          html = html.replace(/liveData\.journals\s*=\s*\d+/, `liveData.journals = ${stats.journals}`);
+
+          // Update the static peer reviews stat box number
+          html = html.replace(/(<div class="stat-num" id="hero-reviews">)\d+(<\/div>)/, `$1${stats.peerReviews}$2`);
+
+          fs.writeFileSync('index.html', html);
+          console.log('HTML updated with', stats);
+          EOF
+
+      - name: Commit & push updated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Shahriarirad_Reza_CV.docx index.html cv_live_stats.json
+          git diff --staged --quiet || git commit -m "Auto-update CV stats $(date +'%Y-%m-%d')"
+          git push
