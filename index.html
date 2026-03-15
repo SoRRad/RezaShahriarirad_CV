@@ -388,7 +388,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="contact-block">
         <h3>Contact</h3>
         <div class="contact-item"><span>Email</span><a href="mailto:R.shahriari1995@gmail.com">R.shahriari1995@gmail.com</a></div>
-        <div class="contact-item"><span>Mayo Email</span><a href="mailto:Shahriarirad.reza@mayo.edu">Shahriarirad.reza@mayo.edu</a></div>
+        <div class="contact-item"><span>Professional Email</span><a href="mailto:Shahriarirad.reza@mayo.edu">Shahriarirad.reza@mayo.edu</a></div>
         <div class="contact-item"><span>Phone</span><span>+1-507-218-6077</span></div>
         <div class="contact-item"><span>Location</span><span>Rochester, Minnesota, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
@@ -504,7 +504,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <button class="filter-btn" onclick="filterPubs('review',this,'type')">Reviews &amp; Meta-analyses</button>
       <button class="filter-btn" onclick="filterPubs('case',this,'type')">Case Reports</button>
       <button class="filter-btn" onclick="filterPubs('letter',this,'type')">Letters</button>
-    </div>
       <button class="filter-btn" onclick="filterPubs('first',this,'type')">1st Author</button>
       <button class="filter-btn" onclick="filterPubs('co-first',this,'type')">2nd / Co-first</button>
       <button class="filter-btn" onclick="filterPubs('corresponding',this,'type')">Corresponding</button>
@@ -712,69 +711,37 @@ const liveData = { citations: null, hindex: null, peerReviews: 149, journals: 67
 
 async function fetchScholarData(){
   const SCHOLAR_ID = 'mOE1KmEAAAAJ';
+  // Use allorigins.win as a CORS proxy to fetch the public Scholar profile
   const PROXY = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://scholar.google.com/citations?user=' + SCHOLAR_ID + '&hl=en');
   try {
-    const res = await fetch(PROXY, {signal: AbortSignal.timeout(10000)});
+    const res = await fetch(PROXY, {signal: AbortSignal.timeout(12000)});
     const data = await res.json();
-    const h = data.contents;
+    const h = data.contents || '';
+    // Scholar renders stats in pairs of <td class="gsc_rsb_std">:
+    //   [0]=Citations all, [1]=Citations recent, [2]=H-index all, [3]=H-index recent, [4]=i10 all, [5]=i10 recent
     const statsBlocks = [...h.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
     let cites = null, hindex = null;
     if(statsBlocks.length >= 1) cites = statsBlocks[0][1].replace(/,/g,'');
     if(statsBlocks.length >= 3) hindex = statsBlocks[2][1];
-    if(cites){
+    if(cites && !isNaN(Number(cites))){
       liveData.citations = Number(cites).toLocaleString();
-      document.getElementById('hero-cites').innerHTML = liveData.citations + '<span class="live-dot" title="Live from Google Scholar"></span>';
+      const citEl = document.getElementById('hero-cites');
+      if(citEl) citEl.innerHTML = liveData.citations + '<span class="live-dot" title="Live from Google Scholar"></span>';
     }
-    if(hindex){
+    if(hindex && !isNaN(Number(hindex))){
       liveData.hindex = hindex;
-      document.getElementById('hero-hindex').textContent = hindex;
+      const hiEl = document.getElementById('hero-hindex');
+      if(hiEl) hiEl.textContent = hindex;
     }
   } catch(e) {
-    liveData.citations = '3,248'; liveData.hindex = '24';
-    document.getElementById('hero-cites').textContent = '3,248';
-    document.getElementById('hero-hindex').textContent = '24';
+    // Fallback to last known values
+    const citEl = document.getElementById('hero-cites');
+    const hiEl = document.getElementById('hero-hindex');
+    if(citEl && citEl.textContent === '—') citEl.textContent = '3,248';
+    if(hiEl && hiEl.textContent === '—') hiEl.textContent = '24';
   }
 }
 
-async function fetchWoSData(){
-  /* Fetch WoS profile to extract peer review count */
-  const WOS_PROXY = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://www.webofscience.com/wos/author/record/ABC-9194-2020');
-  try {
-    const res = await fetch(WOS_PROXY, {signal: AbortSignal.timeout(12000)});
-    if(!res.ok) return;
-    const data = await res.json();
-    const h = data.contents || '';
-    /* WoS renders review count in various patterns — try several */
-    let reviews = null, journals = null;
-    const patterns = [
-      /(\d+)\s+peer\s+reviews?/i,
-      /peer\s+reviews?\s*:?\s*(\d+)/i,
-      /"reviewsCount"\s*:\s*(\d+)/i,
-      /"totalReviews"\s*:\s*(\d+)/i,
-      /reviews-count[^>]*>(\d+)/i,
-    ];
-    for(const p of patterns){
-      const m = h.match(p);
-      if(m){ reviews = m[1]; break; }
-    }
-    const jPatterns = [
-      /(\d+)\s+journals?/i,
-      /"journalCount"\s*:\s*(\d+)/i,
-    ];
-    for(const p of jPatterns){
-      const m = h.match(p);
-      if(m){ journals = m[1]; break; }
-    }
-    if(reviews){
-      liveData.peerReviews = reviews;
-      const el = document.getElementById('hero-reviews');
-      if(el) el.textContent = Number(reviews).toLocaleString();
-    }
-  } catch(e){ /* silent — WoS may block CORS proxy */ }
-}
-
-fetchScholarData();
-fetchWoSData();
 
 /* ── ORCID LIVE DATA ── */
 async function fetchOrcidData(){
