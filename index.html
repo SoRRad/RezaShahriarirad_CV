@@ -709,37 +709,66 @@ function closeMenu(){document.getElementById('mobile-menu').classList.remove('op
 /* ── LIVE DATA STATE ── */
 const liveData = { citations: null, hindex: null, peerReviews: 149, journals: 67 };
 
+/* ── GOOGLE SCHOLAR LIVE DATA ─────────────────────────────────────────────────
+   Fetches citations and H-index from the public Scholar profile page
+   (https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en)
+   via a series of CORS proxy services. Tries each proxy in order until one works.
+   Falls back to the last-known values if all proxies fail.
+──────────────────────────────────────────────────────────────────────────────── */
 async function fetchScholarData(){
   const SCHOLAR_ID = 'mOE1KmEAAAAJ';
-  // Use allorigins.win as a CORS proxy to fetch the public Scholar profile
-  const PROXY = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://scholar.google.com/citations?user=' + SCHOLAR_ID + '&hl=en');
-  try {
-    const res = await fetch(PROXY, {signal: AbortSignal.timeout(12000)});
-    const data = await res.json();
-    const h = data.contents || '';
-    // Scholar renders stats in pairs of <td class="gsc_rsb_std">:
-    //   [0]=Citations all, [1]=Citations recent, [2]=H-index all, [3]=H-index recent, [4]=i10 all, [5]=i10 recent
-    const statsBlocks = [...h.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
-    let cites = null, hindex = null;
-    if(statsBlocks.length >= 1) cites = statsBlocks[0][1].replace(/,/g,'');
-    if(statsBlocks.length >= 3) hindex = statsBlocks[2][1];
-    if(cites && !isNaN(Number(cites))){
-      liveData.citations = Number(cites).toLocaleString();
-      const citEl = document.getElementById('hero-cites');
-      if(citEl) citEl.innerHTML = liveData.citations + '<span class="live-dot" title="Live from Google Scholar"></span>';
-    }
-    if(hindex && !isNaN(Number(hindex))){
-      liveData.hindex = hindex;
-      const hiEl = document.getElementById('hero-hindex');
-      if(hiEl) hiEl.textContent = hindex;
-    }
-  } catch(e) {
-    // Fallback to last known values
-    const citEl = document.getElementById('hero-cites');
-    const hiEl = document.getElementById('hero-hindex');
-    if(citEl && citEl.textContent === '—') citEl.textContent = '3,248';
-    if(hiEl && hiEl.textContent === '—') hiEl.textContent = '24';
+  const SCHOLAR_URL = 'https://scholar.google.com/citations?user=' + SCHOLAR_ID + '&hl=en';
+
+  // Multiple CORS proxies tried in order — if one fails the next is attempted
+  const PROXIES = [
+    'https://api.allorigins.win/get?url=' + encodeURIComponent(SCHOLAR_URL),
+    'https://corsproxy.io/?' + encodeURIComponent(SCHOLAR_URL),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(SCHOLAR_URL),
+  ];
+
+  // Show animated dots while loading
+  const citEl  = document.getElementById('hero-cites');
+  const hiEl   = document.getElementById('hero-hindex');
+  if(citEl && citEl.textContent.trim() === '—') citEl.innerHTML = '&hellip;';
+  if(hiEl  && hiEl.textContent.trim() === '—')  hiEl.innerHTML  = '&hellip;';
+
+  function parseScholarHTML(raw){
+    // Scholar stats table: gsc_rsb_std cells come in pairs (all-time, recent)
+    // Index 0 = total citations, index 2 = h-index
+    const blocks = [...raw.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
+    if(!blocks.length) return null;
+    const cites  = blocks[0]?.[1]?.replace(/,/g,'');
+    const hindex = blocks[2]?.[1];
+    if(!cites || isNaN(Number(cites))) return null;
+    return { cites: Number(cites), hindex: hindex || null };
   }
+
+  for(const proxyUrl of PROXIES){
+    try {
+      const res  = await fetch(proxyUrl, {signal: AbortSignal.timeout(10000)});
+      if(!res.ok) continue;
+      const json = await res.json();
+      // allorigins.win wraps in {contents:...}, codetabs returns raw text
+      const raw  = json.contents || json || '';
+      const stats = parseScholarHTML(typeof raw === 'string' ? raw : JSON.stringify(raw));
+      if(!stats) continue;
+
+      // Successfully parsed — update the UI
+      liveData.citations = stats.cites.toLocaleString();
+      if(citEl) citEl.innerHTML = liveData.citations +
+        '<span class="live-dot" title="Live from Google Scholar"></span>';
+
+      if(stats.hindex){
+        liveData.hindex = stats.hindex;
+        if(hiEl) hiEl.textContent = stats.hindex;
+      }
+      return; // done — no need to try more proxies
+    } catch(_){ /* try next proxy */ }
+  }
+
+  // All proxies failed — show known fallback values
+  if(citEl) citEl.innerHTML = '3,248<span class="live-dot" title="Cached — last known value"></span>';
+  if(hiEl && (hiEl.textContent === '—' || hiEl.textContent === '…')) hiEl.textContent = '24';
 }
 
 
@@ -1234,6 +1263,14 @@ document.getElementById('refs-grid').innerHTML=refs.map(r=>`
     <div class="ref-role">${r.role}<br><em style="font-size:.73rem">${r.inst}</em></div>
     <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" class="ref-link">${l.label} ↗</a>`).join('')}</div>
   </div>`).join('');
+
+
+/* ── INIT: kick off live data fetches ── */
+window.addEventListener('DOMContentLoaded', function() {
+  fetchScholarData();
+});
+// Also call immediately in case DOM is already loaded (inline script)
+if(document.readyState !== 'loading') fetchScholarData();
 </script>
 </body>
 </html>
