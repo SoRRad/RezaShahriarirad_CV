@@ -548,7 +548,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <span class="pub-filter-group-label">Topic</span>
         <button class="filter-btn active" onclick="filterPubs('all',this,'cat')" id="cat-all-btn">All Topics</button>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'surgery')" data-group="surgery">
+          <button class="filter-btn filter-main-btn" onclick="filterPubsMain('surgery',["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "transplant", "oncology"],this)" data-group="surgery">
             <span>Surgery</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="grp-surgery" style="display:none">
@@ -563,11 +563,11 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'medicine')" data-group="medicine">
+          <button class="filter-btn filter-main-btn" onclick="filterPubsMain('medicine',["infectious", "pulm", "neuro", "derm", "urology"],this)" data-group="medicine">
             <span>Internal Medicine</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="grp-medicine" style="display:none">
-            <button class="filter-btn filter-sub-btn" onclick="filterPubs('infectious',this,'cat')" data-main="medicine">Infectious Disease & COVID-19</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('infectious',this,'cat')" data-main="medicine">Infectious Disease</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('pulm',this,'cat')" data-main="medicine">Pulmonology</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('neuro',this,'cat')" data-main="medicine">Neurology</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('derm',this,'cat')" data-main="medicine">Dermatology</button>
@@ -575,7 +575,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'ai')" data-group="ai">
+          <button class="filter-btn filter-main-btn" onclick="filterPubsMain('ai',["ai"],this)" data-group="ai">
             <span>Artificial Intelligence</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="grp-ai" style="display:none">
@@ -583,7 +583,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'pubhealth')" data-group="pubhealth">
+          <button class="filter-btn filter-main-btn" onclick="filterPubsMain('pubhealth',["pubhealth"],this)" data-group="pubhealth">
             <span>Public Health</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="grp-pubhealth" style="display:none">
@@ -717,7 +717,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="pres-filter-group">
         <span class="pub-filter-group-label">Topic</span>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'surgery')" data-group="surgery">
+          <button class="filter-btn filter-main-btn" onclick="filterPresMain('surgery',["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "transplant", "oncology"],this)" data-group="surgery">
             <span>Surgery</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="pgrp-surgery" style="display:none">
@@ -732,11 +732,11 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'medicine')" data-group="medicine">
+          <button class="filter-btn filter-main-btn" onclick="filterPresMain('medicine',["infectious", "pulm", "neuro", "derm", "urology"],this)" data-group="medicine">
             <span>Internal Medicine</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="pgrp-medicine" style="display:none">
-            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','infectious',this)" data-main="medicine">Infectious Disease & COVID-19</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','infectious',this)" data-main="medicine">Infectious Disease</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','pulm',this)" data-main="medicine">Pulmonology</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','neuro',this)" data-main="medicine">Neurology</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','derm',this)" data-main="medicine">Dermatology</button>
@@ -744,7 +744,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'ai')" data-group="ai">
+          <button class="filter-btn filter-main-btn" onclick="filterPresMain('ai',["ai"],this)" data-group="ai">
             <span>Artificial Intelligence</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="pgrp-ai" style="display:none">
@@ -752,7 +752,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'pubhealth')" data-group="pubhealth">
+          <button class="filter-btn filter-main-btn" onclick="filterPresMain('pubhealth',["pubhealth"],this)" data-group="pubhealth">
             <span>Public Health</span><span class="filter-caret">▸</span>
           </button>
           <div class="filter-sub-group" id="pgrp-pubhealth" style="display:none">
@@ -1319,7 +1319,13 @@ function renderPubs(){
     // ── Category filter ──
     let matchCat=true;
     if(currentCat!=='all'){
-      matchCat=Array.isArray(p.cat)&&p.cat.includes(currentCat);
+      if(currentCat.startsWith('main:')){
+        // Main group filter — match any sub category in this group
+        const groupSubs=mainGroupSubs[currentCat.slice(5)]||[];
+        matchCat=Array.isArray(p.cat)&&p.cat.some(c=>groupSubs.includes(c));
+      } else {
+        matchCat=Array.isArray(p.cat)&&p.cat.includes(currentCat);
+      }
     }
 
     // ── Search ──
@@ -1350,6 +1356,44 @@ function renderPubs(){
   }).join('');
 }
 
+
+const mainGroupSubs = {'surgery':["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "transplant", "oncology"],'medicine':["infectious", "pulm", "neuro", "derm", "urology"],'ai':["ai"],'pubhealth':["pubhealth"]};
+
+function filterPubsMain(groupKey, subKeys, btn){
+  // Toggle: if already active on this main group, deactivate
+  const isActive = btn.classList.contains('active') && currentCat === 'main:'+groupKey;
+  showingAll = false;
+  // Clear all cat button active states
+  document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('cat-all-btn')?.classList.remove('active');
+  // Toggle sub-group visibility
+  const sub = document.getElementById('grp-'+groupKey);
+  if(sub) sub.style.display = isActive ? 'none' : 'block';
+  btn.classList.toggle('open', !isActive);
+  if(isActive){
+    currentCat = 'all';
+    document.getElementById('cat-all-btn')?.classList.add('active');
+  } else {
+    currentCat = 'main:'+groupKey;
+    btn.classList.add('active','has-active');
+  }
+  renderPubs();
+}
+
+function filterPresMain(groupKey, subKeys, btn){
+  const isActive = btn.classList.contains('active') && presFilters.cat === 'main:'+groupKey;
+  document.querySelectorAll('.pres-filter-sidebar .filter-main-btn,.pres-filter-sidebar .filter-sub-btn').forEach(b=>b.classList.remove('active','has-active'));
+  const sub = document.getElementById('pgrp-'+groupKey);
+  if(sub) sub.style.display = isActive ? 'none' : 'block';
+  btn.classList.toggle('open', !isActive);
+  if(isActive){
+    presFilters.cat = null;
+  } else {
+    presFilters.cat = 'main:'+groupKey;
+    btn.classList.add('active','has-active');
+  }
+  applyPresFilters();
+}
 
 function toggleFilterGroup(btn, groupKey){
   const sub = document.getElementById('grp-'+groupKey);
@@ -1605,10 +1649,19 @@ function applyPresFilters(){
     const loc  = item.dataset.location || '';
     const cats = (item.dataset.cats || '').split(',');
     const text = item.textContent.toLowerCase();
+    let catMatch = true;
+    if(presFilters.cat){
+      if(presFilters.cat.startsWith('main:')){
+        const groupSubs = mainGroupSubs[presFilters.cat.slice(5)] || [];
+        catMatch = cats.some(c => groupSubs.includes(c));
+      } else {
+        catMatch = cats.includes(presFilters.cat);
+      }
+    }
     const ok =
       (!presFilters.type     || type === presFilters.type) &&
       (!presFilters.location || loc  === presFilters.location) &&
-      (!presFilters.cat      || cats.includes(presFilters.cat)) &&
+      catMatch &&
       (!presFilters.search   || text.includes(presFilters.search));
     item.style.display = ok ? '' : 'none';
     if(ok) shown++;
