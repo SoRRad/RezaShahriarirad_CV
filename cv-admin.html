@@ -120,14 +120,15 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;margin-bottom:1.2rem;color:var(--t1)}
 .modal-acts{display:flex;gap:.5rem;margin-top:.5rem}
 /* Connect screen */
-#conn-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 60% 55% at 50% 45%,rgba(201,168,76,.07) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(88,166,255,.04) 0%,transparent 60%);padding:2rem}
-.conn-box{width:100%;max-width:440px;margin:0 auto}
+#conn-screen{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(201,168,76,.08) 0%,transparent 60%),radial-gradient(ellipse 45% 45% at 15% 75%,rgba(88,166,255,.05) 0%,transparent 55%);padding:2rem;overflow-y:auto}
+.conn-box{width:100%;max-width:460px;margin:auto}
 .conn-ey{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
 .conn-ey::before,.conn-ey::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.3}
-.conn-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--t1);text-align:center;margin-bottom:.35rem}
+.conn-title{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:300;color:var(--t1);text-align:center;margin-bottom:.4rem;letter-spacing:-.01em}
 .conn-title em{color:var(--gold2);font-style:italic}
-.conn-sub{font-size:.78rem;color:var(--t3);text-align:center;margin-bottom:1.8rem;line-height:1.75}
+.conn-sub{font-size:.8rem;color:var(--t3);text-align:center;margin-bottom:2rem;line-height:1.8}
 .hl{font-size:.68rem;color:var(--t3);line-height:1.6;margin-top:-.5rem;margin-bottom:.8rem}
+#conn-screen .card{border-top:2px solid var(--gold);padding:1.6rem 1.8rem}
 .hl a{color:var(--gold);text-decoration:none}
 /* Pub search */
 .pub-search-wrap{position:relative;margin-bottom:.8rem}
