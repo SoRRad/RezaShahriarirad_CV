@@ -331,7 +331,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
-        <a href="mailto:R.shahriari1995@gmail.com" class="btn-outline">Get in Touch</a>
+        <a href="/cdn-cgi/l/email-protection#ffadd18c979e978d969e8d96cec6c6cabf98929e9693d19c9092" class="btn-outline">Get in Touch</a>
         <a href="#" onclick="downloadCV();return false;" class="btn-pdf" title="Download updated CV as Word document">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           Download CV
@@ -348,11 +348,11 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <div class="stat-label">Publications</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num" id="hero-cites">—<span class="live-dot" title="Live from Google Scholar"></span></div>
+          <div class="stat-num" id="hero-cites">3,248<span class="live-dot" title="Updating…"></span></div>
           <div class="stat-label">Citations</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num" id="hero-hindex">—</div>
+          <div class="stat-num" id="hero-hindex">24</div>
           <div class="stat-label">H-index</div>
         </div>
 
@@ -405,8 +405,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div>
       <div class="contact-block">
         <h3>Contact</h3>
-        <div class="contact-item"><span>Email</span><a href="mailto:R.shahriari1995@gmail.com">R.shahriari1995@gmail.com</a></div>
-        <div class="contact-item"><span>Professional Email</span><a href="mailto:Shahriarirad.reza@mayo.edu">Shahriarirad.reza@mayo.edu</a></div>
+        <div class="contact-item"><span>Email</span><a href="/cdn-cgi/l/email-protection#8ad8a4f9e2ebe2f8e3ebf8e3bbb3b3bfcaede7ebe3e6a4e9e5e7"><span class="__cf_email__" data-cfemail="4b196538232a2339222a39227a72727e0b2c262a222765282426">[email&#160;protected]</span></a></div>
+        <div class="contact-item"><span>Professional Email</span><a href="/cdn-cgi/l/email-protection#6e3d060f061c070f1c071c0f0a401c0b140f2e030f1701400b0a1b"><span class="__cf_email__" data-cfemail="5d0e353c352f343c2f342f3c39732f38273c1d303c243273383928">[email&#160;protected]</span></a></div>
         <div class="contact-item"><span>Phone</span><span>+1-507-218-6077</span></div>
         <div class="contact-item"><span>Location</span><span>Rochester, Minnesota, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
@@ -945,14 +945,14 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── MOBILE MENU ── */
 function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
 function closeMenu(){document.getElementById('mobile-menu').classList.remove('open')}
 
 /* ── GOOGLE SCHOLAR LIVE DATA ── */
 /* ── LIVE DATA STATE ── */
-const liveData = { citations: null, hindex: null, peerReviews: 149, journals: 67 };
+const liveData = { citations: '3,248', hindex: '24', peerReviews: 149, journals: 67 };
 
 /* ── GOOGLE SCHOLAR LIVE DATA ─────────────────────────────────────────────────
    Fetches citations and H-index from the public Scholar profile page
@@ -961,59 +961,44 @@ const liveData = { citations: null, hindex: null, peerReviews: 149, journals: 67
    Falls back to the last-known values if all proxies fail.
 ──────────────────────────────────────────────────────────────────────────────── */
 async function fetchScholarData(){
-  const SCHOLAR_ID = 'mOE1KmEAAAAJ';
-  const SCHOLAR_URL = 'https://scholar.google.com/citations?user=' + SCHOLAR_ID + '&hl=en';
+  const URL = 'https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en';
+  const citEl = document.getElementById('hero-cites');
+  const hiEl  = document.getElementById('hero-hindex');
 
-  // Multiple CORS proxies tried in order — if one fails the next is attempted
-  const PROXIES = [
-    'https://api.allorigins.win/get?url=' + encodeURIComponent(SCHOLAR_URL),
-    'https://corsproxy.io/?' + encodeURIComponent(SCHOLAR_URL),
-    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(SCHOLAR_URL),
-  ];
-
-  // Show animated dots while loading
-  const citEl  = document.getElementById('hero-cites');
-  const hiEl   = document.getElementById('hero-hindex');
-  if(citEl && citEl.textContent.trim() === '—') citEl.innerHTML = '&hellip;';
-  if(hiEl  && hiEl.textContent.trim() === '—')  hiEl.innerHTML  = '&hellip;';
-
-  function parseScholarHTML(raw){
-    // Scholar stats table: gsc_rsb_std cells come in pairs (all-time, recent)
-    // Index 0 = total citations, index 2 = h-index
-    const blocks = [...raw.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
-    if(!blocks.length) return null;
-    const cites  = blocks[0]?.[1]?.replace(/,/g,'');
-    const hindex = blocks[2]?.[1];
-    if(!cites || isNaN(Number(cites))) return null;
-    return { cites: Number(cites), hindex: hindex || null };
+  function parse(raw){
+    if(typeof raw !== 'string') return null;
+    const m = [...raw.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
+    if(m.length < 3) return null;
+    const c = parseInt(m[0][1].replace(/,/g,''));
+    const h = parseInt(m[2][1]);
+    return c > 0 ? {c, h: isNaN(h) ? null : h} : null;
   }
 
-  for(const proxyUrl of PROXIES){
-    try {
-      const res  = await fetch(proxyUrl, {signal: AbortSignal.timeout(10000)});
-      if(!res.ok) continue;
-      const json = await res.json();
-      // allorigins.win wraps in {contents:...}, codetabs returns raw text
-      const raw  = json.contents || json || '';
-      const stats = parseScholarHTML(typeof raw === 'string' ? raw : JSON.stringify(raw));
-      if(!stats) continue;
-
-      // Successfully parsed — update the UI
-      liveData.citations = stats.cites.toLocaleString();
-      if(citEl) citEl.innerHTML = liveData.citations +
-        '<span class="live-dot" title="Live from Google Scholar"></span>';
-
-      if(stats.hindex){
-        liveData.hindex = stats.hindex;
-        if(hiEl) hiEl.textContent = stats.hindex;
-      }
-      return; // done — no need to try more proxies
-    } catch(_){ /* try next proxy */ }
+  async function get(url){
+    const ac = new AbortController();
+    setTimeout(() => ac.abort(), 7000);
+    const r = await fetch(url, {signal: ac.signal});
+    if(!r.ok) throw 0;
+    const j = await r.json();
+    return j.contents || (typeof j === 'string' ? j : null);
   }
 
-  // All proxies failed — show known fallback values
-  if(citEl) citEl.innerHTML = '3,248<span class="live-dot" title="Cached — last known value"></span>';
-  if(hiEl && (hiEl.textContent === '—' || hiEl.textContent === '…')) hiEl.textContent = '24';
+  try{
+    const enc = encodeURIComponent(URL);
+    const raw = await Promise.any([
+      get('https://api.allorigins.win/get?url=' + enc),
+      get('https://corsproxy.io/?' + enc),
+      get('https://api.codetabs.com/v1/proxy?quest=' + enc),
+    ]);
+    const s = parse(raw);
+    if(!s) return;
+    liveData.citations = s.c.toLocaleString();
+    if(citEl) citEl.innerHTML = liveData.citations + '<span class="live-dot" title="Live from Google Scholar"></span>';
+    if(s.h){ liveData.hindex = String(s.h); if(hiEl) hiEl.textContent = liveData.hindex; }
+  }catch(_){
+    const dot = citEl && citEl.querySelector('.live-dot');
+    if(dot) dot.title = 'Cached value';
+  }
 }
 
 
@@ -1533,12 +1518,10 @@ document.getElementById('refs-grid').innerHTML=refs.map(r=>`
   </div>`).join('');
 
 
-/* ── INIT: kick off live data fetches ── */
-window.addEventListener('DOMContentLoaded', function() {
-  fetchScholarData();
-});
-// Also call immediately in case DOM is already loaded (inline script)
-if(document.readyState !== 'loading') fetchScholarData();
+
+/* ── Start Scholar fetch on page load ── */
+if(document.readyState!=='loading') fetchScholarData();
+else document.addEventListener('DOMContentLoaded', fetchScholarData);
 </script>
 </body>
 </html>
