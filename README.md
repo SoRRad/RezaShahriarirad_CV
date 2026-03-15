@@ -1,53 +1,115 @@
 # Reza Shahriarirad, M.D. — Academic CV Website
 
-Personal academic CV website for Dr. Reza Shahriarirad, Research Fellow at the Surgery Innovation Center, Mayo Clinic. Built as a single self-contained HTML file with live data integration and an auto-updating downloadable CV.
+Personal academic CV website for Dr. Reza Shahriarirad, Research Fellow at the Surgery Innovation Center, Mayo Clinic. A single self-contained HTML file with live citation metrics, filterable publications, and an auto-updating downloadable Word CV.
 
-**Live site:** `https://rezashahriarirad.github.io`
+**Live site:** `https://SoRRad.github.io/RezaShahriarirad_CV`
+**Admin panel:** `https://SoRRad.github.io/RezaShahriarirad_CV/cv-admin.html`
 
 ---
 
-## What this repository contains
+## Repository contents
 
 | File | Description |
 |------|-------------|
-| `index.html` | The full CV website — single HTML file, no dependencies |
-| `Shahriarirad_Reza_CV.docx` | Downloadable CV in Word format, auto-regenerated weekly |
-| `cv_generator.js` | Node.js script that builds the DOCX from live data |
+| `index.html` | The full CV website — rename from `Shahriarirad_CV_Website_v4.html` before uploading |
+| `cv-admin.html` | Admin panel for editing all CV sections directly from the browser |
 | `cv_pubs.json` | All 193 publications as structured JSON |
-| `cv_journals.json` | 67 peer-reviewed journals as structured JSON |
-| `cv_presentations.json` | 17 conference presentations as structured JSON |
-| `cv_live_stats.json` | Latest fetched metrics (citations, H-index, reviews) |
+| `cv_presentations.json` | 17 conference presentations with location and topic data |
+| `cv_journals.json` | 67 peer-reviewed journals reviewed |
+| `cv_generator.js` | Node.js script that builds the downloadable DOCX from live data |
+| `cv_live_stats.json` | Latest fetched metrics — auto-updated by the weekly workflow |
+| `Shahriarirad_Reza_CV.docx` | Downloadable CV in Word format — auto-regenerated weekly |
 | `.github/workflows/update-cv.yml` | GitHub Actions workflow for weekly auto-updates |
+| `README.md` | This file |
 
 ---
 
-## Features
+## CV sections
 
-- **Live citation metrics** — Google Scholar data fetched in the browser on every visit (citations, H-index)
-- **Live peer review stats** — Web of Science profile scraped for verified review count
-- **193 publications** — Searchable and filterable by article type, authorship role (1st, 2nd/co-first, corresponding, last), and 17 specialty topics
-- **Auto-updating DOCX** — GitHub Actions runs every Monday to regenerate the CV with fresh stats
-- **Self-contained** — The entire website including the headshot photo is embedded in one HTML file; no server, no CDN, no external assets required at runtime
+The website covers the following sections, all editable via the admin panel:
+
+- **About** — Bio, headshot, Mayo Clinic ongoing research projects, specialty tags
+- **Experience & Education** — Professional timeline and academic credentials
+- **Leadership & Community Service**
+- **Publications** — 193 papers filterable by type, authorship role, and 17 topic categories
+- **Awards & Honours**
+- **Patents & Innovations**
+- **Editor & Reviewer Experience** — Editorial roles and 149 verified peer reviews across 67 journals
+- **Presentations** — 17 conference presentations filterable by type, location, and topic
+- **Extracurricular & Interests**
+- **References** — 9 professional references
 
 ---
 
-## Auto-update mechanism
+## Live data
 
-A GitHub Actions workflow (`.github/workflows/update-cv.yml`) runs automatically every Monday at 6:00 AM UTC. It:
+| Metric | Source | Update frequency |
+|--------|--------|-----------------|
+| Citations | Google Scholar (via CORS proxy) | Every page load |
+| H-index | Google Scholar (via CORS proxy) | Every page load |
+| Publications count | Hardcoded (193) | Manual — update when you publish |
+| Peer reviews | Hardcoded (149) | Manual via admin panel |
+
+Google Scholar data is fetched live on every page visit using three CORS proxy fallbacks. If all proxies fail, the last known values (3,248 citations, H-index 24) are shown.
+
+---
+
+## Auto-update workflow
+
+A GitHub Actions workflow (`.github/workflows/update-cv.yml`) runs every **Monday at 6:00 AM UTC**. It:
 
 1. Fetches the latest citation count and H-index from Google Scholar
-2. Fetches the latest peer review count from Web of Science
-3. Runs `cv_generator.js` to rebuild `Shahriarirad_Reza_CV.docx` with the new numbers
-4. Updates the fallback stats in `index.html`
-5. Commits and pushes the updated files back to the repository
+2. Regenerates `Shahriarirad_Reza_CV.docx` with fresh stats
+3. Updates `index.html` fallback values
+4. Commits and pushes all changes back to the repository
 
-You can also trigger it manually at any time from the **Actions** tab → **Update CV Weekly** → **Run workflow**.
+You can also trigger it manually: **Actions tab → Update CV Weekly → Run workflow**.
+
+For this to work, the repository must have **read and write permissions** enabled:
+**Settings → Actions → General → Workflow permissions → Read and write permissions → Save**
 
 ---
 
-## Updating publications
+## Admin panel
 
-When you publish a new paper, add an entry to `cv_pubs.json`. Each entry follows this structure:
+The admin panel at `cv-admin.html` connects directly to GitHub via a Personal Access Token and lets you edit every section of your CV without touching code.
+
+**To use it:**
+1. Go to `https://github.com/settings/tokens/new?scopes=repo&description=CV+Admin`
+2. Generate a token with **repo** scope
+3. Open `cv-admin.html`, paste the token, enter `SoRRad/RezaShahriarirad_CV`
+4. Click Connect
+
+**What you can edit:**
+
+| Section | Capabilities |
+|---------|-------------|
+| About & Headshot | Edit bio paragraphs, upload a new profile photo |
+| Contact Info | Email, Mayo email, phone, location, research interests, languages |
+| Mayo Research | IRB project count, description paragraph, specialty tags (add/remove) |
+| Experience | Add, edit, or delete any timeline entry |
+| Education | Add, edit, or delete any education entry |
+| Leadership | Add, edit, or delete leadership entries |
+| Skills | Add, edit, or delete skills with proficiency levels |
+| Peer Reviews | Update count with optional journal name, manuscript count, and hyperlink |
+| Publications | Add new papers; edit type, categories, authors, URL for any existing paper |
+| Presentations | Add new presentations with month, year, location, and topic categories |
+| Awards | Add new awards or edit existing ones |
+| Patents | Add new patents or edit existing ones |
+| Hobbies | Add, edit, or delete hobby entries |
+| Deploy | Trigger the GitHub Actions workflow manually |
+
+The token is stored in browser memory only and never persisted. Each session requires re-entering the token.
+
+---
+
+## Adding a new publication
+
+### Via admin panel (recommended)
+Go to admin panel → Publications → Add New Publication. Fill in year, type, authors, journal, and DOI, select topic categories, and click **Add & Push to GitHub**.
+
+### Manual JSON edit
+Add an entry to `cv_pubs.json` directly on GitHub:
 
 ```json
 {
@@ -57,61 +119,71 @@ When you publish a new paper, add an entry to `cv_pubs.json`. Each entry follows
   "title": "Your Paper Title Here",
   "authors": "Shahriarirad R*, Co-author A, Co-author B",
   "journal": "Journal Name",
-  "url": "https://doi.org/..."
+  "url": "https://doi.org/...",
+  "tags": [],
+  "cat": ["plastic"]
 }
 ```
 
-**Type options:** `original`, `case`, `letter`
+**Type options:** `original`, `review`, `case`, `letter`
 
-**Author formatting rules (important for filters to work correctly):**
-- Mark corresponding author with `*` directly after the last initial: `Shahriarirad R*`
-- List all authors in order, comma-separated — no `et al.`
-- The website automatically detects your authorship position from the author string
+**Category keys:** `plastic`, `thoracic`, `vascular`, `gi`, `endocrine`, `ortho`, `burns`, `infectious`, `covid`, `oncology`, `transplant`, `ai`, `pulm`, `neuro`, `derm`, `urology`, `pubhealth`
 
-After editing `cv_pubs.json`, also update the publication count in `cv_live_stats.json` (`"pubCount"`) and in `index.html` (search for `id="hero-pubs"`).
+**Author formatting:** Mark corresponding author with `*` after last initial — `Shahriarirad R*`. List all authors in full, no `et al.` The site auto-detects authorship position (1st, co-first, last, corresponding) from the author string.
+
+After editing `cv_pubs.json`, also update `"pubCount"` in `cv_live_stats.json`.
 
 ---
 
-## Updating other sections
+## Adding a presentation
 
-| What to update | Where |
-|---|---|
-| New presentation | `cv_presentations.json` |
-| New journal reviewed | `cv_journals.json` |
-| New award, patent, or position | Edit `index.html` directly — find the relevant section |
-| Reference contact info | Edit `index.html` — search for `refs-grid` |
+Via admin panel → Presentations → Add New Presentation. You can specify month, year, type (poster/oral), title, venue, location/country, and topic categories.
+
+Or edit `cv_presentations.json` directly:
+
+```json
+{
+  "date": "Mar 2026",
+  "month": "Mar",
+  "year": "2026",
+  "type": "poster",
+  "title": "Presentation title",
+  "venue": "Conference name",
+  "conference": "Short conference name",
+  "location": "United States",
+  "cat": ["plastic"]
+}
+```
+
+---
+
+## Updating peer reviews
+
+1. Open `cv-admin.html` → Peer Reviews
+2. Set the new total, optionally add journal and note
+3. Click **Push to GitHub**
+
+The count updates instantly on the live website.
 
 ---
 
 ## Local development
 
-To preview the site locally, just open `index.html` in any browser — no build step or server needed.
+Open `index.html` in any browser — no build step or server required.
 
-To regenerate the DOCX manually with custom stats:
+To regenerate the DOCX locally:
 
 ```bash
 npm install docx
-node cv_generator.js citations=3500 hindex=25 peerReviews=155 journals=68 date="March 2026"
+node cv_generator.js citations=3500 hindex=25 peerReviews=155 journals=68
 ```
-
-This writes a fresh `Shahriarirad_CV_Generated.docx` to the current directory.
-
----
-
-## Tech stack
-
-- **Website:** Vanilla HTML/CSS/JavaScript — no frameworks, no build tools
-- **Fonts:** Cormorant Garamond + DM Sans via Google Fonts
-- **DOCX generation:** [docx.js](https://docxjs.org/) (Node.js, server-side only)
-- **Live data:** Google Scholar via allorigins.win CORS proxy; Web of Science direct
-- **CI/CD:** GitHub Actions
 
 ---
 
 ## Profile links
 
-| Platform | URL |
-|---|---|
+| Platform | Link |
+|----------|------|
 | Google Scholar | https://scholar.google.com/citations?user=mOE1KmEAAAAJ |
 | PubMed | https://www.ncbi.nlm.nih.gov/myncbi/reza.shahriari.1/bibliography/public/ |
 | ORCID | https://orcid.org/0000-0001-5454-495X |
@@ -119,4 +191,13 @@ This writes a fresh `Shahriarirad_CV_Generated.docx` to the current directory.
 | Web of Science | https://www.webofscience.com/wos/author/record/ABC-9194-2020 |
 | ResearchGate | https://www.researchgate.net/profile/Reza-Shahriarirad |
 | LinkedIn | https://www.linkedin.com/in/reza-shahriarirad/ |
-| GitHub | https://github.com/SoRRad |
+
+---
+
+## Tech stack
+
+- **Website:** Vanilla HTML/CSS/JavaScript — zero frameworks, zero build tools, zero dependencies
+- **Fonts:** Cormorant Garamond + DM Sans via Google Fonts
+- **DOCX generation:** [docx.js](https://docxjs.org/) (Node.js, runs server-side in GitHub Actions)
+- **Live citations:** Google Scholar via CORS proxy (allorigins.win, corsproxy.io, codetabs.com)
+- **CI/CD:** GitHub Actions — runs every Monday, self-commits updated stats and DOCX
