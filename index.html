@@ -76,6 +76,10 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .contact-item{display:flex;flex-direction:column;margin-bottom:.75rem}
 .contact-item span:first-child{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--silver);margin-bottom:.12rem}
 .contact-item a,.contact-item span:last-child{font-size:.83rem;color:var(--mist);text-decoration:none}
+.contact-item-multi{align-items:flex-start}
+.contact-multi{display:flex;flex-direction:column;gap:.18rem}
+.contact-multi a{font-size:.83rem;color:var(--mist);text-decoration:none}
+.contact-multi a:hover{color:var(--gold-light)}
 .contact-item a:hover{color:var(--gold-light)}
 
 /* TIMELINE */
@@ -282,6 +286,14 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 #presentations + #hobbies{margin-top:0}
 #presentations .section-wrap{padding-bottom:3rem}
 #hobbies .section-wrap{padding-top:3rem}
+
+.filter-main-group{margin-bottom:.15rem}
+.filter-main-btn{display:flex!important;justify-content:space-between;align-items:center;font-weight:500;color:var(--text)!important}
+.filter-main-btn.has-active{color:var(--gold)!important;border-color:var(--gold)!important}
+.filter-caret{font-size:.55rem;transition:transform .2s;opacity:.6}
+.filter-main-btn.open .filter-caret{transform:rotate(90deg)}
+.filter-sub-group{padding-left:.5rem;border-left:1px solid var(--mist);margin:.2rem 0 .2rem .35rem}
+.filter-sub-btn{font-size:.65rem!important;padding:.3rem .65rem!important}
 </style>
 </head>
 <body>
@@ -405,8 +417,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div>
       <div class="contact-block">
         <h3>Contact</h3>
-        <div class="contact-item"><span>Email</span><a href="#" class="cf-email" data-u="R.shahriari1995" data-d="gmail.com">[loading]</a></div>
-        <div class="contact-item"><span>Professional Email</span><a href="#" class="cf-email" data-u="Shahriarirad.reza" data-d="mayo.edu">[loading]</a></div> 
+        <div class="contact-item contact-item-multi"><span>Email</span><div class="contact-multi"><a href="#" class="cf-email" data-u="R.shahriari1995" data-d="gmail.com">[loading]</a><a href="#" class="cf-email" data-u="Shahriarirad.reza" data-d="mayo.edu">[loading]</a></div></div>
         <div class="contact-item"><span>Phone</span><span>+1-507-218-6077</span></div>
         <div class="contact-item"><span>Location</span><span>Rochester, Minnesota, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
@@ -536,23 +547,49 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Topic</span>
         <button class="filter-btn active" onclick="filterPubs('all',this,'cat')" id="cat-all-btn">All Topics</button>
-        <button class="filter-btn" onclick="filterPubs('plastic',this,'cat')">Plastic &amp; Reconstructive</button>
-        <button class="filter-btn" onclick="filterPubs('thoracic',this,'cat')">Thoracic Surgery</button>
-        <button class="filter-btn" onclick="filterPubs('vascular',this,'cat')">Vascular Surgery</button>
-        <button class="filter-btn" onclick="filterPubs('gi',this,'cat')">GI Surgery</button>
-        <button class="filter-btn" onclick="filterPubs('endocrine',this,'cat')">Endocrine Surgery</button>
-        <button class="filter-btn" onclick="filterPubs('ortho',this,'cat')">Orthopaedic</button>
-        <button class="filter-btn" onclick="filterPubs('burns',this,'cat')">Burns</button>
-        <button class="filter-btn" onclick="filterPubs('infectious',this,'cat')">Infectious Disease</button>
-        <button class="filter-btn" onclick="filterPubs('covid',this,'cat')">COVID-19</button>
-        <button class="filter-btn" onclick="filterPubs('oncology',this,'cat')">Oncology</button>
-        <button class="filter-btn" onclick="filterPubs('transplant',this,'cat')">Transplant</button>
-        <button class="filter-btn" onclick="filterPubs('ai',this,'cat')">AI &amp; Innovation</button>
-        <button class="filter-btn" onclick="filterPubs('pulm',this,'cat')">Pulmonology</button>
-        <button class="filter-btn" onclick="filterPubs('neuro',this,'cat')">Neurology</button>
-        <button class="filter-btn" onclick="filterPubs('derm',this,'cat')">Dermatology</button>
-        <button class="filter-btn" onclick="filterPubs('urology',this,'cat')">Urology</button>
-        <button class="filter-btn" onclick="filterPubs('pubhealth',this,'cat')">Public Health</button>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'surgery')" data-group="surgery">
+            <span>Surgery</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="grp-surgery" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('plastic',this,'cat')" data-main="surgery">Plastic, Reconstructive & Burns</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('thoracic',this,'cat')" data-main="surgery">Thoracic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('vascular',this,'cat')" data-main="surgery">Vascular Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('gi',this,'cat')" data-main="surgery">GI & Colorectal Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('endocrine',this,'cat')" data-main="surgery">Endocrine Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('ortho',this,'cat')" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('transplant',this,'cat')" data-main="surgery">Transplant Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('oncology',this,'cat')" data-main="surgery">Surgical Oncology</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'medicine')" data-group="medicine">
+            <span>Internal Medicine</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="grp-medicine" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('infectious',this,'cat')" data-main="medicine">Infectious Disease & COVID-19</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('pulm',this,'cat')" data-main="medicine">Pulmonology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('neuro',this,'cat')" data-main="medicine">Neurology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('derm',this,'cat')" data-main="medicine">Dermatology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('urology',this,'cat')" data-main="medicine">Urology</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'ai')" data-group="ai">
+            <span>Artificial Intelligence</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="grp-ai" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('ai',this,'cat')" data-main="ai">AI & Machine Learning</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="toggleFilterGroup(this,'pubhealth')" data-group="pubhealth">
+            <span>Public Health</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="grp-pubhealth" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('pubhealth',this,'cat')" data-main="pubhealth">Public Health & Epidemiology</button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Right: search + list -->
@@ -679,18 +716,49 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="pres-filter-group">
         <span class="pub-filter-group-label">Topic</span>
-        <button class="filter-btn" onclick="filterPres('cat','ai',this)">AI & Innovation</button>
-        <button class="filter-btn" onclick="filterPres('cat','burns',this)">Burns</button>
-        <button class="filter-btn" onclick="filterPres('cat','covid',this)">COVID-19</button>
-        <button class="filter-btn" onclick="filterPres('cat','gi',this)">GI Surgery</button>
-        <button class="filter-btn" onclick="filterPres('cat','infectious',this)">Infectious Disease</button>
-        <button class="filter-btn" onclick="filterPres('cat','oncology',this)">Oncology</button>
-        <button class="filter-btn" onclick="filterPres('cat','ortho',this)">Orthopaedic</button>
-        <button class="filter-btn" onclick="filterPres('cat','plastic',this)">Plastic & Reconstructive</button>
-        <button class="filter-btn" onclick="filterPres('cat','pubhealth',this)">Public Health</button>
-        <button class="filter-btn" onclick="filterPres('cat','pulm',this)">Pulmonology</button>
-        <button class="filter-btn" onclick="filterPres('cat','thoracic',this)">Thoracic</button>
-        <button class="filter-btn" onclick="filterPres('cat','transplant',this)">Transplant</button>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'surgery')" data-group="surgery">
+            <span>Surgery</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="pgrp-surgery" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','plastic',this)" data-main="surgery">Plastic, Reconstructive & Burns</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','thoracic',this)" data-main="surgery">Thoracic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','vascular',this)" data-main="surgery">Vascular Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','gi',this)" data-main="surgery">GI & Colorectal Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','endocrine',this)" data-main="surgery">Endocrine Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','ortho',this)" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','transplant',this)" data-main="surgery">Transplant Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','oncology',this)" data-main="surgery">Surgical Oncology</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'medicine')" data-group="medicine">
+            <span>Internal Medicine</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="pgrp-medicine" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','infectious',this)" data-main="medicine">Infectious Disease & COVID-19</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','pulm',this)" data-main="medicine">Pulmonology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','neuro',this)" data-main="medicine">Neurology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','derm',this)" data-main="medicine">Dermatology</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','urology',this)" data-main="medicine">Urology</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'ai')" data-group="ai">
+            <span>Artificial Intelligence</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="pgrp-ai" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','ai',this)" data-main="ai">AI & Machine Learning</button>
+          </div>
+        </div>
+        <div class="filter-main-group">
+          <button class="filter-btn filter-main-btn" onclick="togglePresGroup(this,'pubhealth')" data-group="pubhealth">
+            <span>Public Health</span><span class="filter-caret">▸</span>
+          </button>
+          <div class="filter-sub-group" id="pgrp-pubhealth" style="display:none">
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','pubhealth',this)" data-main="pubhealth">Public Health & Epidemiology</button>
+          </div>
+        </div>
       </div>
     </div>
     <!-- Right: search + list -->
@@ -779,7 +847,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-location">United States</div>
       </div>
     </div>
-    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="covid,transplant,infectious">
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant,infectious">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -801,7 +869,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-location">Turkey</div>
       </div>
     </div>
-    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="burns,pubhealth">
+    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2021</span>
         <span class="pres-type oral">Oral</span>
@@ -823,7 +891,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-location">Iran</div>
       </div>
     </div>
-    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="covid,infectious">
+    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious,infectious">
       <div class="pres-date-col">
         <span class="pres-year-txt">Sep 2020</span>
         <span class="pres-type oral">Oral</span>
@@ -1004,10 +1072,10 @@ async function fetchScholarData(){
 
 const publications = [
   {n:1,year:"2026",type:"review",tags:["co-first"],cat:["plastic"],title:"Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999–2025)",authors:"Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",journal:"Journal of Robotic Surgery",url:""},
-  {n:2,year:"2026",type:"original",tags:["corresponding"],cat:["covid","oncology"],title:"The Impact of the COVID-19 Pandemic on Patients with Breast Cancer, Diagnostic Delays and Disease Progression: A Retrospective Study",authors:"Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",journal:"(Published 2026)",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/"},
+  {n:2,year:"2026",type:"original",tags:["corresponding"],cat:["infectious","oncology"],title:"The Impact of the COVID-19 Pandemic on Patients with Breast Cancer, Diagnostic Delays and Disease Progression: A Retrospective Study",authors:"Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",journal:"(Published 2026)",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/"},
   {n:3,year:"2026",type:"case",tags:[],cat:["neuro"],title:"Three Challenging Cases of Autoimmune Encephalitis: A Case-Series and Review of the Literature",authors:"Bahrami Y, Pedramfar P*, Shahriarirad R",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733"},
   {n:4,year:"2025",type:"case",tags:["co-first"],cat:["vascular","urology"],title:"Effective and Lifesaving Retrograde Femoral and Jugular Vein Double Lumen Catheter Insertion in Patients with Poor Hemodialysis Venous Access: A Case Series",authors:"Hosseinzadeh A, Dalfardi F, Shahriarirad R, Pezeshkian F*, Keikha F",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522"},
-  {n:5,year:"2025",type:"original",tags:[],cat:["plastic","burns"],title:"The Effect of Autologous Platelet-Rich Plasma on Donor Site Wound Healing: A Randomised Crossover Clinical Trial",authors:"Dasmeh U, Mohammadi AA, Shahrokhi R, Shahriarirad S, Shahriarirad R, Naseri R*",journal:"Journal of Wound Care",url:"https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210"},
+  {n:5,year:"2025",type:"original",tags:[],cat:["plastic"],title:"The Effect of Autologous Platelet-Rich Plasma on Donor Site Wound Healing: A Randomised Crossover Clinical Trial",authors:"Dasmeh U, Mohammadi AA, Shahrokhi R, Shahriarirad S, Shahriarirad R, Naseri R*",journal:"Journal of Wound Care",url:"https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210"},
   {n:6,year:"2025",type:"original",tags:["corresponding"],cat:["ortho"],title:"Osteomyelitis and Its Main Determinants in Patients With Diabetic Foot Ulcer: A Cross-Sectional Study",authors:"Bolandi S, Niyakan MH, Jamali K, Ghodsi Boushehri Y, Tajaddini A, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463"},
   {n:7,year:"2025",type:"original",tags:["first","corresponding"],cat:["plastic","oncology"],title:"Systemic Evaluation of Quality, Readability, and Integrity of Online Breast Reconstruction Resources",authors:"Shahriarirad R*, Kumar N, Vijayasekaran A",journal:"Clinical Breast Cancer",url:"https://www.sciencedirect.com/science/article/pii/S1526820925002897"},
   {n:8,year:"2025",type:"original",tags:[],cat:["gi","oncology"],title:"Ghost Ileostomy Versus Protective Ileostomy in Rectal Cancer Followed by Low Anterior Resection: A Randomized Feasibility Trial",authors:"Meshkati Yazd SM, Keramati MR, Ghanbari Ghalerudkhani M, Shahriarirad R, Parsa A, Keshvari A*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351"},
@@ -1024,15 +1092,15 @@ const publications = [
   {n:19,year:"2024",type:"original",tags:["corresponding"],cat:["gi"],title:"Clinical Presentations and Surgical Features of Morgagni Hernia in Adults: A Retrospective Study",authors:"Mardani P, Dalfardi F, Bahmani S, Rahmati R, Zarimeidani F, Ziaian B, Amirian A, Vafabin M, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248"},
   {n:20,year:"2024",type:"original",tags:[],cat:[],title:"An Overview of the Role of Chemokine CX3CL1 (Fractalkine) and CX3C Chemokine Receptor 1 in Systemic Sclerosis",authors:"Pezeshkian F, Shahriarirad R, Mahram H*",journal:"Immunity, Inflammation and Disease",url:"https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034"},
   {n:21,year:"2024",type:"original",tags:["corresponding"],cat:["thoracic","oncology"],title:"The Aftermath of Asbestos Prohibition in Industry and Its Association with Malignant Mesothelioma in the South of Iran: An Enduring Predicament yet to be Resolved",authors:"Rezvani A, Shahriarirad R*, Jahanshahi S, Fouladi D, Tavallali M, Ziaian B, Fallahi MJ",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117"},
-  {n:22,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","covid"],title:"Changes in Incidence and Clinical Features of Tuberculosis with Regard to the COVID-19 Outbreak in Southern Iran",authors:"Fallahi MJ, Nazemi M, Zeighami A, Shahriarirad R*",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-024-09947-0"},
+  {n:22,year:"2024",type:"original",tags:["corresponding"],cat:["infectious"],title:"Changes in Incidence and Clinical Features of Tuberculosis with Regard to the COVID-19 Outbreak in Southern Iran",authors:"Fallahi MJ, Nazemi M, Zeighami A, Shahriarirad R*",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-024-09947-0"},
   {n:23,year:"2024",type:"original",tags:["corresponding"],cat:["vascular"],title:"Computed Tomography Angiography-guided Analysis of Morphologic Properties of the Thoracic Aorta and Arch Branches: A Cross-sectional Study",authors:"Hosseinzadeh A, Tajaddini A, Jafari SH, Mohammadi Z, Dalfardi F, Fatemian H, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017"},
   {n:24,year:"2024",type:"original",tags:[],cat:["gi","oncology"],title:"Analyzing Quality of Life After Low Anterior Resection for Rectal Cancer",authors:"Meshkati Yazd SM, Shahriarirad R, Almasi S, Mirmohammadkhani M, Keramati MR*",journal:"Irish Journal of Medical Science",url:"https://link.springer.com/article/10.1007/s11845-024-03757-8"},
   {n:25,year:"2024",type:"original",tags:["first","corresponding"],cat:["gi"],title:"Evaluation of Salvia Officinalis (Sage) in the Treatment of Acetic Acid-Induced Ulcerative Colitis in Rat Model",authors:"Shahriarirad R*, Seifbehzad S, Erfani A, Nekouei F, Ashkani-Esfahani S, Hosseinzadeh M, Tanideh N, Koohi-Hosseinabadi O, Sarkari B",journal:"Journal of Coloproctology",url:"https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141"},
-  {n:26,year:"2024",type:"original",tags:["first","corresponding"],cat:["covid","pubhealth"],title:"Knowledge, Attitude, and Practice toward the Novel Coronavirus (COVID-19) Outbreak: A Population-Based Survey in Iran",authors:"Erfani A, Shahriarirad R*, Ranjbar K, Mirahmadizadeh A, Moghadami M",journal:"Journal of Health Sciences & Surveillance System",url:"https://journals.sums.ac.ir/article_49437.html"},
+  {n:26,year:"2024",type:"original",tags:["first","corresponding"],cat:["infectious","pubhealth"],title:"Knowledge, Attitude, and Practice toward the Novel Coronavirus (COVID-19) Outbreak: A Population-Based Survey in Iran",authors:"Erfani A, Shahriarirad R*, Ranjbar K, Mirahmadizadeh A, Moghadami M",journal:"Journal of Health Sciences & Surveillance System",url:"https://journals.sums.ac.ir/article_49437.html"},
   {n:27,year:"2024",type:"original",tags:[],cat:["endocrine"],title:"Comparison of Endoscopic Versus Focused Parathyroidectomy in Surgical Management of Single-gland Primary Hyperparathyroidism: A Randomized Clinical Trial",authors:"Meshkati Yazd SM, Shahriarirad R, Nayebi S, Dehghan P, Abbasi A, Maghsoodloo F, Hamedani K, Nasiri S*",journal:"Langenbeck's Archives of Surgery",url:"https://link.springer.com/article/10.1007/s00423-024-03390-0"},
   {n:28,year:"2024",type:"original",tags:["first","corresponding"],cat:["thoracic"],title:"Single-Stage Bronchoscopy-Guided Protocol for Tracheostomy Decannulation in Adult Patients",authors:"Mardani P, Naseri R*, Mahram H, Alishavandi F, Amirian A, Ziaian B, Shahriarirad R*",journal:"Journal of Surgical Research",url:"https://authors.elsevier.com/c/1jIJR578Xh~MO"},
-  {n:29,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","covid","urology"],title:"Prevalence and Risk Factors of Latent Tuberculosis Infection in Hemodialysis Patients in Southwest Iran",authors:"Rahimi M, Forouzani F, Mousavizadeh A, Shahriarirad R, Ardekani A, Foolad S, Nikbakht G*",journal:"Epidemiological Review (Przegląd Epidemiologiczny)",url:"https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html"},
-  {n:30,year:"2024",type:"original",tags:["corresponding"],cat:["covid","pulm"],title:"Evaluation of the Predictors and Frequency of Silent Hypoxemia in COVID-19 Patients and the Gap between Pulse Oximeter and Arterial Blood Gas Levels",authors:"Fallahi MJ, Pezeshkian F, Ranjbar K, Javaheri R, Shahriarirad R*",journal:"Health Care Science",url:"http://doi.org/10.1002/hcs2.98"},
+  {n:29,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","urology"],title:"Prevalence and Risk Factors of Latent Tuberculosis Infection in Hemodialysis Patients in Southwest Iran",authors:"Rahimi M, Forouzani F, Mousavizadeh A, Shahriarirad R, Ardekani A, Foolad S, Nikbakht G*",journal:"Epidemiological Review (Przegląd Epidemiologiczny)",url:"https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html"},
+  {n:30,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","pulm"],title:"Evaluation of the Predictors and Frequency of Silent Hypoxemia in COVID-19 Patients and the Gap between Pulse Oximeter and Arterial Blood Gas Levels",authors:"Fallahi MJ, Pezeshkian F, Ranjbar K, Javaheri R, Shahriarirad R*",journal:"Health Care Science",url:"http://doi.org/10.1002/hcs2.98"},
   {n:31,year:"2024",type:"original",tags:[],cat:["transplant"],title:"Comparison of the Effect of Everolimus, Prednisolone, and a Combination of Both on Experimentally Induced Peritoneal Adhesions in Rats",authors:"Kazemi K, Jamshidi K, Naseri R, Shahriarirad R, Shamsaeefar A, Hosseinzadeh A*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-024-61620-3"},
   {n:32,year:"2024",type:"original",tags:[],cat:["neuro"],title:"An Overcorrective Modification of Cranial Vault Reconstruction for Non-Syndromic Metopic Suture Synostosis: Shiraz Technique",authors:"Masoudi MS, Zoghi S, Ansari A, Taherpour S, Shahriarirad R, Taheri R*",journal:"Archives of Pediatric Neurosurgery",url:"https://www.archpedneurosurg.com.br/sbnped2019/article/view/231"},
   {n:33,year:"2024",type:"original",tags:[],cat:["plastic"],title:"Posterior Positioning of Levator Veli Palatini with Intact Nasal Layer and Side-by-Side Bilateral Buccinator Flaps: Modified Approach for Palatal Lengthening",authors:"Hoghooghi MA, Hooman K, Shahriarirad R, Salimi M, Hosseinpour H*",journal:"The Cleft Palate Craniofacial Journal",url:"https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full"},
@@ -1040,14 +1108,14 @@ const publications = [
   {n:35,year:"2024",type:"original",tags:["corresponding"],cat:["endocrine"],title:"Demographic, Clinical, and Surgical Features of Patients Undergoing Thyroidectomy due to Thyroid Lesions in Southern Iran",authors:"Mardani P, Koulaian S, Fouladi D, Malekhosseini HR, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.2012"},
   {n:36,year:"2024",type:"review",tags:["corresponding"],cat:["infectious","pubhealth"],title:"Serosurvey of Anti-Rubella and Anti-Measles IgG Antibodies in Young Females in Jahrom, Southern West Iran: A Review of Literature of the Serological Profile in Iran",authors:"Mojarad N, Forouzani F, Mohammadi Z*, Shahriarirad R*",journal:"Journal of General and Family Medicine",url:"https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677"},
   {n:37,year:"2024",type:"original",tags:[],cat:["gi"],title:"Comparison of Hand-sewn Anterior Repair, Resection and Hand-sewn Anastomosis, Resection and Stapled Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy: A Randomized Clinical Trial",authors:"Meshkati Yazd SM, Shahriarirad R, Keramati MR, Omidi M, Nabavizadeh SS, Keshvari A*",journal:"Techniques in Coloproctology",url:"https://link.springer.com/article/10.1007/s10151-023-02898-9"},
-  {n:38,year:"2024",type:"original",tags:[],cat:["covid","pubhealth"],title:"High Post-Infection Protection after COVID-19 among Healthcare Workers: A Population-Level Observational Study",authors:"Shahriarirad S, Asmarian N, Shahriarirad R, Moghadami M, Askarian M, Malekhosseini SA, Sabetian G*",journal:"Iranian Journal of Medical Sciences",url:"https://ijms.sums.ac.ir/article_49872.html"},
+  {n:38,year:"2024",type:"original",tags:[],cat:["infectious","pubhealth"],title:"High Post-Infection Protection after COVID-19 among Healthcare Workers: A Population-Level Observational Study",authors:"Shahriarirad S, Asmarian N, Shahriarirad R, Moghadami M, Askarian M, Malekhosseini SA, Sabetian G*",journal:"Iranian Journal of Medical Sciences",url:"https://ijms.sums.ac.ir/article_49872.html"},
   {n:39,year:"2024",type:"original",tags:[],cat:["gi"],title:"Novel Textbook Outcomes following Emergency Laparotomy: Delphi Exercise",authors:"Naumann D*, Bhangu A, Brooks A, BEACON Collaborative (including Shahriarirad R)",journal:"BJS Open",url:"https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246"},
-  {n:40,year:"2024",type:"original",tags:["corresponding"],cat:["covid","pubhealth"],title:"The Trend of Mortality Rates Following Hospitals Downgrading and Closures due to Outbreak of COVID-19 in Fars Province: A Comparative Cohort Study",authors:"Fallahi MJ, Seifbehzad S, Fereidooni M, Farrokhi AM, Ranjbar K, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850"},
+  {n:40,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"The Trend of Mortality Rates Following Hospitals Downgrading and Closures due to Outbreak of COVID-19 in Fars Province: A Comparative Cohort Study",authors:"Fallahi MJ, Seifbehzad S, Fereidooni M, Farrokhi AM, Ranjbar K, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850"},
   {n:41,year:"2024",type:"original",tags:["first","corresponding"],cat:["oncology","ai"],title:"Prediction of Sentinel Lymph Node Metastasis in Breast Cancer Patients Based on Preoperative Features: A Deep Machine Learning Approach",authors:"Shahriarirad R, Meshkati Yazd SM, Fathian R, Fallahi M, Ghadiani Z, Nafissi N*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-024-51244-y"},
   {n:42,year:"2024",type:"original",tags:[],cat:["derm"],title:"Practice and Attitude of General Practitioners Towards Initiating Isotretinoin for Acne Vulgaris in Fars Province, Iran",authors:"Hosseinpour P*, Gholamabbas G, Pezeshkian F, Erfani A, Shahriarirad R, Parhizkar AR",journal:"BMC Primary Care",url:"https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w"},
   {n:43,year:"2023",type:"original",tags:[],cat:["thoracic"],title:"Demographic and Clinical Features of Patients Operated with the Diagnosis of Acute Descending Necrotizing Mediastinitis: A Retrospective Study in Southern Iran",authors:"Ranjbar K, Shahriarirad R, Ebrahimi K, Amirian A, Karoobi MR, Mardani P, Erfani A, Fallahi MJ, Ketabchi F, Ziaian B*",journal:"BMC Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w"},
   {n:44,year:"2023",type:"original",tags:["corresponding"],cat:["infectious","urology"],title:"Antibiotic Resistance Pattern Among Isolated Bacteria from Urinary Tract Infection Patients in the Intensive Care Unit",authors:"Forouzani F, Sharifi A, Mojarad N, Mohammadi Z, Shahriarirad R*",journal:"Journal of Medical Bacteriology",url:"https://jmb.tums.ac.ir/index.php/jmb/article/view/500"},
-  {n:45,year:"2023",type:"original",tags:["first","corresponding"],cat:["burns"],title:"Cohort Analysis of 50% Lethal Area (LA50) and Associating Factors in Burn Patients based on Quality Improvements and Health Policies",authors:"Shahriarirad R, Shekouhi R, Nabavizadeh SS, Zardosht M, Tadayon SMK, Ahmadi M, Keshavarzi A*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-023-45884-9"},
+  {n:45,year:"2023",type:"original",tags:["first","corresponding"],cat:["plastic"],title:"Cohort Analysis of 50% Lethal Area (LA50) and Associating Factors in Burn Patients based on Quality Improvements and Health Policies",authors:"Shahriarirad R, Shekouhi R, Nabavizadeh SS, Zardosht M, Tadayon SMK, Ahmadi M, Keshavarzi A*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-023-45884-9"},
   {n:46,year:"2023",type:"original",tags:["first","corresponding"],cat:["gi"],title:"Protective Effect of Melissa Officinalis Against Acetic Acid-Induced Ulcerative Colitis in Rat Models",authors:"Shahriarirad R*, Erfani A, Nekouei F, Seifbehzad S, Hosseinzadeh M, Sarkari B, Tanideh N, Koohi-Hosseinabadi O, Nassour N, Ashkani-Esfahani S",journal:"Annals of Gastroenterology",url:"https://doi.org/10.20524/aog.2023.0836"},
   {n:47,year:"2023",type:"original",tags:[],cat:["plastic"],title:"The Effect of a Preoperative Single Dose of Gabapentin on Emergence Agitation in Patients Undergoing Rhinoplasty: A Randomized Clinical Trial",authors:"Hoghoughi MA, Jouybar R, Alvandi A, Shahriarirad R, Hosseinpour H, Ranjbar K, Kamran H*",journal:"European Journal of Plastic Surgery",url:"https://link.springer.com/article/10.1007/s00238-023-02116-7"},
   {n:48,year:"2023",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Evaluation of the Features of Cystic Echinococcosis with Concurrent Super-infection: A Retrospective Study in Southern Iran",authors:"Shahriarirad R, Shekouhi R, Erfani A, Rastegarian M, Eskandarisani M, Motamedi M, Sarkari B*",journal:"BMC Infectious Diseases",url:"https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-023-08520-5"},
@@ -1064,48 +1132,48 @@ const publications = [
   {n:59,year:"2023",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Evaluation of Locoregional Tumoral Involvement in the Co-occurrence of Hashimoto Thyroiditis with Papillary Thyroid Cancer",authors:"Nasiri N, Meshkati Yazd SM, Gholami M, Shahriarirad S, Sharghi S, Shahriarirad R*",journal:"BMC Endocrine Disorder",url:"https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01322-5"},
   {n:60,year:"2023",type:"original",tags:[],cat:["gi","transplant"],title:"Comparison of the Preventive Effect of Colchicine versus Diphenhydramine, Prednisolone, and a Combination Therapy on Intraperitoneal Adhesion Bands: An Experimental Study in Rats",authors:"Malekhosseini SA, Alizadeh B, Hosseinzadeh A, Shahriarirad R, Kazemi K, Naseri R*",journal:"BMC Surgery",url:"https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0"},
   {n:61,year:"2023",type:"original",tags:["corresponding"],cat:["vascular"],title:"Association of Complications during and after Carotid Body Tumor Resection with Tumor Size and Distance to the Base of Skull",authors:"Ghoddusi Johari H, Afshari A, Abolhasani Foroughi A, Khademi B, Shahriarirad S, Erfani A, Hodjati H, Shahriarirad R*",journal:"Annals of Vascular Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474"},
-  {n:62,year:"2023",type:"original",tags:["first","corresponding"],cat:["burns","pubhealth"],title:"Prevalence of Suicide by Self-immolation among Children in Southern Iran",authors:"Shahriarirad R, Ranjbar K, Erfani A, Modarresi M, Koranishiraz A, Kamali M, Zardosht M, Mohammadi AA*",journal:"The Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317"},
+  {n:62,year:"2023",type:"original",tags:["first","corresponding"],cat:["plastic","pubhealth"],title:"Prevalence of Suicide by Self-immolation among Children in Southern Iran",authors:"Shahriarirad R, Ranjbar K, Erfani A, Modarresi M, Koranishiraz A, Kamali M, Zardosht M, Mohammadi AA*",journal:"The Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317"},
   {n:63,year:"2023",type:"original",tags:[],cat:["gi","urology"],title:"Evaluation of the Effectiveness of Prophylactic Omentopexy during Laparoscopic Insertion of Peritoneal Dialysis Catheter: A Case-Control Clinical Trial",authors:"Keshvari A, Meshkati Yazd SM, Keramati MR, Kamran H, Shahriarirad R",journal:"International Urology and Nephrology",url:"https://link.springer.com/article/10.1007/s11255-023-03522-3"},
   {n:64,year:"2023",type:"original",tags:[],cat:["ortho"],title:"Effectiveness of Transcutaneous Electrical Nerve Stimulation alongside Quadriceps Exercise in the Correction of Soccer Genu Varum in Adolescents 14-18 Years Old: A Randomized Controlled Trial",authors:"Pourmokhtari M, Shahriarirad R, Shekouhi R*",journal:"Sports Sciences for Health",url:"https://link.springer.com/article/10.1007/s11332-023-01049-9"},
-  {n:65,year:"2023",type:"original",tags:["corresponding"],cat:["infectious","covid","transplant"],title:"COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",authors:"Shafiekhani M, Niknam T, Tara SA, Mardani P, Hosseinpour P, Shahriarirad R*, MalekHosseini SA",journal:"Cost Effectiveness and Resource Allocation",url:"https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x"},
+  {n:65,year:"2023",type:"original",tags:["corresponding"],cat:["infectious","transplant"],title:"COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",authors:"Shafiekhani M, Niknam T, Tara SA, Mardani P, Hosseinpour P, Shahriarirad R*, MalekHosseini SA",journal:"Cost Effectiveness and Resource Allocation",url:"https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x"},
   {n:66,year:"2023",type:"original",tags:[],cat:["plastic","derm"],title:"Evaluation of the Effect of Platelet Rich Fibrin Matrix in the Correction of Periorbital Wrinkles: An Experimental Clinical Trial",authors:"Ahmadi Mahmoodabadi R, Golafshan HA, Pezeshkian F, Shahriarirad R, Namazi M*",journal:"Dermatology Practical & Conceptual",url:"https://dpcj.org/index.php/dpc/article/view/2535"},
   {n:67,year:"2023",type:"original",tags:["corresponding"],cat:["gi"],title:"Gastroesophageal Reflux Disease Incidence Among Male Patients with Irritable Bowel Syndrome: A Single-Center Cross-sectional Study in Southern Iran",authors:"Gholamnezhad F, Qeisari A, Shahriarirad R*",journal:"Journal of Gastroenterology and Hepatology Open",url:"https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867"},
   {n:68,year:"2023",type:"original",tags:[],cat:["oncology"],title:"Postoperative Cosmetic Outcome of Intraoperative Radiotherapy in Comparison to Whole Breast Radiotherapy in Early Stage Breast Cancer: A Retrospective Cohort Study",authors:"Nafisi N, Meshkati Yazd SM, Shahriarirad R, Zangeneh S, Ghorbani S, Farazmand B, Karoobi MR*, Mirzaei HR",journal:"BMC Cancer",url:"https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10468-9"},
   {n:69,year:"2023",type:"original",tags:[],cat:["gi"],title:"Hand-Sewn Direct Repair Versus Resection and Hand-Sewn Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy after Lower Anterior Rectal Resection Surgery: A Randomized Clinical Trial",authors:"Keramati MR, Meshkati Yazd SM, Shahriarirad R, Omidi M, Nabavizadeh SS, Keshvari A*",journal:"Journal of Surgical Oncology",url:"https://onlinelibrary.wiley.com/doi/10.1002/jso.27185"},
-  {n:70,year:"2022",type:"original",tags:["corresponding"],cat:["burns"],title:"Hypertonic Saline Solution 5% as an Effective Cost-beneficial Alternative to Normal Saline for Wound Healing in Patients with Diabetic Lower-Extremity Ulcers: A Randomized Controlled Trial",authors:"Ziaian B, Khezri S, Amirian A, Ranjbar K, Shahriarirad R*, Eskandari Kohnakia M",journal:"Journal of Diabetes & Metabolic Disorders",url:"https://link.springer.com/article/10.1007/s40200-022-01167-0"},
+  {n:70,year:"2022",type:"original",tags:["corresponding"],cat:["plastic"],title:"Hypertonic Saline Solution 5% as an Effective Cost-beneficial Alternative to Normal Saline for Wound Healing in Patients with Diabetic Lower-Extremity Ulcers: A Randomized Controlled Trial",authors:"Ziaian B, Khezri S, Amirian A, Ranjbar K, Shahriarirad R*, Eskandari Kohnakia M",journal:"Journal of Diabetes & Metabolic Disorders",url:"https://link.springer.com/article/10.1007/s40200-022-01167-0"},
   {n:71,year:"2022",type:"original",tags:["first","corresponding"],cat:["endocrine"],title:"Evaluation of the Role of Prophylactic Bilateral Central Neck Lymph Node Dissection in Patients with Papillary Thyroid Carcinoma: A Case Controlled Study",authors:"Shahriarirad R, Meshkati Yazd SM, Zahedi R, Mokhtari Ardekani A, Rekabi MM, Nasiri S*",journal:"Updates in Surgery",url:"https://link.springer.com/article/10.1007/s13304-022-01440-0"},
   {n:72,year:"2022",type:"original",tags:["first","corresponding"],cat:["endocrine"],title:"Calcitriol Supplementation Before Parathyroidectomy and Calcium Level After Surgery in Parathyroid Adenoma Patients: A Randomized Controlled Trial",authors:"Shahriarirad R, Meshkati Yazd SM, Ardekani A, Mokhtari Ardekani A, Moradi N, Nasiri S*",journal:"Journal of Endocrinological Investigation",url:"https://link.springer.com/article/10.1007/s40618-022-01963-8"},
-  {n:73,year:"2022",type:"original",tags:[],cat:["covid","pubhealth"],title:"Factors Associated with Reluctancy to Acquire COVID-19 Vaccination: A Cross-sectional Study in Shiraz, Iran, 2022",authors:"Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",journal:"PLOS One",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967"},
+  {n:73,year:"2022",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Factors Associated with Reluctancy to Acquire COVID-19 Vaccination: A Cross-sectional Study in Shiraz, Iran, 2022",authors:"Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",journal:"PLOS One",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967"},
   {n:74,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Effect of Thymectomy during Central Neck Dissection in Papillary Thyroid Carcinoma: A Case-Controlled Study",authors:"Nasiri S, Meshkati Yazd SM, Mokhtari Ardekani A, Fazlollahpour-Naghibi A, Shahintaj M, Shahriarirad R*",journal:"Updates In Surgery",url:"https://link.springer.com/article/10.1007/s13304-022-01428-w"},
   {n:75,year:"2022",type:"original",tags:[],cat:["thoracic"],title:"The Role and Value of Low-Dose Computed Tomography Scan Compared to Esophagoscopy in the Diagnosis of Foreign Body Ingestion in Adults",authors:"Mardani P, Shahriarirad R, Khosravi F, Malekhosseini HR, Amirian A, Kamran H*",journal:"General Thoracic and Cardiovascular Surgery",url:"https://link.springer.com/article/10.1007/s11748-022-01880-w"},
   {n:76,year:"2022",type:"original",tags:[],cat:["thoracic"],title:"Utilization of Chest Tube as an Esophagus Stent in Pediatric Caustic Injuries: A Retrospective Study",authors:"Salimi M, Hosseinpour H, Shahriarirad R, Esfandiari S, Pooresmaeel F, Sarejloo S, Foroutan H*",journal:"World Journal of Clinical Pediatrics",url:"https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm"},
-  {n:77,year:"2022",type:"original",tags:["corresponding"],cat:["covid"],title:"Prevalence and Associated Factors of Complementary and Integrative Medicine Use in Patients Afflicted with COVID-19",authors:"Parvizi MM*, Sedigheh Forouhari S, Shahriarirad R*, Shahriarirad S, Bradley R, Roosta L, Heydari M",journal:"BMC Complementary Medicine and Therapies",url:"https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x"},
+  {n:77,year:"2022",type:"original",tags:["corresponding"],cat:["infectious"],title:"Prevalence and Associated Factors of Complementary and Integrative Medicine Use in Patients Afflicted with COVID-19",authors:"Parvizi MM*, Sedigheh Forouhari S, Shahriarirad R*, Shahriarirad S, Bradley R, Roosta L, Heydari M",journal:"BMC Complementary Medicine and Therapies",url:"https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x"},
   {n:78,year:"2022",type:"original",tags:["corresponding"],cat:["thoracic"],title:"The Role of Routine Chest Radiography after Implantable Venous Access Port Catheter Insertion under the Guide of Ultrasonography and Fluoroscopy",authors:"Ghoddusi Johari H, Saki M, Erfani A, Shahriarirad R*, Ranjbar K",journal:"Cost Effectiveness and Resource Allocation",url:"https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z"},
   {n:79,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Incidence and Features of Delphian Lymph Node Involvement in Patients with Papillary Thyroid Carcinoma",authors:"Alibakhshi A, Sheikhi S, Meshkati Yazd SM, Ardekani A, Ranjbar K, Shahriarirad R*",journal:"BMC Surgery",url:"https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-022-01742-5"},
   {n:80,year:"2022",type:"original",tags:[],cat:[],title:"Determination of the Main Causes, Outcome and Prognostic Factors of Patients with Rheumatologic Diseases Admitted to the Medical Intensive Care Unit in Southern Iran",authors:"Arjmand M, Shahriarirad R, Shenavandeh S, Fallahi MJ*",journal:"Clinical Rheumatology",url:"https://link.springer.com/article/10.1007/s10067-022-06334-5"},
   {n:81,year:"2022",type:"original",tags:[],cat:["gi"],title:"Evaluation of Post Laparoscopic Cholecystectomy Pain after Subcutaneous Injection of Lidocaine at Port Site versus Lidocaine Spray on Gallbladder Bed: A Randomized Controlled Trial",authors:"Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR, Mehri G",journal:"Langenbeck's Archives of Surgery",url:"https://link.springer.com/article/10.1007/s00423-022-02645-y"},
-  {n:82,year:"2022",type:"original",tags:["corresponding"],cat:["plastic","burns"],title:"Therapeutic Efficacy of Great Plantain (Plantago major L.) in the Treatment of Second-Degree Burn Wounds: A Case-Control Study",authors:"Keshavarzi A, Montaseri H, Akrami R, Hoghoughi MA, Ranjbar K, Shahriarirad R*",journal:"International Journal of Clinical Practice",url:"https://www.hindawi.com/journals/ijclp/2022/4923277/"},
+  {n:82,year:"2022",type:"original",tags:["corresponding"],cat:["plastic"],title:"Therapeutic Efficacy of Great Plantain (Plantago major L.) in the Treatment of Second-Degree Burn Wounds: A Case-Control Study",authors:"Keshavarzi A, Montaseri H, Akrami R, Hoghoughi MA, Ranjbar K, Shahriarirad R*",journal:"International Journal of Clinical Practice",url:"https://www.hindawi.com/journals/ijclp/2022/4923277/"},
   {n:83,year:"2022",type:"original",tags:["corresponding"],cat:["ortho"],title:"Promising Results of Captopril in Improving Knee Arthrofibrosis and Cartilage Status: An Animal Model Study",authors:"Hashemi SA, Azad A, Erfani A, Shahriarirad R*, Azarpira N",journal:"Journal of Experimental Orthopaedics",url:"https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5"},
   {n:84,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"Auto Transplantation of Parathyroid Tissue into Subcutaneous Subclavicular Area Following Total Parathyroidectomy in Secondary Hyperparathyroidism",authors:"Nasiri S, Meshkati Yazd SM, Kamran H, Kahrizi MS, Azhdari M, Shahriarirad R*",journal:"Journal of Endocrinological Investigation",url:"https://link.springer.com/article/10.1007/s40618-022-01864-w"},
   {n:85,year:"2022",type:"original",tags:[],cat:["vascular"],title:"The Role of Surgical and Endovascular Repair of Blunt Traumatic Aortic Injury in the Modern Era: A Single-Center Experience",authors:"Ghoddusi Johari H, Moein SA*, Hosseinzadeh A, Kojuri J, Roshanshad A, Shahriarirad R",journal:"Bulletin of Emergency and Trauma",url:"https://beat.sums.ac.ir/article_48535.html"},
-  {n:86,year:"2022",type:"original",tags:[],cat:["covid","pubhealth"],title:"Parents' Attitude to School Reopening before the Emergence of Omicron Variant of SARS-CoV-2: A Retrospective Web-based Survey",authors:"Mirahmadizadeh A, Heiran A, Sahebi R, Azadian F, Shahriarirad R, Sharifi MH",journal:"Health Management & Information Science",url:"https://jhmi.sums.ac.ir/article_48840.html"},
+  {n:86,year:"2022",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Parents' Attitude to School Reopening before the Emergence of Omicron Variant of SARS-CoV-2: A Retrospective Web-based Survey",authors:"Mirahmadizadeh A, Heiran A, Sahebi R, Azadian F, Shahriarirad R, Sharifi MH",journal:"Health Management & Information Science",url:"https://jhmi.sums.ac.ir/article_48840.html"},
   {n:87,year:"2022",type:"original",tags:[],cat:["infectious"],title:"Evaluation and Comparison of Mucormycosis Patients' Features Undergoing Functional Endoscopic Sinus Surgery Prior to and during the COVID-19 Pandemic: A Case-Control Study",authors:"Dehghanpisheh L, Eghbal MH, Salari M, Shahriarirad R, Borzou N, Vatankhah P*",journal:"International Journal of Clinical Practice",url:"https://www.hindawi.com/journals/ijclp/2022/1248325/"},
-  {n:88,year:"2022",type:"original",tags:[],cat:["covid","ai","pulm"],title:"Prediction of Patients with COVID-19 Requiring Intensive Care: A Cross-sectional Study Based on Machine-learning Approach from Iran",authors:"Sabetian G, Azimi A*, Kazemi A*, Hoseini B, Asmarian N, Khaloo V, Zand F, Masjedi M, Shahriarirad R, Shahriarirad S",journal:"Indian Journal of Critical Care Medicine",url:"https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article"},
+  {n:88,year:"2022",type:"original",tags:[],cat:["infectious","ai","pulm"],title:"Prediction of Patients with COVID-19 Requiring Intensive Care: A Cross-sectional Study Based on Machine-learning Approach from Iran",authors:"Sabetian G, Azimi A*, Kazemi A*, Hoseini B, Asmarian N, Khaloo V, Zand F, Masjedi M, Shahriarirad R, Shahriarirad S",journal:"Indian Journal of Critical Care Medicine",url:"https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article"},
   {n:89,year:"2022",type:"original",tags:[],cat:["infectious","transplant"],title:"Incidence, Clinicomicrobiological Characteristics, Risk Factors, and Treatment Outcomes of Bacterial Infections Following Liver Transplantation in Pediatrics: A Retrospective Cohort Study",authors:"Vazin A, Shahriarirad R, Malekhosseini SA, Shafiekhani M, Nikoupour H, Arasteh P",journal:"Archives of Pediatric Infectious Diseases",url:"https://brieflands.com/articles/apid-118809.html"},
   {n:90,year:"2022",type:"original",tags:[],cat:["ortho"],title:"Evaluation of Crossover Sign in Pelvis Models Made with a Three-Dimensional Printer",authors:"Salimi A, Mirghaderi SP, Gholamzadeh MJ, Qahremani R, Hadizadeh A, Shahriarirad R, Shekouhi R",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2022/4665342/"},
   {n:91,year:"2022",type:"review",tags:[],cat:["gi"],title:"Effects of Neuromodulation on Treatment of Recurrent Anal Fissure: A Systematic Review",authors:"Bananzadeh A, Sohooli M, Tahereh Shamsi T, Darabi MH, Shahriarirad R, Shekouhi R*",journal:"International Journal of Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381"},
   {n:92,year:"2022",type:"review",tags:[],cat:["thoracic"],title:"The Effect of Suture Techniques on the Outcome of Tracheal Reconstruction: An Observational Study and Review of Literature",authors:"Ziaian B, Shahriarirad R, Fouladi D*, Mardani P, Amirian A, Kamran H",journal:"The Surgeon",url:"https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580"},
   {n:93,year:"2022",type:"original",tags:["corresponding"],cat:["gi","transplant"],title:"Comparison of Oral Sirolimus, Prednisolone, and Combination of Both in Experimentally Induced Peritoneal Adhesion",authors:"Kazemi K, Hosseinzadeh A, Shahriarirad R*, Naseri R, Shamsaeefar A, Malekhosseini SA",journal:"Journal of Surgical Research",url:"https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287"},
   {n:94,year:"2022",type:"original",tags:[],cat:["ortho","neuro"],title:"A Comparison between Effectiveness of Gluteal Trigger Point and Epidural Steroid Injection in Lumbosacral Canal Stenosis Patients: A Randomized Clinical Trial",authors:"Khoshnazar SS, Farpour HR*, Shahriarirad R",journal:"British Journal of Neurosurgery",url:"https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698"},
-  {n:95,year:"2022",type:"original",tags:[],cat:["plastic","burns"],title:"Burn Injuries in People Who Used Drug, 2009-2017: A Case-Control Study in Shiraz, Southern Iran",authors:"Hoghoughi MA, Marzban MR, Shahrbaf MA, Shahriarirad R, Karoobi M, Ranjbar K",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346"},
+  {n:95,year:"2022",type:"original",tags:[],cat:["plastic"],title:"Burn Injuries in People Who Used Drug, 2009-2017: A Case-Control Study in Shiraz, Southern Iran",authors:"Hoghoughi MA, Marzban MR, Shahrbaf MA, Shahriarirad R, Karoobi M, Ranjbar K",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346"},
   {n:96,year:"2022",type:"original",tags:[],cat:["infectious","ai"],title:"A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images",authors:"Zare M, Akbarialiabad H, Parsaei H, Asgari Q, Alinejad A, Shahriarirad R, Abdollahifard G*",journal:"BMC Infectious Diseases",url:"https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7"},
-  {n:97,year:"2022",type:"original",tags:[],cat:["covid","neuro","pubhealth"],title:"Prevalence of Anxiety, Depression, Stress, and Perceived Stress and Their Relation with Resilience in the General Population during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Parvar SY, Ghamari N*, Pezeshkian F, Shahriarirad R",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460"},
+  {n:97,year:"2022",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Prevalence of Anxiety, Depression, Stress, and Perceived Stress and Their Relation with Resilience in the General Population during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Parvar SY, Ghamari N*, Pezeshkian F, Shahriarirad R",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460"},
   {n:98,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Serosurvey and Molecular Detection of Toxoplasma gondii in Dogs in Rural Areas of Kazeroun District, Fars Province, Southern Iran",authors:"Rezaei Z, Zeighami A, Shahriarirad R, Arefkhah N, Sarkari B",journal:"Journal of Parasitology Research",url:"https://www.hindawi.com/journals/jpr/2021/4499086/"},
   {n:99,year:"2021",type:"review",tags:[],cat:["ortho"],title:"Transportal versus All-Inside Techniques of Anterior Cruciate Ligament Reconstruction: A Systematic Review",authors:"Bhimani R, Shahriarirad R, Ranjbar K, Erfani A*, Ashkani-Esfahani S",journal:"Journal of Orthopaedic Surgery and Research",url:"https://link.springer.com/article/10.1186/s13018-021-02872-x"},
   {n:100,year:"2021",type:"original",tags:[],cat:["ortho"],title:"Evaluation of the Relationship between Vitamin D Levels and Related Serum Markers as Well as Disease Activity in Patients with Rheumatoid Arthritis",authors:"Moghimi N, Faridfar A, Jelodari Mamaghani H, Nikandish M, Shahriarirad R, Shenavandeh S",journal:"Journal of Bioengineering Research",url:"http://www.journalbe.com/article_140812.html"},
   {n:101,year:"2021",type:"original",tags:[],cat:["endocrine"],title:"Comparison of Serologic Celiac Disease in Patients with Hypothyroidism and Healthy Controls: A Case-Control Study",authors:"Sheikhesmaeili F, Salimi M, Salimi A, Nikandish M, Shahriarirad R, Falahati A",journal:"Journal of Bioengineering Research",url:"http://www.journalbe.com/article_140814.html"},
-  {n:102,year:"2021",type:"original",tags:["corresponding"],cat:["plastic","burns","pubhealth"],title:"Socioeconomic Features of Burn Injuries in Southern Iran: A Cross-sectional Study",authors:"Mohammadi AA, Hoghoughi MA, Karoobi M, Ranjbar K, Shahriarirad R*, Erfani A, Modarresi MS, Zardosht M",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985"},
-  {n:103,year:"2021",type:"original",tags:["corresponding"],cat:["infectious","covid","transplant"],title:"Evaluation of the Therapeutic Regimen in COVID-19 in Transplant Patients: Where do Immunomodulatory and Antivirals Stand?",authors:"Shafiekhani M, Shahabinezhad F, Niknam T, Tara SA, Hosseinpour P, Shahriarirad R*, Malekhosseini SA",journal:"BMC Clinical Virology",url:"https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2"},
+  {n:102,year:"2021",type:"original",tags:["corresponding"],cat:["plastic","pubhealth"],title:"Socioeconomic Features of Burn Injuries in Southern Iran: A Cross-sectional Study",authors:"Mohammadi AA, Hoghoughi MA, Karoobi M, Ranjbar K, Shahriarirad R*, Erfani A, Modarresi MS, Zardosht M",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985"},
+  {n:103,year:"2021",type:"original",tags:["corresponding"],cat:["infectious","transplant"],title:"Evaluation of the Therapeutic Regimen in COVID-19 in Transplant Patients: Where do Immunomodulatory and Antivirals Stand?",authors:"Shafiekhani M, Shahabinezhad F, Niknam T, Tara SA, Hosseinpour P, Shahriarirad R*, Malekhosseini SA",journal:"BMC Clinical Virology",url:"https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2"},
   {n:104,year:"2021",type:"original",tags:[],cat:["derm"],title:"Epidemiological Factors in Patients with Dermatologic Conditions Referring to the Clinic of Traditional Persian Medicine: A Cross-sectional Study",authors:"Parvizi MM*, Fatehi N, Jaladat AM, Gholampour Z, Shahriarirad R, Erfani A",journal:"International Journal of Clinical Practice",url:"https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788"},
   {n:105,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Stereological Analysis of Liver, Spleen and Bone of Leishmania infantum-Experimentally Infected Hamsters",authors:"Modabberi F, Ghadimi SN, Shahriarirad R, Nadimi E, Karbalay-Doust S, Rashidi S, Sarkari B*",journal:"Experimental Parasitology",url:"https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746"},
   {n:106,year:"2021",type:"review",tags:[],cat:[],title:"Therapeutic Effects of Stem Cells in Different Body Systems — A Novel Method that is Yet to Gain Trust: A Comprehensive Review",authors:"Ebrahimi A, Ahmadi H, Borhaninia M, Tanideh N*, Shahriarirad R, Erfani A, Ranjbar K, Ashkani-Esfahani S",journal:"Bosnian Journal of Basic Medical Sciences",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/"},
@@ -1115,22 +1183,22 @@ const publications = [
   {n:110,year:"2021",type:"review",tags:[],cat:["infectious"],title:"Prevalence of HBV and HCV Infections in Iranian Blood Donors: An Updated Systematic Review and Meta-Analysis",authors:"Kasraian L, Imanieh MH*, Tabrizi R, Shahriarirad R, Erfani A, Hosseini S",journal:"Middle East Journal of Digestive Diseases",url:"https://mejdd.org/index.php/mejdd/article/viewFile/2243/2208"},
   {n:111,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Cystic Echinococcosis: Knowledge, Attitude, and Practices (KAP) among Surgically Operated Cases in Fars Province, Southern Iran",authors:"Hosseini Z, Shahriarirad R, Sarkari B*",journal:"Journal of Parasitology Research",url:"https://www.hindawi.com/journals/jpr/2021/9976548/"},
   {n:112,year:"2021",type:"original",tags:["corresponding"],cat:["thoracic","pulm"],title:"Evaluation of Lung Contusion, Associated Injuries, and Outcome in a Major Trauma Center in Shiraz, Southern Iran",authors:"Mardani P, Moayedi Rad M, Paydar S, Amirian A, Shahriarirad R*, Erfani A, Ranjbar K",journal:"Emergency Medicine International",url:"https://www.hindawi.com/journals/emi/2021/3789132/"},
-  {n:113,year:"2021",type:"original",tags:[],cat:["covid","pulm"],title:"Methylprednisolone or Dexamethasone, Which One is Superior Corticosteroid in the Treatment of Hospitalized COVID-19 Patients: A Triple-blinded Randomized Controlled Trial",authors:"Ranjbar K, Moghadami M*, Mirahmadizadeh A, Fallahi MJ, Khaloo V, Shahriarirad R, Hosseinpour H, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-021-06045-3"},
-  {n:114,year:"2021",type:"original",tags:["corresponding"],cat:["covid","pubhealth"],title:"COVID-19 Infection among Healthcare Workers: A Cross-sectional Study in Southwest Iran",authors:"Sabetian G, Moghadami M, Haghighi LHF, Shahriarirad R*, Fallahi MJ, Asmarian N, Malekhosseini SA",journal:"Virology Journal",url:"https://link.springer.com/article/10.1186/s12985-021-01532-0"},
-  {n:115,year:"2021",type:"original",tags:[],cat:["covid","neuro","pubhealth"],title:"Students' Attitude and Sleep Pattern during School Closure following COVID-19 Pandemic Quarantine: A Web-based Survey in South of Iran",authors:"Ranjbar K, Hosseinpour H, Shahriarirad R, Ghaem H, Jafari K, Rahimi T, Mirahmadizadeh A*",journal:"Environmental Health and Preventive Medicine",url:"https://link.springer.com/article/10.1186/s12199-021-00950-4"},
+  {n:113,year:"2021",type:"original",tags:[],cat:["infectious","pulm"],title:"Methylprednisolone or Dexamethasone, Which One is Superior Corticosteroid in the Treatment of Hospitalized COVID-19 Patients: A Triple-blinded Randomized Controlled Trial",authors:"Ranjbar K, Moghadami M*, Mirahmadizadeh A, Fallahi MJ, Khaloo V, Shahriarirad R, Hosseinpour H, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-021-06045-3"},
+  {n:114,year:"2021",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"COVID-19 Infection among Healthcare Workers: A Cross-sectional Study in Southwest Iran",authors:"Sabetian G, Moghadami M, Haghighi LHF, Shahriarirad R*, Fallahi MJ, Asmarian N, Malekhosseini SA",journal:"Virology Journal",url:"https://link.springer.com/article/10.1186/s12985-021-01532-0"},
+  {n:115,year:"2021",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Students' Attitude and Sleep Pattern during School Closure following COVID-19 Pandemic Quarantine: A Web-based Survey in South of Iran",authors:"Ranjbar K, Hosseinpour H, Shahriarirad R, Ghaem H, Jafari K, Rahimi T, Mirahmadizadeh A*",journal:"Environmental Health and Preventive Medicine",url:"https://link.springer.com/article/10.1186/s12199-021-00950-4"},
   {n:116,year:"2021",type:"original",tags:[],cat:["neuro"],title:"The Association between Emotional Stress, Sleep Disturbance, Depression, and Burning Mouth Syndrome",authors:"Rezazadeh F, Farahmand F, Hosseinpour H, Shahriarirad R, Sabet Eghlidi A*",journal:"BioMed Research International",url:"https://www.hindawi.com/journals/bmri/2021/5555316/"},
-  {n:117,year:"2021",type:"first",tags:["first","corresponding"],cat:["covid","neuro"],title:"The Mental Health Impact of COVID-19 Outbreak: A Nationwide Survey in Iran",authors:"Shahriarirad R, Erfani A*, Ranjbar K, Bazrafshan A, Mirahmadizadeh A",journal:"International Journal of Mental Health Systems",url:"https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3"},
+  {n:117,year:"2021",type:"first",tags:["first","corresponding"],cat:["infectious","neuro"],title:"The Mental Health Impact of COVID-19 Outbreak: A Nationwide Survey in Iran",authors:"Shahriarirad R, Erfani A*, Ranjbar K, Bazrafshan A, Mirahmadizadeh A",journal:"International Journal of Mental Health Systems",url:"https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3"},
   {n:118,year:"2021",type:"original",tags:[],cat:["vascular"],title:"An Investigation of the Knowledge of General Surgeons in Fars Province in Terms of the Complications of Central Venous Stenosis and Thrombosis Following Insertion of a Double-Lumen Subclavian Catheter",authors:"Ghoddusi Johari H, Fatehpoor S, Mardani P, Shahriarirad R, Ranjbar K*",journal:"Sadra Medical Journal",url:"https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html"},
-  {n:119,year:"2020",type:"original",tags:[],cat:["covid","neuro","pubhealth"],title:"Evaluation of Students' Attitude and Emotions towards the Sudden Closure of Schools during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Mirahmadizadeh A, Ranjbar K, Shahriarirad R, Erfani A, Ghaem H, Jafari K, Ranjbar K*",journal:"BMC Psychology",url:"https://link.springer.com/article/10.1186/s40359-020-00500-7"},
+  {n:119,year:"2020",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Evaluation of Students' Attitude and Emotions towards the Sudden Closure of Schools during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Mirahmadizadeh A, Ranjbar K, Shahriarirad R, Erfani A, Ghaem H, Jafari K, Ranjbar K*",journal:"BMC Psychology",url:"https://link.springer.com/article/10.1186/s40359-020-00500-7"},
   {n:120,year:"2020",type:"original",tags:[],cat:["infectious"],title:"Serosurvey of HBV Surface Antigen and Anti-HBV Surface Antibody among HIV-infected Patients in Fars Province, Southern Iran",authors:"Rastegarian M, Zeighami A, Shahriarirad R, Erfani A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",journal:"Le Infezioni in Medicina",url:"https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf"},
-  {n:121,year:"2020",type:"original",tags:["corresponding"],cat:["plastic","burns","pubhealth"],title:"Suicide by Self-immolation in Southern Iran: An Epidemiological Study",authors:"Mohammadi AA, Karoobi M, Erfani A, Shahriarirad R, Ranjbar K*, Zardosht M, Modarresi MS",journal:"BMC Public Health",url:"https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z"},
+  {n:121,year:"2020",type:"original",tags:["corresponding"],cat:["plastic","pubhealth"],title:"Suicide by Self-immolation in Southern Iran: An Epidemiological Study",authors:"Mohammadi AA, Karoobi M, Erfani A, Shahriarirad R, Ranjbar K*, Zardosht M, Modarresi MS",journal:"BMC Public Health",url:"https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z"},
   {n:122,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Uncommon Locations of Cystic Echinococcosis: A Report of 46 Cases from Southern Iran",authors:"Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Sarkari B*",journal:"Surgery Research and Practice",url:"https://www.hindawi.com/journals/srp/2020/2061045/"},
   {n:123,year:"2020",type:"original",tags:["first"],cat:["infectious"],title:"Seroprevalence of Anti-hepatitis E Antibodies and Antigens among HIV-infected Patients in Fars Province, Southern Iran",authors:"Shahriarirad R, Erfani A, Rastegarian M, Zeighami A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",journal:"BMC Virology",url:"https://link.springer.com/article/10.1186/s12985-020-01384-0"},
   {n:124,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Human Cystic Echinococcosis in Southwest Iran: A 15-year Retrospective Epidemiological Study of Hospitalized Cases",authors:"Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Taghizadeh H, Sarkari B*",journal:"Tropical Medicine and Health",url:"https://link.springer.com/article/10.1186/s41182-020-00238-3"},
   {n:125,year:"2020",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"Frequency and Antimicrobial Susceptibility Patterns of Diabetic Foot Infection of Patients from Bandar Abbas District, Southern Iran",authors:"Ahmadishooli A, Davoodian P, Shoja S, Ahmadishooli B, Dadvand H, Hamadiyan H, Shahriarirad R*",journal:"Journal of Pathogens",url:"https://www.hindawi.com/journals/jpath/2020/1057167/"},
   {n:126,year:"2020",type:"original",tags:[],cat:["infectious"],title:"Diagnostic Performance of Echinococcus granulosus Protoscolices Antigens in the Serodiagnosis of Human Cystic Echinococcosis",authors:"Shahabinejad P, Shahriarirad R, Omidian M, Ghorbani F, Barazesh A, Sarkari B*",journal:"Journal of Immunoassay and Immunochemistry",url:"https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653"},
-  {n:127,year:"2020",type:"original",tags:["first","corresponding"],cat:["covid"],title:"Epidemiological and Clinical Features of 2019 Novel Coronavirus Diseases (COVID-19) in the South of Iran",authors:"Shahriarirad R, Khodamoradi Z, Erfani A, Hosseinpour H, Ranjbar K, Emami Y, Mirahmadizadeh A, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-020-05128-x"},
-  {n:128,year:"2020",type:"original",tags:[],cat:["plastic","burns","pubhealth"],title:"Evaluation of Epilepsy and Burn Patterns in a Tertiary Hospital in Southwestern Iran",authors:"Mohammadi AA, Keshavarzi A, Erfani A, Modarresi MS, Shahriarirad R, Ranjbar K*",journal:"Epilepsy and Behavior",url:"https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929"},
+  {n:127,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Epidemiological and Clinical Features of 2019 Novel Coronavirus Diseases (COVID-19) in the South of Iran",authors:"Shahriarirad R, Khodamoradi Z, Erfani A, Hosseinpour H, Ranjbar K, Emami Y, Mirahmadizadeh A, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-020-05128-x"},
+  {n:128,year:"2020",type:"original",tags:[],cat:["plastic","pubhealth"],title:"Evaluation of Epilepsy and Burn Patterns in a Tertiary Hospital in Southwestern Iran",authors:"Mohammadi AA, Keshavarzi A, Erfani A, Modarresi MS, Shahriarirad R, Ranjbar K*",journal:"Epilepsy and Behavior",url:"https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929"},
   {n:129,year:"2020",type:"original",tags:["corresponding"],cat:["ortho"],title:"Comparison of Accuracy in Expert Clinical Examination versus Magnetic Resonance Imaging and Arthroscopic Exam in Diagnosis of Meniscal Tear",authors:"Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2020/1895852/"},
   {n:130,year:"2020",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran",authors:"Erfani A, Pouryousef A, Arefkhah N, Shahriarirad R, Rastegarian M, Zeighami A, Sarkari B*",journal:"Clinical Epidemiology and Global Health",url:"https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038"},
   {n:131,year:"2020",type:"original",tags:[],cat:["vascular","transplant"],title:"Inferior Vena Cava Repair Using Diaphragm in Animal Model",authors:"Hodjati H, Hosseinzadeh A, Farzaneh BA*, Ghoddusi Johari H, Ebrahimi N, Anbardar MH, Shahriarirad R",journal:"Annals of Vascular Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928"},
@@ -1143,7 +1211,7 @@ const publications = [
   /* Case Reports */
   {n:138,year:"2024",type:"case",tags:[],cat:["vascular"],title:"Vascular Complications During Appendectomy; Severe Adhesion of the Appendix to the Right Iliac Artery: A Case Report",authors:"Hosseinzadeh A, Rezaeibana H, Khosravi MR, Sourani A, Yazdanshenas H, Shahriarirad R*",journal:"Journal of Medical Case Reports",url:"https://link.springer.com/article/10.1186/s13256-024-04794-8"},
   {n:139,year:"2024",type:"case",tags:[],cat:["vascular"],title:"An Unsuspected Extracranial Internal Carotid Pseudoaneurysm Following Dog Bites: A Case Report and Review of Literature",authors:"Hosseinzadeh A, Shahriarirad R, Dalfardi F, Arianpour H, Zarimeidani F*",journal:"International Journal of Emergency Medicine",url:"https://link.springer.com/article/10.1186/s12245-024-00688-0"},
-  {n:140,year:"2024",type:"case",tags:[],cat:["covid","neuro"],title:"Chronic Inflammatory Demyelinating Polyneuropathy following COVID-19 Vaccination: A Case Report and Literature Review",authors:"Bahramy MA, Hashempour Z*, Shahriarirad R",journal:"BMC Neurology",url:"https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3"},
+  {n:140,year:"2024",type:"case",tags:[],cat:["infectious","neuro"],title:"Chronic Inflammatory Demyelinating Polyneuropathy following COVID-19 Vaccination: A Case Report and Literature Review",authors:"Bahramy MA, Hashempour Z*, Shahriarirad R",journal:"BMC Neurology",url:"https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3"},
   {n:141,year:"2024",type:"case",tags:[],cat:["thoracic","transplant"],title:"Successful Bilateral Lung Transplantation in Pulmonary Alveolar Microlithiasis: A Case Report and Review of Literature",authors:"Mardani P, Naseri R, Shahriarirad R, Mahram H*, Shafi M, Dehghanian A, Ziaian B",journal:"The Clinical Respiratory Journal",url:"http://doi.org/10.1111/crj.13773"},
   {n:142,year:"2024",type:"case",tags:[],cat:["thoracic","oncology"],title:"Pleural Epithelioid Hemangioendothelioma in a 39-Year-Old Female: A Case Report",authors:"Mardani P, Shahriarirad R, Nekooeian M, Anbardar MH, Ziaian B, Kamran H, Ayare N, Vafabin M, Fouladi D*",journal:"Journal of Cardiothoracic Surgery",url:"http://dx.doi.org/10.1186/s13019-024-02602-4"},
   {n:143,year:"2024",type:"case",tags:["corresponding"],cat:["urology"],title:"Nephrotic Syndrome due to Focal Segmental Glomerulosclerosis Complicating Scleroderma: A Case Report",authors:"Mehdipour Dalivand M, Hadjiabbasi A, Ramezanzadeh E, Habibzadeh SM, Goudarzi K, Shahriarirad R, Zayeni H*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6"},
@@ -1158,9 +1226,9 @@ const publications = [
   {n:152,year:"2023",type:"case",tags:[],cat:[],title:"Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",authors:"Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2023/1553163/"},
   {n:153,year:"2023",type:"case",tags:["co-first"],cat:["oncology"],title:"Extramedullary Relapse of Immunoglobulin A-Kappa Myeloma Manifesting as Plasmacytoma of the Pleura: A Case Report",authors:"Rezvani A, Shahriarirad R, Fallahi MJ, Zeighami A*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03765-9"},
   {n:154,year:"2023",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Cavernous Mediastinal Hemangioma Presenting with Persistent Cough: A Rare Case Report and Review of Literature",authors:"Mardani P, Kamran H, Geramizadeh B, Darabi MH, Najafi M, Amirian A, Shahriarirad R*",journal:"Journal of Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7"},
-  {n:155,year:"2022",type:"case",tags:[],cat:["covid"],title:"Necrotizing Autoimmune Myositis following Coronavirus Disease 2019 Infection: A Case Report",authors:"Loghman M, Rahmanian E, Alikhani M, Saffar H, Ziaadini B, Shahriarirad R, Faezi ST*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5"},
-  {n:156,year:"2022",type:"case",tags:["corresponding"],cat:["vascular","covid"],title:"Lower Limb Lymphedema and Cellulitis as a Complication of COVID-19 Vaccine: A Case Report",authors:"Hosseinzadeh A, Ebrahimi K, Shahriarirad R*, Dalfardi F",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317"},
-  {n:157,year:"2022",type:"case",tags:[],cat:["covid"],title:"COVID-19 Vaccine-Induced Vasculitis in a Patient with Sarcoidosis: A Case Report",authors:"Rahmanian E, Alikhani M*, Loghman M, Beikmohamadi Hezaveh S, Zangeneh S, Shahriarirad R, Faezi ST, Nejadhosseinian M",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501"},
+  {n:155,year:"2022",type:"case",tags:[],cat:["infectious"],title:"Necrotizing Autoimmune Myositis following Coronavirus Disease 2019 Infection: A Case Report",authors:"Loghman M, Rahmanian E, Alikhani M, Saffar H, Ziaadini B, Shahriarirad R, Faezi ST*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5"},
+  {n:156,year:"2022",type:"case",tags:["corresponding"],cat:["vascular","infectious"],title:"Lower Limb Lymphedema and Cellulitis as a Complication of COVID-19 Vaccine: A Case Report",authors:"Hosseinzadeh A, Ebrahimi K, Shahriarirad R*, Dalfardi F",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317"},
+  {n:157,year:"2022",type:"case",tags:[],cat:["infectious"],title:"COVID-19 Vaccine-Induced Vasculitis in a Patient with Sarcoidosis: A Case Report",authors:"Rahmanian E, Alikhani M*, Loghman M, Beikmohamadi Hezaveh S, Zangeneh S, Shahriarirad R, Faezi ST, Nejadhosseinian M",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501"},
   {n:158,year:"2022",type:"case",tags:["corresponding"],cat:["vascular"],title:"Great Saphenous Vein Aneurysm Mimicking Inguinal Hernia: A Case Report",authors:"Ghoddusi Johari H, Malekhosseini H, Erfani A, Shahriarirad R*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6"},
   {n:159,year:"2022",type:"case",tags:[],cat:["oncology"],title:"Adenocarcinoma Metastasis from Colon to the Thyroid: A Case Report",authors:"Mardani P, Ayareh N, Kamran H, Shahriarirad R",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/cris/2022/8705143/"},
   {n:160,year:"2022",type:"case",tags:["corresponding"],cat:["vascular"],title:"Spontaneous Rupture of a Large Splenic Artery Aneurysm in a 59-year-old Male Patient with Pemphigus Vulgaris: A Case Report",authors:"Hosseinzadeh A, Shahriarirad R*, Asgharzadeh Majdazar V, Moeini Farsani M, Tadayon SMK",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x"},
@@ -1177,9 +1245,9 @@ const publications = [
   {n:171,year:"2022",type:"case",tags:[],cat:[],title:"Antineutrophil Cytoplasmic Antibody-associated Vasculitis in Presence of Positive Antiphospholipid Antibody: A Case Report",authors:"Akhlaghi Kalahroodi M, Loghman M, Ramezanpoor M, Shahriarirad R, Rahmanian E*",journal:"BMC Journal of Medical Case Reports",url:"https://link.springer.com/article/10.1186/s13256-022-03256-3"},
   {n:172,year:"2022",type:"case",tags:[],cat:["gi","oncology"],title:"A Large Undifferentiated Sarcoma of the Liver in a 13-year-old Girl Treated with Anatomical Resection: A Case Report and Review of the Literature",authors:"Bahador A, Forooghi M, Shahriarirad R, Geramizadeh B, Ataollahi M, Kamran H*",journal:"BMC Gastroenterology",url:"https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x"},
   {n:173,year:"2021",type:"case",tags:[],cat:["gi"],title:"Management of Asymptomatic Perforation of a Pediatric Rectal Foreign Body into the Peritoneal Cavity Retrieved with Laparoscopy: A Case Report",authors:"Forooghi M, Hooman K*, Shahriarirad R",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2021/5851967/"},
-  {n:174,year:"2021",type:"case",tags:[],cat:["thoracic","covid","pulm"],title:"Management of Pleural Empyema in a 12-year-old Obese Patient with COVID-19: A Pediatric Case Report",authors:"Abbasi R, Javanmardi F*, Mokhtari A, Hosseinpour P, Shahriarirad R, Ebrahimi K",journal:"BMC Pediatrics",url:"https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1"},
+  {n:174,year:"2021",type:"case",tags:[],cat:["thoracic","infectious","pulm"],title:"Management of Pleural Empyema in a 12-year-old Obese Patient with COVID-19: A Pediatric Case Report",authors:"Abbasi R, Javanmardi F*, Mokhtari A, Hosseinpour P, Shahriarirad R, Ebrahimi K",journal:"BMC Pediatrics",url:"https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1"},
   {n:175,year:"2021",type:"case",tags:[],cat:["vascular","ortho"],title:"Profunda Brachii Pseudoaneurysm following Supracondylar Fracture of Humerus Repair in an 8-Year-Old Boy: A Case Report and Review of Literature",authors:"Ghoddusi Johari H, Erfani MA, Erfani A*, Shahriarirad R, Karami MM",journal:"Case Reports in Orthopedics",url:"https://www.hindawi.com/journals/crior/2021/1768529/"},
-  {n:176,year:"2021",type:"case",tags:["first","corresponding"],cat:["covid"],title:"Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease during the COVID-19 Pandemic",authors:"Shahriarirad R, Sanaei Dashti A*, Hajiani Ghotbabadi S",journal:"Case Reports in Pediatrics",url:"https://www.hindawi.com/journals/cripe/2021/9950588/"},
+  {n:176,year:"2021",type:"case",tags:["first","corresponding"],cat:["infectious"],title:"Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease during the COVID-19 Pandemic",authors:"Shahriarirad R, Sanaei Dashti A*, Hajiani Ghotbabadi S",journal:"Case Reports in Pediatrics",url:"https://www.hindawi.com/journals/cripe/2021/9950588/"},
   {n:177,year:"2021",type:"case",tags:[],cat:["urology"],title:"ROHHAD Syndrome an Inconspicuous Cause of Hypernatremia: A Case Report",authors:"Basiratnia M, Derakhshan D*, Foloudi D, Ranjbar K, Shahriarirad R",journal:"Iranian Journal of Kidney Diseases",url:""},
   {n:178,year:"2021",type:"case",tags:[],cat:[],title:"Successful Use of 'Ma'oljobon', a Persian Medicine Product, in a Patient with Severe Chronic Cough: A Case Report",authors:"Jaladat AM, Ranjbar K*, Shahriarirad R, Salehi Z",journal:"Advances in Integrative Medicine",url:"https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458"},
   {n:179,year:"2021",type:"case",tags:[],cat:["thoracic"],title:"Non-operative Management of Bilateral Contained Thoracic Esophageal Perforation: A Case Report",authors:"Amirian A, Shahriarirad R, Mardani P, Salimi M*",journal:"BMC Surgery",url:"https://link.springer.com/article/10.1186/s12893-021-01121-6"},
@@ -1194,8 +1262,8 @@ const publications = [
   {n:188,year:"2020",type:"case",tags:[],cat:["plastic","ortho"],title:"Masson's Tumor of the Hand: An Uncommon Histopathological Entity",authors:"Mardani P, Askari A, Shahriarirad R*, Ranjbar K, Erfani A, Anbardar MH, Moradmand S",journal:"Case Reports in Pathology",url:"https://www.hindawi.com/journals/cripa/2020/4348629/"},
   {n:189,year:"2020",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Misplacement of Tracheostomy Tube in Right Main Bronchus: A Rare Complication",authors:"Amirian A, Shahriarirad R*, Ziaian B, Mardani P, Erfani A",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/cris/2020/3597901/"},
   /* Letters */
-  {n:190,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious","covid","pulm"],title:"TB and the COVID-19 Pandemic: Brothers in Arms against Lung Health",authors:"Shahriarirad R, Fallahi MJ*",journal:"The International Journal of Tuberculosis and Lung Disease",url:"https://pubmed.ncbi.nlm.nih.gov/33126954/"},
-  {n:191,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious","covid"],title:"COVID-19: Clinical or Laboratory Diagnosis? A Matter of Debate",authors:"Shahriarirad R, Sarkari B*",journal:"Tropical Doctor",url:"https://journals.sagepub.com/doi/full/10.1177/0049475520945446"},
+  {n:190,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious","pulm"],title:"TB and the COVID-19 Pandemic: Brothers in Arms against Lung Health",authors:"Shahriarirad R, Fallahi MJ*",journal:"The International Journal of Tuberculosis and Lung Disease",url:"https://pubmed.ncbi.nlm.nih.gov/33126954/"},
+  {n:191,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious"],title:"COVID-19: Clinical or Laboratory Diagnosis? A Matter of Debate",authors:"Shahriarirad R, Sarkari B*",journal:"Tropical Doctor",url:"https://journals.sagepub.com/doi/full/10.1177/0049475520945446"},
   /* Correction for numbering — remaining 2 numbered from CV */
   {n:192,year:"2022",type:"case",tags:[],cat:["ortho"],title:"Comparison of Accuracy in Expert Clinical Examination versus MRI and Arthroscopic Exam in Diagnosis of Meniscal Tear",authors:"Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2020/1895852/"},
   {n:193,year:"2023",type:"case",tags:[],cat:[],title:"Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",authors:"Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2023/1553163/"}
@@ -1282,14 +1350,51 @@ function renderPubs(){
   }).join('');
 }
 
+
+function toggleFilterGroup(btn, groupKey){
+  const sub = document.getElementById('grp-'+groupKey);
+  if(!sub) return;
+  const isOpen = sub.style.display !== 'none';
+  sub.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+}
+// Also expand group when a sub-filter is active
+function expandGroupForCat(cat){
+  document.querySelectorAll('.filter-sub-btn').forEach(b => {
+    if(b.textContent && b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+cat+"'")){
+      const grpId = b.closest('.filter-sub-group')?.id;
+      if(grpId){
+        document.getElementById(grpId).style.display = 'block';
+        const mainBtn = document.getElementById(grpId).previousElementSibling;
+        if(mainBtn) mainBtn.classList.add('open');
+      }
+    }
+  });
+}
+
 function filterPubs(val, btn, dimension){
   showingAll=false;
   if(dimension==='type'){
     currentFilter=val;
-    document.querySelectorAll('#filter-type .filter-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>{
+      if(!b.classList.contains('filter-main-btn')&&!b.classList.contains('filter-sub-btn'))
+        b.classList.remove('active');
+    });
   } else {
     currentCat=val;
-    document.querySelectorAll('#filter-cat .filter-btn').forEach(b=>b.classList.remove('active'));
+    // Remove active from all cat buttons
+    document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('cat-all-btn')?.classList.remove('active');
+    // Mark parent main-btn if subcategory selected
+    if(val!=='all'){
+      const parent=btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
+      if(parent) parent.classList.add('has-active');
+      // Ensure sub-group is open
+      const sub=btn.closest('.filter-sub-group');
+      if(sub){sub.style.display='block';sub.previousElementSibling?.classList.add('open');}
+    } else {
+      document.querySelectorAll('.filter-main-btn').forEach(b=>b.classList.remove('has-active'));
+    }
   }
   btn.classList.add('active');
   renderPubs();
@@ -1454,15 +1559,29 @@ document.getElementById('journal-grid').innerHTML=journals.map(j=>
     : `<span class="journal-pill">${j.name}</span>`
 ).join('');
 
+
+function togglePresGroup(btn, groupKey){
+  const sub = document.getElementById('pgrp-'+groupKey);
+  if(!sub) return;
+  const isOpen = sub.style.display !== 'none';
+  sub.style.display = isOpen ? 'none' : 'block';
+  btn.classList.toggle('open', !isOpen);
+}
+
 /* ── PRESENTATIONS FILTER ── */
 let presFilters = {type: null, location: null, cat: null, search: ''};
 function filterPres(dim, val, btn){
-  // Toggle: clicking active filter resets it
-  if(presFilters[dim] === val){ presFilters[dim] = null; btn.classList.remove('active'); }
-  else {
-    // Deactivate siblings in same group
-    btn.closest('.pres-filter-group').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  if(presFilters[dim] === val){ presFilters[dim] = null; btn.classList.remove('active');
+    if(dim==='cat') btn.closest('.filter-main-group')?.querySelector('.filter-main-btn')?.classList.remove('has-active');
+  } else {
+    btn.closest('.pres-filter-group')?.querySelectorAll('.filter-btn:not(.filter-main-btn)').forEach(b=>b.classList.remove('active'));
     presFilters[dim] = val; btn.classList.add('active');
+    if(dim==='cat'){
+      const parent=btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
+      if(parent) parent.classList.add('has-active');
+      const sub=btn.closest('.filter-sub-group');
+      if(sub){sub.style.display='block';sub.previousElementSibling?.classList.add('open');}
+    }
   }
   applyPresFilters();
 }
