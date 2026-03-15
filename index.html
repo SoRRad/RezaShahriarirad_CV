@@ -331,7 +331,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
-        <a href="/cdn-cgi/l/email-protection#ffadd18c979e978d969e8d96cec6c6cabf98929e9693d19c9092" class="btn-outline">Get in Touch</a>
+        <a href="#" class="btn-outline cf-email" data-u="R.shahriari1995" data-d="gmail.com">Get in Touch</a>
         <a href="#" onclick="downloadCV();return false;" class="btn-pdf" title="Download updated CV as Word document">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           Download CV
@@ -405,8 +405,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div>
       <div class="contact-block">
         <h3>Contact</h3>
-        <div class="contact-item"><span>Email</span><a href="/cdn-cgi/l/email-protection#8ad8a4f9e2ebe2f8e3ebf8e3bbb3b3bfcaede7ebe3e6a4e9e5e7"><span class="__cf_email__" data-cfemail="4b196538232a2339222a39227a72727e0b2c262a222765282426">[email&#160;protected]</span></a></div>
-        <div class="contact-item"><span>Professional Email</span><a href="/cdn-cgi/l/email-protection#6e3d060f061c070f1c071c0f0a401c0b140f2e030f1701400b0a1b"><span class="__cf_email__" data-cfemail="5d0e353c352f343c2f342f3c39732f38273c1d303c243273383928">[email&#160;protected]</span></a></div>
+        <div class="contact-item"><span>Email</span><a href="#" class="cf-email" data-u="R.shahriari1995" data-d="gmail.com">[loading]</a></div>
+        <div class="contact-item"><span>Professional Email</span><a href="#" class="cf-email" data-u="Shahriarirad.reza" data-d="mayo.edu">[loading]</a></div>
         <div class="contact-item"><span>Phone</span><span>+1-507-218-6077</span></div>
         <div class="contact-item"><span>Location</span><span>Rochester, Minnesota, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
@@ -1522,6 +1522,15 @@ document.getElementById('refs-grid').innerHTML=refs.map(r=>`
 /* ── Start Scholar fetch on page load ── */
 if(document.readyState!=='loading') fetchScholarData();
 else document.addEventListener('DOMContentLoaded', fetchScholarData);
+
+/* ── EMAIL PROTECTION: reconstruct addresses from split parts ── */
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('a.cf-email').forEach(function(a){
+    const email = a.dataset.u + '@' + a.dataset.d;
+    a.textContent = email;
+    a.href = 'mai' + 'lto:' + email;
+  });
+});
 </script>
 </body>
 </html>
