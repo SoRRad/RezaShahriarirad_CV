@@ -58,7 +58,7 @@ h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4rem);font-
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 /* SECTIONS */
-.section-wrap{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-wrap{padding:5rem 2rem;max-width:1100px;margin:0 auto}
 .section-alt{background:var(--frost)}
 .section-alt .section-wrap{max-width:1100px;margin:0 auto}
 .section-label{font-size:.68rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;display:flex;align-items:center;gap:.8rem}
@@ -108,7 +108,12 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pub-metric-num.live{color:var(--gold)}
 .pub-metric-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted)}
 
-.pub-controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.8rem;align-items:center}
+.pub-controls{display:grid;grid-template-columns:200px 1fr;gap:1.5rem;margin-bottom:2rem;align-items:start}
+.pub-filter-sidebar{display:flex;flex-direction:column;gap:.25rem;position:sticky;top:80px}
+.pub-filter-group{margin-bottom:.8rem}
+.pub-filter-group-label{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem;display:block}
+.pub-filter-sidebar .filter-btn{display:block;width:100%;text-align:left;padding:.38rem .7rem;border-radius:3px;white-space:normal;line-height:1.3}
+.pub-list-wrap{min-width:0}
 .pub-filter{display:flex;gap:.3rem;flex-wrap:wrap}
 .filter-btn{padding:.35rem .8rem;border:1px solid var(--mist);background:transparent;border-radius:2px;font-size:.68rem;font-weight:400;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .filter-btn.active,.filter-btn:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy)}
@@ -161,6 +166,14 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 
 /* PRESENTATIONS */
 .pres-list{display:flex;flex-direction:column}
+.pres-controls{display:grid;grid-template-columns:200px 1fr;gap:1.5rem;margin-bottom:1.5rem;align-items:start}
+@media(max-width:768px){.pres-controls{grid-template-columns:1fr}}
+.pres-filter-sidebar{display:flex;flex-direction:column;gap:.25rem}
+.pres-filter-sidebar .filter-btn{display:block;width:100%;text-align:left;padding:.38rem .7rem;border-radius:3px}
+.pres-filter-group{margin-bottom:.8rem}
+.pres-list-wrap{min-width:0}
+.pres-location{font-size:.68rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;margin-top:.2rem}
+.pres-location::before{content:"📍";font-size:.62rem}
 .pres-item{display:grid;grid-template-columns:88px 1fr;gap:1rem;padding:.95rem 0;border-bottom:1px solid rgba(0,0,0,.07);align-items:start}
 .pres-date-col{text-align:right}
 .pres-year-txt{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);display:block;line-height:1.6}
@@ -168,6 +181,7 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pres-type.oral{background:#fdf0e0;color:#8a5a0a;border-color:#e8c88a}
 .pres-type.poster{background:#e8f0f7;color:#1a4d7c;border-color:#a8c4e0}
 .pres-title{font-size:.88rem;font-weight:400;color:var(--text);line-height:1.5;margin-bottom:.2rem}
+.pres-cat-badge{display:inline-block;font-size:.6rem;padding:1px 5px;border-radius:2px;background:#e8f0f7;color:#1a4d7c;margin-right:.3rem;margin-top:.2rem}
 .pres-venue{font-size:.74rem;color:var(--text-muted);font-style:italic}
 
 /* REVIEWER */
@@ -242,6 +256,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   .timeline-grid{grid-template-columns:1fr;gap:3rem}
   .section-wrap{padding:4rem 1.2rem}
 }
+@media(max-width:768px){.pub-controls{grid-template-columns:1fr}.pub-filter-sidebar{flex-direction:row;flex-wrap:wrap;position:static}}
 @media(max-width:480px){
   .hero-stats{grid-template-columns:1fr 1fr}
   .pub-item{grid-template-columns:50px 1fr}
@@ -262,8 +277,11 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   a{color:inherit!important;text-decoration:none!important}
   .about-grid{grid-template-columns:1fr!important}
   .timeline-grid{grid-template-columns:1fr!important}
-  #hobbies{display:none}
+  #hobbies{}
 }
+#presentations + #hobbies{margin-top:0}
+#presentations .section-wrap{padding-bottom:3rem}
+#hobbies .section-wrap{padding-top:3rem}
 </style>
 </head>
 <body>
@@ -327,7 +345,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="hero-stats" style="width:100%">
         <div class="stat-box">
           <div class="stat-num" id="hero-pubs">193</div>
-          <div class="stat-label">Publications <span class="live-dot" title="Updated from ORCID"></span></div>
+          <div class="stat-label">Publications</div>
         </div>
         <div class="stat-box">
           <div class="stat-num" id="hero-cites">—<span class="live-dot" title="Live from Google Scholar"></span></div>
@@ -498,48 +516,57 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <!-- Authorship metrics removed per user request -->
 
   <div class="pub-controls">
-    <div class="pub-filter" id="filter-type">
-      <button class="filter-btn active" onclick="filterPubs('all',this,'type')">All</button>
-      <button class="filter-btn" onclick="filterPubs('original',this,'type')">Original Articles</button>
-      <button class="filter-btn" onclick="filterPubs('review',this,'type')">Reviews &amp; Meta-analyses</button>
-      <button class="filter-btn" onclick="filterPubs('case',this,'type')">Case Reports</button>
-      <button class="filter-btn" onclick="filterPubs('letter',this,'type')">Letters</button>
-      <button class="filter-btn" onclick="filterPubs('first',this,'type')">1st Author</button>
-      <button class="filter-btn" onclick="filterPubs('co-first',this,'type')">2nd / Co-first</button>
-      <button class="filter-btn" onclick="filterPubs('corresponding',this,'type')">Corresponding</button>
-      <button class="filter-btn" onclick="filterPubs('last',this,'type')">Last Author</button>
-    </div>
-    <div style="margin-top:.5rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
-      <span style="font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);white-space:nowrap">Topic:</span>
-      <div class="pub-filter" id="filter-cat">
-        <button class="filter-btn active" onclick="filterPubs('all',this,'cat')">All Topics</button>
-        <button class="filter-btn" onclick="filterPubs('plastic',this,'cat')">Plastic & Reconstructive</button>
+    <!-- Left: filter sidebar -->
+    <div class="pub-filter-sidebar">
+      <div class="pub-filter-group">
+        <span class="pub-filter-group-label">Article Type</span>
+        <button class="filter-btn active" onclick="filterPubs('all',this,'type')">All Types</button>
+        <button class="filter-btn" onclick="filterPubs('original',this,'type')">Original Articles</button>
+        <button class="filter-btn" onclick="filterPubs('review',this,'type')">Reviews &amp; Meta-analyses</button>
+        <button class="filter-btn" onclick="filterPubs('case',this,'type')">Case Reports</button>
+        <button class="filter-btn" onclick="filterPubs('letter',this,'type')">Letters / Editorials</button>
+      </div>
+      <div class="pub-filter-group">
+        <span class="pub-filter-group-label">Authorship</span>
+        <button class="filter-btn" onclick="filterPubs('first',this,'type')">1st Author</button>
+        <button class="filter-btn" onclick="filterPubs('co-first',this,'type')">2nd / Co-first</button>
+        <button class="filter-btn" onclick="filterPubs('corresponding',this,'type')">Corresponding</button>
+        <button class="filter-btn" onclick="filterPubs('last',this,'type')">Last / Senior</button>
+      </div>
+      <div class="pub-filter-group">
+        <span class="pub-filter-group-label">Topic</span>
+        <button class="filter-btn active" onclick="filterPubs('all',this,'cat')" id="cat-all-btn">All Topics</button>
+        <button class="filter-btn" onclick="filterPubs('plastic',this,'cat')">Plastic &amp; Reconstructive</button>
         <button class="filter-btn" onclick="filterPubs('thoracic',this,'cat')">Thoracic Surgery</button>
         <button class="filter-btn" onclick="filterPubs('vascular',this,'cat')">Vascular Surgery</button>
         <button class="filter-btn" onclick="filterPubs('gi',this,'cat')">GI Surgery</button>
         <button class="filter-btn" onclick="filterPubs('endocrine',this,'cat')">Endocrine Surgery</button>
-        <button class="filter-btn" onclick="filterPubs('ortho',this,'cat')">Orthopedics</button>
-        <button class="filter-btn" onclick="filterPubs('burns',this,'cat')">Burns & Wound Care</button>
+        <button class="filter-btn" onclick="filterPubs('ortho',this,'cat')">Orthopaedic</button>
+        <button class="filter-btn" onclick="filterPubs('burns',this,'cat')">Burns</button>
         <button class="filter-btn" onclick="filterPubs('infectious',this,'cat')">Infectious Disease</button>
         <button class="filter-btn" onclick="filterPubs('covid',this,'cat')">COVID-19</button>
         <button class="filter-btn" onclick="filterPubs('oncology',this,'cat')">Oncology</button>
         <button class="filter-btn" onclick="filterPubs('transplant',this,'cat')">Transplant</button>
-        <button class="filter-btn" onclick="filterPubs('ai',this,'cat')">AI & Technology</button>
+        <button class="filter-btn" onclick="filterPubs('ai',this,'cat')">AI &amp; Innovation</button>
         <button class="filter-btn" onclick="filterPubs('pulm',this,'cat')">Pulmonology</button>
         <button class="filter-btn" onclick="filterPubs('neuro',this,'cat')">Neurology</button>
         <button class="filter-btn" onclick="filterPubs('derm',this,'cat')">Dermatology</button>
-        <button class="filter-btn" onclick="filterPubs('urology',this,'cat')">Urology & Nephrology</button>
+        <button class="filter-btn" onclick="filterPubs('urology',this,'cat')">Urology</button>
         <button class="filter-btn" onclick="filterPubs('pubhealth',this,'cat')">Public Health</button>
       </div>
     </div>
-    <div style="display:flex;gap:.6rem;align-items:center;margin-top:.5rem;flex-wrap:wrap">
-      <input type="text" class="pub-search" placeholder="Search title, author, journal…" oninput="searchPubs(this.value)" id="pub-search">
-      <span class="pub-count" id="pub-count"></span>
-    </div>
-  </div>
-  <p class="pub-note">* denotes corresponding author. My name is highlighted in bold.</p>
-
+    <!-- Right: search + list -->
+    <div class="pub-list-wrap">
+      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
+        <input type="search" id="pub-search" placeholder="Search title, author, journal…"
+          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
+          oninput="currentSearch=this.value;showingAll=false;renderPubs()">
+        <div id="pub-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">—</div>
+      </div>
   <div class="pub-list" id="pub-list"></div>
+  </div><!-- /pub-list-wrap -->
+  </div><!-- /pub-controls -->
+  <p class="pub-note" style="font-size:.74rem;color:var(--text-muted);margin-bottom:1.5rem">* denotes corresponding author. My name is highlighted in bold.</p>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
     <button class="btn-outline" onclick="showAllPubs()" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
   </div>
@@ -567,7 +594,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </div>
 
 <!-- PATENTS -->
-<div class="section-alt" id="patents">
+<div id="patents">
 <div class="section-wrap">
   <div class="section-label">Innovation</div>
   <h2>Patents &amp; Innovations</h2>
@@ -612,10 +639,13 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     </div>
   </div>
 
-  <div class="reviewer-stats">
+  <div style="margin-bottom:2rem">
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text-mid);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Reviewer Role</h3>
+    <div class="reviewer-stats">
     <div><div class="reviewer-stat-num">149</div><div class="reviewer-stat-label">Peer Reviews</div></div>
     <div><div class="reviewer-stat-num">129</div><div class="reviewer-stat-label">Manuscripts</div></div>
     <div><div class="reviewer-stat-num">67</div><div class="reviewer-stat-label">Journals</div></div>
+  </div>
   </div>
 
   <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text-mid);margin-bottom:1.2rem">Journals Reviewed</h3>
@@ -628,30 +658,245 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 <div class="section-wrap">
   <div class="section-label">Academic Engagements</div>
   <h2>Presentations</h2>
-  <div class="pres-list">
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2026</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div><div class="pres-venue">Plastic Surgery Research Council (PSRC)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Mar 2026</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div><div class="pres-venue">Society of Surgical Oncology (SSO)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Dec 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div><div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy (With or Without Reconstruction) Interactive Care Plan</div><div class="pres-venue">Annual Balfour Surgery Research Symposium</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jul 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div><div class="pres-venue">Mayo Clinic AI Summit</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Apr 2025</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN for Suspected Lung Cancer): A Pilot Study</div><div class="pres-venue">Advanced Robotic Surgery Conference 2025</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Dec 2022</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div><div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2022</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy: A Clinical Trial</div><div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2021</span><span class="pres-type oral">Oral</span></div><div><div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div><div class="pres-venue">10th National Burn Congress 2021</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jul 2021</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div><div class="pres-venue">Transplantation (International Congress)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Sep 2020</span><span class="pres-type oral">Oral</span></div><div><div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div><div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Oct 2019</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran</div><div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Apr 2016</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div><div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Mar 2016</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Successful Use of Persian Medicine Preparation, Ma'aljobon in a Patient with Chronic Cough</div><div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2015</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
-    <div class="pres-item"><div class="pres-date-col"><span class="pres-year-txt">Jun 2015</span><span class="pres-type poster">Poster</span></div><div><div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div><div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div></div></div>
-  </div>
+  <div class="pres-controls">
+    <!-- Left: filter sidebar -->
+    <div class="pres-filter-sidebar">
+      <div class="pres-filter-group">
+        <span class="pub-filter-group-label">Reset</span>
+        <button class="filter-btn active" id="pres-reset" onclick="resetPresFilters(this)">All Presentations</button>
+      </div>
+      <div class="pres-filter-group">
+        <span class="pub-filter-group-label">Type</span>
+        <button class="filter-btn" onclick="filterPres('type','poster',this)">Poster</button>
+        <button class="filter-btn" onclick="filterPres('type','oral',this)">Oral</button>
+      </div>
+      <div class="pres-filter-group">
+        <span class="pub-filter-group-label">Location</span>
+        <button class="filter-btn" onclick="filterPres('location','Iran',this)">Iran</button>
+        <button class="filter-btn" onclick="filterPres('location','Netherlands',this)">Netherlands</button>
+        <button class="filter-btn" onclick="filterPres('location','Turkey',this)">Turkey</button>
+        <button class="filter-btn" onclick="filterPres('location','United States',this)">United States</button>
+      </div>
+      <div class="pres-filter-group">
+        <span class="pub-filter-group-label">Topic</span>
+        <button class="filter-btn" onclick="filterPres('cat','ai',this)">AI & Innovation</button>
+        <button class="filter-btn" onclick="filterPres('cat','burns',this)">Burns</button>
+        <button class="filter-btn" onclick="filterPres('cat','covid',this)">COVID-19</button>
+        <button class="filter-btn" onclick="filterPres('cat','gi',this)">GI Surgery</button>
+        <button class="filter-btn" onclick="filterPres('cat','infectious',this)">Infectious Disease</button>
+        <button class="filter-btn" onclick="filterPres('cat','oncology',this)">Oncology</button>
+        <button class="filter-btn" onclick="filterPres('cat','ortho',this)">Orthopaedic</button>
+        <button class="filter-btn" onclick="filterPres('cat','plastic',this)">Plastic & Reconstructive</button>
+        <button class="filter-btn" onclick="filterPres('cat','pubhealth',this)">Public Health</button>
+        <button class="filter-btn" onclick="filterPres('cat','pulm',this)">Pulmonology</button>
+        <button class="filter-btn" onclick="filterPres('cat','thoracic',this)">Thoracic</button>
+        <button class="filter-btn" onclick="filterPres('cat','transplant',this)">Transplant</button>
+      </div>
+    </div>
+    <!-- Right: search + list -->
+    <div class="pres-list-wrap">
+      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
+        <input type="search" id="pres-search" placeholder="Search title or conference…"
+          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
+          oninput="filterPresSearch(this.value)">
+        <div id="pres-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">17 presentations</div>
+      </div>
+      <div class="pres-list" id="pres-list">
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jun 2026</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div>
+        <div class="pres-venue">Plastic Surgery Research Council (PSRC)</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Mar 2026</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div>
+        <div class="pres-venue">Society of Surgical Oncology (SSO)</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Dec 2025</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div>
+        <div class="pres-venue">American Orthopaedic Foot & Ankle Society (AOFAS) Annual Meeting 2025</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,ai">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Oct 2025</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div>
+        <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,ai">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Oct 2025</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan</div>
+        <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ai">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jul 2025</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div>
+        <div class="pres-venue">Mayo Clinic AI Summit</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Apr 2025</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study</div>
+        <div class="pres-venue">Advanced Robotic Surgery Conference 2025</div>
+        <div class="pres-location">United States</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="covid,transplant,infectious">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Dec 2022</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div>
+        <div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Oct 2022</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy</div>
+        <div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div>
+        <div class="pres-location">Turkey</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="burns,pubhealth">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Oct 2021</span>
+        <span class="pres-type oral">Oral</span>
+      </div>
+      <div>
+        <div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div>
+        <div class="pres-venue">10th National Burn Congress 2021</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jul 2021</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div>
+        <div class="pres-venue">Transplantation (International Congress)</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="covid,infectious">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Sep 2020</span>
+        <span class="pres-type oral">Oral</span>
+      </div>
+      <div>
+        <div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div>
+        <div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div>
+        <div class="pres-location">Netherlands</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Oct 2019</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran</div>
+        <div class="pres-venue">4th International & 11th National Congress of Parasitology & Parasitic Diseases of Iran (NICOPA11)</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Apr 2016</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div>
+        <div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Mar 2016</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough</div>
+        <div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div>
+        <div class="pres-location">Iran</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jun 2015</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div>
+        <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
+        <div class="pres-location">Netherlands</div>
+      </div>
+    </div>
+    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jun 2015</span>
+        <span class="pres-type poster">Poster</span>
+      </div>
+      <div>
+        <div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div>
+        <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
+        <div class="pres-location">Netherlands</div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div></div>
 </div>
 </div>
 
 <!-- HOBBIES -->
-<div class="section-alt" id="hobbies">
+<div id="hobbies">
 <div class="section-wrap">
   <div class="section-label">Personal</div>
   <h2>Extracurricular &amp; Interests</h2>
@@ -771,27 +1016,6 @@ async function fetchScholarData(){
   if(hiEl && (hiEl.textContent === '—' || hiEl.textContent === '…')) hiEl.textContent = '24';
 }
 
-
-/* ── ORCID LIVE DATA ── */
-async function fetchOrcidData(){
-  const ORCID_ID = '0000-0001-5454-495X';
-  // ORCID public API — no auth needed for public profiles
-  try {
-    const res = await fetch(`https://pub.orcid.org/v3.0/${ORCID_ID}/works`, {
-      headers: {'Accept': 'application/json'},
-      signal: AbortSignal.timeout(6000)
-    });
-    if(!res.ok) return;
-    const data = await res.json();
-    // Count works from ORCID
-    const workCount = data.group ? data.group.length : 0;
-    if(workCount > 0){
-      const el = document.getElementById('hero-pubs');
-      if(el) el.textContent = String(workCount);
-    }
-  } catch(e) {}
-}
-fetchOrcidData();
 
 const publications = [
   {n:1,year:"2026",type:"review",tags:["co-first"],cat:["plastic"],title:"Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999–2025)",authors:"Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",journal:"Journal of Robotic Surgery",url:""},
@@ -1244,6 +1468,50 @@ document.getElementById('journal-grid').innerHTML=journals.map(j=>
     ? `<a href="${j.url}" target="_blank" class="journal-pill">${j.name} ↗</a>`
     : `<span class="journal-pill">${j.name}</span>`
 ).join('');
+
+/* ── PRESENTATIONS FILTER ── */
+let presFilters = {type: null, location: null, cat: null, search: ''};
+function filterPres(dim, val, btn){
+  // Toggle: clicking active filter resets it
+  if(presFilters[dim] === val){ presFilters[dim] = null; btn.classList.remove('active'); }
+  else {
+    // Deactivate siblings in same group
+    btn.closest('.pres-filter-group').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    presFilters[dim] = val; btn.classList.add('active');
+  }
+  applyPresFilters();
+}
+function resetPresFilters(btn){
+  presFilters = {type:null, location:null, cat:null, search:''};
+  document.querySelectorAll('.pres-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const searchEl = document.getElementById('pres-search');
+  if(searchEl) searchEl.value = '';
+  applyPresFilters();
+}
+function filterPresSearch(q){
+  presFilters.search = q.toLowerCase();
+  applyPresFilters();
+}
+function applyPresFilters(){
+  const items = document.querySelectorAll('#pres-list .pres-item');
+  let shown = 0;
+  items.forEach(item => {
+    const type = item.dataset.type || '';
+    const loc  = item.dataset.location || '';
+    const cats = (item.dataset.cats || '').split(',');
+    const text = item.textContent.toLowerCase();
+    const ok =
+      (!presFilters.type     || type === presFilters.type) &&
+      (!presFilters.location || loc  === presFilters.location) &&
+      (!presFilters.cat      || cats.includes(presFilters.cat)) &&
+      (!presFilters.search   || text.includes(presFilters.search));
+    item.style.display = ok ? '' : 'none';
+    if(ok) shown++;
+  });
+  const countEl = document.getElementById('pres-count');
+  if(countEl) countEl.textContent = shown + ' presentation' + (shown !== 1 ? 's' : '');
+}
 
 /* ── REFERENCES ── */
 const refs=[
