@@ -120,13 +120,13 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;margin-bottom:1.2rem;color:var(--t1)}
 .modal-acts{display:flex;gap:.5rem;margin-top:.5rem}
 /* Connect screen */
-#conn-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 70% 50% at 60% 30%,rgba(201,168,76,.06) 0%,transparent 60%);padding:1.5rem}
-.conn-box{width:100%;max-width:410px}
-.conn-ey{font-size:.59rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.85rem;display:flex;align-items:center;gap:.65rem}
+#conn-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);background-image:radial-gradient(ellipse 60% 55% at 50% 45%,rgba(201,168,76,.07) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 20% 70%,rgba(88,166,255,.04) 0%,transparent 60%);padding:2rem}
+.conn-box{width:100%;max-width:440px;margin:0 auto}
+.conn-ey{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:.7rem}
 .conn-ey::before,.conn-ey::after{content:'';flex:1;height:1px;background:var(--gold);opacity:.3}
 .conn-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--t1);text-align:center;margin-bottom:.35rem}
 .conn-title em{color:var(--gold2);font-style:italic}
-.conn-sub{font-size:.77rem;color:var(--t3);text-align:center;margin-bottom:1.7rem;line-height:1.7}
+.conn-sub{font-size:.78rem;color:var(--t3);text-align:center;margin-bottom:1.8rem;line-height:1.75}
 .hl{font-size:.68rem;color:var(--t3);line-height:1.6;margin-top:-.5rem;margin-bottom:.8rem}
 .hl a{color:var(--gold);text-decoration:none}
 /* Pub search */
@@ -154,7 +154,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="conn-box">
     <div class="conn-ey">CV Admin Panel</div>
     <h1 class="conn-title">Reza <em>Shahriarirad</em></h1>
-    <p class="conn-sub">Connect your GitHub repository to edit all CV sections<br>and push changes live.</p>
+    <p class="conn-sub">Connect your GitHub repository to edit all CV sections,<br>update metrics, and push changes live to your website.</p>
     <div class="card">
       <div class="ch"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>GitHub Access Token</div>
       <label>Personal access token</label>
@@ -187,7 +187,9 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="ni" data-p="contact" onclick="go('contact')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact Info</div>
   <div class="ni" data-p="mayo" onclick="go('mayo')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>Mayo Research</div>
   <div class="ni" data-p="experience" onclick="go('experience')"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>Experience</div>
+  <div class="ni" data-p="education" onclick="go('education')"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 12.27L3.46 10.5 12 5.96l8.54 4.54L12 15.27zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>Education</div>
   <div class="ni" data-p="leadership" onclick="go('leadership')"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/></svg>Leadership</div>
+  <div class="ni" data-p="skills" onclick="go('skills')"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>Skills</div>
   <div class="ng">Academic</div>
   <div class="ni" data-p="reviewer" onclick="go('reviewer')"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Peer Reviews</div>
   <div class="ni" data-p="publications" onclick="go('publications')"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>Publications<span class="nb" id="nb-p">193</span></div>
@@ -262,7 +264,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="ph"><h2>Contact <em>Info</em></h2></div>
   <div class="card">
     <div class="ch"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>Details</div>
-    <div class="g2"><div class="f"><label>Personal Email</label><input id="c-email" value="R.shahriari1995@gmail.com"></div><div class="f"><label>Mayo Email</label><input id="c-mayo" value="Shahriarirad.reza@mayo.edu"></div></div>
+    <div class="g2"><div class="f"><label>Personal Email</label><input id="c-email" value="R.shahriari1995@gmail.com"></div><div class="f"><label>Professional Email</label><input id="c-mayo" value="Shahriarirad.reza@mayo.edu"></div></div>
     <br>
     <div class="g2"><div class="f"><label>Phone</label><input id="c-phone" value="+1-507-218-6077"></div><div class="f"><label>Location</label><input id="c-loc" value="Rochester, Minnesota, USA"></div></div>
     <br>
@@ -347,7 +349,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <div class="g2"><div class="f"><label>Journal reviewed (optional)</label><input id="rv-j-inp" placeholder="e.g. Annals of Surgery"></div><div class="f"><label>Updated manuscript count</label><input type="number" id="rv-mss" placeholder="129"></div></div>
     <br>
     <label>Hyperlink to review / profile (optional)</label>
-    <input id="rv-url" placeholder="https://www.webofscience.com/wos/author/record/ABC-9194-2020">
+    <input id="rv-url" placeholder="https://publons.com/researcher/… or any profile URL">
     <label>Note (optional)</label>
     <input id="rv-note" placeholder="Topic or brief note…">
     <button class="btn bp bw" onclick="saveReviews()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push to GitHub</button>
@@ -455,6 +457,51 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   </div>
 </div>
 
+<!-- EDUCATION -->
+<div class="pg" id="p-education">
+  <div class="ph"><h2>Education</h2><p>Edit or add education entries. Click any entry to edit it.</p></div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add New Entry</div>
+    <div class="g2"><div class="f"><label>Period</label><input id="edu-period-new" placeholder="2013 – 2020"></div><div class="f"><label>Degree / Program</label><input id="edu-role-new" placeholder="Doctor of Medicine (M.D.)"></div></div>
+    <br>
+    <label>Institution</label><input id="edu-org-new" placeholder="University name · City, Country">
+    <label>Notes (optional)</label><textarea id="edu-desc-new" rows="2" placeholder="GPA, thesis, honors…"></textarea>
+    <button class="btn bp" onclick="addEduEntry()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Entry</button>
+  </div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>All Education Entries — click to edit</div>
+    <div class="il" id="edu-list"></div>
+  </div>
+  <button class="btn bp bw" onclick="saveEdu()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Education to GitHub</button>
+  <div id="s-edu" class="st"></div>
+</div>
+
+<!-- SKILLS -->
+<div class="pg" id="p-skills">
+  <div class="ph"><h2>Skills</h2><p>Edit skill items. Click any skill to edit level. Changes push to your CV.</p></div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Skill</div>
+    <div class="g3">
+      <div class="f"><label>Skill Name</label><input id="sk-name" placeholder="e.g. R Studio"></div>
+      <div class="f"><label>Level</label><input id="sk-level" placeholder="Beginner / Good / Expert"></div>
+      <div class="f"><label>Category</label><select id="sk-cat"><option value="computing">Computing</option><option value="interpersonal">Interpersonal</option><option value="writing">Writing / Language</option></select></div>
+    </div>
+    <button class="btn bp" onclick="addSkill()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Skill</button>
+    <div id="s-sk" class="st"></div>
+  </div>
+  <div class="card-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+    <div class="card" style="margin-bottom:0">
+      <div class="ch">Computing Skills</div>
+      <div class="il" id="sk-computing"></div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="ch">Interpersonal &amp; Writing</div>
+      <div class="il" id="sk-interpersonal"></div>
+    </div>
+  </div>
+  <br>
+  <button class="btn bp bw" onclick="saveSkills()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Skills to GitHub</button>
+</div>
 <!-- DEPLOY -->
 <div class="pg" id="p-deploy">
   <div class="ph"><h2>Push &amp; <em>Deploy</em></h2></div>
@@ -503,8 +550,24 @@ let MAYO_TAGS=['Plastic & Reconstructive Surgery','Bariatric & Abdominal Wall Re
 let HOBBIES=[{icon:'🎸',name:'Guitar',desc:'Professional guitarist with several live stage and group performances.'},{icon:'🏀',name:'Basketball',desc:'Member of middle and high school basketball team.'},{icon:'🏕️',name:'Camping & Travel',desc:'Enjoys outdoor camping and international travel.'},{icon:'🎮',name:'Gaming',desc:'Computer and console gaming enthusiast.'}];
 let AWARDS=[{year:'December 2023',title:'World Top 2% Scientists',org:"Elsevier / Stanford World's Top 2% Scientists Report",url:'https://topresearcherslist.com/Home/Profile/760111'},{year:'October 2020',title:'National Outstanding Student Researcher',org:'Ministry of Health and Medical Education · National Student Research Committee, Iran',url:''}];
 let PATENTS=[{date:'Apr 2021',title:'A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images',issuer:'IR',reg:'140050140003000416'},{date:'Oct 2020',title:'Utilization of Chest Tube in Pediatric Caustic Injuries: A New Method for Esophageal Stenting',issuer:'IR',reg:'139950140003006653'}];
-let PRES=[];
+let PRES=[{"date": "Jun 2026", "type": "Poster", "title": "Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility", "venue": "Plastic Surgery Research Council (PSRC)"}, {"date": "Mar 2026", "type": "Poster", "title": "Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors", "venue": "Society of Surgical Oncology (SSO)"}, {"date": "Dec 2025", "type": "Poster", "title": "An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma", "venue": "American Orthopaedic Foot & Ankle Society (AOFAS) Annual Meeting 2025"}, {"date": "Oct 2025", "type": "Poster", "title": "Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis", "venue": "Annual Balfour Surgery Research Symposium"}, {"date": "Oct 2025", "type": "Poster", "title": "Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan", "venue": "Annual Balfour Surgery Research Symposium"}, {"date": "Jul 2025", "type": "Poster", "title": "Trend and Changes in AI based on Patient Perspectives", "venue": "Mayo Clinic AI Summit"}, {"date": "Apr 2025", "type": "Poster", "title": "Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study", "venue": "Advanced Robotic Surgery Conference 2025"}, {"date": "Dec 2022", "type": "Poster", "title": "COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran", "venue": "Organ Transplantation before and during the COVID-19 era"}, {"date": "Oct 2022", "type": "Poster", "title": "Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy", "venue": "31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)"}, {"date": "Oct 2021", "type": "Oral", "title": "Suicide by Self-immolation in Southern Iran: An Epidemiological Study", "venue": "10th National Burn Congress 2021"}, {"date": "Jul 2021", "type": "Poster", "title": "Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East", "venue": "Transplantation (International Congress)"}, {"date": "Sep 2020", "type": "Oral", "title": "Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic", "venue": "26th European Paediatric Rheumatology e-Congress (PReS)"}, {"date": "Oct 2019", "type": "Poster", "title": "Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran", "venue": "4th International & 11th National Congress of Parasitology & Parasitic Diseases of Iran (NICOPA11)"}, {"date": "Apr 2016", "type": "Poster", "title": "The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats", "venue": "First National Congress on Animal Models in Experimental Medical Researches"}, {"date": "Mar 2016", "type": "Poster", "title": "Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough", "venue": "3rd Professor Amirhakimi Pediatric Congress"}, {"date": "Jun 2015", "type": "Poster", "title": "Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis", "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)"}, {"date": "Jun 2015", "type": "Poster", "title": "Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats", "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)"}];
 let EXP=[{period:'2024 – Present',role:'Research Fellow',org:'Surgery Innovation Center · Mayo Clinic, Rochester, MN',desc:''},{period:'2018 – 2024',role:'Senior Researcher & Project Manager',org:'Thoracic & Vascular Surgery Research Center, Shiraz University of Medical Sciences',desc:''},{period:'2020 – 2022',role:'General Practitioner — Emergency Department',org:'Khatam-al-Anbiya Hospital · Bushehr, Iran',desc:''},{period:'2014 – 2020',role:'Research Trainee',org:'Student Research Committee · Shiraz University of Medical Sciences',desc:''},{period:'2013 – 2020',role:'Doctor of Medicine (M.D.)',org:'Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)',desc:''},{period:'2009 – 2013',role:'High School Diploma',org:'National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran',desc:''}];
+let EDU=[
+  {period:'2013 – 2020',role:'Doctor of Medicine (M.D.)',org:'Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)',desc:''},
+  {period:'2009 – 2013',role:'High School Diploma',org:'National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran',desc:''}
+];
+let SKILLS={
+  computing:[
+    {name:'SPSS',level:'Good'},{name:'MS Office',level:'Good'},{name:'Endnote',level:'Good'},
+    {name:'Corel Video Studio',level:'Good'},{name:'Python',level:'Beginner'},
+    {name:'MATLAB',level:'Beginner'},{name:'NCSS',level:'Beginner'},{name:'Typing',level:'90 wpm'}
+  ],
+  interpersonal:[
+    {name:'Leadership',level:''},{name:'Presentation',level:''},{name:'Time Management',level:''},
+    {name:'Effective Listening',level:''},{name:'Team Player',level:''},{name:'Problem-Solving',level:''},
+    {name:'Scientific Editing',level:''},{name:'Translation EN↔FA',level:''}
+  ]
+};
 let LEAD=[{period:'2020 – Present',title:'Research Project Inspector & Mentoring Program — Founder and Director',org:'Thoracic and Vascular Surgery Research Center · Shiraz University of Medical Sciences · Shiraz, Iran',desc:'Founded and leads the Research Mentoring Program, mentoring 15 medical students in research methodology, scientific writing, and publication strategy — resulting in over 50 peer-reviewed publications.'}];
 
 // Pubs loaded from embedded data
@@ -556,12 +619,20 @@ function $(id,v){const e=document.getElementById(id);if(!e)return;(e.tagName==='
 function st(id,type,msg){const e=document.getElementById(id);if(!e)return;e.className='st '+type;e.innerHTML=type==='ld'?`<div class="sp"></div><span>${msg}</span>`:msg;}
 function ctr(id,d){const e=document.getElementById(id);if(e)e.value=Math.max(1,(parseInt(e.value)||0)+d);}
 function ts(){return new Date().toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function syncDashboardCounts(){
+  // Sync all dashboard stats from embedded data
+  const pubCount=PUBS.length;
+  const presCount=PRES.length;
+  ['ds-pub','nb-p'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=String(pubCount);});
+  ['ds-pr','nb-pr','pres-cnt'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=String(presCount);});
+  ['pub-total'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=String(pubCount);});
+}
 function logA(msg){LOG.unshift({t:ts(),m:msg});document.getElementById('log-a').innerHTML=LOG.slice(0,10).map(l=>`<div class="log-i"><span class="log-ts">${l.t}</span><span class="log-m">${l.m}</span></div>`).join('');}
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));document.getElementById('p-'+id)?.classList.add('active');document.querySelectorAll(`[data-p="${id}"]`).forEach(n=>n.classList.add('active'));window.scrollTo(0,0);}
 
 function initPages(){
-  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();
-  loadPres();buildCatCheckboxes();renderPubList();
+  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();
+  loadPres();buildCatCheckboxes();renderPubList();syncDashboardCounts();
 }
 
 // ── HEADSHOT ──────────────────────────────────────────────────────────────────
@@ -612,7 +683,7 @@ async function saveContact(){
   try{
     const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
     let h=f.content;
-    const map={'Email':document.getElementById('c-email').value,'Mayo Email':document.getElementById('c-mayo').value,'Phone':document.getElementById('c-phone').value,'Location':document.getElementById('c-loc').value,'Research Interests':document.getElementById('c-int').value,'Languages':document.getElementById('c-lang').value};
+    const map={'Email':document.getElementById('c-email').value,'Professional Email':document.getElementById('c-mayo').value,'Phone':document.getElementById('c-phone').value,'Location':document.getElementById('c-loc').value,'Research Interests':document.getElementById('c-int').value,'Languages':document.getElementById('c-lang').value};
     for(const[label,val]of Object.entries(map)){h=h.replace(new RegExp(`(<span>${label.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}<\\/span>)(<a[^>]*>|<span>)[^<]+(</)`),`$1<span>${val}$3`);}
     await ghPut('index.html',f.sha,h,'Update contact info');
     logA('Updated contact info');st('s-cont','ok','✓ Contact info updated.');
@@ -711,6 +782,123 @@ function editLead(i){
   document.getElementById('modal-del').style.display='inline-flex';
   openModal();
 }
+// ── EDUCATION ────────────────────────────────────────────────────────────────
+function renderEduList(){
+  document.getElementById('edu-list').innerHTML=EDU.map((e,i)=>`
+    <div class="it" style="cursor:pointer" onclick="editEdu(${i})">
+      <div class="itb"><div class="it-title">${e.role}</div><div class="it-sub">${e.period} · ${e.org}</div></div>
+      <div class="it-acts"><button class="btn bg bs" onclick="editEdu(${i});event.stopPropagation()">✏</button></div>
+    </div>`).join('');
+}
+function addEduEntry(){
+  const period=document.getElementById('edu-period-new').value.trim();
+  const role=document.getElementById('edu-role-new').value.trim();
+  const org=document.getElementById('edu-org-new').value.trim();
+  const desc=document.getElementById('edu-desc-new').value.trim();
+  if(!period||!role||!org){alert('Period, degree, and institution required.');return;}
+  EDU.unshift({period,role,org,desc});renderEduList();
+  ['edu-period-new','edu-role-new','edu-org-new','edu-desc-new'].forEach(id=>document.getElementById(id).value='');
+}
+function editEdu(i){
+  modalType='edu';modalIdx=i;const e=EDU[i];
+  document.getElementById('modal-title').textContent='Edit Education Entry';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="g2"><div class="f"><label>Period</label><input id="meu-period" value="${e.period}"></div><div class="f"><label>Degree</label><input id="meu-role" value="${e.role}"></div></div><br>
+    <label>Institution</label><input id="meu-org" value="${e.org}">
+    <label>Notes</label><textarea id="meu-desc" rows="2">${e.desc||''}</textarea>`;
+  document.getElementById('modal-del').style.display='inline-flex';
+  openModal();
+}
+async function saveEdu(){
+  st('s-edu','ld','Updating education…');
+  try{
+    const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+    const eduHtml=EDU.map(e=>`
+        <div class="timeline-item">
+          <div class="timeline-period">${e.period}</div>
+          <div class="timeline-role">${e.role}</div>
+          <div class="timeline-org">${e.org}</div>${e.desc?`
+          <div class="timeline-desc">${e.desc}</div>`:''}
+        </div>`).join('');
+    // Replace education timeline block
+    h=h.replace(
+      /(<div class="timeline-col"><h3>Education<\/h3><\/div>\s*<div class="timeline">)([\s\S]*?)(<\/div>\s*<div class="timeline-col" style="margin-top)/,
+      `$1${eduHtml}
+      $3`
+    );
+    await ghPut('index.html',f.sha,h,'Update education timeline');
+    logA('Updated education');st('s-edu','ok','✓ Education updated.');
+  }catch(e){st('s-edu','er','Error: '+e.message);}
+}
+
+// ── SKILLS ────────────────────────────────────────────────────────────────────
+function renderSkills(){
+  const render=(list,id)=>{
+    document.getElementById(id).innerHTML=list.map((s,i)=>`
+      <div class="it" style="cursor:pointer" onclick="editSkill('${id}',${i})">
+        <div class="itb"><div class="it-title">${s.name}${s.level?` <span style="font-size:.68rem;color:var(--t3)">— ${s.level}</span>`:''}</div></div>
+        <div class="it-acts">
+          <button class="btn bg bs" onclick="editSkill('${id}',${i});event.stopPropagation()">✏</button>
+          <button class="btn bd bs" onclick="deleteSkill('${id}',${i});event.stopPropagation()">✕</button>
+        </div>
+      </div>`).join('');
+  };
+  render(SKILLS.computing,'sk-computing');
+  render(SKILLS.interpersonal,'sk-interpersonal');
+}
+function editSkill(listId,i){
+  const list=listId==='sk-computing'?SKILLS.computing:SKILLS.interpersonal;
+  const s=list[i];
+  modalType='skill';modalIdx=i;
+  window._skillList=listId;
+  document.getElementById('modal-title').textContent='Edit Skill';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="g2"><div class="f"><label>Skill Name</label><input id="msk-name" value="${s.name}"></div><div class="f"><label>Level</label><input id="msk-level" value="${s.level||''}"></div></div>`;
+  document.getElementById('modal-del').style.display='none';
+  openModal();
+}
+function deleteSkill(listId,i){
+  if(!confirm('Delete this skill?'))return;
+  if(listId==='sk-computing')SKILLS.computing.splice(i,1);
+  else SKILLS.interpersonal.splice(i,1);
+  renderSkills();
+}
+function addSkill(){
+  const name=document.getElementById('sk-name').value.trim();
+  const level=document.getElementById('sk-level').value.trim();
+  const cat=document.getElementById('sk-cat').value;
+  if(!name){alert('Skill name required.');return;}
+  if(cat==='computing')SKILLS.computing.push({name,level});
+  else SKILLS.interpersonal.push({name,level});
+  renderSkills();
+  document.getElementById('sk-name').value='';
+  document.getElementById('sk-level').value='';
+  st('s-sk','ok','✓ Skill added — click Push to save to GitHub.');
+}
+async function saveSkills(){
+  try{
+    const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+    const compHtml=SKILLS.computing.map(s=>`
+          <div class="skill-item"><span>${s.name}</span>${s.level?`<span class="skill-level">${s.level}</span>`:''}</div>`).join('');
+    const interHtml=SKILLS.interpersonal.map(s=>`
+          <div class="skill-item">${s.name}</div>`).join('');
+    h=h.replace(
+      /(<div class="skill-group">\s*<h3>Computing<\/h3>)([\s\S]*?)(<\/div>\s*<div class="skill-group">\s*<h3>Interpersonal<\/h3>)/,
+      `$1${compHtml}
+        $3`
+    );
+    h=h.replace(
+      /(<div class="skill-group">\s*<h3>Interpersonal<\/h3>)([\s\S]*?)(<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>)/,
+      `$1${interHtml}
+        $3`
+    );
+    await ghPut('index.html',f.sha,h,'Update skills section');
+    logA('Updated skills');alert('✓ Skills pushed to GitHub.');
+  }catch(e){alert('Error: '+e.message);}
+}
+
 async function saveLead(){
   st('s-lead','ld','Updating…');
   try{
@@ -748,7 +936,7 @@ async function saveReviews(){
     h=h.replace(/(<div class="stat-num" id="hero-reviews">)\d+(<\/div>)/,`$1${n}$2`);
     h=h.replace(/const liveData = \{[^}]+\}/,`const liveData = { citations: null, hindex: null, peerReviews: ${n}, journals: ${s.journals||67} }`);
     // If a URL was provided, also update the WoS link in the reviewer section
-    if(u){h=h.replace(/(id="reviewer"[\s\S]*?href=")[^"]*("[\s\S]*?Web of Science)/,`$1${u}$2`);}
+    if(u){ /* URL stored in cv_live_stats.json above */ }
     await ghPut('index.html',hf.sha,h,`Update peer reviews to ${n}`);
     $('rv-n',String(n));$('ds-rv',String(n));
     document.getElementById('rv-new').value=n+1;
@@ -966,7 +1154,28 @@ async function addPatent(){
 }
 
 // ── HOBBIES ───────────────────────────────────────────────────────────────────
-function renderHobbies(){document.getElementById('hob-list').innerHTML=HOBBIES.map((h,i)=>`<div class="it"><div style="font-size:1.3rem;flex-shrink:0;line-height:1">${h.icon}</div><div class="itb"><div class="it-title">${h.name}</div><div class="it-sub">${h.desc}</div></div></div>`).join('');}
+function renderHobbies(){document.getElementById('hob-list').innerHTML=HOBBIES.map((h,i)=>`
+    <div class="it">
+      <div style="font-size:1.3rem;flex-shrink:0;line-height:1">${h.icon}</div>
+      <div class="itb"><div class="it-title">${h.name}</div><div class="it-sub">${h.desc}</div></div>
+      <div class="it-acts">
+        <button class="btn bg bs" onclick="editHobby(${i})">✏</button>
+        <button class="btn bd bs" onclick="deleteHobby(${i})">✕</button>
+      </div>
+    </div>`).join('');}
+function editHobby(i){
+  modalType='hobby';modalIdx=i;const h=HOBBIES[i];
+  document.getElementById('modal-title').textContent='Edit Hobby';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="g2"><div class="f"><label>Icon (emoji)</label><input id="mh-icon" value="${h.icon}" style="text-align:center;font-size:1.1rem"></div><div class="f"><label>Name</label><input id="mh-name" value="${h.name}"></div></div><br>
+    <label>Description</label><input id="mh-desc" value="${h.desc}">`;
+  document.getElementById('modal-del').style.display='none';
+  openModal();
+}
+function deleteHobby(i){
+  if(!confirm('Delete this hobby?'))return;
+  HOBBIES.splice(i,1);renderHobbies();
+}
 async function addHobby(){
   const icon=document.getElementById('hob-icon').value.trim();
   const name=document.getElementById('hob-name').value.trim();
@@ -1016,6 +1225,17 @@ async function modalSave(){
       await ghPut('index.html',hf.sha,h,`Edit pub n:${modalIdx}: ${p.title.substring(0,40)}`);
       renderPubList();
       logA(`Edited pub n:${modalIdx}: ${p.title.substring(0,50)}`);
+    } else if(modalType==='edu'){
+      EDU[modalIdx]={period:document.getElementById('meu-period').value,role:document.getElementById('meu-role').value,org:document.getElementById('meu-org').value,desc:document.getElementById('meu-desc').value};
+      renderEduList();logA('Edited education: '+EDU[modalIdx].role);
+    } else if(modalType==='skill'){
+      const list=window._skillList==='sk-computing'?SKILLS.computing:SKILLS.interpersonal;
+      list[modalIdx].name=document.getElementById('msk-name').value;
+      list[modalIdx].level=document.getElementById('msk-level').value;
+      renderSkills();logA('Edited skill: '+list[modalIdx].name);
+    } else if(modalType==='hobby'){
+      HOBBIES[modalIdx]={icon:document.getElementById('mh-icon').value,name:document.getElementById('mh-name').value,desc:document.getElementById('mh-desc').value};
+      renderHobbies();logA('Edited hobby: '+HOBBIES[modalIdx].name);
     } else if(modalType==='exp'){
       EXP[modalIdx]={period:document.getElementById('me-period').value,role:document.getElementById('me-role').value,org:document.getElementById('me-org').value,desc:document.getElementById('me-desc').value};
       renderExpList();logA(`Edited experience: ${EXP[modalIdx].role}`);
@@ -1035,7 +1255,8 @@ async function modalSave(){
 }
 function modalDelete(){
   if(!confirm('Delete this entry?'))return;
-  if(modalType==='exp')EXP.splice(modalIdx,1),renderExpList();
+  if(modalType==='edu')EDU.splice(modalIdx,1),renderEduList();
+  else if(modalType==='exp')EXP.splice(modalIdx,1),renderExpList();
   else if(modalType==='lead')LEAD.splice(modalIdx,1),renderLeadList();
   else if(modalType==='award')AWARDS.splice(modalIdx,1),renderAwards();
   else if(modalType==='patent')PATENTS.splice(modalIdx,1),renderPatents();
