@@ -199,6 +199,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="ni" data-p="awards" onclick="go('awards')"><svg viewBox="0 0 24 24"><path d="M12 15.39l-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28z"/></svg>Awards</div>
   <div class="ni" data-p="patents" onclick="go('patents')"><svg viewBox="0 0 24 24"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74z"/></svg>Patents</div>
   <div class="ni" data-p="hobbies" onclick="go('hobbies')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>Hobbies</div>
+  <div class="ni" data-p="categories" onclick="go('categories')"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Categories</div>
   <div class="ng">System</div>
   <div class="ni" data-p="deploy" onclick="go('deploy')"><svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>Deploy</div>
   <div class="ni" data-p="deploy" onclick="doDisc()" style="margin-top:.5rem;color:var(--t3)"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>Disconnect</div>
@@ -290,13 +291,22 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     </div>
     <div class="g2" style="margin-top:.4rem">
       <div class="f"><label>Type</label>
-        <select id="cont-type">
+        <select id="cont-type" onchange="onContTypeSel(this)">
           <option value="text">Plain text</option>
           <option value="email">Email (clickable)</option>
-          <option value="link">URL (clickable)</option>
+          <option value="link">URL / Link (clickable)</option>
         </select>
       </div>
-      <div class="f" id="cont-link-wrap" style="display:none"><label>Second value (optional — e.g. second email)</label><input id="cont-value2" placeholder="second value…"></div>
+      <div class="f" id="cont-value2-wrap" style="display:none">
+        <label id="cont-value2-label">Second value (optional)</label>
+        <input id="cont-value2" placeholder="second value…">
+      </div>
+    </div>
+    <div id="cont-url-wrap" style="display:none;margin-top:0">
+      <label>URL / Link (the clickable destination)</label>
+      <input id="cont-url" placeholder="https://…" style="margin-bottom:.4rem">
+      <label>Display text (what visitors see)</label>
+      <input id="cont-display" placeholder="e.g. Visit profile, 0000-0001-5454-495X…">
     </div>
     <button class="btn bp" onclick="addContactItem()" style="margin-top:.4rem">
       <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Item
@@ -538,6 +548,43 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <br>
   <button class="btn bp bw" onclick="saveSkills()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Skills to GitHub</button>
 </div>
+<!-- CATEGORIES -->
+<div class="pg" id="p-categories">
+  <div class="ph"><h2>Categories</h2><p>Manage the topic taxonomy used to tag publications and presentations. Changes push to both your publication filters and admin panel immediately.</p></div>
+
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Current Taxonomy</div>
+    <p style="font-size:.72rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Main categories and their subcategories. Click any item to edit or remove it.</p>
+    <div id="cat-tree"></div>
+  </div>
+
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Main Category</div>
+    <div class="g2">
+      <div class="f"><label>Key (short, no spaces, e.g. "neuro")</label><input id="cat-main-key" placeholder="myfield" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9]/g,'')"></div>
+      <div class="f"><label>Display Label</label><input id="cat-main-label" placeholder="e.g. Neuroscience"></div>
+    </div>
+    <button class="btn bp bs" onclick="addMainCat()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Main Category</button>
+  </div>
+
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Subcategory</div>
+    <div class="g3">
+      <div class="f"><label>Parent Category</label>
+        <select id="cat-parent-sel"></select>
+      </div>
+      <div class="f"><label>Key (short, no spaces)</label><input id="cat-sub-key" placeholder="e.g. spine" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9]/g,'')"></div>
+      <div class="f"><label>Display Label</label><input id="cat-sub-label" placeholder="e.g. Spine Surgery"></div>
+    </div>
+    <button class="btn bp bs" onclick="addSubCat()" style="margin-top:.4rem"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Subcategory</button>
+  </div>
+
+  <button class="btn bp bw" onclick="saveCats()">
+    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Taxonomy Changes to GitHub
+  </button>
+  <div id="s-cats" class="st"></div>
+</div>
+
 <!-- DEPLOY -->
 <div class="pg" id="p-deploy">
   <div class="ph"><h2>Push &amp; <em>Deploy</em></h2></div>
@@ -573,7 +620,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const CAT_LABELS = {"plastic":"Plastic, Reconstructive & Burns", "thoracic":"Thoracic Surgery", "vascular":"Vascular Surgery", "gi":"GI & Colorectal Surgery", "endocrine":"Endocrine Surgery", "ortho":"Orthopaedic Surgery", "transplant":"Transplant Surgery", "oncology":"Surgical Oncology", "infectious":"Infectious Disease", "pulm":"Pulmonology", "neuro":"Neurology", "derm":"Dermatology", "urology":"Urology", "ai":"AI & Machine Learning", "pubhealth":"Public Health & Epidemiology"};
+const CAT_LABELS = {"plastic":"Plastic, Reconstructive & Burns", "thoracic":"Thoracic Surgery", "vascular":"Vascular Surgery", "gi":"GI & Colorectal Surgery", "endocrine":"Endocrine Surgery", "ortho":"Orthopaedic Surgery", "urosurg":"Urological Surgery", "transplant":"Transplant Surgery", "oncology":"Surgical Oncology", "infectious":"Infectious Disease", "pulm":"Pulmonology", "neuro":"Neurology", "derm":"Dermatology", "urology":"Urology", "ai":"AI & Machine Learning", "pubhealth":"Public Health & Epidemiology"};
 const CAT_KEYS = Object.keys(CAT_LABELS);
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -667,7 +714,7 @@ function logA(msg){LOG.unshift({t:ts(),m:msg});document.getElementById('log-a').
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));document.getElementById('p-'+id)?.classList.add('active');document.querySelectorAll(`[data-p="${id}"]`).forEach(n=>n.classList.add('active'));window.scrollTo(0,0);}
 
 function initPages(){
-  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();renderContactItems();
+  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();renderContactItems();renderCatTree();
   loadPres();buildCatCheckboxes();renderPubList();syncDashboardCounts();
 }
 
@@ -714,6 +761,194 @@ async function saveBio(){
 }
 
 // ── CONTACT ───────────────────────────────────────────────────────────────────
+
+// ── CATEGORIES STATE ─────────────────────────────────────────────────────────
+let CATS = {
+  "surgery": {
+    "label": "Surgery",
+    "subs": {
+      "plastic": "Plastic, Reconstructive & Burns",
+      "thoracic": "Thoracic Surgery",
+      "vascular": "Vascular Surgery",
+      "gi": "GI & Colorectal Surgery",
+      "endocrine": "Endocrine Surgery",
+      "ortho": "Orthopaedic Surgery",
+      "urosurg": "Urological Surgery",
+      "transplant": "Transplant Surgery",
+      "oncology": "Surgical Oncology"
+    }
+  },
+  "medicine": {
+    "label": "Internal Medicine",
+    "subs": {
+      "infectious": "Infectious Disease",
+      "pulm": "Pulmonology",
+      "neuro": "Neurology",
+      "derm": "Dermatology",
+      "urology": "Urology"
+    }
+  },
+  "ai": {
+    "label": "Artificial Intelligence",
+    "subs": {
+      "ai": "AI & Machine Learning"
+    }
+  },
+  "pubhealth": {
+    "label": "Public Health",
+    "subs": {
+      "pubhealth": "Public Health & Epidemiology"
+    }
+  }
+};
+
+function renderCatTree(){
+  const el = document.getElementById('cat-tree');
+  if(!el) return;
+  // Refresh parent select
+  const parentSel = document.getElementById('cat-parent-sel');
+  if(parentSel) parentSel.innerHTML = Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('');
+  
+  el.innerHTML = Object.entries(CATS).map(([mk, md]) => `
+    <div style="margin-bottom:.9rem;background:var(--bg3);border:1px solid var(--border);border-radius:4px;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;background:var(--bg4);border-bottom:1px solid var(--border)">
+        <span style="font-size:.8rem;color:var(--gold2);font-weight:500;flex:1">${md.label}</span>
+        <span style="font-size:.65rem;color:var(--t3);font-family:'IBM Plex Mono',monospace">${mk}</span>
+        <button class="btn bg bs" onclick="editMainCat('${mk}')">✏ Rename</button>
+        <button class="btn bd bs" onclick="deleteMainCat('${mk}')">✕ Remove</button>
+      </div>
+      <div style="padding:.5rem .9rem">
+        ${Object.entries(md.subs).map(([sk, sl]) => `
+          <div style="display:flex;align-items:center;gap:.5rem;padding:.3rem 0;border-bottom:1px solid var(--border)">
+            <span style="font-size:.75rem;color:var(--t2);flex:1">↳ ${sl}</span>
+            <span style="font-size:.62rem;color:var(--t3);font-family:'IBM Plex Mono',monospace">${sk}</span>
+            <button class="btn bg bs" style="padding:.25rem .5rem;font-size:.6rem" onclick="editSubCat('${mk}','${sk}')">✏</button>
+            <button class="btn bd bs" style="padding:.25rem .5rem;font-size:.6rem" onclick="deleteSubCat('${mk}','${sk}')">✕</button>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function addMainCat(){
+  const key   = document.getElementById('cat-main-key').value.trim();
+  const label = document.getElementById('cat-main-label').value.trim();
+  if(!key || !label){ alert('Key and label required.'); return; }
+  if(CATS[key]){ alert('Key already exists.'); return; }
+  CATS[key] = {label, subs: {}};
+  renderCatTree();
+  document.getElementById('cat-main-key').value = '';
+  document.getElementById('cat-main-label').value = '';
+  logA('Added main category: ' + label);
+}
+
+function addSubCat(){
+  const parent = document.getElementById('cat-parent-sel').value;
+  const key    = document.getElementById('cat-sub-key').value.trim();
+  const label  = document.getElementById('cat-sub-label').value.trim();
+  if(!parent || !key || !label){ alert('Parent, key, and label required.'); return; }
+  if(CATS[parent].subs[key]){ alert('Sub-key already exists in this category.'); return; }
+  CATS[parent].subs[key] = label;
+  renderCatTree();
+  document.getElementById('cat-sub-key').value = '';
+  document.getElementById('cat-sub-label').value = '';
+  logA('Added subcategory: ' + label + ' → ' + CATS[parent].label);
+}
+
+function editMainCat(mk){
+  const newLabel = prompt('Rename "' + CATS[mk].label + '" to:', CATS[mk].label);
+  if(!newLabel || newLabel === CATS[mk].label) return;
+  CATS[mk].label = newLabel;
+  renderCatTree();
+  logA('Renamed main category to: ' + newLabel);
+}
+
+function editSubCat(mk, sk){
+  const newLabel = prompt('Rename "' + CATS[mk].subs[sk] + '" to:', CATS[mk].subs[sk]);
+  if(!newLabel || newLabel === CATS[mk].subs[sk]) return;
+  CATS[mk].subs[sk] = newLabel;
+  renderCatTree();
+  logA('Renamed subcategory to: ' + newLabel);
+}
+
+function deleteMainCat(mk){
+  if(!confirm('Remove "' + CATS[mk].label + '" and all its subcategories? Publications tagged with these will still exist but won\'t match this filter.')) return;
+  delete CATS[mk];
+  renderCatTree();
+  logA('Removed main category: ' + mk);
+}
+
+function deleteSubCat(mk, sk){
+  if(!confirm('Remove subcategory "' + CATS[mk].subs[sk] + '"?')) return;
+  delete CATS[mk].subs[sk];
+  renderCatTree();
+  logA('Removed subcategory: ' + sk);
+}
+
+async function saveCats(){
+  st('s-cats','ld','Saving taxonomy…');
+  try{
+    // Rebuild CAT_LABELS from CATS
+    const newLabels = {};
+    for(const [mk, md] of Object.entries(CATS)){
+      for(const [sk, sl] of Object.entries(md.subs)) newLabels[sk] = sl;
+    }
+    // Build mainGroupSubs
+    const newMGS = {};
+    for(const [mk, md] of Object.entries(CATS)) newMGS[mk] = Object.keys(md.subs);
+    
+    const f = await ghFile('index.html');
+    if(!f) throw new Error('Could not read index.html');
+    let h = f.content;
+    
+    // Update CAT_LABELS in HTML
+    const catLabelsStr = 'const CAT_LABELS={' + Object.entries(newLabels).map(([k,v])=>'"'+k+'":"'+v+'"').join(',') + '};';
+    h = h.replace(/const CAT_LABELS\s*=\s*\{[^}]+\};/, catLabelsStr);
+    
+    // Update mainGroupSubs in HTML
+    const mgsStr = 'const mainGroupSubs={' + Object.entries(newMGS).map(([k,v])=>"'"+k+"':"+JSON.stringify(v)).join(',') + '};';
+    h = h.replace(/const mainGroupSubs\s*=\s*\{[^}]+\};/, mgsStr);
+    
+    // Rebuild pub filter sidebar
+    const buildBtn = (sk, sl, mk) => `<button class="filter-btn filter-sub-btn" onclick="filterPubs('${sk}',this,'cat')" data-main="${mk}">${sl}</button>`;
+    const buildMainBtn = (mk, label) => `<button class="filter-btn filter-main-btn" onclick="filterPubsMain(this)" data-group="${mk}"><span>${label}</span><span class="filter-caret">&#9658;</span></button>`;
+    
+    let newSidebar = '<!-- Left: filter sidebar -->\n    <div class="pub-filter-sidebar">\n';
+    newSidebar += '      <div class="pub-filter-group">\n        <span class="pub-filter-group-label">Article Type</span>\n';
+    newSidebar += '        <button class="filter-btn active" onclick="filterPubs(\'all\',this,\'type\')">All Types</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'original\',this,\'type\')">Original Articles</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'review\',this,\'type\')">Reviews &amp; Meta-analyses</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'case\',this,\'type\')">Case Reports</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'letter\',this,\'type\')">Letters / Editorials</button>\n      </div>\n';
+    newSidebar += '      <div class="pub-filter-group">\n        <span class="pub-filter-group-label">Authorship</span>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'first\',this,\'type\')">1st Author</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'co-first\',this,\'type\')">2nd / Co-first</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'corresponding\',this,\'type\')">Corresponding</button>\n';
+    newSidebar += '        <button class="filter-btn" onclick="filterPubs(\'last\',this,\'type\')">Last / Senior</button>\n      </div>\n';
+    newSidebar += '      <div class="pub-filter-group">\n        <span class="pub-filter-group-label">Topic</span>\n';
+    newSidebar += '        <button class="filter-btn active" onclick="filterPubs(\'all\',this,\'cat\')" id="cat-all-btn">All Topics</button>\n';
+    for(const [mk, md] of Object.entries(CATS)){
+      newSidebar += '        <div class="filter-main-group">\n';
+      newSidebar += '          ' + buildMainBtn(mk, md.label) + '\n';
+      newSidebar += '          <div class="filter-sub-group" id="grp-' + mk + '" style="display:none">\n';
+      for(const [sk, sl] of Object.entries(md.subs)){
+        newSidebar += '            ' + buildBtn(sk, sl, mk) + '\n';
+      }
+      newSidebar += '          </div>\n        </div>\n';
+    }
+    newSidebar += '      </div>\n    </div>';
+    h = h.replace(/<!-- Left: filter sidebar -->\s*<div class="pub-filter-sidebar">[\s\S]*?<\/div>\s*(?=<!-- Right)/, newSidebar + '\n    ');
+    
+    await ghPut('index.html', f.sha, h, 'Update category taxonomy');
+    
+    // Update CAT_LABELS in admin itself isn't possible at runtime,
+    // but we update the in-memory CATS which drives buildCatCheckboxes
+    buildCatCheckboxes();
+    
+    logA('Taxonomy saved to GitHub');
+    st('s-cats','ok','✓ Taxonomy pushed to GitHub. Refresh the CV site to see updated filters.');
+  }catch(e){ st('s-cats','er','Error: '+e.message); }
+}
+
 // ── CONTACT ITEMS STATE ──────────────────────────────────────────────────────
 let CONTACT_ITEMS = [
   {label:'Email', type:'email', values:['R.shahriari1995@gmail.com','Shahriarirad.reza@mayo.edu']},
@@ -742,16 +977,21 @@ function renderContactItems(){
 function editContactItem(i){
   modalType='contact';modalIdx=i;const item=CONTACT_ITEMS[i];
   document.getElementById('modal-title').textContent='Edit Contact Item';
+  const isLink = item.type==='link';
+  const urlField = isLink ? `
+    <label>URL (clickable destination)</label><input id="mc-url" value="${item.url||''}">
+    <label>Display Text</label><input id="mc-display" value="${item.values[0]||''}">` : `
+    <label>Value(s) — separate multiple with a newline</label>
+    <textarea id="mc-values" rows="3">${item.values.join('\n')}</textarea>`;
   document.getElementById('modal-body').innerHTML=`
     <label>Label / Heading</label><input id="mc-label" value="${item.label}">
-    <label>Value(s) — separate multiple with a newline</label>
-    <textarea id="mc-values" rows="3">${item.values.join('\n')}</textarea>
     <label>Type</label>
     <select id="mc-type">
       <option value="text"${item.type==='text'?' selected':''}>Plain text</option>
       <option value="email"${item.type==='email'?' selected':''}>Email (clickable)</option>
-      <option value="link"${item.type==='link'?' selected':''}>URL (clickable)</option>
-    </select>`;
+      <option value="link"${item.type==='link'?' selected':''}>URL / Link (clickable)</option>
+    </select>
+    ${urlField}`;
   document.getElementById('modal-del').style.display='inline-flex';
   openModal();
 }
@@ -769,6 +1009,22 @@ function onContLabelSel(sel){
   if(sel.value==='Email') typeEl.value='email';
   else if(sel.value==='Website'||sel.value==='ORCID') typeEl.value='link';
   else typeEl.value='text';
+  onContTypeSel(typeEl);
+}
+function onContTypeSel(sel){
+  const urlWrap = document.getElementById('cont-url-wrap');
+  const v2wrap  = document.getElementById('cont-value2-wrap');
+  const v2label = document.getElementById('cont-value2-label');
+  if(sel.value==='link'){
+    if(urlWrap) urlWrap.style.display='block';
+    if(v2wrap) v2wrap.style.display='none';
+  } else if(sel.value==='email'){
+    if(urlWrap) urlWrap.style.display='none';
+    if(v2wrap){ v2wrap.style.display='block'; if(v2label) v2label.textContent='Second email (optional)'; }
+  } else {
+    if(urlWrap) urlWrap.style.display='none';
+    if(v2wrap) v2wrap.style.display='none';
+  }
 }
 
 function addContactItem(){
@@ -776,16 +1032,26 @@ function addContactItem(){
   const label = selEl.value==='custom'
     ? document.getElementById('cont-label-custom').value.trim()
     : selEl.value;
-  const val1  = document.getElementById('cont-value').value.trim();
-  const val2  = document.getElementById('cont-value2').value.trim();
-  const type  = document.getElementById('cont-type').value;
+  const val1    = document.getElementById('cont-value').value.trim();
+  const val2    = (document.getElementById('cont-value2')||{}).value?.trim()||'';
+  const urlVal  = (document.getElementById('cont-url')||{}).value?.trim()||'';
+  const dispVal = (document.getElementById('cont-display')||{}).value?.trim()||'';
+  const type    = document.getElementById('cont-type').value;
   if(!label||!val1){alert('Label and value required.');return;}
-  const values = [val1];
-  if(val2) values.push(val2);
-  CONTACT_ITEMS.push({label,type,values});
+  let item;
+  if(type==='link'){
+    // For link type: val1=display text, urlVal=href
+    const displayText = dispVal || val1;
+    const href = urlVal || val1;
+    item = {label, type:'link', values:[displayText], url: href};
+  } else {
+    const values = [val1];
+    if(val2) values.push(val2);
+    item = {label, type, values};
+  }
+  CONTACT_ITEMS.push(item);
   renderContactItems();
-  document.getElementById('cont-value').value='';
-  document.getElementById('cont-value2').value='';
+  ['cont-value','cont-value2','cont-url','cont-display'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
 }
 
 async function saveContact(){
@@ -804,8 +1070,9 @@ async function saveContact(){
         const v=item.values[0];
         return `<div class="contact-item"><span>${item.label}</span><a href="#" class="cf-email" data-u="${v.split('@')[0]}" data-d="${v.split('@')[1]}">${v}</a></div>`;
       } else if(item.type==='link'){
-        const v=item.values[0];
-        return `<div class="contact-item"><span>${item.label}</span><a href="${v}" target="_blank">${v}</a></div>`;
+        const href=item.url||item.values[0];
+        const disp=item.values[0]||href;
+        return `<div class="contact-item"><span>${item.label}</span><a href="${href}" target="_blank">${disp}</a></div>`;
       }
       return `<div class="contact-item"><span>${item.label}</span><span>${item.values.join(' · ')}</span></div>`;
     }).join('\n        ');
@@ -1092,7 +1359,7 @@ async function saveReviews(){
 
 // ── PUBLICATIONS ──────────────────────────────────────────────────────────────
 function buildCatCheckboxes(){
-  var TAXO = {"surgery": {"label": "Surgery", "subs": {"plastic": "Plastic, Reconstructive & Burns", "thoracic": "Thoracic Surgery", "vascular": "Vascular Surgery", "gi": "GI & Colorectal Surgery", "endocrine": "Endocrine Surgery", "ortho": "Orthopaedic Surgery", "transplant": "Transplant Surgery", "oncology": "Surgical Oncology"}}, "medicine": {"label": "Internal Medicine", "subs": {"infectious": "Infectious Disease", "pulm": "Pulmonology", "neuro": "Neurology", "derm": "Dermatology", "urology": "Urology"}}, "ai": {"label": "Artificial Intelligence", "subs": {"ai": "AI & Machine Learning"}}, "pubhealth": {"label": "Public Health", "subs": {"pubhealth": "Public Health & Epidemiology"}}};
+  var TAXO = {"surgery": {"label": "Surgery", "subs": {"plastic": "Plastic, Reconstructive & Burns", "thoracic": "Thoracic Surgery", "vascular": "Vascular Surgery", "gi": "GI & Colorectal Surgery", "endocrine": "Endocrine Surgery", "ortho": "Orthopaedic Surgery", "urosurg": "Urological Surgery", "transplant": "Transplant Surgery", "oncology": "Surgical Oncology"}}, "medicine": {"label": "Internal Medicine", "subs": {"infectious": "Infectious Disease", "pulm": "Pulmonology", "neuro": "Neurology", "derm": "Dermatology", "urology": "Urology"}}, "ai": {"label": "Artificial Intelligence", "subs": {"ai": "AI & Machine Learning"}}, "pubhealth": {"label": "Public Health", "subs": {"pubhealth": "Public Health & Epidemiology"}}};
   function buildHierarchy(containerId){
     var el = document.getElementById(containerId);
     if(!el) return;
@@ -1387,11 +1654,12 @@ async function modalSave(){
       renderPubList();
       logA(`Edited pub n:${modalIdx}: ${p.title.substring(0,50)}`);
     } else if(modalType==='contact'){
-      CONTACT_ITEMS[modalIdx]={
-        label:document.getElementById('mc-label').value,
-        type:document.getElementById('mc-type').value,
-        values:document.getElementById('mc-values').value.split('\n').map(v=>v.trim()).filter(Boolean)
-      };
+      const mcType = document.getElementById('mc-type').value;
+      if(mcType==='link'){
+        CONTACT_ITEMS[modalIdx]={label:document.getElementById('mc-label').value,type:'link',url:(document.getElementById('mc-url')||{}).value||'',values:[(document.getElementById('mc-display')||{}).value||'']};
+      } else {
+        CONTACT_ITEMS[modalIdx]={label:document.getElementById('mc-label').value,type:mcType,values:(document.getElementById('mc-values')||{}).value?.split('\n').map(v=>v.trim()).filter(Boolean)||[]};
+      }
       renderContactItems();logA('Edited contact: '+CONTACT_ITEMS[modalIdx].label);
     } else if(modalType==='edu'){
       EDU[modalIdx]={period:document.getElementById('meu-period').value,role:document.getElementById('meu-role').value,org:document.getElementById('meu-org').value,desc:document.getElementById('meu-desc').value};
