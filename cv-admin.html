@@ -262,20 +262,52 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
 <!-- CONTACT -->
 <div class="pg" id="p-contact">
-  <div class="ph"><h2>Contact <em>Info</em></h2></div>
+  <div class="ph"><h2>Contact <em>Info</em></h2><p>Edit, add, or remove contact items. Each item has a heading label and detail value.</p></div>
+
   <div class="card">
-    <div class="ch"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>Details</div>
-    <div class="g2"><div class="f"><label>Personal Email</label><input id="c-email" value="R.shahriari1995@gmail.com"></div><div class="f"><label>Professional Email</label><input id="c-mayo" value="Shahriarirad.reza@mayo.edu"></div></div>
-    <br>
-    <div class="g2"><div class="f"><label>Phone</label><input id="c-phone" value="+1-507-218-6077"></div><div class="f"><label>Location</label><input id="c-loc" value="Rochester, Minnesota, USA"></div></div>
-    <br>
-    <label>Research Interests</label><input id="c-int" value="Surgery · Minimally Invasive Surgery · Artificial Intelligence">
-    <label>Languages</label><input id="c-lang" value="English (Fluent) · Farsi (Native)">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"/></svg>Current Contact Items</div>
+    <p style="font-size:.72rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Click any item to edit it. Drag to reorder (coming soon). Changes push to GitHub when you click Push.</p>
+    <div class="il" id="contact-items-list"></div>
   </div>
-  <button class="btn bp bw" onclick="saveContact()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Contact to GitHub</button>
+
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add New Contact Item</div>
+    <div class="g2">
+      <div class="f"><label>Heading / Label</label>
+        <select id="cont-label-sel" onchange="onContLabelSel(this)">
+          <option value="Email">Email</option>
+          <option value="Phone">Phone</option>
+          <option value="Location">Location</option>
+          <option value="Website">Website</option>
+          <option value="Research Interests">Research Interests</option>
+          <option value="Languages">Languages</option>
+          <option value="ORCID">ORCID</option>
+          <option value="custom">Custom…</option>
+        </select>
+        <input id="cont-label-custom" placeholder="Custom label…" style="display:none;margin-top:.4rem">
+      </div>
+      <div class="f"><label>Value / Detail</label><input id="cont-value" placeholder="e.g. +1-507-218-6077"></div>
+    </div>
+    <div class="g2" style="margin-top:.4rem">
+      <div class="f"><label>Type</label>
+        <select id="cont-type">
+          <option value="text">Plain text</option>
+          <option value="email">Email (clickable)</option>
+          <option value="link">URL (clickable)</option>
+        </select>
+      </div>
+      <div class="f" id="cont-link-wrap" style="display:none"><label>Second value (optional — e.g. second email)</label><input id="cont-value2" placeholder="second value…"></div>
+    </div>
+    <button class="btn bp" onclick="addContactItem()" style="margin-top:.4rem">
+      <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Item
+    </button>
+  </div>
+
+  <button class="btn bp bw" onclick="saveContact()">
+    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push Contact to GitHub
+  </button>
   <div id="s-cont" class="st"></div>
 </div>
-
 <!-- MAYO RESEARCH -->
 <div class="pg" id="p-mayo">
   <div class="ph"><h2>Mayo <em>Research</em></h2><p>Control the Ongoing Research section of the About page.</p></div>
@@ -541,7 +573,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const CAT_LABELS = {"plastic":"Plastic & Reconstructive","thoracic":"Thoracic","vascular":"Vascular","gi":"GI Surgery","endocrine":"Endocrine","ortho":"Orthopaedic","burns":"Burns","infectious":"Infectious Disease","covid":"COVID-19","oncology":"Oncology","transplant":"Transplant","ai":"AI & Innovation","pulm":"Pulmonology","neuro":"Neurology","derm":"Dermatology","urology":"Urology","pubhealth":"Public Health"};
+const CAT_LABELS = {"plastic":"Plastic, Reconstructive & Burns", "thoracic":"Thoracic Surgery", "vascular":"Vascular Surgery", "gi":"GI & Colorectal Surgery", "endocrine":"Endocrine Surgery", "ortho":"Orthopaedic Surgery", "transplant":"Transplant Surgery", "oncology":"Surgical Oncology", "infectious":"Infectious Disease & COVID-19", "pulm":"Pulmonology", "neuro":"Neurology", "derm":"Dermatology", "urology":"Urology", "ai":"AI & Machine Learning", "pubhealth":"Public Health & Epidemiology"};
 const CAT_KEYS = Object.keys(CAT_LABELS);
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -635,7 +667,7 @@ function logA(msg){LOG.unshift({t:ts(),m:msg});document.getElementById('log-a').
 function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));document.getElementById('p-'+id)?.classList.add('active');document.querySelectorAll(`[data-p="${id}"]`).forEach(n=>n.classList.add('active'));window.scrollTo(0,0);}
 
 function initPages(){
-  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();
+  renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();renderContactItems();
   loadPres();buildCatCheckboxes();renderPubList();syncDashboardCounts();
 }
 
@@ -682,6 +714,111 @@ async function saveBio(){
 }
 
 // ── CONTACT ───────────────────────────────────────────────────────────────────
+// ── CONTACT ITEMS STATE ──────────────────────────────────────────────────────
+let CONTACT_ITEMS = [
+  {label:'Email', type:'email', values:['R.shahriari1995@gmail.com','Shahriarirad.reza@mayo.edu']},
+  {label:'Phone', type:'text', values:['+1-507-218-6077']},
+  {label:'Location', type:'text', values:['Rochester, Minnesota, USA']},
+  {label:'Research Interests', type:'text', values:['Surgery · Minimally Invasive Surgery · Artificial Intelligence']},
+  {label:'Languages', type:'text', values:['English (Fluent) · Farsi (Native)']},
+];
+
+function renderContactItems(){
+  const list = document.getElementById('contact-items-list');
+  if(!list) return;
+  list.innerHTML = CONTACT_ITEMS.map((item,i) => `
+    <div class="it">
+      <div class="itb">
+        <div class="it-title">${item.label}</div>
+        <div class="it-sub">${item.values.join(' · ')}</div>
+      </div>
+      <div class="it-acts">
+        <button class="btn bg bs" onclick="editContactItem(${i})">✏</button>
+        <button class="btn bd bs" onclick="deleteContactItem(${i})">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+function editContactItem(i){
+  modalType='contact';modalIdx=i;const item=CONTACT_ITEMS[i];
+  document.getElementById('modal-title').textContent='Edit Contact Item';
+  document.getElementById('modal-body').innerHTML=`
+    <label>Label / Heading</label><input id="mc-label" value="${item.label}">
+    <label>Value(s) — separate multiple with a newline</label>
+    <textarea id="mc-values" rows="3">${item.values.join('\n')}</textarea>
+    <label>Type</label>
+    <select id="mc-type">
+      <option value="text"${item.type==='text'?' selected':''}>Plain text</option>
+      <option value="email"${item.type==='email'?' selected':''}>Email (clickable)</option>
+      <option value="link"${item.type==='link'?' selected':''}>URL (clickable)</option>
+    </select>`;
+  document.getElementById('modal-del').style.display='inline-flex';
+  openModal();
+}
+
+function deleteContactItem(i){
+  if(!confirm('Remove this contact item?')) return;
+  CONTACT_ITEMS.splice(i,1);
+  renderContactItems();
+}
+
+function onContLabelSel(sel){
+  const custom = document.getElementById('cont-label-custom');
+  custom.style.display = sel.value==='custom' ? 'block' : 'none';
+  const typeEl = document.getElementById('cont-type');
+  if(sel.value==='Email') typeEl.value='email';
+  else if(sel.value==='Website'||sel.value==='ORCID') typeEl.value='link';
+  else typeEl.value='text';
+}
+
+function addContactItem(){
+  const selEl = document.getElementById('cont-label-sel');
+  const label = selEl.value==='custom'
+    ? document.getElementById('cont-label-custom').value.trim()
+    : selEl.value;
+  const val1  = document.getElementById('cont-value').value.trim();
+  const val2  = document.getElementById('cont-value2').value.trim();
+  const type  = document.getElementById('cont-type').value;
+  if(!label||!val1){alert('Label and value required.');return;}
+  const values = [val1];
+  if(val2) values.push(val2);
+  CONTACT_ITEMS.push({label,type,values});
+  renderContactItems();
+  document.getElementById('cont-value').value='';
+  document.getElementById('cont-value2').value='';
+}
+
+async function saveContact(){
+  st('s-cont','ld','Updating contact info…');
+  try{
+    const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
+    let h=f.content;
+
+    // Rebuild the entire contact-block innerHTML
+    const itemsHtml = CONTACT_ITEMS.map(item => {
+      if(item.type==='email'){
+        if(item.values.length>1){
+          const links=item.values.map(v=>`<a href="#" class="cf-email" data-u="${v.split('@')[0]}" data-d="${v.split('@')[1]}">${v}</a>`).join('');
+          return `<div class="contact-item contact-item-multi"><span>${item.label}</span><div class="contact-multi">${links}</div></div>`;
+        }
+        const v=item.values[0];
+        return `<div class="contact-item"><span>${item.label}</span><a href="#" class="cf-email" data-u="${v.split('@')[0]}" data-d="${v.split('@')[1]}">${v}</a></div>`;
+      } else if(item.type==='link'){
+        const v=item.values[0];
+        return `<div class="contact-item"><span>${item.label}</span><a href="${v}" target="_blank">${v}</a></div>`;
+      }
+      return `<div class="contact-item"><span>${item.label}</span><span>${item.values.join(' · ')}</span></div>`;
+    }).join('\n        ');
+
+    h=h.replace(
+      /(<div class="contact-block">\s*<h3>Contact<\/h3>\s*)([\s\S]*?)(<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*\n\n<!-- EXPERIENCE)/,
+      `$1${itemsHtml}\n      $3`
+    );
+    await ghPut('index.html',f.sha,h,'Update contact info');
+    logA('Updated contact info');st('s-cont','ok','✓ Contact info updated.');
+  }catch(e){st('s-cont','er','Error: '+e.message);}
+}
+
 async function saveContact(){
   st('s-cont','ld','Updating…');
   try{
@@ -955,10 +1092,25 @@ async function saveReviews(){
 
 // ── PUBLICATIONS ──────────────────────────────────────────────────────────────
 function buildCatCheckboxes(){
-  const html=CAT_KEYS.map(k=>`<button class="pf-btn" data-cat="${k}" onclick="toggleCat(this)">${CAT_LABELS[k]}</button>`).join('');
-  const pubEl=document.getElementById('pub-cats-add');if(pubEl)pubEl.innerHTML=html;
-  const presEl=document.getElementById('pres-cats-add');if(presEl)presEl.innerHTML=CAT_KEYS.map(k=>`<button class="pf-btn" data-cat="${k}" onclick="toggleCat(this)">${CAT_LABELS[k]}</button>`).join('');
-}
+  var TAXO = {"surgery": {"label": "Surgery", "subs": {"plastic": "Plastic, Reconstructive & Burns", "thoracic": "Thoracic Surgery", "vascular": "Vascular Surgery", "gi": "GI & Colorectal Surgery", "endocrine": "Endocrine Surgery", "ortho": "Orthopaedic Surgery", "transplant": "Transplant Surgery", "oncology": "Surgical Oncology"}}, "medicine": {"label": "Internal Medicine", "subs": {"infectious": "Infectious Disease & COVID-19", "pulm": "Pulmonology", "neuro": "Neurology", "derm": "Dermatology", "urology": "Urology"}}, "ai": {"label": "Artificial Intelligence", "subs": {"ai": "AI & Machine Learning"}}, "pubhealth": {"label": "Public Health", "subs": {"pubhealth": "Public Health & Epidemiology"}}};
+  function buildHierarchy(containerId){
+    var el = document.getElementById(containerId);
+    if(!el) return;
+    var parts = [];
+    for(var mk in TAXO){
+      var md = TAXO[mk];
+      parts.push('<div style="margin-bottom:.4rem">');
+      parts.push('<div style="font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);padding:.2rem 0 .2rem .1rem;font-weight:500">' + md.label + '</div>');
+      for(var sk in md.subs){
+        var sl = md.subs[sk];
+        parts.push('<button class="pf-btn" data-cat="' + sk + '" onclick="toggleCat(this)" style="margin-left:.5rem;font-size:.67rem">' + sl + '</button>');
+      }
+      parts.push('</div>');
+    }
+    el.innerHTML = parts.join('');
+  }
+  buildHierarchy('pub-cats-add');
+  buildHierarchy('pres-cats-add');}
 function toggleCat(btn){btn.classList.toggle('active');}
 function getSelectedCats(containerId){
   return [...document.querySelectorAll(`#${containerId} .pf-btn.active`)].map(b=>b.dataset.cat);
@@ -1234,6 +1386,13 @@ async function modalSave(){
       await ghPut('index.html',hf.sha,h,`Edit pub n:${modalIdx}: ${p.title.substring(0,40)}`);
       renderPubList();
       logA(`Edited pub n:${modalIdx}: ${p.title.substring(0,50)}`);
+    } else if(modalType==='contact'){
+      CONTACT_ITEMS[modalIdx]={
+        label:document.getElementById('mc-label').value,
+        type:document.getElementById('mc-type').value,
+        values:document.getElementById('mc-values').value.split('\n').map(v=>v.trim()).filter(Boolean)
+      };
+      renderContactItems();logA('Edited contact: '+CONTACT_ITEMS[modalIdx].label);
     } else if(modalType==='edu'){
       EDU[modalIdx]={period:document.getElementById('meu-period').value,role:document.getElementById('meu-role').value,org:document.getElementById('meu-org').value,desc:document.getElementById('meu-desc').value};
       renderEduList();logA('Edited education: '+EDU[modalIdx].role);
@@ -1264,7 +1423,8 @@ async function modalSave(){
 }
 function modalDelete(){
   if(!confirm('Delete this entry?'))return;
-  if(modalType==='edu')EDU.splice(modalIdx,1),renderEduList();
+  if(modalType==='contact'){CONTACT_ITEMS.splice(modalIdx,1);renderContactItems();}
+  else if(modalType==='edu')EDU.splice(modalIdx,1),renderEduList();
   else if(modalType==='exp')EXP.splice(modalIdx,1),renderExpList();
   else if(modalType==='lead')LEAD.splice(modalIdx,1),renderLeadList();
   else if(modalType==='award')AWARDS.splice(modalIdx,1),renderAwards();
