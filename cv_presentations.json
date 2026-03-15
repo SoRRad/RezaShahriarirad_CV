@@ -1,104 +1,233 @@
 [
   {
     "date": "Jun 2026",
-    "type": "Poster",
+    "month": "Jun",
+    "year": "2026",
+    "type": "poster",
     "title": "Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility",
-    "venue": "Plastic Surgery Research Council (PSRC)"
+    "venue": "Plastic Surgery Research Council (PSRC)",
+    "conference": "PSRC Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "plastic"
+    ]
   },
   {
     "date": "Mar 2026",
-    "type": "Poster",
+    "month": "Mar",
+    "year": "2026",
+    "type": "poster",
     "title": "Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors",
-    "venue": "Society of Surgical Oncology (SSO)"
+    "venue": "Society of Surgical Oncology (SSO)",
+    "conference": "SSO Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "oncology",
+      "gi"
+    ]
   },
   {
     "date": "Dec 2025",
-    "type": "Poster",
+    "month": "Dec",
+    "year": "2025",
+    "type": "poster",
     "title": "An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma",
-    "venue": "American Orthopaedic Foot & Ankle Society (AOFAS) Annual Meeting 2025"
+    "venue": "American Orthopaedic Foot & Ankle Society (AOFAS) Annual Meeting 2025",
+    "conference": "AOFAS Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "date": "Oct 2025",
-    "type": "Poster",
+    "month": "Oct",
+    "year": "2025",
+    "type": "poster",
     "title": "Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis",
-    "venue": "Annual Balfour Surgery Research Symposium"
+    "venue": "Annual Balfour Surgery Research Symposium",
+    "conference": "Balfour Surgery Research Symposium",
+    "location": "United States",
+    "cat": [
+      "plastic",
+      "ai"
+    ]
   },
   {
     "date": "Oct 2025",
-    "type": "Poster",
+    "month": "Oct",
+    "year": "2025",
+    "type": "poster",
     "title": "Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan",
-    "venue": "Annual Balfour Surgery Research Symposium"
+    "venue": "Annual Balfour Surgery Research Symposium",
+    "conference": "Balfour Surgery Research Symposium",
+    "location": "United States",
+    "cat": [
+      "plastic",
+      "ai"
+    ]
   },
   {
     "date": "Jul 2025",
-    "type": "Poster",
+    "month": "Jul",
+    "year": "2025",
+    "type": "poster",
     "title": "Trend and Changes in AI based on Patient Perspectives",
-    "venue": "Mayo Clinic AI Summit"
+    "venue": "Mayo Clinic AI Summit",
+    "conference": "Mayo Clinic AI Summit",
+    "location": "United States",
+    "cat": [
+      "ai"
+    ]
   },
   {
     "date": "Apr 2025",
-    "type": "Poster",
+    "month": "Apr",
+    "year": "2025",
+    "type": "poster",
     "title": "Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study",
-    "venue": "Advanced Robotic Surgery Conference 2025"
+    "venue": "Advanced Robotic Surgery Conference 2025",
+    "conference": "Advanced Robotic Surgery Conference",
+    "location": "United States",
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "date": "Dec 2022",
-    "type": "Poster",
+    "month": "Dec",
+    "year": "2022",
+    "type": "poster",
     "title": "COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",
-    "venue": "Organ Transplantation before and during the COVID-19 era"
+    "venue": "Organ Transplantation before and during the COVID-19 era",
+    "conference": "International Transplantation Congress",
+    "location": "Iran",
+    "cat": [
+      "covid",
+      "transplant",
+      "infectious"
+    ]
   },
   {
     "date": "Oct 2022",
-    "type": "Poster",
+    "month": "Oct",
+    "year": "2022",
+    "type": "poster",
     "title": "Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy",
-    "venue": "31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)"
+    "venue": "31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)",
+    "conference": "ISUCRS Biennial Congress",
+    "location": "Turkey",
+    "cat": [
+      "gi",
+      "oncology"
+    ]
   },
   {
     "date": "Oct 2021",
-    "type": "Oral",
+    "month": "Oct",
+    "year": "2021",
+    "type": "oral",
     "title": "Suicide by Self-immolation in Southern Iran: An Epidemiological Study",
-    "venue": "10th National Burn Congress 2021"
+    "venue": "10th National Burn Congress 2021",
+    "conference": "National Burn Congress",
+    "location": "Iran",
+    "cat": [
+      "burns",
+      "pubhealth"
+    ]
   },
   {
     "date": "Jul 2021",
-    "type": "Poster",
+    "month": "Jul",
+    "year": "2021",
+    "type": "poster",
     "title": "Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East",
-    "venue": "Transplantation (International Congress)"
+    "venue": "Transplantation (International Congress)",
+    "conference": "International Transplantation Congress",
+    "location": "Iran",
+    "cat": [
+      "gi",
+      "transplant"
+    ]
   },
   {
     "date": "Sep 2020",
-    "type": "Oral",
+    "month": "Sep",
+    "year": "2020",
+    "type": "oral",
     "title": "Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic",
-    "venue": "26th European Paediatric Rheumatology e-Congress (PReS)"
+    "venue": "26th European Paediatric Rheumatology e-Congress (PReS)",
+    "conference": "PReS European Paediatric Rheumatology Congress",
+    "location": "Netherlands",
+    "cat": [
+      "covid",
+      "infectious"
+    ]
   },
   {
     "date": "Oct 2019",
-    "type": "Poster",
+    "month": "Oct",
+    "year": "2019",
+    "type": "poster",
     "title": "Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran",
-    "venue": "4th International & 11th National Congress of Parasitology & Parasitic Diseases of Iran (NICOPA11)"
+    "venue": "4th International & 11th National Congress of Parasitology & Parasitic Diseases of Iran (NICOPA11)",
+    "conference": "NICOPA11",
+    "location": "Iran",
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "date": "Apr 2016",
-    "type": "Poster",
+    "month": "Apr",
+    "year": "2016",
+    "type": "poster",
     "title": "The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats",
-    "venue": "First National Congress on Animal Models in Experimental Medical Researches"
+    "venue": "First National Congress on Animal Models in Experimental Medical Researches",
+    "conference": "National Congress on Animal Models",
+    "location": "Iran",
+    "cat": [
+      "gi"
+    ]
   },
   {
     "date": "Mar 2016",
-    "type": "Poster",
+    "month": "Mar",
+    "year": "2016",
+    "type": "poster",
     "title": "Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough",
-    "venue": "3rd Professor Amirhakimi Pediatric Congress"
+    "venue": "3rd Professor Amirhakimi Pediatric Congress",
+    "conference": "Professor Amirhakimi Pediatric Congress",
+    "location": "Iran",
+    "cat": [
+      "pulm"
+    ]
   },
   {
     "date": "Jun 2015",
-    "type": "Poster",
+    "month": "Jun",
+    "year": "2015",
+    "type": "poster",
     "title": "Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis",
-    "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)"
+    "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)",
+    "conference": "ISCOMS",
+    "location": "Netherlands",
+    "cat": [
+      "gi"
+    ]
   },
   {
     "date": "Jun 2015",
-    "type": "Poster",
+    "month": "Jun",
+    "year": "2015",
+    "type": "poster",
     "title": "Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats",
-    "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)"
+    "venue": "International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)",
+    "conference": "ISCOMS",
+    "location": "Netherlands",
+    "cat": [
+      "gi"
+    ]
   }
 ]
