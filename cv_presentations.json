@@ -103,7 +103,7 @@
     "conference": "International Transplantation Congress",
     "location": "Iran",
     "cat": [
-      "covid",
+      "infectious",
       "transplant",
       "infectious"
     ]
@@ -132,7 +132,7 @@
     "conference": "National Burn Congress",
     "location": "Iran",
     "cat": [
-      "burns",
+      "plastic",
       "pubhealth"
     ]
   },
@@ -160,7 +160,7 @@
     "conference": "PReS European Paediatric Rheumatology Congress",
     "location": "Netherlands",
     "cat": [
-      "covid",
+      "infectious",
       "infectious"
     ]
   },
