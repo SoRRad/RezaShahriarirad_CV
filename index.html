@@ -558,6 +558,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('gi',this,'cat')" data-main="surgery">GI & Colorectal Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('endocrine',this,'cat')" data-main="surgery">Endocrine Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('ortho',this,'cat')" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPubs('urosurg',this,'cat')" data-main="surgery">Urological Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('transplant',this,'cat')" data-main="surgery">Transplant Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPubs('oncology',this,'cat')" data-main="surgery">Surgical Oncology</button>
           </div>
@@ -727,6 +728,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','gi',this)" data-main="surgery">GI & Colorectal Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','endocrine',this)" data-main="surgery">Endocrine Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','ortho',this)" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','urosurg',this)" data-main="surgery">Urological Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','transplant',this)" data-main="surgery">Transplant Surgery</button>
             <button class="filter-btn filter-sub-btn" onclick="filterPres('cat','oncology',this)" data-main="surgery">Surgical Oncology</button>
           </div>
@@ -1291,7 +1293,7 @@ function computeTags(authors){
   return tags;
 }
 
-const mainGroupSubs = {'surgery':["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "transplant", "oncology"],'medicine':["infectious", "pulm", "neuro", "derm", "urology"],'ai':["ai"],'pubhealth':["pubhealth"]};
+const mainGroupSubs = {'surgery':["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "urosurg", "transplant", "oncology"],'medicine':["infectious", "pulm", "neuro", "derm", "urology"],'ai':["ai"],'pubhealth':["pubhealth"]};
 function renderPubs(){
   const list=document.getElementById('pub-list');
   const countEl=document.getElementById('pub-count');
