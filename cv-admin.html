@@ -573,7 +573,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const CAT_LABELS = {"plastic":"Plastic, Reconstructive & Burns", "thoracic":"Thoracic Surgery", "vascular":"Vascular Surgery", "gi":"GI & Colorectal Surgery", "endocrine":"Endocrine Surgery", "ortho":"Orthopaedic Surgery", "transplant":"Transplant Surgery", "oncology":"Surgical Oncology", "infectious":"Infectious Disease & COVID-19", "pulm":"Pulmonology", "neuro":"Neurology", "derm":"Dermatology", "urology":"Urology", "ai":"AI & Machine Learning", "pubhealth":"Public Health & Epidemiology"};
+const CAT_LABELS = {"plastic":"Plastic, Reconstructive & Burns", "thoracic":"Thoracic Surgery", "vascular":"Vascular Surgery", "gi":"GI & Colorectal Surgery", "endocrine":"Endocrine Surgery", "ortho":"Orthopaedic Surgery", "transplant":"Transplant Surgery", "oncology":"Surgical Oncology", "infectious":"Infectious Disease", "pulm":"Pulmonology", "neuro":"Neurology", "derm":"Dermatology", "urology":"Urology", "ai":"AI & Machine Learning", "pubhealth":"Public Health & Epidemiology"};
 const CAT_KEYS = Object.keys(CAT_LABELS);
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
@@ -1092,7 +1092,7 @@ async function saveReviews(){
 
 // ── PUBLICATIONS ──────────────────────────────────────────────────────────────
 function buildCatCheckboxes(){
-  var TAXO = {"surgery": {"label": "Surgery", "subs": {"plastic": "Plastic, Reconstructive & Burns", "thoracic": "Thoracic Surgery", "vascular": "Vascular Surgery", "gi": "GI & Colorectal Surgery", "endocrine": "Endocrine Surgery", "ortho": "Orthopaedic Surgery", "transplant": "Transplant Surgery", "oncology": "Surgical Oncology"}}, "medicine": {"label": "Internal Medicine", "subs": {"infectious": "Infectious Disease & COVID-19", "pulm": "Pulmonology", "neuro": "Neurology", "derm": "Dermatology", "urology": "Urology"}}, "ai": {"label": "Artificial Intelligence", "subs": {"ai": "AI & Machine Learning"}}, "pubhealth": {"label": "Public Health", "subs": {"pubhealth": "Public Health & Epidemiology"}}};
+  var TAXO = {"surgery": {"label": "Surgery", "subs": {"plastic": "Plastic, Reconstructive & Burns", "thoracic": "Thoracic Surgery", "vascular": "Vascular Surgery", "gi": "GI & Colorectal Surgery", "endocrine": "Endocrine Surgery", "ortho": "Orthopaedic Surgery", "transplant": "Transplant Surgery", "oncology": "Surgical Oncology"}}, "medicine": {"label": "Internal Medicine", "subs": {"infectious": "Infectious Disease", "pulm": "Pulmonology", "neuro": "Neurology", "derm": "Dermatology", "urology": "Urology"}}, "ai": {"label": "Artificial Intelligence", "subs": {"ai": "AI & Machine Learning"}}, "pubhealth": {"label": "Public Health", "subs": {"pubhealth": "Public Health & Epidemiology"}}};
   function buildHierarchy(containerId){
     var el = document.getElementById(containerId);
     if(!el) return;
