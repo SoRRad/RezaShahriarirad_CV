@@ -2,11 +2,17 @@
   {
     "n": 1,
     "year": "2026",
-    "type": "original",
+    "type": "review",
     "title": "Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999\u20132025)",
     "authors": "Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",
     "journal": "Journal of Robotic Surgery",
-    "url": null
+    "url": "",
+    "tags": [
+      "co-first"
+    ],
+    "cat": [
+      "plastic"
+    ]
   },
   {
     "n": 2,
@@ -15,7 +21,14 @@
     "title": "The Impact of the COVID-19 Pandemic on Patients with Breast Cancer, Diagnostic Delays and Disease Progression: A Retrospective Study",
     "authors": "Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",
     "journal": "(Published 2026)",
-    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/"
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "oncology"
+    ]
   },
   {
     "n": 3,
@@ -24,7 +37,11 @@
     "title": "Three Challenging Cases of Autoimmune Encephalitis: A Case-Series and Review of the Literature",
     "authors": "Bahrami Y, Pedramfar P*, Shahriarirad R",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733",
+    "tags": [],
+    "cat": [
+      "neuro"
+    ]
   },
   {
     "n": 4,
@@ -33,7 +50,14 @@
     "title": "Effective and Lifesaving Retrograde Femoral and Jugular Vein Double Lumen Catheter Insertion in Patients with Poor Hemodialysis Venous Access: A Case Series",
     "authors": "Hosseinzadeh A, Dalfardi F, Shahriarirad R, Pezeshkian F*, Keikha F",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522"
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522",
+    "tags": [
+      "co-first"
+    ],
+    "cat": [
+      "vascular",
+      "urology"
+    ]
   },
   {
     "n": 5,
@@ -42,7 +66,12 @@
     "title": "The Effect of Autologous Platelet-Rich Plasma on Donor Site Wound Healing: A Randomised Crossover Clinical Trial",
     "authors": "Dasmeh U, Mohammadi AA, Shahrokhi R, Shahriarirad S, Shahriarirad R, Naseri R*",
     "journal": "Journal of Wound Care",
-    "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210"
+    "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "burns"
+    ]
   },
   {
     "n": 6,
@@ -51,7 +80,13 @@
     "title": "Osteomyelitis and Its Main Determinants in Patients With Diabetic Foot Ulcer: A Cross-Sectional Study",
     "authors": "Bolandi S, Niyakan MH, Jamali K, Ghodsi Boushehri Y, Tajaddini A, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 7,
@@ -60,7 +95,15 @@
     "title": "Systemic Evaluation of Quality, Readability, and Integrity of Online Breast Reconstruction Resources",
     "authors": "Shahriarirad R*, Kumar N, Vijayasekaran A",
     "journal": "Clinical Breast Cancer",
-    "url": "https://www.sciencedirect.com/science/article/pii/S1526820925002897"
+    "url": "https://www.sciencedirect.com/science/article/pii/S1526820925002897",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "plastic",
+      "oncology"
+    ]
   },
   {
     "n": 8,
@@ -69,7 +112,12 @@
     "title": "Ghost Ileostomy Versus Protective Ileostomy in Rectal Cancer Followed by Low Anterior Resection: A Randomized Feasibility Trial",
     "authors": "Meshkati Yazd SM, Keramati MR, Ghanbari Ghalerudkhani M, Shahriarirad R, Parsa A, Keshvari A*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351",
+    "tags": [],
+    "cat": [
+      "gi",
+      "oncology"
+    ]
   },
   {
     "n": 9,
@@ -78,7 +126,11 @@
     "title": "Antioxidant and Anti-inflammatory Effects of Equisetum arvense L. on Acid-Induced Ulcerative Colitis in Rats",
     "authors": "Koohi-Hosseinabadi O, Koohpeyma F, Safarpour AR, Nematollahy P, Kazemi M, Shahriarirad R, Tanideh R, Mojahedtaghi M, Ghaemmaghami P, Iraji A, Goudarzi K, Tanideh N*",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-025-97693-x"
+    "url": "https://www.nature.com/articles/s41598-025-97693-x",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 10,
@@ -87,7 +139,14 @@
     "title": "The Diagnostic Role of FNA Based on Clinicopathological Features in Thyroid Malignancy",
     "authors": "Fallahi MM, Koulaian S, Mardani P, Malekhosseini SA, Shahriarirad R*",
     "journal": "BMC Endocrine Disorders",
-    "url": "https://link.springer.com/article/10.1186/s12902-025-01945-w"
+    "url": "https://link.springer.com/article/10.1186/s12902-025-01945-w",
+    "tags": [
+      "last",
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 11,
@@ -96,7 +155,11 @@
     "title": "Diagnostic Value of Physical Examination, Ultrasound, and Radiography Compared to CT in Evaluation of Nontraumatic Left Lower Quadrant Acute Abdominal Pain",
     "authors": "Kiani F, Meshkati Yazd SM, Zarimeidani F, Rahmati R, Shabani Mofrad N, Vafaei Nia M, Shahriarirad R",
     "journal": "Emergency Medicine International",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 12,
@@ -105,7 +168,13 @@
     "title": "Comparative Analysis of the Therapeutic Effects of Pregabalin, Gabapentin, and Duloxetine in Diabetic Peripheral Neuropathy: A Retrospective Study",
     "authors": "Ahn J*, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz G, Ashkani-Esfahani S",
     "journal": "Journal of Diabetes and Its Complications",
-    "url": "https://www.sciencedirect.com/science/article/pii/S1056872725000546"
+    "url": "https://www.sciencedirect.com/science/article/pii/S1056872725000546",
+    "tags": [
+      "co-first"
+    ],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 13,
@@ -114,7 +183,14 @@
     "title": "Evaluation of Surgical Cases of Lung Cancer Admitted in Shiraz Referral Hospitals, Southern Iran in 2009\u20132022",
     "authors": "Dehghani S, Rezvani A, Shahriarirad R*, Rajabian MS, Ziaian B, Fallahi MJ, Mardani P, Amirian A",
     "journal": "Cancer Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108"
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 14,
@@ -123,7 +199,14 @@
     "title": "Seroepidemiological Assessment of Bordetella Pertussis in Jahrom, Southern Iran: A Cross-sectional Study",
     "authors": "Raufi R, Zareian-Jahromi F, Zangeneh S, Rajabi J, Shahriarirad R*",
     "journal": "Health Care Science",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 15,
@@ -132,7 +215,11 @@
     "title": "Investigating the Efficacy and Safety of Oral Cicaglocal on Wound Healing After Mohs Surgery in Patients With Skin Cancer: A Randomized, Double-Blinded, Placebo-Controlled Clinical Trial",
     "authors": "Asilian A, Mohammadian P*, Mahram H, Shahriarirad R, Bigham M",
     "journal": "Journal of Cosmetic Dermatology",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784",
+    "tags": [],
+    "cat": [
+      "derm"
+    ]
   },
   {
     "n": 16,
@@ -141,7 +228,13 @@
     "title": "Evaluation of Aneurysm Cases Undergoing Surgery at a Tertiary Center in Iran: A 22-year Retrospective Study",
     "authors": "Ghoddusi Johari H, Ranjbar K, Kassaee K, Hoseini MA, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 17,
@@ -150,7 +243,14 @@
     "title": "In-Vitro and In-Vivo Assessment of Biocompatibility and Efficacy of Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma in Achilles Tendon Regeneration",
     "authors": "Koohi-Hosseinabadi O, Shahriarirad R*, Dehghanian A, Amini L, Barzegar S, Daneshparvar A, Alavi O, Khazraei SP, Hosseini S, Arabi Monfared A, Khorram R, Tanideh N*, Ashkani-Esfahani S",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-025-85131-x"
+    "url": "https://www.nature.com/articles/s41598-025-85131-x",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 18,
@@ -159,7 +259,11 @@
     "title": "Comparisons of the Therapeutics for Diabetic Neuropathic Pain: Prospective Cohort Study, Seoul, Korea",
     "authors": "Ahn J, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz GR, DiGiovanni CW, Ashkani-Esfahani S",
     "journal": "Foot & Ankle Orthopaedics",
-    "url": "https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215"
+    "url": "https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 19,
@@ -168,7 +272,13 @@
     "title": "Clinical Presentations and Surgical Features of Morgagni Hernia in Adults: A Retrospective Study",
     "authors": "Mardani P, Dalfardi F, Bahmani S, Rahmati R, Zarimeidani F, Ziaian B, Amirian A, Vafabin M, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248"
+    "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 20,
@@ -177,7 +287,9 @@
     "title": "An Overview of the Role of Chemokine CX3CL1 (Fractalkine) and CX3C Chemokine Receptor 1 in Systemic Sclerosis",
     "authors": "Pezeshkian F, Shahriarirad R, Mahram H*",
     "journal": "Immunity, Inflammation and Disease",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 21,
@@ -186,7 +298,14 @@
     "title": "The Aftermath of Asbestos Prohibition in Industry and Its Association with Malignant Mesothelioma in the South of Iran: An Enduring Predicament yet to be Resolved",
     "authors": "Rezvani A, Shahriarirad R*, Jahanshahi S, Fouladi D, Tavallali M, Ziaian B, Fallahi MJ",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 22,
@@ -195,7 +314,14 @@
     "title": "Changes in Incidence and Clinical Features of Tuberculosis with Regard to the COVID-19 Outbreak in Southern Iran",
     "authors": "Fallahi MJ, Nazemi M, Zeighami A, Shahriarirad R*",
     "journal": "BMC Infectious Diseases",
-    "url": "https://link.springer.com/article/10.1186/s12879-024-09947-0"
+    "url": "https://link.springer.com/article/10.1186/s12879-024-09947-0",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid"
+    ]
   },
   {
     "n": 23,
@@ -204,7 +330,13 @@
     "title": "Computed Tomography Angiography-guided Analysis of Morphologic Properties of the Thoracic Aorta and Arch Branches: A Cross-sectional Study",
     "authors": "Hosseinzadeh A, Tajaddini A, Jafari SH, Mohammadi Z, Dalfardi F, Fatemian H, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 24,
@@ -213,7 +345,12 @@
     "title": "Analyzing Quality of Life After Low Anterior Resection for Rectal Cancer",
     "authors": "Meshkati Yazd SM, Shahriarirad R, Almasi S, Mirmohammadkhani M, Keramati MR*",
     "journal": "Irish Journal of Medical Science",
-    "url": "https://link.springer.com/article/10.1007/s11845-024-03757-8"
+    "url": "https://link.springer.com/article/10.1007/s11845-024-03757-8",
+    "tags": [],
+    "cat": [
+      "gi",
+      "oncology"
+    ]
   },
   {
     "n": 25,
@@ -222,7 +359,14 @@
     "title": "Evaluation of Salvia Officinalis (Sage) in the Treatment of Acetic Acid-Induced Ulcerative Colitis in Rat Model",
     "authors": "Shahriarirad R*, Seifbehzad S, Erfani A, Nekouei F, Ashkani-Esfahani S, Hosseinzadeh M, Tanideh N, Koohi-Hosseinabadi O, Sarkari B",
     "journal": "Journal of Coloproctology",
-    "url": "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141"
+    "url": "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 26,
@@ -231,7 +375,15 @@
     "title": "Knowledge, Attitude, and Practice toward the Novel Coronavirus (COVID-19) Outbreak: A Population-Based Survey in Iran",
     "authors": "Erfani A, Shahriarirad R*, Ranjbar K, Mirahmadizadeh A, Moghadami M",
     "journal": "Journal of Health Sciences & Surveillance System",
-    "url": "https://journals.sums.ac.ir/article_49437.html"
+    "url": "https://journals.sums.ac.ir/article_49437.html",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 27,
@@ -240,7 +392,11 @@
     "title": "Comparison of Endoscopic Versus Focused Parathyroidectomy in Surgical Management of Single-gland Primary Hyperparathyroidism: A Randomized Clinical Trial",
     "authors": "Meshkati Yazd SM, Shahriarirad R, Nayebi S, Dehghan P, Abbasi A, Maghsoodloo F, Hamedani K, Nasiri S*",
     "journal": "Langenbeck's Archives of Surgery",
-    "url": "https://link.springer.com/article/10.1007/s00423-024-03390-0"
+    "url": "https://link.springer.com/article/10.1007/s00423-024-03390-0",
+    "tags": [],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 28,
@@ -249,7 +405,14 @@
     "title": "Single-Stage Bronchoscopy-Guided Protocol for Tracheostomy Decannulation in Adult Patients",
     "authors": "Mardani P, Naseri R*, Mahram H, Alishavandi F, Amirian A, Ziaian B, Shahriarirad R*",
     "journal": "Journal of Surgical Research",
-    "url": "https://authors.elsevier.com/c/1jIJR578Xh~MO"
+    "url": "https://authors.elsevier.com/c/1jIJR578Xh~MO",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 29,
@@ -258,7 +421,15 @@
     "title": "Prevalence and Risk Factors of Latent Tuberculosis Infection in Hemodialysis Patients in Southwest Iran",
     "authors": "Rahimi M, Forouzani F, Mousavizadeh A, Shahriarirad R, Ardekani A, Foolad S, Nikbakht G*",
     "journal": "Epidemiological Review (Przegl\u0105d Epidemiologiczny)",
-    "url": "https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html"
+    "url": "https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid",
+      "urology"
+    ]
   },
   {
     "n": 30,
@@ -267,7 +438,14 @@
     "title": "Evaluation of the Predictors and Frequency of Silent Hypoxemia in COVID-19 Patients and the Gap between Pulse Oximeter and Arterial Blood Gas Levels",
     "authors": "Fallahi MJ, Pezeshkian F, Ranjbar K, Javaheri R, Shahriarirad R*",
     "journal": "Health Care Science",
-    "url": "http://doi.org/10.1002/hcs2.98"
+    "url": "http://doi.org/10.1002/hcs2.98",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "pulm"
+    ]
   },
   {
     "n": 31,
@@ -276,7 +454,11 @@
     "title": "Comparison of the Effect of Everolimus, Prednisolone, and a Combination of Both on Experimentally Induced Peritoneal Adhesions in Rats",
     "authors": "Kazemi K, Jamshidi K, Naseri R, Shahriarirad R, Shamsaeefar A, Hosseinzadeh A*",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-024-61620-3"
+    "url": "https://www.nature.com/articles/s41598-024-61620-3",
+    "tags": [],
+    "cat": [
+      "transplant"
+    ]
   },
   {
     "n": 32,
@@ -285,7 +467,11 @@
     "title": "An Overcorrective Modification of Cranial Vault Reconstruction for Non-Syndromic Metopic Suture Synostosis: Shiraz Technique",
     "authors": "Masoudi MS, Zoghi S, Ansari A, Taherpour S, Shahriarirad R, Taheri R*",
     "journal": "Archives of Pediatric Neurosurgery",
-    "url": "https://www.archpedneurosurg.com.br/sbnped2019/article/view/231"
+    "url": "https://www.archpedneurosurg.com.br/sbnped2019/article/view/231",
+    "tags": [],
+    "cat": [
+      "neuro"
+    ]
   },
   {
     "n": 33,
@@ -294,7 +480,11 @@
     "title": "Posterior Positioning of Levator Veli Palatini with Intact Nasal Layer and Side-by-Side Bilateral Buccinator Flaps: Modified Approach for Palatal Lengthening",
     "authors": "Hoghooghi MA, Hooman K, Shahriarirad R, Salimi M, Hosseinpour H*",
     "journal": "The Cleft Palate Craniofacial Journal",
-    "url": "https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full"
+    "url": "https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full",
+    "tags": [],
+    "cat": [
+      "plastic"
+    ]
   },
   {
     "n": 34,
@@ -303,7 +493,13 @@
     "title": "Analysis of a Large 19-Year Database in Vascular Surgery in Southern Iran: Evaluation of Trends and Limitations",
     "authors": "Ghoddusi Johari H, Farrokhi A, Shahriarirad R*, Hosseinzadeh A, Hodjati H",
     "journal": "Annals of Vascular Surgery",
-    "url": "https://authors.elsevier.com/a/1idol3AUdjphyC"
+    "url": "https://authors.elsevier.com/a/1idol3AUdjphyC",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 35,
@@ -312,16 +508,29 @@
     "title": "Demographic, Clinical, and Surgical Features of Patients Undergoing Thyroidectomy due to Thyroid Lesions in Southern Iran",
     "authors": "Mardani P, Koulaian S, Fouladi D, Malekhosseini HR, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.2012"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.2012",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 36,
     "year": "2024",
-    "type": "original",
+    "type": "review",
     "title": "Serosurvey of Anti-Rubella and Anti-Measles IgG Antibodies in Young Females in Jahrom, Southern West Iran: A Review of Literature of the Serological Profile in Iran",
     "authors": "Mojarad N, Forouzani F, Mohammadi Z*, Shahriarirad R*",
     "journal": "Journal of General and Family Medicine",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 37,
@@ -330,7 +539,11 @@
     "title": "Comparison of Hand-sewn Anterior Repair, Resection and Hand-sewn Anastomosis, Resection and Stapled Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy: A Randomized Clinical Trial",
     "authors": "Meshkati Yazd SM, Shahriarirad R, Keramati MR, Omidi M, Nabavizadeh SS, Keshvari A*",
     "journal": "Techniques in Coloproctology",
-    "url": "https://link.springer.com/article/10.1007/s10151-023-02898-9"
+    "url": "https://link.springer.com/article/10.1007/s10151-023-02898-9",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 38,
@@ -339,7 +552,12 @@
     "title": "High Post-Infection Protection after COVID-19 among Healthcare Workers: A Population-Level Observational Study",
     "authors": "Shahriarirad S, Asmarian N, Shahriarirad R, Moghadami M, Askarian M, Malekhosseini SA, Sabetian G*",
     "journal": "Iranian Journal of Medical Sciences",
-    "url": "https://ijms.sums.ac.ir/article_49872.html"
+    "url": "https://ijms.sums.ac.ir/article_49872.html",
+    "tags": [],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 39,
@@ -348,7 +566,11 @@
     "title": "Novel Textbook Outcomes following Emergency Laparotomy: Delphi Exercise",
     "authors": "Naumann D*, Bhangu A, Brooks A, BEACON Collaborative (including Shahriarirad R)",
     "journal": "BJS Open",
-    "url": "https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246"
+    "url": "https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 40,
@@ -357,7 +579,14 @@
     "title": "The Trend of Mortality Rates Following Hospitals Downgrading and Closures due to Outbreak of COVID-19 in Fars Province: A Comparative Cohort Study",
     "authors": "Fallahi MJ, Seifbehzad S, Fereidooni M, Farrokhi AM, Ranjbar K, Shahriarirad R*",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 41,
@@ -366,7 +595,15 @@
     "title": "Prediction of Sentinel Lymph Node Metastasis in Breast Cancer Patients Based on Preoperative Features: A Deep Machine Learning Approach",
     "authors": "Shahriarirad R, Meshkati Yazd SM, Fathian R, Fallahi M, Ghadiani Z, Nafissi N*",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-024-51244-y"
+    "url": "https://www.nature.com/articles/s41598-024-51244-y",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "oncology",
+      "ai"
+    ]
   },
   {
     "n": 42,
@@ -375,7 +612,11 @@
     "title": "Practice and Attitude of General Practitioners Towards Initiating Isotretinoin for Acne Vulgaris in Fars Province, Iran",
     "authors": "Hosseinpour P*, Gholamabbas G, Pezeshkian F, Erfani A, Shahriarirad R, Parhizkar AR",
     "journal": "BMC Primary Care",
-    "url": "https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w"
+    "url": "https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w",
+    "tags": [],
+    "cat": [
+      "derm"
+    ]
   },
   {
     "n": 43,
@@ -384,7 +625,11 @@
     "title": "Demographic and Clinical Features of Patients Operated with the Diagnosis of Acute Descending Necrotizing Mediastinitis: A Retrospective Study in Southern Iran",
     "authors": "Ranjbar K, Shahriarirad R, Ebrahimi K, Amirian A, Karoobi MR, Mardani P, Erfani A, Fallahi MJ, Ketabchi F, Ziaian B*",
     "journal": "BMC Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 44,
@@ -393,7 +638,14 @@
     "title": "Antibiotic Resistance Pattern Among Isolated Bacteria from Urinary Tract Infection Patients in the Intensive Care Unit",
     "authors": "Forouzani F, Sharifi A, Mojarad N, Mohammadi Z, Shahriarirad R*",
     "journal": "Journal of Medical Bacteriology",
-    "url": "https://jmb.tums.ac.ir/index.php/jmb/article/view/500"
+    "url": "https://jmb.tums.ac.ir/index.php/jmb/article/view/500",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "urology"
+    ]
   },
   {
     "n": 45,
@@ -402,7 +654,14 @@
     "title": "Cohort Analysis of 50% Lethal Area (LA50) and Associating Factors in Burn Patients based on Quality Improvements and Health Policies",
     "authors": "Shahriarirad R, Shekouhi R, Nabavizadeh SS, Zardosht M, Tadayon SMK, Ahmadi M, Keshavarzi A*",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-023-45884-9"
+    "url": "https://www.nature.com/articles/s41598-023-45884-9",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "burns"
+    ]
   },
   {
     "n": 46,
@@ -411,7 +670,14 @@
     "title": "Protective Effect of Melissa Officinalis Against Acetic Acid-Induced Ulcerative Colitis in Rat Models",
     "authors": "Shahriarirad R*, Erfani A, Nekouei F, Seifbehzad S, Hosseinzadeh M, Sarkari B, Tanideh N, Koohi-Hosseinabadi O, Nassour N, Ashkani-Esfahani S",
     "journal": "Annals of Gastroenterology",
-    "url": "https://doi.org/10.20524/aog.2023.0836"
+    "url": "https://doi.org/10.20524/aog.2023.0836",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 47,
@@ -420,7 +686,11 @@
     "title": "The Effect of a Preoperative Single Dose of Gabapentin on Emergence Agitation in Patients Undergoing Rhinoplasty: A Randomized Clinical Trial",
     "authors": "Hoghoughi MA, Jouybar R, Alvandi A, Shahriarirad R, Hosseinpour H, Ranjbar K, Kamran H*",
     "journal": "European Journal of Plastic Surgery",
-    "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7"
+    "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7",
+    "tags": [],
+    "cat": [
+      "plastic"
+    ]
   },
   {
     "n": 48,
@@ -429,7 +699,14 @@
     "title": "Evaluation of the Features of Cystic Echinococcosis with Concurrent Super-infection: A Retrospective Study in Southern Iran",
     "authors": "Shahriarirad R, Shekouhi R, Erfani A, Rastegarian M, Eskandarisani M, Motamedi M, Sarkari B*",
     "journal": "BMC Infectious Diseases",
-    "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-023-08520-5"
+    "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-023-08520-5",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 49,
@@ -438,7 +715,11 @@
     "title": "Resistance Pattern of Isolated Microorganisms from 783 Clinical Specimen Cultures in Patients Admitted to Yasuj Educational Hospitals, Iran",
     "authors": "Forouzani F, Khasti T, Manzouri L, Ravangard S, Shahriarirad R, Jahed S, Gordafarin N*",
     "journal": "BMC Microbiology",
-    "url": "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4"
+    "url": "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 50,
@@ -447,7 +728,15 @@
     "title": "Hospital-based Retrospective Analysis of 224 Surgical Cases of Lung Hydatid Cyst from Southern Iran",
     "authors": "Shahriarirad R, Erfani A, Ebrahimi K, Rastegarian M, Eskandarisani M, Ziaian B, Sarkari B*",
     "journal": "BMC Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 51,
@@ -456,7 +745,15 @@
     "title": "Esophageal Perforation Etiology, Outcome, and the Role of Surgical Management \u2014 An 18-Year Experience of Surgical Cases in A Referral Center",
     "authors": "Shahriarirad R, Karoobi MR, Shekouhi R, Ebrahimi K, Ranjbar K, Amirian A, Mardani P, Fallahi MJ, Ziaian B*",
     "journal": "BMC Surgery",
-    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w"
+    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 52,
@@ -465,7 +762,11 @@
     "title": "Management of Liver Hydatid Cysts: A Retrospective Analysis of 293 Surgical Cases from Southern Iran",
     "authors": "Erfani A, Shahriarirad R, Eskandarisani M, Rastegarian M, Sarkari B*",
     "journal": "Journal of Tropical Medicine",
-    "url": "https://www.hindawi.com/journals/jtm/2023/9998739/"
+    "url": "https://www.hindawi.com/journals/jtm/2023/9998739/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 53,
@@ -474,7 +775,13 @@
     "title": "Investigating the Effectiveness of Intraoperative Rapid Parathyroid Hormone Assay in Parathyroidectomy Surgery in Patients with Secondary Hyperparathyroidism",
     "authors": "Nasiri S, Meshkati Yazd SM, Heshmati A, Mokhtari Ardekani A, Najafi M, Shahriarirad R*",
     "journal": "BMC Endocrine Disorders",
-    "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3"
+    "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 54,
@@ -483,7 +790,11 @@
     "title": "Efficacy of Metformin vs. Doxycycline in Treating Acne Vulgaris: An Assessor-Blinded, Add-on, Randomized, Controlled Clinical Trial",
     "authors": "Sadat Sadati M, Yazdanpanah N, Shahriarirad R, Javaheri R, Parvizi MM*",
     "journal": "Journal of Cosmetic Dermatology",
-    "url": "http://doi.org/10.1111/jocd.15785"
+    "url": "http://doi.org/10.1111/jocd.15785",
+    "tags": [],
+    "cat": [
+      "derm"
+    ]
   },
   {
     "n": 55,
@@ -492,7 +803,11 @@
     "title": "Evaluation Oral and Topical Bovine Colostrum compared to Mesalamine in the Treatment of Animal Model of Acetic Acid-Induced Ulcerative Colitis",
     "authors": "Koohi O, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Ebrahimi A*, Tanideh N, Ashkani-Esfahani S",
     "journal": "Annals of Gastroenterology",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 56,
@@ -501,7 +816,14 @@
     "title": "Serum Levels of Erythropoietin in Patients with Chronic Obstructive Pulmonary Disease and Anemia",
     "authors": "Rezvani A, Masoompour SM, Azarpira N, Monjazeb R, Akbarzadeh M, Salimi M, Shahriarirad R*",
     "journal": "Scientific Reports",
-    "url": "https://www.nature.com/articles/s41598-023-34290-w"
+    "url": "https://www.nature.com/articles/s41598-023-34290-w",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "pulm"
+    ]
   },
   {
     "n": 57,
@@ -510,7 +832,11 @@
     "title": "Comparison Of Mesh Fixation and Non-Fixation in Transabdominal Preperitoneal (TAPP) Inguinal Hernia Repair: A Randomized Control Trial",
     "authors": "Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR*, Mehri G, Shabani Mofrad N",
     "journal": "Surgical Endoscopy",
-    "url": "https://link.springer.com/article/10.1007/s00464-023-10040-x"
+    "url": "https://link.springer.com/article/10.1007/s00464-023-10040-x",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 58,
@@ -519,7 +845,9 @@
     "title": "Translation, Cross-cultural Adaptation, and Psychometric Evaluation of the Persian (Farsi) Version of the QoLAF Questionnaire",
     "authors": "Keramati MR*, Meshkati Yazd SM, Omidi M, Keshvari A, Shahriarirad S, Shahriarirad R, Nabavizadeh SS",
     "journal": "PLOS One",
-    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170"
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 59,
@@ -528,7 +856,13 @@
     "title": "The Evaluation of Locoregional Tumoral Involvement in the Co-occurrence of Hashimoto Thyroiditis with Papillary Thyroid Cancer",
     "authors": "Nasiri N, Meshkati Yazd SM, Gholami M, Shahriarirad S, Sharghi S, Shahriarirad R*",
     "journal": "BMC Endocrine Disorder",
-    "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01322-5"
+    "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01322-5",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 60,
@@ -537,7 +871,12 @@
     "title": "Comparison of the Preventive Effect of Colchicine versus Diphenhydramine, Prednisolone, and a Combination Therapy on Intraperitoneal Adhesion Bands: An Experimental Study in Rats",
     "authors": "Malekhosseini SA, Alizadeh B, Hosseinzadeh A, Shahriarirad R, Kazemi K, Naseri R*",
     "journal": "BMC Surgery",
-    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0"
+    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0",
+    "tags": [],
+    "cat": [
+      "gi",
+      "transplant"
+    ]
   },
   {
     "n": 61,
@@ -546,7 +885,13 @@
     "title": "Association of Complications during and after Carotid Body Tumor Resection with Tumor Size and Distance to the Base of Skull",
     "authors": "Ghoddusi Johari H, Afshari A, Abolhasani Foroughi A, Khademi B, Shahriarirad S, Erfani A, Hodjati H, Shahriarirad R*",
     "journal": "Annals of Vascular Surgery",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 62,
@@ -555,7 +900,15 @@
     "title": "Prevalence of Suicide by Self-immolation among Children in Southern Iran",
     "authors": "Shahriarirad R, Ranjbar K, Erfani A, Modarresi M, Koranishiraz A, Kamali M, Zardosht M, Mohammadi AA*",
     "journal": "The Journal of Burn Care & Research",
-    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317"
+    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "burns",
+      "pubhealth"
+    ]
   },
   {
     "n": 63,
@@ -564,7 +917,12 @@
     "title": "Evaluation of the Effectiveness of Prophylactic Omentopexy during Laparoscopic Insertion of Peritoneal Dialysis Catheter: A Case-Control Clinical Trial",
     "authors": "Keshvari A, Meshkati Yazd SM, Keramati MR, Kamran H, Shahriarirad R",
     "journal": "International Urology and Nephrology",
-    "url": "https://link.springer.com/article/10.1007/s11255-023-03522-3"
+    "url": "https://link.springer.com/article/10.1007/s11255-023-03522-3",
+    "tags": [],
+    "cat": [
+      "gi",
+      "urology"
+    ]
   },
   {
     "n": 64,
@@ -573,7 +931,11 @@
     "title": "Effectiveness of Transcutaneous Electrical Nerve Stimulation alongside Quadriceps Exercise in the Correction of Soccer Genu Varum in Adolescents 14-18 Years Old: A Randomized Controlled Trial",
     "authors": "Pourmokhtari M, Shahriarirad R, Shekouhi R*",
     "journal": "Sports Sciences for Health",
-    "url": "https://link.springer.com/article/10.1007/s11332-023-01049-9"
+    "url": "https://link.springer.com/article/10.1007/s11332-023-01049-9",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 65,
@@ -582,7 +944,15 @@
     "title": "COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",
     "authors": "Shafiekhani M, Niknam T, Tara SA, Mardani P, Hosseinpour P, Shahriarirad R*, MalekHosseini SA",
     "journal": "Cost Effectiveness and Resource Allocation",
-    "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x"
+    "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid",
+      "transplant"
+    ]
   },
   {
     "n": 66,
@@ -591,7 +961,12 @@
     "title": "Evaluation of the Effect of Platelet Rich Fibrin Matrix in the Correction of Periorbital Wrinkles: An Experimental Clinical Trial",
     "authors": "Ahmadi Mahmoodabadi R, Golafshan HA, Pezeshkian F, Shahriarirad R, Namazi M*",
     "journal": "Dermatology Practical & Conceptual",
-    "url": "https://dpcj.org/index.php/dpc/article/view/2535"
+    "url": "https://dpcj.org/index.php/dpc/article/view/2535",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "derm"
+    ]
   },
   {
     "n": 67,
@@ -600,7 +975,13 @@
     "title": "Gastroesophageal Reflux Disease Incidence Among Male Patients with Irritable Bowel Syndrome: A Single-Center Cross-sectional Study in Southern Iran",
     "authors": "Gholamnezhad F, Qeisari A, Shahriarirad R*",
     "journal": "Journal of Gastroenterology and Hepatology Open",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 68,
@@ -609,7 +990,11 @@
     "title": "Postoperative Cosmetic Outcome of Intraoperative Radiotherapy in Comparison to Whole Breast Radiotherapy in Early Stage Breast Cancer: A Retrospective Cohort Study",
     "authors": "Nafisi N, Meshkati Yazd SM, Shahriarirad R, Zangeneh S, Ghorbani S, Farazmand B, Karoobi MR*, Mirzaei HR",
     "journal": "BMC Cancer",
-    "url": "https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10468-9"
+    "url": "https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10468-9",
+    "tags": [],
+    "cat": [
+      "oncology"
+    ]
   },
   {
     "n": 69,
@@ -618,7 +1003,11 @@
     "title": "Hand-Sewn Direct Repair Versus Resection and Hand-Sewn Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy after Lower Anterior Rectal Resection Surgery: A Randomized Clinical Trial",
     "authors": "Keramati MR, Meshkati Yazd SM, Shahriarirad R, Omidi M, Nabavizadeh SS, Keshvari A*",
     "journal": "Journal of Surgical Oncology",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jso.27185"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/jso.27185",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 70,
@@ -627,7 +1016,13 @@
     "title": "Hypertonic Saline Solution 5% as an Effective Cost-beneficial Alternative to Normal Saline for Wound Healing in Patients with Diabetic Lower-Extremity Ulcers: A Randomized Controlled Trial",
     "authors": "Ziaian B, Khezri S, Amirian A, Ranjbar K, Shahriarirad R*, Eskandari Kohnakia M",
     "journal": "Journal of Diabetes & Metabolic Disorders",
-    "url": "https://link.springer.com/article/10.1007/s40200-022-01167-0"
+    "url": "https://link.springer.com/article/10.1007/s40200-022-01167-0",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "burns"
+    ]
   },
   {
     "n": 71,
@@ -636,7 +1031,14 @@
     "title": "Evaluation of the Role of Prophylactic Bilateral Central Neck Lymph Node Dissection in Patients with Papillary Thyroid Carcinoma: A Case Controlled Study",
     "authors": "Shahriarirad R, Meshkati Yazd SM, Zahedi R, Mokhtari Ardekani A, Rekabi MM, Nasiri S*",
     "journal": "Updates in Surgery",
-    "url": "https://link.springer.com/article/10.1007/s13304-022-01440-0"
+    "url": "https://link.springer.com/article/10.1007/s13304-022-01440-0",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 72,
@@ -645,7 +1047,14 @@
     "title": "Calcitriol Supplementation Before Parathyroidectomy and Calcium Level After Surgery in Parathyroid Adenoma Patients: A Randomized Controlled Trial",
     "authors": "Shahriarirad R, Meshkati Yazd SM, Ardekani A, Mokhtari Ardekani A, Moradi N, Nasiri S*",
     "journal": "Journal of Endocrinological Investigation",
-    "url": "https://link.springer.com/article/10.1007/s40618-022-01963-8"
+    "url": "https://link.springer.com/article/10.1007/s40618-022-01963-8",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 73,
@@ -654,7 +1063,12 @@
     "title": "Factors Associated with Reluctancy to Acquire COVID-19 Vaccination: A Cross-sectional Study in Shiraz, Iran, 2022",
     "authors": "Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",
     "journal": "PLOS One",
-    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967"
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967",
+    "tags": [],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 74,
@@ -663,7 +1077,13 @@
     "title": "The Effect of Thymectomy during Central Neck Dissection in Papillary Thyroid Carcinoma: A Case-Controlled Study",
     "authors": "Nasiri S, Meshkati Yazd SM, Mokhtari Ardekani A, Fazlollahpour-Naghibi A, Shahintaj M, Shahriarirad R*",
     "journal": "Updates In Surgery",
-    "url": "https://link.springer.com/article/10.1007/s13304-022-01428-w"
+    "url": "https://link.springer.com/article/10.1007/s13304-022-01428-w",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 75,
@@ -672,7 +1092,11 @@
     "title": "The Role and Value of Low-Dose Computed Tomography Scan Compared to Esophagoscopy in the Diagnosis of Foreign Body Ingestion in Adults",
     "authors": "Mardani P, Shahriarirad R, Khosravi F, Malekhosseini HR, Amirian A, Kamran H*",
     "journal": "General Thoracic and Cardiovascular Surgery",
-    "url": "https://link.springer.com/article/10.1007/s11748-022-01880-w"
+    "url": "https://link.springer.com/article/10.1007/s11748-022-01880-w",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 76,
@@ -681,7 +1105,11 @@
     "title": "Utilization of Chest Tube as an Esophagus Stent in Pediatric Caustic Injuries: A Retrospective Study",
     "authors": "Salimi M, Hosseinpour H, Shahriarirad R, Esfandiari S, Pooresmaeel F, Sarejloo S, Foroutan H*",
     "journal": "World Journal of Clinical Pediatrics",
-    "url": "https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm"
+    "url": "https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 77,
@@ -690,7 +1118,13 @@
     "title": "Prevalence and Associated Factors of Complementary and Integrative Medicine Use in Patients Afflicted with COVID-19",
     "authors": "Parvizi MM*, Sedigheh Forouhari S, Shahriarirad R*, Shahriarirad S, Bradley R, Roosta L, Heydari M",
     "journal": "BMC Complementary Medicine and Therapies",
-    "url": "https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x"
+    "url": "https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "covid"
+    ]
   },
   {
     "n": 78,
@@ -699,7 +1133,13 @@
     "title": "The Role of Routine Chest Radiography after Implantable Venous Access Port Catheter Insertion under the Guide of Ultrasonography and Fluoroscopy",
     "authors": "Ghoddusi Johari H, Saki M, Erfani A, Shahriarirad R*, Ranjbar K",
     "journal": "Cost Effectiveness and Resource Allocation",
-    "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z"
+    "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 79,
@@ -708,7 +1148,13 @@
     "title": "The Incidence and Features of Delphian Lymph Node Involvement in Patients with Papillary Thyroid Carcinoma",
     "authors": "Alibakhshi A, Sheikhi S, Meshkati Yazd SM, Ardekani A, Ranjbar K, Shahriarirad R*",
     "journal": "BMC Surgery",
-    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-022-01742-5"
+    "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-022-01742-5",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 80,
@@ -717,7 +1163,9 @@
     "title": "Determination of the Main Causes, Outcome and Prognostic Factors of Patients with Rheumatologic Diseases Admitted to the Medical Intensive Care Unit in Southern Iran",
     "authors": "Arjmand M, Shahriarirad R, Shenavandeh S, Fallahi MJ*",
     "journal": "Clinical Rheumatology",
-    "url": "https://link.springer.com/article/10.1007/s10067-022-06334-5"
+    "url": "https://link.springer.com/article/10.1007/s10067-022-06334-5",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 81,
@@ -726,7 +1174,11 @@
     "title": "Evaluation of Post Laparoscopic Cholecystectomy Pain after Subcutaneous Injection of Lidocaine at Port Site versus Lidocaine Spray on Gallbladder Bed: A Randomized Controlled Trial",
     "authors": "Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR, Mehri G",
     "journal": "Langenbeck's Archives of Surgery",
-    "url": "https://link.springer.com/article/10.1007/s00423-022-02645-y"
+    "url": "https://link.springer.com/article/10.1007/s00423-022-02645-y",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 82,
@@ -735,7 +1187,14 @@
     "title": "Therapeutic Efficacy of Great Plantain (Plantago major L.) in the Treatment of Second-Degree Burn Wounds: A Case-Control Study",
     "authors": "Keshavarzi A, Montaseri H, Akrami R, Hoghoughi MA, Ranjbar K, Shahriarirad R*",
     "journal": "International Journal of Clinical Practice",
-    "url": "https://www.hindawi.com/journals/ijclp/2022/4923277/"
+    "url": "https://www.hindawi.com/journals/ijclp/2022/4923277/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "plastic",
+      "burns"
+    ]
   },
   {
     "n": 83,
@@ -744,7 +1203,13 @@
     "title": "Promising Results of Captopril in Improving Knee Arthrofibrosis and Cartilage Status: An Animal Model Study",
     "authors": "Hashemi SA, Azad A, Erfani A, Shahriarirad R*, Azarpira N",
     "journal": "Journal of Experimental Orthopaedics",
-    "url": "https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5"
+    "url": "https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 84,
@@ -753,7 +1218,13 @@
     "title": "Auto Transplantation of Parathyroid Tissue into Subcutaneous Subclavicular Area Following Total Parathyroidectomy in Secondary Hyperparathyroidism",
     "authors": "Nasiri S, Meshkati Yazd SM, Kamran H, Kahrizi MS, Azhdari M, Shahriarirad R*",
     "journal": "Journal of Endocrinological Investigation",
-    "url": "https://link.springer.com/article/10.1007/s40618-022-01864-w"
+    "url": "https://link.springer.com/article/10.1007/s40618-022-01864-w",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 85,
@@ -762,7 +1233,11 @@
     "title": "The Role of Surgical and Endovascular Repair of Blunt Traumatic Aortic Injury in the Modern Era: A Single-Center Experience",
     "authors": "Ghoddusi Johari H, Moein SA*, Hosseinzadeh A, Kojuri J, Roshanshad A, Shahriarirad R",
     "journal": "Bulletin of Emergency and Trauma",
-    "url": "https://beat.sums.ac.ir/article_48535.html"
+    "url": "https://beat.sums.ac.ir/article_48535.html",
+    "tags": [],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 86,
@@ -771,7 +1246,12 @@
     "title": "Parents' Attitude to School Reopening before the Emergence of Omicron Variant of SARS-CoV-2: A Retrospective Web-based Survey",
     "authors": "Mirahmadizadeh A, Heiran A, Sahebi R, Azadian F, Shahriarirad R, Sharifi MH",
     "journal": "Health Management & Information Science",
-    "url": "https://jhmi.sums.ac.ir/article_48840.html"
+    "url": "https://jhmi.sums.ac.ir/article_48840.html",
+    "tags": [],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 87,
@@ -780,7 +1260,11 @@
     "title": "Evaluation and Comparison of Mucormycosis Patients' Features Undergoing Functional Endoscopic Sinus Surgery Prior to and during the COVID-19 Pandemic: A Case-Control Study",
     "authors": "Dehghanpisheh L, Eghbal MH, Salari M, Shahriarirad R, Borzou N, Vatankhah P*",
     "journal": "International Journal of Clinical Practice",
-    "url": "https://www.hindawi.com/journals/ijclp/2022/1248325/"
+    "url": "https://www.hindawi.com/journals/ijclp/2022/1248325/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 88,
@@ -789,7 +1273,13 @@
     "title": "Prediction of Patients with COVID-19 Requiring Intensive Care: A Cross-sectional Study Based on Machine-learning Approach from Iran",
     "authors": "Sabetian G, Azimi A*, Kazemi A*, Hoseini B, Asmarian N, Khaloo V, Zand F, Masjedi M, Shahriarirad R, Shahriarirad S",
     "journal": "Indian Journal of Critical Care Medicine",
-    "url": "https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article"
+    "url": "https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article",
+    "tags": [],
+    "cat": [
+      "covid",
+      "ai",
+      "pulm"
+    ]
   },
   {
     "n": 89,
@@ -798,7 +1288,12 @@
     "title": "Incidence, Clinicomicrobiological Characteristics, Risk Factors, and Treatment Outcomes of Bacterial Infections Following Liver Transplantation in Pediatrics: A Retrospective Cohort Study",
     "authors": "Vazin A, Shahriarirad R, Malekhosseini SA, Shafiekhani M, Nikoupour H, Arasteh P",
     "journal": "Archives of Pediatric Infectious Diseases",
-    "url": "https://brieflands.com/articles/apid-118809.html"
+    "url": "https://brieflands.com/articles/apid-118809.html",
+    "tags": [],
+    "cat": [
+      "infectious",
+      "transplant"
+    ]
   },
   {
     "n": 90,
@@ -807,25 +1302,37 @@
     "title": "Evaluation of Crossover Sign in Pelvis Models Made with a Three-Dimensional Printer",
     "authors": "Salimi A, Mirghaderi SP, Gholamzadeh MJ, Qahremani R, Hadizadeh A, Shahriarirad R, Shekouhi R",
     "journal": "Advances in Orthopedics",
-    "url": "https://www.hindawi.com/journals/aorth/2022/4665342/"
+    "url": "https://www.hindawi.com/journals/aorth/2022/4665342/",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 91,
     "year": "2022",
-    "type": "original",
+    "type": "review",
     "title": "Effects of Neuromodulation on Treatment of Recurrent Anal Fissure: A Systematic Review",
     "authors": "Bananzadeh A, Sohooli M, Tahereh Shamsi T, Darabi MH, Shahriarirad R, Shekouhi R*",
     "journal": "International Journal of Surgery",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 92,
     "year": "2022",
-    "type": "original",
+    "type": "review",
     "title": "The Effect of Suture Techniques on the Outcome of Tracheal Reconstruction: An Observational Study and Review of Literature",
     "authors": "Ziaian B, Shahriarirad R, Fouladi D*, Mardani P, Amirian A, Kamran H",
     "journal": "The Surgeon",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 93,
@@ -834,7 +1341,14 @@
     "title": "Comparison of Oral Sirolimus, Prednisolone, and Combination of Both in Experimentally Induced Peritoneal Adhesion",
     "authors": "Kazemi K, Hosseinzadeh A, Shahriarirad R*, Naseri R, Shamsaeefar A, Malekhosseini SA",
     "journal": "Journal of Surgical Research",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "gi",
+      "transplant"
+    ]
   },
   {
     "n": 94,
@@ -843,7 +1357,12 @@
     "title": "A Comparison between Effectiveness of Gluteal Trigger Point and Epidural Steroid Injection in Lumbosacral Canal Stenosis Patients: A Randomized Clinical Trial",
     "authors": "Khoshnazar SS, Farpour HR*, Shahriarirad R",
     "journal": "British Journal of Neurosurgery",
-    "url": "https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698"
+    "url": "https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698",
+    "tags": [],
+    "cat": [
+      "ortho",
+      "neuro"
+    ]
   },
   {
     "n": 95,
@@ -852,7 +1371,12 @@
     "title": "Burn Injuries in People Who Used Drug, 2009-2017: A Case-Control Study in Shiraz, Southern Iran",
     "authors": "Hoghoughi MA, Marzban MR, Shahrbaf MA, Shahriarirad R, Karoobi M, Ranjbar K",
     "journal": "Journal of Burn Care & Research",
-    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346"
+    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "burns"
+    ]
   },
   {
     "n": 96,
@@ -861,7 +1385,12 @@
     "title": "A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images",
     "authors": "Zare M, Akbarialiabad H, Parsaei H, Asgari Q, Alinejad A, Shahriarirad R, Abdollahifard G*",
     "journal": "BMC Infectious Diseases",
-    "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7"
+    "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7",
+    "tags": [],
+    "cat": [
+      "infectious",
+      "ai"
+    ]
   },
   {
     "n": 97,
@@ -870,7 +1399,13 @@
     "title": "Prevalence of Anxiety, Depression, Stress, and Perceived Stress and Their Relation with Resilience in the General Population during the COVID-19 Pandemic: A Cross-sectional Study",
     "authors": "Parvar SY, Ghamari N*, Pezeshkian F, Shahriarirad R",
     "journal": "Health Science Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460"
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460",
+    "tags": [],
+    "cat": [
+      "covid",
+      "neuro",
+      "pubhealth"
+    ]
   },
   {
     "n": 98,
@@ -879,16 +1414,24 @@
     "title": "Serosurvey and Molecular Detection of Toxoplasma gondii in Dogs in Rural Areas of Kazeroun District, Fars Province, Southern Iran",
     "authors": "Rezaei Z, Zeighami A, Shahriarirad R, Arefkhah N, Sarkari B",
     "journal": "Journal of Parasitology Research",
-    "url": "https://www.hindawi.com/journals/jpr/2021/4499086/"
+    "url": "https://www.hindawi.com/journals/jpr/2021/4499086/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 99,
     "year": "2021",
-    "type": "original",
+    "type": "review",
     "title": "Transportal versus All-Inside Techniques of Anterior Cruciate Ligament Reconstruction: A Systematic Review",
     "authors": "Bhimani R, Shahriarirad R, Ranjbar K, Erfani A*, Ashkani-Esfahani S",
     "journal": "Journal of Orthopaedic Surgery and Research",
-    "url": "https://link.springer.com/article/10.1186/s13018-021-02872-x"
+    "url": "https://link.springer.com/article/10.1186/s13018-021-02872-x",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 100,
@@ -897,7 +1440,11 @@
     "title": "Evaluation of the Relationship between Vitamin D Levels and Related Serum Markers as Well as Disease Activity in Patients with Rheumatoid Arthritis",
     "authors": "Moghimi N, Faridfar A, Jelodari Mamaghani H, Nikandish M, Shahriarirad R, Shenavandeh S",
     "journal": "Journal of Bioengineering Research",
-    "url": "http://www.journalbe.com/article_140812.html"
+    "url": "http://www.journalbe.com/article_140812.html",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 101,
@@ -906,7 +1453,11 @@
     "title": "Comparison of Serologic Celiac Disease in Patients with Hypothyroidism and Healthy Controls: A Case-Control Study",
     "authors": "Sheikhesmaeili F, Salimi M, Salimi A, Nikandish M, Shahriarirad R, Falahati A",
     "journal": "Journal of Bioengineering Research",
-    "url": "http://www.journalbe.com/article_140814.html"
+    "url": "http://www.journalbe.com/article_140814.html",
+    "tags": [],
+    "cat": [
+      "endocrine"
+    ]
   },
   {
     "n": 102,
@@ -915,7 +1466,15 @@
     "title": "Socioeconomic Features of Burn Injuries in Southern Iran: A Cross-sectional Study",
     "authors": "Mohammadi AA, Hoghoughi MA, Karoobi M, Ranjbar K, Shahriarirad R*, Erfani A, Modarresi MS, Zardosht M",
     "journal": "Journal of Burn Care & Research",
-    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985"
+    "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "plastic",
+      "burns",
+      "pubhealth"
+    ]
   },
   {
     "n": 103,
@@ -924,7 +1483,15 @@
     "title": "Evaluation of the Therapeutic Regimen in COVID-19 in Transplant Patients: Where do Immunomodulatory and Antivirals Stand?",
     "authors": "Shafiekhani M, Shahabinezhad F, Niknam T, Tara SA, Hosseinpour P, Shahriarirad R*, Malekhosseini SA",
     "journal": "BMC Clinical Virology",
-    "url": "https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2"
+    "url": "https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid",
+      "transplant"
+    ]
   },
   {
     "n": 104,
@@ -933,7 +1500,11 @@
     "title": "Epidemiological Factors in Patients with Dermatologic Conditions Referring to the Clinic of Traditional Persian Medicine: A Cross-sectional Study",
     "authors": "Parvizi MM*, Fatehi N, Jaladat AM, Gholampour Z, Shahriarirad R, Erfani A",
     "journal": "International Journal of Clinical Practice",
-    "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788"
+    "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788",
+    "tags": [],
+    "cat": [
+      "derm"
+    ]
   },
   {
     "n": 105,
@@ -942,16 +1513,22 @@
     "title": "Stereological Analysis of Liver, Spleen and Bone of Leishmania infantum-Experimentally Infected Hamsters",
     "authors": "Modabberi F, Ghadimi SN, Shahriarirad R, Nadimi E, Karbalay-Doust S, Rashidi S, Sarkari B*",
     "journal": "Experimental Parasitology",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 106,
     "year": "2021",
-    "type": "original",
+    "type": "review",
     "title": "Therapeutic Effects of Stem Cells in Different Body Systems \u2014 A Novel Method that is Yet to Gain Trust: A Comprehensive Review",
     "authors": "Ebrahimi A, Ahmadi H, Borhaninia M, Tanideh N*, Shahriarirad R, Erfani A, Ranjbar K, Ashkani-Esfahani S",
     "journal": "Bosnian Journal of Basic Medical Sciences",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 107,
@@ -960,7 +1537,12 @@
     "title": "Experiences with Intestinal Failure from an Intestinal Rehabilitation Unit in a Country without Home Parenteral Nutrition",
     "authors": "Nikoupour H, Arasteh P, Shamsaeefar A, Malekhosseini SA, Shafiekhani M*, Shahriarirad R, Kazemi K",
     "journal": "Journal of Parenteral and Enteral Nutrition",
-    "url": "https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231"
+    "url": "https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231",
+    "tags": [],
+    "cat": [
+      "gi",
+      "transplant"
+    ]
   },
   {
     "n": 108,
@@ -969,7 +1551,11 @@
     "title": "Prevalence of Helicobacter Pylori Infection Before and One Year After Classic Gastric Bypass Surgery",
     "authors": "Valiee S, Hosseini B, Amini M, Haghighat N, Hosseinpour H, Moeinvaziri N*, Shahriarirad R, Tanideh N",
     "journal": "Annals of Bariatric Surgery",
-    "url": "https://www.researchgate.net/publication/354862675"
+    "url": "https://www.researchgate.net/publication/354862675",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 109,
@@ -978,16 +1564,28 @@
     "title": "Renal Revascularization by a Pedicled Intestinal Segment Wrapping the Kidney: A New Method for Kidney Revascularization",
     "authors": "Hodjati H, Moosavi SM, Hosseinzadeh A, Anbardar MH, Sherafatmand S, Kazemnia K, Hosseinpour H, Shahriarirad R*",
     "journal": "International Urology and Nephrology",
-    "url": "https://link.springer.com/article/10.1007/s11255-021-02897-5"
+    "url": "https://link.springer.com/article/10.1007/s11255-021-02897-5",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular",
+      "transplant",
+      "urology"
+    ]
   },
   {
     "n": 110,
     "year": "2021",
-    "type": "original",
+    "type": "review",
     "title": "Prevalence of HBV and HCV Infections in Iranian Blood Donors: An Updated Systematic Review and Meta-Analysis",
     "authors": "Kasraian L, Imanieh MH*, Tabrizi R, Shahriarirad R, Erfani A, Hosseini S",
     "journal": "Middle East Journal of Digestive Diseases",
-    "url": "https://mejdd.org/index.php/mejdd/article/viewFile/2243/2208"
+    "url": "https://mejdd.org/index.php/mejdd/article/viewFile/2243/2208",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 111,
@@ -996,7 +1594,11 @@
     "title": "Cystic Echinococcosis: Knowledge, Attitude, and Practices (KAP) among Surgically Operated Cases in Fars Province, Southern Iran",
     "authors": "Hosseini Z, Shahriarirad R, Sarkari B*",
     "journal": "Journal of Parasitology Research",
-    "url": "https://www.hindawi.com/journals/jpr/2021/9976548/"
+    "url": "https://www.hindawi.com/journals/jpr/2021/9976548/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 112,
@@ -1005,7 +1607,14 @@
     "title": "Evaluation of Lung Contusion, Associated Injuries, and Outcome in a Major Trauma Center in Shiraz, Southern Iran",
     "authors": "Mardani P, Moayedi Rad M, Paydar S, Amirian A, Shahriarirad R*, Erfani A, Ranjbar K",
     "journal": "Emergency Medicine International",
-    "url": "https://www.hindawi.com/journals/emi/2021/3789132/"
+    "url": "https://www.hindawi.com/journals/emi/2021/3789132/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "pulm"
+    ]
   },
   {
     "n": 113,
@@ -1014,7 +1623,12 @@
     "title": "Methylprednisolone or Dexamethasone, Which One is Superior Corticosteroid in the Treatment of Hospitalized COVID-19 Patients: A Triple-blinded Randomized Controlled Trial",
     "authors": "Ranjbar K, Moghadami M*, Mirahmadizadeh A, Fallahi MJ, Khaloo V, Shahriarirad R, Hosseinpour H, Honarvar B",
     "journal": "BMC Infectious Diseases",
-    "url": "https://link.springer.com/article/10.1186/s12879-021-06045-3"
+    "url": "https://link.springer.com/article/10.1186/s12879-021-06045-3",
+    "tags": [],
+    "cat": [
+      "covid",
+      "pulm"
+    ]
   },
   {
     "n": 114,
@@ -1023,7 +1637,14 @@
     "title": "COVID-19 Infection among Healthcare Workers: A Cross-sectional Study in Southwest Iran",
     "authors": "Sabetian G, Moghadami M, Haghighi LHF, Shahriarirad R*, Fallahi MJ, Asmarian N, Malekhosseini SA",
     "journal": "Virology Journal",
-    "url": "https://link.springer.com/article/10.1186/s12985-021-01532-0"
+    "url": "https://link.springer.com/article/10.1186/s12985-021-01532-0",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "pubhealth"
+    ]
   },
   {
     "n": 115,
@@ -1032,7 +1653,13 @@
     "title": "Students' Attitude and Sleep Pattern during School Closure following COVID-19 Pandemic Quarantine: A Web-based Survey in South of Iran",
     "authors": "Ranjbar K, Hosseinpour H, Shahriarirad R, Ghaem H, Jafari K, Rahimi T, Mirahmadizadeh A*",
     "journal": "Environmental Health and Preventive Medicine",
-    "url": "https://link.springer.com/article/10.1186/s12199-021-00950-4"
+    "url": "https://link.springer.com/article/10.1186/s12199-021-00950-4",
+    "tags": [],
+    "cat": [
+      "covid",
+      "neuro",
+      "pubhealth"
+    ]
   },
   {
     "n": 116,
@@ -1041,7 +1668,11 @@
     "title": "The Association between Emotional Stress, Sleep Disturbance, Depression, and Burning Mouth Syndrome",
     "authors": "Rezazadeh F, Farahmand F, Hosseinpour H, Shahriarirad R, Sabet Eghlidi A*",
     "journal": "BioMed Research International",
-    "url": "https://www.hindawi.com/journals/bmri/2021/5555316/"
+    "url": "https://www.hindawi.com/journals/bmri/2021/5555316/",
+    "tags": [],
+    "cat": [
+      "neuro"
+    ]
   },
   {
     "n": 117,
@@ -1050,7 +1681,15 @@
     "title": "The Mental Health Impact of COVID-19 Outbreak: A Nationwide Survey in Iran",
     "authors": "Shahriarirad R, Erfani A*, Ranjbar K, Bazrafshan A, Mirahmadizadeh A",
     "journal": "International Journal of Mental Health Systems",
-    "url": "https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3"
+    "url": "https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "covid",
+      "neuro"
+    ]
   },
   {
     "n": 118,
@@ -1059,7 +1698,11 @@
     "title": "An Investigation of the Knowledge of General Surgeons in Fars Province in Terms of the Complications of Central Venous Stenosis and Thrombosis Following Insertion of a Double-Lumen Subclavian Catheter",
     "authors": "Ghoddusi Johari H, Fatehpoor S, Mardani P, Shahriarirad R, Ranjbar K*",
     "journal": "Sadra Medical Journal",
-    "url": "https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html"
+    "url": "https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html",
+    "tags": [],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 119,
@@ -1068,7 +1711,13 @@
     "title": "Evaluation of Students' Attitude and Emotions towards the Sudden Closure of Schools during the COVID-19 Pandemic: A Cross-sectional Study",
     "authors": "Mirahmadizadeh A, Ranjbar K, Shahriarirad R, Erfani A, Ghaem H, Jafari K, Ranjbar K*",
     "journal": "BMC Psychology",
-    "url": "https://link.springer.com/article/10.1186/s40359-020-00500-7"
+    "url": "https://link.springer.com/article/10.1186/s40359-020-00500-7",
+    "tags": [],
+    "cat": [
+      "covid",
+      "neuro",
+      "pubhealth"
+    ]
   },
   {
     "n": 120,
@@ -1077,7 +1726,11 @@
     "title": "Serosurvey of HBV Surface Antigen and Anti-HBV Surface Antibody among HIV-infected Patients in Fars Province, Southern Iran",
     "authors": "Rastegarian M, Zeighami A, Shahriarirad R, Erfani A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",
     "journal": "Le Infezioni in Medicina",
-    "url": "https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf"
+    "url": "https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 121,
@@ -1086,7 +1739,15 @@
     "title": "Suicide by Self-immolation in Southern Iran: An Epidemiological Study",
     "authors": "Mohammadi AA, Karoobi M, Erfani A, Shahriarirad R, Ranjbar K*, Zardosht M, Modarresi MS",
     "journal": "BMC Public Health",
-    "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z"
+    "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "plastic",
+      "burns",
+      "pubhealth"
+    ]
   },
   {
     "n": 122,
@@ -1095,7 +1756,14 @@
     "title": "Uncommon Locations of Cystic Echinococcosis: A Report of 46 Cases from Southern Iran",
     "authors": "Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Sarkari B*",
     "journal": "Surgery Research and Practice",
-    "url": "https://www.hindawi.com/journals/srp/2020/2061045/"
+    "url": "https://www.hindawi.com/journals/srp/2020/2061045/",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 123,
@@ -1104,7 +1772,13 @@
     "title": "Seroprevalence of Anti-hepatitis E Antibodies and Antigens among HIV-infected Patients in Fars Province, Southern Iran",
     "authors": "Shahriarirad R, Erfani A, Rastegarian M, Zeighami A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",
     "journal": "BMC Virology",
-    "url": "https://link.springer.com/article/10.1186/s12985-020-01384-0"
+    "url": "https://link.springer.com/article/10.1186/s12985-020-01384-0",
+    "tags": [
+      "first"
+    ],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 124,
@@ -1113,7 +1787,14 @@
     "title": "Human Cystic Echinococcosis in Southwest Iran: A 15-year Retrospective Epidemiological Study of Hospitalized Cases",
     "authors": "Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Taghizadeh H, Sarkari B*",
     "journal": "Tropical Medicine and Health",
-    "url": "https://link.springer.com/article/10.1186/s41182-020-00238-3"
+    "url": "https://link.springer.com/article/10.1186/s41182-020-00238-3",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 125,
@@ -1122,7 +1803,14 @@
     "title": "Frequency and Antimicrobial Susceptibility Patterns of Diabetic Foot Infection of Patients from Bandar Abbas District, Southern Iran",
     "authors": "Ahmadishooli A, Davoodian P, Shoja S, Ahmadishooli B, Dadvand H, Hamadiyan H, Shahriarirad R*",
     "journal": "Journal of Pathogens",
-    "url": "https://www.hindawi.com/journals/jpath/2020/1057167/"
+    "url": "https://www.hindawi.com/journals/jpath/2020/1057167/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 126,
@@ -1131,7 +1819,11 @@
     "title": "Diagnostic Performance of Echinococcus granulosus Protoscolices Antigens in the Serodiagnosis of Human Cystic Echinococcosis",
     "authors": "Shahabinejad P, Shahriarirad R, Omidian M, Ghorbani F, Barazesh A, Sarkari B*",
     "journal": "Journal of Immunoassay and Immunochemistry",
-    "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653"
+    "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 127,
@@ -1140,7 +1832,14 @@
     "title": "Epidemiological and Clinical Features of 2019 Novel Coronavirus Diseases (COVID-19) in the South of Iran",
     "authors": "Shahriarirad R, Khodamoradi Z, Erfani A, Hosseinpour H, Ranjbar K, Emami Y, Mirahmadizadeh A, Honarvar B",
     "journal": "BMC Infectious Diseases",
-    "url": "https://link.springer.com/article/10.1186/s12879-020-05128-x"
+    "url": "https://link.springer.com/article/10.1186/s12879-020-05128-x",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "covid"
+    ]
   },
   {
     "n": 128,
@@ -1149,7 +1848,13 @@
     "title": "Evaluation of Epilepsy and Burn Patterns in a Tertiary Hospital in Southwestern Iran",
     "authors": "Mohammadi AA, Keshavarzi A, Erfani A, Modarresi MS, Shahriarirad R, Ranjbar K*",
     "journal": "Epilepsy and Behavior",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "burns",
+      "pubhealth"
+    ]
   },
   {
     "n": 129,
@@ -1158,7 +1863,13 @@
     "title": "Comparison of Accuracy in Expert Clinical Examination versus Magnetic Resonance Imaging and Arthroscopic Exam in Diagnosis of Meniscal Tear",
     "authors": "Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",
     "journal": "Advances in Orthopedics",
-    "url": "https://www.hindawi.com/journals/aorth/2020/1895852/"
+    "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 130,
@@ -1167,7 +1878,12 @@
     "title": "Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran",
     "authors": "Erfani A, Pouryousef A, Arefkhah N, Shahriarirad R, Rastegarian M, Zeighami A, Sarkari B*",
     "journal": "Clinical Epidemiology and Global Health",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038",
+    "tags": [],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 131,
@@ -1176,7 +1892,12 @@
     "title": "Inferior Vena Cava Repair Using Diaphragm in Animal Model",
     "authors": "Hodjati H, Hosseinzadeh A, Farzaneh BA*, Ghoddusi Johari H, Ebrahimi N, Anbardar MH, Shahriarirad R",
     "journal": "Annals of Vascular Surgery",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928",
+    "tags": [],
+    "cat": [
+      "vascular",
+      "transplant"
+    ]
   },
   {
     "n": 132,
@@ -1185,7 +1906,11 @@
     "title": "Seroepidemiological Study of Cystic Echinococcosis in Nomadic Communities in the Southwest of Iran: A Population-based Study",
     "authors": "Moshfe A, Sarkari B, Arefkhah N, Nikbakht R, Shahriarirad R, Rezaei Z, Hosseini Z",
     "journal": "Journal of Immunoassay and Immunochemistry",
-    "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974"
+    "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 133,
@@ -1194,7 +1919,11 @@
     "title": "Attenuated Leishmania major Induce a High Level of Protection against Leishmania infantum in BALB/c Mice",
     "authors": "Ghadimi SN, Homayoon L, Shahriarirad R, Fatehpour S, Rastegarian M, Sarkari B*",
     "journal": "Iranian Journal of Parasitology",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 134,
@@ -1203,7 +1932,12 @@
     "title": "Seroepidemiological Survey of Toxoplasmosis among Female University Students in Shiraz, Southern Iran",
     "authors": "Taghizadeh H, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Khabisi SA, Sarkari B",
     "journal": "Annals of Tropical Medicine and Public Health",
-    "url": null
+    "url": "",
+    "tags": [],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 135,
@@ -1212,7 +1946,11 @@
     "title": "Effect of Hydroalcoholic Extract of Echinacea purpurea in Combination with Meglumine Antimoniate on Treatment of Leishmania major-Induced Cutaneous Leishmaniasis in BALB/c Mice",
     "authors": "Sarkari B, Mohseni M, Moein MR, Shahriarirad R, Asgari Q*",
     "journal": "International Journal of Applied and Basic Medical Research",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 136,
@@ -1221,7 +1959,11 @@
     "title": "Effect of Topical Gel Prepared with Hydroalcoholic Extract of Echinacea purpurea on Treatment of Leishmania major-Induced Cutaneous Leishmaniasis in BALB/C Mice",
     "authors": "Sarkari B, Sattari H, Moein MR, Tamadon AM, Shahriarirad R, Asgari Q*",
     "journal": "Journal of Pharmaceutical Negative Results",
-    "url": "http://www.pnrjournal.com/index.php?mno=133709"
+    "url": "http://www.pnrjournal.com/index.php?mno=133709",
+    "tags": [],
+    "cat": [
+      "infectious"
+    ]
   },
   {
     "n": 137,
@@ -1230,7 +1972,12 @@
     "title": "Population-based Seroprevalence of Malaria in Hormozgan Province, Southeastern Iran: A Low Transmission Area",
     "authors": "Hatam GR, Nejati F, Mohammadzadeh T, Shahriarirad R, Sarkari B*",
     "journal": "Malaria Research and Treatment",
-    "url": "https://downloads.hindawi.com/archive/2015/174570.pdf"
+    "url": "https://downloads.hindawi.com/archive/2015/174570.pdf",
+    "tags": [],
+    "cat": [
+      "infectious",
+      "pubhealth"
+    ]
   },
   {
     "n": 138,
@@ -1239,7 +1986,11 @@
     "title": "Vascular Complications During Appendectomy; Severe Adhesion of the Appendix to the Right Iliac Artery: A Case Report",
     "authors": "Hosseinzadeh A, Rezaeibana H, Khosravi MR, Sourani A, Yazdanshenas H, Shahriarirad R*",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://link.springer.com/article/10.1186/s13256-024-04794-8"
+    "url": "https://link.springer.com/article/10.1186/s13256-024-04794-8",
+    "tags": [],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 139,
@@ -1248,7 +1999,11 @@
     "title": "An Unsuspected Extracranial Internal Carotid Pseudoaneurysm Following Dog Bites: A Case Report and Review of Literature",
     "authors": "Hosseinzadeh A, Shahriarirad R, Dalfardi F, Arianpour H, Zarimeidani F*",
     "journal": "International Journal of Emergency Medicine",
-    "url": "https://link.springer.com/article/10.1186/s12245-024-00688-0"
+    "url": "https://link.springer.com/article/10.1186/s12245-024-00688-0",
+    "tags": [],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 140,
@@ -1257,7 +2012,12 @@
     "title": "Chronic Inflammatory Demyelinating Polyneuropathy following COVID-19 Vaccination: A Case Report and Literature Review",
     "authors": "Bahramy MA, Hashempour Z*, Shahriarirad R",
     "journal": "BMC Neurology",
-    "url": "https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3"
+    "url": "https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3",
+    "tags": [],
+    "cat": [
+      "covid",
+      "neuro"
+    ]
   },
   {
     "n": 141,
@@ -1266,7 +2026,12 @@
     "title": "Successful Bilateral Lung Transplantation in Pulmonary Alveolar Microlithiasis: A Case Report and Review of Literature",
     "authors": "Mardani P, Naseri R, Shahriarirad R, Mahram H*, Shafi M, Dehghanian A, Ziaian B",
     "journal": "The Clinical Respiratory Journal",
-    "url": "http://doi.org/10.1111/crj.13773"
+    "url": "http://doi.org/10.1111/crj.13773",
+    "tags": [],
+    "cat": [
+      "thoracic",
+      "transplant"
+    ]
   },
   {
     "n": 142,
@@ -1275,7 +2040,12 @@
     "title": "Pleural Epithelioid Hemangioendothelioma in a 39-Year-Old Female: A Case Report",
     "authors": "Mardani P, Shahriarirad R, Nekooeian M, Anbardar MH, Ziaian B, Kamran H, Ayare N, Vafabin M, Fouladi D*",
     "journal": "Journal of Cardiothoracic Surgery",
-    "url": "http://dx.doi.org/10.1186/s13019-024-02602-4"
+    "url": "http://dx.doi.org/10.1186/s13019-024-02602-4",
+    "tags": [],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 143,
@@ -1284,7 +2054,13 @@
     "title": "Nephrotic Syndrome due to Focal Segmental Glomerulosclerosis Complicating Scleroderma: A Case Report",
     "authors": "Mehdipour Dalivand M, Hadjiabbasi A, Ramezanzadeh E, Habibzadeh SM, Goudarzi K, Shahriarirad R, Zayeni H*",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "urology"
+    ]
   },
   {
     "n": 144,
@@ -1293,7 +2069,13 @@
     "title": "Aortoduodenal Fistula and Abdominal Aortic Aneurysm as a Complication of Brucella Aortitis managed with In Situ Aortic Aneurysm Repair: A Case Report",
     "authors": "Hosseinzadeh A, Zehra J, Davarpanah MA, Moeini Farsani M, Ghasemi Gorji M, Shahriarirad R*",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 145,
@@ -1302,7 +2084,11 @@
     "title": "Primary Abdominal Cocoon Syndrome Manifesting with Chilaiditi Syndrome and Intestinal Obstruction: A Case Report",
     "authors": "Tajaddini A, Fallahi MM*, Haghshenas H, Nourmohammadi SS, Ghahramani L, Shahriarirad R",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 146,
@@ -1311,7 +2097,13 @@
     "title": "Nonoperative Management of Biliopleural Fistula following Living-Donor Liver Transplantation: A Case Report",
     "authors": "Kazemi K, Rasekhi A, Sohrabi Nazari S, Lashkarizadeh MM, Shamsaeefar A, Alikhani M, Akbari A, Shahriarirad R*",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "transplant"
+    ]
   },
   {
     "n": 147,
@@ -1320,7 +2112,14 @@
     "title": "A Massive Immature Mediastinal Teratoma Treated with Chemotherapy and Surgical Resection: A Case Report",
     "authors": "Mardani P, Kamran H, Ghaderpanah R, Geramizadeh B, Fouladi D, Shahriarirad R*, Amirian A",
     "journal": "Journal of Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 148,
@@ -1329,7 +2128,14 @@
     "title": "Surgical Removal of an Unusual Huge Solitary Fibrous Tumor in the Mediastinum: A Case Report",
     "authors": "Mardani P, Nekooeian M, Zangeneh S, Kamran H, Shahriarirad R*, Anbardar MH, Amirian A, Vafabin M",
     "journal": "Journal of Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 149,
@@ -1338,7 +2144,13 @@
     "title": "Bronchobiliary Fistulae as a Complication of Untreated Pulmonary Hydatid Cyst Presenting with Bilioptysis: A Report of Two Cases",
     "authors": "Mardani P, Kamran H, Khosravi F, Shahriarirad R*, Amirian A, Ziaian B",
     "journal": "Clinical Case Reports",
-    "url": "http://doi.org/10.1002/ccr3.7524"
+    "url": "http://doi.org/10.1002/ccr3.7524",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 150,
@@ -1347,7 +2159,12 @@
     "title": "Coexistence of Mucinous Nevus and Multiple Collagenoma with Unilateral, Dermatomal, and Multi Segmental Distribution",
     "authors": "Faghihi G, Moeine R, Mohaghegh F*, Rajabi P, Shahriarirad R",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.7429"
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.7429",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "derm"
+    ]
   },
   {
     "n": 151,
@@ -1356,7 +2173,12 @@
     "title": "Granuloma Annulare with Alopecia Areata in a 6-Years-Old Girl: A Case Report",
     "authors": "Mohaghegh F*, Moeine R, Saber M, Fatemeh S, Nekooeian M, Shahriarirad R",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03864-7"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03864-7",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "derm"
+    ]
   },
   {
     "n": 152,
@@ -1365,7 +2187,9 @@
     "title": "Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",
     "authors": "Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",
     "journal": "Case Reports in Medicine",
-    "url": "https://www.hindawi.com/journals/crim/2023/1553163/"
+    "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 153,
@@ -1374,7 +2198,13 @@
     "title": "Extramedullary Relapse of Immunoglobulin A-Kappa Myeloma Manifesting as Plasmacytoma of the Pleura: A Case Report",
     "authors": "Rezvani A, Shahriarirad R, Fallahi MJ, Zeighami A*",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03765-9"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03765-9",
+    "tags": [
+      "co-first"
+    ],
+    "cat": [
+      "oncology"
+    ]
   },
   {
     "n": 154,
@@ -1383,7 +2213,13 @@
     "title": "Cavernous Mediastinal Hemangioma Presenting with Persistent Cough: A Rare Case Report and Review of Literature",
     "authors": "Mardani P, Kamran H, Geramizadeh B, Darabi MH, Najafi M, Amirian A, Shahriarirad R*",
     "journal": "Journal of Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 155,
@@ -1392,7 +2228,11 @@
     "title": "Necrotizing Autoimmune Myositis following Coronavirus Disease 2019 Infection: A Case Report",
     "authors": "Loghman M, Rahmanian E, Alikhani M, Saffar H, Ziaadini B, Shahriarirad R, Faezi ST*",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5",
+    "tags": [],
+    "cat": [
+      "covid"
+    ]
   },
   {
     "n": 156,
@@ -1401,7 +2241,14 @@
     "title": "Lower Limb Lymphedema and Cellulitis as a Complication of COVID-19 Vaccine: A Case Report",
     "authors": "Hosseinzadeh A, Ebrahimi K, Shahriarirad R*, Dalfardi F",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular",
+      "covid"
+    ]
   },
   {
     "n": 157,
@@ -1410,7 +2257,11 @@
     "title": "COVID-19 Vaccine-Induced Vasculitis in a Patient with Sarcoidosis: A Case Report",
     "authors": "Rahmanian E, Alikhani M*, Loghman M, Beikmohamadi Hezaveh S, Zangeneh S, Shahriarirad R, Faezi ST, Nejadhosseinian M",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501",
+    "tags": [],
+    "cat": [
+      "covid"
+    ]
   },
   {
     "n": 158,
@@ -1419,7 +2270,13 @@
     "title": "Great Saphenous Vein Aneurysm Mimicking Inguinal Hernia: A Case Report",
     "authors": "Ghoddusi Johari H, Malekhosseini H, Erfani A, Shahriarirad R*",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 159,
@@ -1428,7 +2285,11 @@
     "title": "Adenocarcinoma Metastasis from Colon to the Thyroid: A Case Report",
     "authors": "Mardani P, Ayareh N, Kamran H, Shahriarirad R",
     "journal": "Case Reports in Surgery",
-    "url": "https://www.hindawi.com/journals/cris/2022/8705143/"
+    "url": "https://www.hindawi.com/journals/cris/2022/8705143/",
+    "tags": [],
+    "cat": [
+      "oncology"
+    ]
   },
   {
     "n": 160,
@@ -1437,7 +2298,13 @@
     "title": "Spontaneous Rupture of a Large Splenic Artery Aneurysm in a 59-year-old Male Patient with Pemphigus Vulgaris: A Case Report",
     "authors": "Hosseinzadeh A, Shahriarirad R*, Asgharzadeh Majdazar V, Moeini Farsani M, Tadayon SMK",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 161,
@@ -1446,7 +2313,12 @@
     "title": "Pemphigus Vegetans Misdiagnosed as Condyloma Acuminata: A Case Report",
     "authors": "Siadat AH, Moeine R*, Iraji F, Galehdari H, Shahriarirad R",
     "journal": "Clinical Case Reports",
-    "url": "http://dx.doi.org/10.1002/ccr3.6393"
+    "url": "http://dx.doi.org/10.1002/ccr3.6393",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "derm"
+    ]
   },
   {
     "n": 162,
@@ -1455,7 +2327,12 @@
     "title": "Treatment of Vulvar Basal Cell Carcinoma with Slow-Mohs Micrographic Surgery: A Case Report",
     "authors": "Asilian A, Moeine R*, Hafezi H, Shahriarirad R",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6442"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6442",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "derm"
+    ]
   },
   {
     "n": 163,
@@ -1464,7 +2341,13 @@
     "title": "Near-Complete Tracheal Obstruction Due to Mucormycosis: Report of Two Cases",
     "authors": "Fallahi MJ, Nikandish R, Ziaian B, Shahriarirad R*",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278"
+    "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 164,
@@ -1473,7 +2356,14 @@
     "title": "Primary Malignant Epithelioid Hemangioendothelioma of the Pleura: A Review and Report of a Novel Case",
     "authors": "Rezvani A, Shahriarirad R*, Erfani A, Ranjbar K",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 165,
@@ -1482,7 +2372,13 @@
     "title": "Subscapular Elastofibrolipoma Treated with Marginal Resection: A Report of Two Rare Cases",
     "authors": "Mardani P, Kamran H, Ayare N, Shahriarirad R*, Anbardar MH, Amirian A",
     "journal": "Journal of Medical Case Reports",
-    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03522-4"
+    "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03522-4",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "plastic"
+    ]
   },
   {
     "n": 166,
@@ -1491,7 +2387,13 @@
     "title": "Gallbladder Agenesis without Additional Biliary Tracts Abnormality",
     "authors": "Meshkati Yazd SM, Bayati H, Nabavizadeh SS, Shahriarirad R*",
     "journal": "Case Reports in Gastrointestinal Medicine",
-    "url": "https://www.hindawi.com/journals/crigm/2022/3209658/"
+    "url": "https://www.hindawi.com/journals/crigm/2022/3209658/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 167,
@@ -1500,7 +2402,14 @@
     "title": "Mediastinal Thymoma in A Patient with Previous Rectal and Breast Cancers: A Report of a Case with Multiple Primary Cancers and Review of Literature",
     "authors": "Mardani P, Fallahi MM, Kamran H, Shahriarirad R*",
     "journal": "Clinical Case Reports",
-    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987"
+    "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic",
+      "oncology"
+    ]
   },
   {
     "n": 168,
@@ -1509,7 +2418,11 @@
     "title": "Tracheal Myoepithelioma Resected by Using Rigid Bronchoscopy: A Case Report and Review of the Literature",
     "authors": "Mardani P, Ebrahimi K, Shahriarirad R, Geramizadeh B, Kamran H*, Ziaian B, Amirian A",
     "journal": "Journal of Cardiothoracic Surgery",
-    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0"
+    "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 169,
@@ -1518,7 +2431,13 @@
     "title": "Simultaneous Retrograde Venous and Anterograde Arterial Bullet Embolism: A Rare Case Report of Shotgun Pellet Embolism to the Heart and Popliteal Artery",
     "authors": "Hosseinzadeh A, Moeini Farsani M, Mahmoudi MM, Tadayon SMK, Ghoddusi Johari H, Shahriarirad R*",
     "journal": "BMC Journal of Medical Case Reports",
-    "url": "https://link.springer.com/article/10.1186/s13256-022-03414-7"
+    "url": "https://link.springer.com/article/10.1186/s13256-022-03414-7",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 170,
@@ -1527,7 +2446,11 @@
     "title": "Management of Drug-Induced Liver Injury with Persian Medicine: Case Report",
     "authors": "Jaladat AM, Zareifar S, Daneshfard B*, Shahriarirad R",
     "journal": "Integrative Medicine Reports",
-    "url": "https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006"
+    "url": "https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 171,
@@ -1536,7 +2459,9 @@
     "title": "Antineutrophil Cytoplasmic Antibody-associated Vasculitis in Presence of Positive Antiphospholipid Antibody: A Case Report",
     "authors": "Akhlaghi Kalahroodi M, Loghman M, Ramezanpoor M, Shahriarirad R, Rahmanian E*",
     "journal": "BMC Journal of Medical Case Reports",
-    "url": "https://link.springer.com/article/10.1186/s13256-022-03256-3"
+    "url": "https://link.springer.com/article/10.1186/s13256-022-03256-3",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 172,
@@ -1545,7 +2470,12 @@
     "title": "A Large Undifferentiated Sarcoma of the Liver in a 13-year-old Girl Treated with Anatomical Resection: A Case Report and Review of the Literature",
     "authors": "Bahador A, Forooghi M, Shahriarirad R, Geramizadeh B, Ataollahi M, Kamran H*",
     "journal": "BMC Gastroenterology",
-    "url": "https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x"
+    "url": "https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x",
+    "tags": [],
+    "cat": [
+      "gi",
+      "oncology"
+    ]
   },
   {
     "n": 173,
@@ -1554,7 +2484,11 @@
     "title": "Management of Asymptomatic Perforation of a Pediatric Rectal Foreign Body into the Peritoneal Cavity Retrieved with Laparoscopy: A Case Report",
     "authors": "Forooghi M, Hooman K*, Shahriarirad R",
     "journal": "Case Reports in Medicine",
-    "url": "https://www.hindawi.com/journals/crim/2021/5851967/"
+    "url": "https://www.hindawi.com/journals/crim/2021/5851967/",
+    "tags": [],
+    "cat": [
+      "gi"
+    ]
   },
   {
     "n": 174,
@@ -1563,7 +2497,13 @@
     "title": "Management of Pleural Empyema in a 12-year-old Obese Patient with COVID-19: A Pediatric Case Report",
     "authors": "Abbasi R, Javanmardi F*, Mokhtari A, Hosseinpour P, Shahriarirad R, Ebrahimi K",
     "journal": "BMC Pediatrics",
-    "url": "https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1"
+    "url": "https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1",
+    "tags": [],
+    "cat": [
+      "thoracic",
+      "covid",
+      "pulm"
+    ]
   },
   {
     "n": 175,
@@ -1572,7 +2512,12 @@
     "title": "Profunda Brachii Pseudoaneurysm following Supracondylar Fracture of Humerus Repair in an 8-Year-Old Boy: A Case Report and Review of Literature",
     "authors": "Ghoddusi Johari H, Erfani MA, Erfani A*, Shahriarirad R, Karami MM",
     "journal": "Case Reports in Orthopedics",
-    "url": "https://www.hindawi.com/journals/crior/2021/1768529/"
+    "url": "https://www.hindawi.com/journals/crior/2021/1768529/",
+    "tags": [],
+    "cat": [
+      "vascular",
+      "ortho"
+    ]
   },
   {
     "n": 176,
@@ -1581,7 +2526,14 @@
     "title": "Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease during the COVID-19 Pandemic",
     "authors": "Shahriarirad R, Sanaei Dashti A*, Hajiani Ghotbabadi S",
     "journal": "Case Reports in Pediatrics",
-    "url": "https://www.hindawi.com/journals/cripe/2021/9950588/"
+    "url": "https://www.hindawi.com/journals/cripe/2021/9950588/",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "covid"
+    ]
   },
   {
     "n": 177,
@@ -1590,7 +2542,11 @@
     "title": "ROHHAD Syndrome an Inconspicuous Cause of Hypernatremia: A Case Report",
     "authors": "Basiratnia M, Derakhshan D*, Foloudi D, Ranjbar K, Shahriarirad R",
     "journal": "Iranian Journal of Kidney Diseases",
-    "url": null
+    "url": "",
+    "tags": [],
+    "cat": [
+      "urology"
+    ]
   },
   {
     "n": 178,
@@ -1599,7 +2555,9 @@
     "title": "Successful Use of 'Ma'oljobon', a Persian Medicine Product, in a Patient with Severe Chronic Cough: A Case Report",
     "authors": "Jaladat AM, Ranjbar K*, Shahriarirad R, Salehi Z",
     "journal": "Advances in Integrative Medicine",
-    "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458"
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458",
+    "tags": [],
+    "cat": []
   },
   {
     "n": 179,
@@ -1608,7 +2566,11 @@
     "title": "Non-operative Management of Bilateral Contained Thoracic Esophageal Perforation: A Case Report",
     "authors": "Amirian A, Shahriarirad R, Mardani P, Salimi M*",
     "journal": "BMC Surgery",
-    "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6"
+    "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 180,
@@ -1617,7 +2579,13 @@
     "title": "Main Bronchus Penetration by Thoracostomy Tube: A Rare Inadvertent Complication",
     "authors": "Mardani P, Shahriarirad R*, Erfani A, Ranjbar K, Ziaian B, Amirian A, Kamran H",
     "journal": "Bulletin of Emergency and Trauma",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 181,
@@ -1626,7 +2594,11 @@
     "title": "Concomitant Pulmonary Hydatid Cyst and Aspergilloma: A Rare Co-infection",
     "authors": "Zareshahrabadi Z, Sarkari B, Shamsolvaezin N, Ziaian B, Tootoonchi A, Shahriarirad R, Erfani A",
     "journal": "Case Reports in Infectious Diseases",
-    "url": "https://www.hindawi.com/journals/criid/2020/6650478/"
+    "url": "https://www.hindawi.com/journals/criid/2020/6650478/",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 182,
@@ -1635,7 +2607,11 @@
     "title": "Intrapulmonary Mature Cystic Teratoma of the Lung: Case Report of a Rare Entity",
     "authors": "Mardani P, Naseri R, Amirian A, Shahriarirad R, Anbardar MH, Fouladi D*, Ranjbar K",
     "journal": "BMC Surgery",
-    "url": "https://link.springer.com/article/10.1186/s12893-020-00864-y"
+    "url": "https://link.springer.com/article/10.1186/s12893-020-00864-y",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 183,
@@ -1644,7 +2620,11 @@
     "title": "Internal Jugular Vein Injury by Fishbone Ingestion",
     "authors": "Amirian A, Ghoddusi Johari H, Karoobi M*, Shahriarirad R, Ranjbar K",
     "journal": "Case Reports in Surgery",
-    "url": "https://www.hindawi.com/journals/crim/2020/9182379/"
+    "url": "https://www.hindawi.com/journals/crim/2020/9182379/",
+    "tags": [],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 184,
@@ -1653,7 +2633,13 @@
     "title": "Median Arcuate Ligament Syndrome Presenting as Splenic Infarction",
     "authors": "Ghoddusi Johari H, Eskandari S, Parvizi H, Farshadi M, Shahriarirad R*",
     "journal": "The American Surgeon",
-    "url": "https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1"
+    "url": "https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 185,
@@ -1662,7 +2648,14 @@
     "title": "High Flow Scalp Arteriovenous Malformation: A Case Report",
     "authors": "Ghoddusi Johari H, Shahriarirad R*, Erfani A, Darabi MH",
     "journal": "World Journal of Plastic Surgery",
-    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/"
+    "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "plastic",
+      "vascular"
+    ]
   },
   {
     "n": 186,
@@ -1671,7 +2664,11 @@
     "title": "Successful Management of a Huge Pulmonary Hydatid Cyst with Lung-Preserving Surgery",
     "authors": "Amirian A, Ziaian B, Erfani A*, Shahriarirad R, Ranjbar K",
     "journal": "Case Reports in Surgery",
-    "url": "https://www.hindawi.com/journals/cris/2020/9526406/"
+    "url": "https://www.hindawi.com/journals/cris/2020/9526406/",
+    "tags": [],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 187,
@@ -1680,7 +2677,13 @@
     "title": "Massive Hemoptysis following Cannulation of Right Internal Jugular Vein for Insertion of Cuffed Hemodialysis Catheter: A Rare Complication of Central Venous Catheterization",
     "authors": "Ghoddusi Johari H, Lashkarizadeh MM, Mardani P, Shahriarirad R*",
     "journal": "The Journal of Vascular Access",
-    "url": "https://journals.sagepub.com/doi/full/10.1177/1129729820910304"
+    "url": "https://journals.sagepub.com/doi/full/10.1177/1129729820910304",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "vascular"
+    ]
   },
   {
     "n": 188,
@@ -1689,7 +2692,12 @@
     "title": "Masson's Tumor of the Hand: An Uncommon Histopathological Entity",
     "authors": "Mardani P, Askari A, Shahriarirad R*, Ranjbar K, Erfani A, Anbardar MH, Moradmand S",
     "journal": "Case Reports in Pathology",
-    "url": "https://www.hindawi.com/journals/cripa/2020/4348629/"
+    "url": "https://www.hindawi.com/journals/cripa/2020/4348629/",
+    "tags": [],
+    "cat": [
+      "plastic",
+      "ortho"
+    ]
   },
   {
     "n": 189,
@@ -1698,7 +2706,13 @@
     "title": "Misplacement of Tracheostomy Tube in Right Main Bronchus: A Rare Complication",
     "authors": "Amirian A, Shahriarirad R*, Ziaian B, Mardani P, Erfani A",
     "journal": "Case Reports in Surgery",
-    "url": "https://www.hindawi.com/journals/cris/2020/3597901/"
+    "url": "https://www.hindawi.com/journals/cris/2020/3597901/",
+    "tags": [
+      "corresponding"
+    ],
+    "cat": [
+      "thoracic"
+    ]
   },
   {
     "n": 190,
@@ -1707,7 +2721,16 @@
     "title": "TB and the COVID-19 Pandemic: Brothers in Arms against Lung Health",
     "authors": "Shahriarirad R, Fallahi MJ*",
     "journal": "The International Journal of Tuberculosis and Lung Disease",
-    "url": "https://pubmed.ncbi.nlm.nih.gov/33126954/"
+    "url": "https://pubmed.ncbi.nlm.nih.gov/33126954/",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid",
+      "pulm"
+    ]
   },
   {
     "n": 191,
@@ -1716,7 +2739,15 @@
     "title": "COVID-19: Clinical or Laboratory Diagnosis? A Matter of Debate",
     "authors": "Shahriarirad R, Sarkari B*",
     "journal": "Tropical Doctor",
-    "url": "https://journals.sagepub.com/doi/full/10.1177/0049475520945446"
+    "url": "https://journals.sagepub.com/doi/full/10.1177/0049475520945446",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "infectious",
+      "covid"
+    ]
   },
   {
     "n": 192,
@@ -1725,7 +2756,11 @@
     "title": "Comparison of Accuracy in Expert Clinical Examination versus MRI and Arthroscopic Exam in Diagnosis of Meniscal Tear",
     "authors": "Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",
     "journal": "Advances in Orthopedics",
-    "url": "https://www.hindawi.com/journals/aorth/2020/1895852/"
+    "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
+    "tags": [],
+    "cat": [
+      "ortho"
+    ]
   },
   {
     "n": 193,
@@ -1734,6 +2769,8 @@
     "title": "Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",
     "authors": "Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",
     "journal": "Case Reports in Medicine",
-    "url": "https://www.hindawi.com/journals/crim/2023/1553163/"
+    "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
+    "tags": [],
+    "cat": []
   }
 ]
