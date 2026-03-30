@@ -283,9 +283,27 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   .timeline-grid{grid-template-columns:1fr!important}
   #hobbies{}
 }
-#presentations + #hobbies{margin-top:0}
-#presentations .section-wrap{padding-bottom:3rem}
-#hobbies .section-wrap{padding-top:3rem}
+
+/* OPEN SOURCE MODELS */
+.repos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem}
+.repo-card{border:1px solid var(--mist);border-radius:4px;padding:1.5rem;transition:border-color .2s;position:relative;overflow:hidden;background:var(--white)}
+.repo-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .25s;transform-origin:left}
+.repo-card:hover{border-color:var(--gold-light)}
+.repo-card:hover::after{transform:scaleX(1)}
+.repo-card-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.65rem}
+.repo-card-icon{font-size:1.2rem;line-height:1;flex-shrink:0}
+.repo-card-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--text);flex:1;min-width:0}
+.repo-card-name a{color:inherit;text-decoration:none}
+.repo-card-name a:hover{color:var(--gold)}
+.repo-lang{font-size:.62rem;padding:2px 7px;border-radius:2px;border:1px solid var(--mist);color:var(--text-muted);font-weight:500;letter-spacing:.04em;white-space:nowrap}
+.repo-desc{font-size:.82rem;color:var(--text-muted);line-height:1.65;margin-bottom:.85rem}
+.repo-meta{display:flex;gap:.8rem;font-size:.7rem;color:var(--text-muted);margin-bottom:.8rem}
+.repo-links{display:flex;gap:.5rem;flex-wrap:wrap}
+.repo-link{font-size:.68rem;padding:.28rem .75rem;border:1px solid var(--mist);border-radius:2px;color:var(--steel);text-decoration:none;letter-spacing:.04em;transition:all .15s}
+.repo-link:hover{border-color:var(--gold);color:var(--gold)}
+.repo-link.primary{background:var(--navy);color:var(--gold-light);border-color:var(--navy)}
+.repo-link.primary:hover{background:var(--navy-mid)}
+.repo-empty{grid-column:1/-1;text-align:center;padding:2.5rem;color:var(--text-muted);font-size:.85rem;font-style:italic;border:1px dashed var(--mist);border-radius:4px}
 
 .filter-main-group{margin-bottom:.15rem}
 .filter-main-btn{display:flex!important;justify-content:space-between;align-items:center;font-weight:500;color:var(--text)!important}
@@ -310,6 +328,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <li><a href="#patents">Patents</a></li>
     <li><a href="#reviewer">Editorial</a></li>
     <li><a href="#presentations">Presentations</a></li>
+    <li><a href="#opensource">Open Source</a></li>
     <li><a href="#hobbies">Interests</a></li>
     <li><a href="#references">References</a></li>
   </ul>
@@ -324,6 +343,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <a href="#patents" onclick="closeMenu()">Patents</a>
   <a href="#reviewer" onclick="closeMenu()">Editorial</a>
   <a href="#presentations" onclick="closeMenu()">Presentations</a>
+  <a href="#opensource" onclick="closeMenu()">Open Source</a>
   <a href="#hobbies" onclick="closeMenu()">Interests</a>
   <a href="#references" onclick="closeMenu()">References</a>
 </div>
@@ -439,24 +459,44 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-period">2024 – Present</div>
-          <div class="timeline-role">Research Fellow</div>
-          <div class="timeline-org">Surgery Innovation Center · Mayo Clinic, Rochester, MN</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#c8102e;color:#fff;font-size:.55rem;font-weight:700">MC</div>
+            <div>
+              <div class="timeline-role">Research Fellow</div>
+              <div class="timeline-org">Surgery Innovation Center · Mayo Clinic, Rochester, MN</div>
+            </div>
+          </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2018 – 2024</div>
-          <div class="timeline-role">Senior Researcher &amp; Project Manager</div>
-          <div class="timeline-org">Thoracic &amp; Vascular Surgery Research Center · Shiraz University of Medical Sciences</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#003087;color:#fff;font-size:.5rem;font-weight:700">SUMS</div>
+            <div>
+              <div class="timeline-role">Senior Researcher &amp; Project Manager</div>
+              <div class="timeline-org">Thoracic &amp; Vascular Surgery Research Center · Shiraz University of Medical Sciences</div>
+            </div>
+          </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2020 – 2022</div>
-          <div class="timeline-role">General Practitioner — Emergency Department</div>
-          <div class="timeline-org">Khatam-al-Anbiya Hospital · Bushehr, Iran</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#2d6b22;color:#fff;font-size:.55rem;font-weight:700">KH</div>
+            <div>
+              <div class="timeline-role">General Practitioner — Emergency Department</div>
+              <div class="timeline-org">Khatam-al-Anbiya Hospital · Bushehr, Iran</div>
+            </div>
+          </div>
           <div class="timeline-desc">Ministry of Health mandatory medical service.</div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2014 – 2020</div>
-          <div class="timeline-role">Research Trainee</div>
-          <div class="timeline-org">Student Research Committee · Shiraz University of Medical Sciences</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#003087;color:#fff;font-size:.5rem;font-weight:700">SUMS</div>
+            <div>
+              <div class="timeline-role">Research Trainee</div>
+              <div class="timeline-org">Student Research Committee · Shiraz University of Medical Sciences</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -465,13 +505,23 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-period">2013 – 2020</div>
-          <div class="timeline-role">Doctor of Medicine (M.D.)</div>
-          <div class="timeline-org">Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#003087;color:#fff;font-size:.5rem;font-weight:700">SUMS</div>
+            <div>
+              <div class="timeline-role">Doctor of Medicine (M.D.)</div>
+              <div class="timeline-org">Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)</div>
+            </div>
+          </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-period">2009 – 2013</div>
-          <div class="timeline-role">High School Diploma</div>
-          <div class="timeline-org">National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran</div>
+          <div class="timeline-header">
+            <div class="timeline-logo-placeholder" style="background:#4a607e;color:#fff;font-size:.5rem;font-weight:700">SP</div>
+            <div>
+              <div class="timeline-role">High School Diploma</div>
+              <div class="timeline-org">National Organization for Development of Exceptional Talents (SAMPAD) · Shiraz, Iran</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
@@ -633,7 +683,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </div>
 
 <!-- PATENTS -->
-<div id="patents">
+<div class="section-alt" id="patents">
 <div class="section-wrap">
   <div class="section-label">Innovation</div>
   <h2>Patents &amp; Innovations</h2>
@@ -966,8 +1016,18 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </div>
 </div>
 
+<!-- OPEN SOURCE MODELS -->
+<div id="opensource">
+<div class="section-wrap">
+  <div class="section-label">Open Science</div>
+  <h2>Open Source Models &amp; Tools</h2>
+  <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.8rem;line-height:1.85;max-width:680px">Open-source computational tools, machine learning models, and research software developed as part of ongoing surgical AI and clinical research. All repositories are publicly available on GitHub.</p>
+  <div class="repos-grid" id="repos-grid"></div>
+</div>
+</div>
+
 <!-- HOBBIES -->
-<div id="hobbies">
+<div class="section-alt" id="hobbies">
 <div class="section-wrap">
   <div class="section-label">Personal</div>
   <h2>Extracurricular &amp; Interests</h2>
@@ -1302,7 +1362,13 @@ function renderPubs(){
   const typeMap={original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter',first:'Original Article'};
   const classMap={original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter',first:'badge-original'};
 
-  let filtered=publications.filter(p=>{
+  const monthOrd={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  const sorted=[...publications].sort((a,b)=>{
+    const yd=parseInt(b.year)-parseInt(a.year);
+    if(yd!==0)return yd;
+    return (monthOrd[b.month]||0)-(monthOrd[a.month]||0);
+  });
+  let filtered=sorted.filter(p=>{
     // ── Type / authorship filter ──
     let matchType=true;
     if(currentFilter==='all'){
@@ -1344,7 +1410,7 @@ function renderPubs(){
   moreEl.style.display=(filtered.length>SHOW&&!showingAll)?'block':'none';
 
   list.innerHTML=displayed.map(p=>{
-    const ym=p.yearMonth||p.year;
+    const ym=p.month?`${p.month} ${p.year}`:p.year;
     const badge=`<span class="pub-type-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span>`;
     const titleHtml=p.url?`<a href="${p.url}" target="_blank">${p.title}</a>`:p.title;
     const authHtml=boldName(p.authors);
@@ -1693,9 +1759,46 @@ document.getElementById('refs-grid').innerHTML=refs.map(r=>`
 
 
 
+/* ── OPEN SOURCE REPOS ── */
+const openSourceRepos = [
+  /* populated via admin panel */
+];
+function renderRepos(){
+  const grid=document.getElementById('repos-grid');
+  if(!grid)return;
+  if(!openSourceRepos.length){
+    grid.innerHTML='<div class="repo-empty">No repositories added yet. Add via the admin panel or GitHub.</div>';
+    return;
+  }
+  const langColor={Python:'#3572A5',R:'#198CE7',JavaScript:'#f1e05a',TypeScript:'#2b7489',MATLAB:'#e16737',Shell:'#89e051'};
+  grid.innerHTML=openSourceRepos.map(r=>{
+    const lc=langColor[r.language]||'#6b84a0';
+    const langEl=r.language?`<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${r.language}</span>`:'';
+    const metaParts=[];
+    if(r.stars)metaParts.push(`⭐ ${r.stars}`);
+    if(r.forks)metaParts.push(`🍴 ${r.forks}`);
+    const metaEl=metaParts.length?`<div class="repo-meta">${metaParts.join(' <span style="opacity:.35">·</span> ')}</div>`:'';
+    const links=[
+      r.url?`<a href="${r.url}" target="_blank" class="repo-link primary">GitHub →</a>`:'',
+      r.demo?`<a href="${r.demo}" target="_blank" class="repo-link">Live Demo ↗</a>`:'',
+      r.paper?`<a href="${r.paper}" target="_blank" class="repo-link">Paper ↗</a>`:''
+    ].filter(Boolean).join('');
+    return`<div class="repo-card">
+      <div class="repo-card-header">
+        <span class="repo-card-icon">${r.icon||'⚗️'}</span>
+        <span class="repo-card-name">${r.url?`<a href="${r.url}" target="_blank">${r.name}</a>`:r.name}</span>
+        ${langEl}
+      </div>
+      ${r.desc?`<p class="repo-desc">${r.desc}</p>`:''}
+      ${metaEl}
+      ${links?`<div class="repo-links">${links}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
 /* ── Start Scholar fetch on page load ── */
-if(document.readyState!=='loading') fetchScholarData();
-else document.addEventListener('DOMContentLoaded', fetchScholarData);
+if(document.readyState!=='loading'){fetchScholarData();renderRepos();}
+else document.addEventListener('DOMContentLoaded',()=>{fetchScholarData();renderRepos();});
 
 /* ── EMAIL PROTECTION: reconstruct addresses from split parts ── */
 document.addEventListener('DOMContentLoaded', function(){

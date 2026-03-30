@@ -146,6 +146,10 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 .headshot-preview{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);flex-shrink:0}
 .headshot-preview.empty{background:var(--bg3);display:flex;align-items:center;justify-content:center}
 @media(max-width:768px){body{grid-template-columns:1fr;grid-template-areas:"tb" "main"}.sb{display:none}.main{padding:1rem}}
+/* Emoji picker */
+.emoji-picker{display:flex;flex-wrap:wrap;gap:.25rem;padding:.5rem;background:var(--bg3);border:1px solid var(--border2);border-radius:4px;margin-top:.35rem;max-height:150px;overflow-y:auto}
+.emoji-picker span{font-size:1.3rem;cursor:pointer;padding:.15rem .2rem;border-radius:3px;transition:background .12s;line-height:1}
+.emoji-picker span:hover{background:var(--border2)}
 </style>
 </head>
 <body>
@@ -186,19 +190,20 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="ng">Profile</div>
   <div class="ni" data-p="about" onclick="go('about')"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>About &amp; Headshot</div>
   <div class="ni" data-p="contact" onclick="go('contact')"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>Contact Info</div>
-  <div class="ni" data-p="mayo" onclick="go('mayo')"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6z"/></svg>Mayo Research</div>
-  <div class="ni" data-p="experience" onclick="go('experience')"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>Experience</div>
+  <div class="ni" data-p="mayo" onclick="go('mayo')"><svg viewBox="0 0 24 24"><path d="M19 8h-2v3h-3v2h3v3h2v-3h3v-2h-3zM4 8H2v12c0 1.1.9 2 2 2h12v-2H4zM20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>Mayo Research</div>
+  <div class="ni" data-p="experience" onclick="go('experience')"><svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.07-.44.18-.88.18-1.36C18 3.19 16.81 2 15.36 2c-.68 0-1.32.27-1.8.75L12 4.51l-1.56-1.76c-.48-.48-1.12-.75-1.8-.75C7.19 2 6 3.19 6 4.64c0 .48.11.92.18 1.36H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2z"/></svg>Experience</div>
   <div class="ni" data-p="education" onclick="go('education')"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 12.27L3.46 10.5 12 5.96l8.54 4.54L12 15.27zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>Education</div>
-  <div class="ni" data-p="leadership" onclick="go('leadership')"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/></svg>Leadership</div>
-  <div class="ni" data-p="skills" onclick="go('skills')"><svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>Skills</div>
+  <div class="ni" data-p="leadership" onclick="go('leadership')"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>Leadership</div>
+  <div class="ni" data-p="skills" onclick="go('skills')"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>Skills</div>
   <div class="ng">Academic</div>
   <div class="ni" data-p="reviewer" onclick="go('reviewer')"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>Peer Reviews</div>
   <div class="ni" data-p="publications" onclick="go('publications')"><svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>Publications<span class="nb" id="nb-p">193</span></div>
   <div class="ni" data-p="presentations" onclick="go('presentations')"><svg viewBox="0 0 24 24"><path d="M2 3h20v14H13v2h3v2H8v-2h3v-2H2V3z"/></svg>Presentations<span class="nb" id="nb-pr">17</span></div>
+  <div class="ni" data-p="opensource" onclick="go('opensource')"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>Open Source<span class="nb" id="nb-os">0</span></div>
   <div class="ng">CV Sections</div>
-  <div class="ni" data-p="awards" onclick="go('awards')"><svg viewBox="0 0 24 24"><path d="M12 15.39l-3.76 2.27.99-4.28-3.32-2.88 4.38-.37L12 6.09l1.71 4.04 4.38.37-3.32 2.88.99 4.28z"/></svg>Awards</div>
-  <div class="ni" data-p="patents" onclick="go('patents')"><svg viewBox="0 0 24 24"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74z"/></svg>Patents</div>
-  <div class="ni" data-p="hobbies" onclick="go('hobbies')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/></svg>Hobbies</div>
+  <div class="ni" data-p="awards" onclick="go('awards')"><svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM7 11.7C5.81 11.37 5 10.28 5 9V7h2v4.7zm10 0V7h2v2c0 1.28-.81 2.37-2 2.7z"/></svg>Awards</div>
+  <div class="ni" data-p="patents" onclick="go('patents')"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>Patents</div>
+  <div class="ni" data-p="hobbies" onclick="go('hobbies')"><svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>Hobbies</div>
   <div class="ni" data-p="categories" onclick="go('categories')"><svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>Categories</div>
   <div class="ng">System</div>
   <div class="ni" data-p="deploy" onclick="go('deploy')"><svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>Deploy</div>
@@ -400,6 +405,22 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <div id="s-rv" class="st"></div>
   </div>
   <div class="card"><div class="ch">Session History</div><div id="rv-hist"><div style="font-size:.72rem;color:var(--t3);font-style:italic">No updates yet.</div></div></div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>Fetch Review Count from ORCID</div>
+    <p style="font-size:.76rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Attempt to fetch peer review count from your ORCID profile. Note: ORCID only returns reviews you have publicly listed there.</p>
+    <button class="btn bp" onclick="fetchORCIDReviews()">↻ Fetch from ORCID (0000-0001-5454-495X)</button>
+    <div id="s-orcid" class="st" style="margin-top:.6rem"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>Fetch Citation Count from Google Scholar</div>
+    <p style="font-size:.76rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Fetch live citations and H-index from Google Scholar via CORS proxies and push to GitHub.</p>
+    <button class="btn bp" onclick="fetchScholarAdmin()">↻ Fetch from Google Scholar</button>
+    <div id="s-scholar" class="st" style="margin-top:.6rem"></div>
+    <div id="scholar-result" style="display:none;margin-top:.8rem;padding:.85rem;background:var(--bg3);border:1px solid var(--border);border-radius:3px">
+      <div style="font-size:.82rem;color:var(--t2)">Citations: <strong id="sch-cit">—</strong> &nbsp;·&nbsp; H-index: <strong id="sch-hi">—</strong></div>
+      <button class="btn bp bw" style="margin-top:.7rem" onclick="pushScholarStats()"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push These Stats to GitHub</button>
+    </div>
+  </div>
 </div>
 
 <!-- PUBLICATIONS -->
@@ -418,6 +439,19 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <div id="pub-cats-add" class="pub-filter-row"></div>
     <button class="btn bp bw" onclick="addPub()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add &amp; Push to GitHub</button>
     <div id="s-pub" class="st"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Auto-fetch New Publications from PubMed</div>
+    <p style="font-size:.76rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Search PubMed for recent publications by Reza Shahriarirad not yet in your list. Accept each result to pre-fill the add form.</p>
+    <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">
+      <input id="pm-author" value="Shahriarirad R" style="flex:1;min-width:160px;margin-bottom:0" placeholder="Author search query (PubMed format)">
+      <button class="btn bp" onclick="fetchPubMed()">↻ Search PubMed</button>
+    </div>
+    <div id="s-pm" class="st" style="margin-top:.6rem"></div>
+    <div id="pm-results" style="margin-top:.8rem;display:none">
+      <p style="font-size:.72rem;color:var(--t3);margin-bottom:.6rem" id="pm-count-txt"></p>
+      <div class="il" id="pm-list" style="max-height:380px;overflow-y:auto"></div>
+    </div>
   </div>
   <div class="card">
     <div class="ch"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>Browse &amp; Edit Publications (<span id="pub-total">193</span>)</div>
@@ -457,6 +491,49 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <div id="s-pres" class="st"></div>
   </div>
   <div class="card"><div class="ch"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>All Presentations (<span id="pres-cnt">—</span>)</div><div class="il" id="pres-list"></div></div>
+  <button class="btn bp bw" onclick="saveAllPres()" style="margin-top:.9rem"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push All Presentations to GitHub</button>
+  <div id="s-pres-all" class="st"></div>
+</div>
+
+<!-- OPEN SOURCE MODELS -->
+<div class="pg" id="p-opensource">
+  <div class="ph"><h2>Open Source <em>Models &amp; Tools</em></h2><p>Manage GitHub repositories and deployments shown on your CV website.</p></div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>Pull from GitHub</div>
+    <p style="font-size:.76rem;color:var(--t3);margin-bottom:.9rem;line-height:1.6">Import your public repositories from GitHub automatically. Deselect repos you don't want shown.</p>
+    <button class="btn bp" onclick="fetchGHRepos()"><svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg> Pull My GitHub Repos</button>
+    <div id="s-gh-repos" class="st" style="margin-top:.6rem"></div>
+    <div id="gh-repo-picks" style="margin-top:.9rem;display:none">
+      <p style="font-size:.72rem;color:var(--t3);margin-bottom:.6rem">Check repos to add to your CV:</p>
+      <div class="il" id="gh-repo-list" style="max-height:300px;overflow-y:auto"></div>
+      <button class="btn bp bs" style="margin-top:.7rem" onclick="addSelectedGHRepos()">Add Selected to CV</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Manually</div>
+    <div class="g2">
+      <div class="f"><label>Repository Name</label><input id="os-name" placeholder="e.g. LeishmaniAI"></div>
+      <div class="f"><label>Language</label><input id="os-lang" placeholder="Python, R, MATLAB…"></div>
+    </div>
+    <label>Description</label><input id="os-desc" placeholder="Brief description of what this tool does…">
+    <div class="g2">
+      <div class="f"><label>GitHub URL</label><input id="os-url" placeholder="https://github.com/SoRRad/…"></div>
+      <div class="f"><label>Live Demo / Deployment URL (optional)</label><input id="os-demo" placeholder="https://…"></div>
+    </div>
+    <div class="g3">
+      <div class="f"><label>Paper URL (optional)</label><input id="os-paper" placeholder="https://doi.org/…"></div>
+      <div class="f"><label>Icon (emoji)</label><input id="os-icon" placeholder="⚗️" style="text-align:center;font-size:1.1rem"></div>
+      <div class="f"><label>Stars (optional)</label><input id="os-stars" type="number" placeholder="0" min="0"></div>
+    </div>
+    <button class="btn bp bw" onclick="addOSRepo()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add &amp; Push to GitHub</button>
+    <div id="s-os" class="st"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>Current Repos (<span id="os-cnt">0</span>)</div>
+    <div class="il" id="os-list"></div>
+    <button class="btn bp bw" onclick="pushOSRepos('s-os-all','Update open source repos')" style="margin-top:.8rem"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2 .01 7z"/></svg>Push All to GitHub</button>
+    <div id="s-os-all" class="st"></div>
+  </div>
 </div>
 
 <!-- AWARDS -->
@@ -495,7 +572,11 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="card"><div class="ch">Current Hobbies</div><div class="il" id="hob-list"></div></div>
   <div class="card">
     <div class="ch"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Hobby</div>
-    <div class="g2"><div class="f"><label>Icon (emoji)</label><input id="hob-icon" placeholder="🎵" style="text-align:center;font-size:1.1rem"></div><div class="f"><label>Name</label><input id="hob-name" placeholder="e.g. Running"></div></div>
+    <div class="g2"><div class="f"><label>Icon (emoji)</label>
+      <input id="hob-icon" placeholder="🎵" style="text-align:center;font-size:1.1rem">
+      <button type="button" class="btn bg bs" style="margin-top:.35rem;width:100%" onclick="toggleEmojiPicker('hob-icon','ep-hob')">Pick emoji</button>
+      <div id="ep-hob" class="emoji-picker" style="display:none"></div>
+    </div><div class="f"><label>Name</label><input id="hob-name" placeholder="e.g. Running"></div></div>
     <br>
     <label>Description</label><input id="hob-desc" placeholder="Brief description…">
     <button class="btn bp bw" onclick="addHobby()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add &amp; Push</button>
@@ -532,6 +613,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
       <div class="f"><label>Level</label><input id="sk-level" placeholder="Beginner / Good / Expert"></div>
       <div class="f"><label>Category</label><select id="sk-cat"><option value="computing">Computing</option><option value="interpersonal">Interpersonal</option><option value="writing">Writing / Language</option></select></div>
     </div>
+    <div class="f" style="margin-bottom:.8rem"><label>URL / Link (optional — makes skill name clickable)</label><input id="sk-url" placeholder="https://coursera.org/… or any certificate link"></div>
     <button class="btn bp" onclick="addSkill()"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>Add Skill</button>
     <div id="s-sk" class="st"></div>
   </div>
@@ -715,7 +797,7 @@ function go(id){document.querySelectorAll('.pg').forEach(p=>p.classList.remove('
 
 function initPages(){
   renderMayoTags();renderHobbies();renderAwards();renderPatents();renderExpList();renderLeadList();renderEduList();renderSkills();renderContactItems();renderCatTree();
-  loadPres();buildCatCheckboxes();renderPubList();syncDashboardCounts();
+  loadPres();buildCatCheckboxes();renderPubList();renderOSRepos();syncDashboardCounts();
 }
 
 // ── HEADSHOT ──────────────────────────────────────────────────────────────────
@@ -1140,6 +1222,7 @@ function editExp(i){
   document.getElementById('modal-body').innerHTML=`
     <div class="g2"><div class="f"><label>Period</label><input id="me-period" value="${e.period}"></div><div class="f"><label>Role</label><input id="me-role" value="${e.role}"></div></div><br>
     <label>Institution</label><input id="me-org" value="${e.org}">
+    <label>Logo URL (optional — leave blank to keep badge)</label><input id="me-logo" value="${e.logoUrl||''}" placeholder="https://example.com/logo.png">
     <label>Description</label><textarea id="me-desc" rows="2">${e.desc||''}</textarea>`;
   document.getElementById('modal-del').style.display='inline-flex';
   openModal();
@@ -1213,6 +1296,7 @@ function editEdu(i){
   document.getElementById('modal-body').innerHTML=`
     <div class="g2"><div class="f"><label>Period</label><input id="meu-period" value="${e.period}"></div><div class="f"><label>Degree</label><input id="meu-role" value="${e.role}"></div></div><br>
     <label>Institution</label><input id="meu-org" value="${e.org}">
+    <label>Logo URL (optional — leave blank to keep badge)</label><input id="meu-logo" value="${e.logoUrl||''}" placeholder="https://example.com/logo.png">
     <label>Notes</label><textarea id="meu-desc" rows="2">${e.desc||''}</textarea>`;
   document.getElementById('modal-del').style.display='inline-flex';
   openModal();
@@ -1245,7 +1329,7 @@ function renderSkills(){
   const render=(list,id)=>{
     document.getElementById(id).innerHTML=list.map((s,i)=>`
       <div class="it" style="cursor:pointer" onclick="editSkill('${id}',${i})">
-        <div class="itb"><div class="it-title">${s.name}${s.level?` <span style="font-size:.68rem;color:var(--t3)">— ${s.level}</span>`:''}</div></div>
+        <div class="itb"><div class="it-title">${s.name}${s.level?` <span style="font-size:.68rem;color:var(--t3)">— ${s.level}</span>`:''}${s.url?` <span style="font-size:.62rem;color:var(--gold)">🔗</span>`:''}</div></div>
         <div class="it-acts">
           <button class="btn bg bs" onclick="editSkill('${id}',${i});event.stopPropagation()">✏</button>
           <button class="btn bd bs" onclick="deleteSkill('${id}',${i});event.stopPropagation()">✕</button>
@@ -1262,7 +1346,8 @@ function editSkill(listId,i){
   window._skillList=listId;
   document.getElementById('modal-title').textContent='Edit Skill';
   document.getElementById('modal-body').innerHTML=`
-    <div class="g2"><div class="f"><label>Skill Name</label><input id="msk-name" value="${s.name}"></div><div class="f"><label>Level</label><input id="msk-level" value="${s.level||''}"></div></div>`;
+    <div class="g2"><div class="f"><label>Skill Name</label><input id="msk-name" value="${s.name}"></div><div class="f"><label>Level</label><input id="msk-level" value="${s.level||''}"></div></div><br>
+    <label>URL / Link (optional)</label><input id="msk-url" value="${s.url||''}" placeholder="https://…">`;
   document.getElementById('modal-del').style.display='none';
   openModal();
 }
@@ -1275,23 +1360,26 @@ function deleteSkill(listId,i){
 function addSkill(){
   const name=document.getElementById('sk-name').value.trim();
   const level=document.getElementById('sk-level').value.trim();
+  const url=document.getElementById('sk-url')?.value.trim()||'';
   const cat=document.getElementById('sk-cat').value;
   if(!name){alert('Skill name required.');return;}
-  if(cat==='computing')SKILLS.computing.push({name,level});
-  else SKILLS.interpersonal.push({name,level});
+  if(cat==='computing')SKILLS.computing.push({name,level,url});
+  else SKILLS.interpersonal.push({name,level,url});
   renderSkills();
   document.getElementById('sk-name').value='';
   document.getElementById('sk-level').value='';
+  if(document.getElementById('sk-url'))document.getElementById('sk-url').value='';
   st('s-sk','ok','✓ Skill added — click Push to save to GitHub.');
 }
 async function saveSkills(){
   try{
     const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
     let h=f.content;
+    const skillSpan=s=>s.url?`<a href="${s.url}" target="_blank" style="color:inherit;text-decoration:none">${s.name}</a>`:s.name;
     const compHtml=SKILLS.computing.map(s=>`
-          <div class="skill-item"><span>${s.name}</span>${s.level?`<span class="skill-level">${s.level}</span>`:''}</div>`).join('');
+          <div class="skill-item"><span>${skillSpan(s)}</span>${s.level?`<span class="skill-level">${s.level}</span>`:''}</div>`).join('');
     const interHtml=SKILLS.interpersonal.map(s=>`
-          <div class="skill-item">${s.name}</div>`).join('');
+          <div class="skill-item"><span>${skillSpan(s)}</span>${s.level?`<span class="skill-level">${s.level}</span>`:''}</div>`).join('');
     h=h.replace(
       /(<div class="skill-group">\s*<h3>Computing<\/h3>)([\s\S]*?)(<\/div>\s*<div class="skill-group">\s*<h3>Interpersonal<\/h3>)/,
       `$1${compHtml}
@@ -1483,8 +1571,59 @@ async function loadPres(){
 }
 function renderPres(){
   $('pres-cnt',String(PRES.length));$('nb-pr',String(PRES.length));$('ds-pr',String(PRES.length));
-  document.getElementById('pres-list').innerHTML=PRES.map(p=>`
-    <div class="it"><div class="itb"><div class="it-title">${p.title}</div><div class="it-sub">${p.date||((p.month?p.month+' ':'')+p.year)} [${p.type}] · ${p.venue}</div></div></div>`).join('');
+  document.getElementById('pres-list').innerHTML=PRES.map((p,i)=>`
+    <div class="it" style="cursor:pointer" onclick="editPres(${i})">
+      <div class="itb">
+        <div class="it-title">${p.title}</div>
+        <div class="it-sub">${p.date||((p.month?p.month+' ':'')+p.year)} · <span style="text-transform:capitalize">${p.type}</span> · ${p.venue}</div>
+      </div>
+      <div class="it-acts">
+        <button class="btn bg bs" onclick="editPres(${i});event.stopPropagation()">✏</button>
+        <button class="btn bd bs" onclick="deletePres(${i});event.stopPropagation()">✕</button>
+      </div>
+    </div>`).join('');
+}
+function editPres(i){
+  modalType='pres';modalIdx=i;const p=PRES[i];
+  document.getElementById('modal-title').textContent='Edit Presentation';
+  const monthOpts=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].map(m=>`<option${p.month===m?' selected':''}>${m}</option>`).join('');
+  const catChecks=CAT_KEYS.map(k=>`<button class="pf-btn${p.cat&&p.cat.includes(k)?' active':''}" data-cat="${k}" onclick="toggleCat(this)">${CAT_LABELS[k]||k}</button>`).join('');
+  document.getElementById('modal-body').innerHTML=`
+    <div class="g3">
+      <div class="f"><label>Month</label><select id="mpr-month"><option value="">Month…</option>${monthOpts}</select></div>
+      <div class="f"><label>Year</label><input id="mpr-yr" value="${p.year||''}"></div>
+      <div class="f"><label>Type</label><select id="mpr-type"><option value="poster"${p.type==='poster'?' selected':''}>Poster</option><option value="oral"${p.type==='oral'?' selected':''}>Oral</option></select></div>
+    </div><br>
+    <label>Title</label><input id="mpr-ti" value="${(p.title||'').replace(/"/g,'&quot;')}">
+    <div class="g2"><div class="f"><label>Venue / Conference</label><input id="mpr-venue" value="${(p.venue||'').replace(/"/g,'&quot;')}"></div><div class="f"><label>Location</label><input id="mpr-loc" value="${p.location||''}"></div></div><br>
+    <label>Categories</label>
+    <div class="pub-filter-row" id="mpr-cats">${catChecks}</div>`;
+  document.getElementById('modal-del').style.display='inline-flex';
+  openModal();
+}
+function deletePres(i){
+  if(!confirm('Delete this presentation?'))return;
+  PRES.splice(i,1);renderPres();logA('Deleted presentation');
+}
+async function saveAllPres(){
+  st('s-pres-all','ld','Saving…');
+  try{
+    const pf=await ghFile('cv_presentations.json');if(!pf)throw new Error('cv_presentations.json not found');
+    await ghPut('cv_presentations.json',pf.sha,JSON.stringify(PRES,null,2),'Update presentations');
+    const hf=await ghFile('index.html');if(!hf)throw new Error('index.html not found');
+    let h=hf.content;
+    const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+    const presHtml=PRES.map(p=>{
+      const date=p.date||((p.month?p.month+' ':'')+p.year);
+      const catsStr=(p.cat||[]).join(',');
+      const locHtml=p.location?`\n        <div class="pres-location">${p.location}</div>`:'';
+      return`\n    <div class="pres-item" data-type="${p.type}" data-location="${p.location||''}" data-cats="${catsStr}">\n      <div class="pres-date-col"><span class="pres-year-txt">${date}</span><span class="pres-type ${p.type}">${cap(p.type)}</span></div>\n      <div><div class="pres-title">${p.title}</div><div class="pres-venue">${p.venue||''}</div>${locHtml}\n      </div>\n    </div>`;
+    }).join('');
+    h=h.replace(/<div class="pres-list" id="pres-list">[\s\S]*?(?=<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\s*<\/div>[\s\S]*?<!-- OPEN SOURCE MODELS)/,
+      `<div class="pres-list" id="pres-list">${presHtml}\n      </div>`);
+    await ghPut('index.html',hf.sha,h,'Update all presentations');
+    logA('Updated all presentations');st('s-pres-all','ok','✓ All presentations pushed.');
+  }catch(e){st('s-pres-all','er','Error: '+e.message);}
 }
 async function addPres(){
   const month=document.getElementById('pres-month').value;
@@ -1595,10 +1734,15 @@ function editHobby(i){
   modalType='hobby';modalIdx=i;const h=HOBBIES[i];
   document.getElementById('modal-title').textContent='Edit Hobby';
   document.getElementById('modal-body').innerHTML=`
-    <div class="g2"><div class="f"><label>Icon (emoji)</label><input id="mh-icon" value="${h.icon}" style="text-align:center;font-size:1.1rem"></div><div class="f"><label>Name</label><input id="mh-name" value="${h.name}"></div></div><br>
+    <div class="g2"><div class="f"><label>Icon (emoji)</label>
+      <input id="mh-icon" value="${h.icon}" style="text-align:center;font-size:1.1rem">
+      <button type="button" class="btn bg bs" style="margin-top:.35rem;width:100%" onclick="toggleEmojiPicker('mh-icon','ep-mhob')">Pick emoji</button>
+      <div id="ep-mhob" class="emoji-picker" style="display:none"></div>
+    </div><div class="f"><label>Name</label><input id="mh-name" value="${h.name}"></div></div><br>
     <label>Description</label><input id="mh-desc" value="${h.desc}">`;
-  document.getElementById('modal-del').style.display='none';
+  document.getElementById('modal-del').style.display='inline-flex';
   openModal();
+  initEmojiPicker('ep-mhob','mh-icon');
 }
 function deleteHobby(i){
   if(!confirm('Delete this hobby?'))return;
@@ -1662,18 +1806,19 @@ async function modalSave(){
       }
       renderContactItems();logA('Edited contact: '+CONTACT_ITEMS[modalIdx].label);
     } else if(modalType==='edu'){
-      EDU[modalIdx]={period:document.getElementById('meu-period').value,role:document.getElementById('meu-role').value,org:document.getElementById('meu-org').value,desc:document.getElementById('meu-desc').value};
+      EDU[modalIdx]={period:document.getElementById('meu-period').value,role:document.getElementById('meu-role').value,org:document.getElementById('meu-org').value,logoUrl:document.getElementById('meu-logo')?.value||'',desc:document.getElementById('meu-desc').value};
       renderEduList();logA('Edited education: '+EDU[modalIdx].role);
     } else if(modalType==='skill'){
       const list=window._skillList==='sk-computing'?SKILLS.computing:SKILLS.interpersonal;
       list[modalIdx].name=document.getElementById('msk-name').value;
       list[modalIdx].level=document.getElementById('msk-level').value;
+      list[modalIdx].url=document.getElementById('msk-url')?.value||'';
       renderSkills();logA('Edited skill: '+list[modalIdx].name);
     } else if(modalType==='hobby'){
       HOBBIES[modalIdx]={icon:document.getElementById('mh-icon').value,name:document.getElementById('mh-name').value,desc:document.getElementById('mh-desc').value};
       renderHobbies();logA('Edited hobby: '+HOBBIES[modalIdx].name);
     } else if(modalType==='exp'){
-      EXP[modalIdx]={period:document.getElementById('me-period').value,role:document.getElementById('me-role').value,org:document.getElementById('me-org').value,desc:document.getElementById('me-desc').value};
+      EXP[modalIdx]={period:document.getElementById('me-period').value,role:document.getElementById('me-role').value,org:document.getElementById('me-org').value,logoUrl:document.getElementById('me-logo')?.value||'',desc:document.getElementById('me-desc').value};
       renderExpList();logA(`Edited experience: ${EXP[modalIdx].role}`);
     } else if(modalType==='lead'){
       LEAD[modalIdx]={period:document.getElementById('ml-period').value,title:document.getElementById('ml-title').value,org:document.getElementById('ml-org').value,desc:document.getElementById('ml-desc').value};
@@ -1684,6 +1829,14 @@ async function modalSave(){
     } else if(modalType==='patent'){
       PATENTS[modalIdx]={date:document.getElementById('mpt-dt').value,title:document.getElementById('mpt-ti').value,issuer:document.getElementById('mpt-iss').value,reg:document.getElementById('mpt-reg').value};
       renderPatents();logA(`Edited patent: ${PATENTS[modalIdx].title.substring(0,40)}`);
+    } else if(modalType==='pres'){
+      const mth=document.getElementById('mpr-month').value;
+      const yr=document.getElementById('mpr-yr').value;
+      PRES[modalIdx]={...PRES[modalIdx],month:mth,year:yr,date:(mth?mth+' ':'')+yr,type:document.getElementById('mpr-type').value,title:document.getElementById('mpr-ti').value,venue:document.getElementById('mpr-venue').value,location:document.getElementById('mpr-loc').value,cat:getSelectedCats('mpr-cats')};
+      renderPres();logA('Edited presentation: '+PRES[modalIdx].title.substring(0,50));
+    } else if(modalType==='osrepo'){
+      OSREPOS[modalIdx]={...OSREPOS[modalIdx],name:document.getElementById('mor-name').value,desc:document.getElementById('mor-desc').value,language:document.getElementById('mor-lang').value,url:document.getElementById('mor-url').value,demo:document.getElementById('mor-demo').value,paper:document.getElementById('mor-paper').value,icon:document.getElementById('mor-icon').value,stars:parseInt(document.getElementById('mor-stars').value)||undefined};
+      renderOSRepos();logA('Edited repo: '+OSREPOS[modalIdx].name);
     }
     st('s-modal','ok','✓ Saved. Remember to push to GitHub using the section button.');
     setTimeout(closeModal,1500);
@@ -1697,6 +1850,9 @@ function modalDelete(){
   else if(modalType==='lead')LEAD.splice(modalIdx,1),renderLeadList();
   else if(modalType==='award')AWARDS.splice(modalIdx,1),renderAwards();
   else if(modalType==='patent')PATENTS.splice(modalIdx,1),renderPatents();
+  else if(modalType==='pres')PRES.splice(modalIdx,1),renderPres();
+  else if(modalType==='osrepo')OSREPOS.splice(modalIdx,1),renderOSRepos();
+  else if(modalType==='hobby')HOBBIES.splice(modalIdx,1),renderHobbies();
   closeModal();
 }
 
@@ -1710,6 +1866,236 @@ async function triggerWF(){
     if(r.ok||r.status===204){logA('Triggered workflow');st(sid,'ok','✓ Workflow triggered.');}
     else{const e=await r.json().catch(()=>({}));st(sid,'er','Error: '+(e.message||r.status));}
   }catch(e){st(sid,'er','Error: '+e.message);}
+}
+
+// ── EMOJI PICKER ──────────────────────────────────────────────────────────────
+const EMOJI_LIST=['😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','🥰','🤩','😏','😒','😞','😔','😟','😕','🙁','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠','😈','👿','👹','👺','🤡','💩','👻','💀','☠️','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾','🙈','🙉','🙊','👋','🤚','🖐','✋','🖖','👌','🤌','✌️','🤞','🖖','🤟','🤘','🤙','👈','👉','👆','🖕','👇','☝️','👍','👎','✊','👊','🤛','🤜','👏','🙌','👐','🤲','🤝','🙏','✍️','💅','🤳','💪','🦵','🦶','👂','🦻','👃','🧠','🦷','🦴','👁','👅','👄','💋','🫀','🫁','🧬','🦠','🧫','🧪','🌡','🧲','💊','💉','🩸','🩹','🩺','🩻','🚑','🏥','🌍','🌎','🌏','🌐','🗺','🧭','🏔','⛰','🌋','🗻','🏕','🏖','🏗','🏘','🏙','🏚','🏛','🏜','🏝','🏞','🏟','🏠','🏡','🏢','🏣','🏤','🏥','🏦','🏧','🏨','🏩','🏪','🏫','🏬','🏭','🏯','🏰','💒','🗼','🗽','⛪','🕌','🛕','🕍','⛩','🕋','⛲','⛺','🌁','🌃','🏙','🌄','🌅','🌆','🌇','🌉','🌌','🌠','🎇','🎆','🗾','🎑','🏞','🌅','🌄','🎠','🎡','🎢','💈','🎪','🚂','🚃','🚄','🚅','🚆','🚇','🚈','🚉','🚊','🚝','🚞','🚋','🚌','🚍','🚎','🏎','🚐','🚑','🚒','🚓','🚔','🚕','🚖','🚗','🚘','🚙','🛻','🚚','🚛','🚜','🏍','🛵','🛺','🚲','🛴','🛹','🛼','🚏','🛣','🛤','⛽','🛞','🚨','🚥','🚦','🛑','🚧','⚓','🛟','⛵','🛶','🚤','🛳','⛴','🛥','🚢','✈️','🛩','🛫','🛬','🪂','💺','🚁','🚟','🚠','🚡','🛰','🚀','🛸','🛎','🧳','⌛','⏳','⌚','⏰','⏱','⏲','🕰','🕛','🕧','🕐','🕜','🕑','🕝','🕒','🕞','🕓','🕟','🕔','🕠','🕕','🕡','🕖','🕢','🕗','🕣','🕘','🕤','🕙','🕥','🕚','🕦','🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘','🌙','🌚','🌛','🌜','🌝','🌞','🪐','⭐','🌟','💫','✨','🌤','⛅','🌥','☁️','🌦','🌧','⛈','🌩','🌨','❄️','☃️','⛄','🌬','💨','💧','💦','☔','☂️','🌊','🌀','🌈','🌂','⛱','🔥','💥','⚡','🌪','🌫','🌈','🌂','☂️','⛱','🍏','🍎','🍐','🍊','🍋','🍌','🍉','🍇','🍓','🫐','🍈','🍒','🍑','🥭','🍍','🥥','🥝','🍅','🍆','🥑','🥦','🥬','🥒','🌶','🫑','🧄','🧅','🥔','🍠','🫘','🌽','🍿','🧂','🥫','🍱','🍘','🍙','🍚','🍛','🍜','🍝','🍞','🥐','🥖','🫓','🥨','🥯','🧀','🥚','🍳','🧈','🥞','🧇','🥓','🥩','🍗','🍖','🌭','🍔','🍟','🍕','🫔','🌮','🌯','🥙','🧆','🥚','🍳','🥘','🍲','🫕','🥣','🥗','🍿','🧂','🥫','🍱','🍘','🍙','🍚','🍛','🍜','🍝','🍣','🍤','🍙','🍚','🦀','🦞','🦐','🦑','🦪','🍦','🍧','🍨','🍩','🍪','🎂','🍰','🧁','🥧','🍫','🍬','🍭','🍮','🍯','🍼','🥛','☕','🫖','🍵','🧃','🥤','🧋','🍶','🍺','🍻','🥂','🍷','🥃','🍸','🍹','🧉','🍾','🧊','🥄','🍴','🍽','🥢','🧸','🪆','🖼','🧩','🪅','🎭','🎨','🎬','🎤','🎧','🎼','🎵','🎶','🎷','🪗','🎸','🎹','🎺','🎻','🪘','🥁','🪖','🪗','📻','📺','📷','📸','📹','🎥','📽','🎞','📞','☎️','📟','📠','📺','📻','🧭','⏱','⏲','⏰','🕰','⌛','⏳','📡','🔋','🔌','💡','🔦','🕯','🪔','🧱','💎','🔭','🔬','🩺','⚗️','🩻','🔑','🗝','🔐','🔒','🔓','🔏','🔨','🪓','⛏','⚒','🛠','🗡','⚔️','🛡','🪚','🔧','🪛','🔩','⚙️','🗜','⚖️','🦯','🔗','⛓','🪝','🧲','🪜','🧰','🪣','🧲','🪤','🧱','🔭','📦','📫','📪','📬','📭','📮','🗳','✏️','✒️','🖋','🖊','📝','📁','📂','🗂','📅','📆','🗒','🗓','📇','📈','📉','📊','📋','📌','📍','🖇','📎','🗃','🗄','🗑','🔒','🔓','🔏','🔐','🔑','🗝','🔨','🪓','🛠','⚙️','🔧','🪛','🔬','🔭','💡','🔦','📔','📕','📖','📗','📘','📙','📚','📓','📒','📃','📜','📄','📑','🗒','📊','📈','📉','📋','🗃','🗄','🗑','📥','📤','📦','📧','📨','📩','📪','📫','📬','📭','📮','🗳','✉️','📝','✏️','✒️','🖋','🖊','🖌','🖍','🔏','🔓','🔒','🔐','🔑','🗝','🏷','🪧','📯','📢','📣','📡','🔔','🔕','🎵','🎶','💯','🔅','🔆','📶','📳','📴','📵','📱','📲','☎️','📞','📟','📠','🔋','🔌','💻','🖥','🖨','⌨️','💾','💿','📀','📷','📸','📹','🎥','📽','🎞','📞','☎️','📺','📻','🎙','🎚','🎛','🧭','⏱','⏲','⏰','🕰','⌛','⏳','📡','⌚','📿','💈','🔮','🧿','🪬','🧸','🪆','🖼','🧩','🪅','♠️','♥️','♦️','♣️','♟','🃏','🀄','🎴','🎲','🎯','🎱','🪀','🪁','🎮','🕹','🎰','🎳','🏓','🏸','🥊','🥋','⛳','🎿','🛷','🛹','🎣','🤿','🎽','🎖','🏆','🥇','🥈','🥉','🏅','🎗','🎀','🎁','🎊','🎉','🎋','🎍','🎎','🎐','🎑','🧧','🎁','🎀','🎊','🎉','🎈','🎏','🎆','🎇','🧨','✨','🎍','🎋','🎃','🎄','🎆','🧸','🪆','🎠','🎡','🎢','🎪','🎭','🎨','🖼','🎰','🚂','✈️','🌍','🏖','⛰','🏔','🌋','🗻','🏕','🧗','🏇','🧘','🏄','🏊','🤽','🚣','🧜','🧙','🧝','🧛','🧟','🧞','🧚','🧖','🛀','🧖','💆','💇','🚶','🧍','🧎','🧑‍🦯','🧑‍🦼','🧑‍🦽','🏃','💃','🕺','🧗','🏋','🤸','🤺','🤼','🤾','⛹','🏌','🏇','🧘','🏄','🏊','🤽','🚣','🧜','🚵','🚴','🏆','🥇','🥈','🥉','🏅','🥊','🥋','⛳','🎿','🏹','🎣','🤿','🎽','🛷','🛹','🎯','🎱','🏓','🏸','🏒','🏑','🏏','🥅','⛸','🎽','🧗','🏘','⚽','🏀','🏈','⚾','🥎','🏐','🏉','🎾','🏸','🏒','🏓','🏸','🥏','🎯','🪃','🏹','🎱','🔮','🪬','💊','🧬','🦠','🧫','🧪','🌡','🩺','🩻','🩸','💉','🩹','🩼','🦽','🦼','🩺','👨‍⚕️','👩‍⚕️','🏥','🚑','💊','🔬','🔭','📡','🛰','🚀','⭐','🌟','💫','✨','🌈','🌊','🌋','🏔','🗻','🌲','🌳','🌴','🌵','🌾','🌿','☘️','🍀','🍁','🍂','🍃','💐','🌷','🌹','🥀','🌺','🌸','🌼','🌻','🌞','🌝','🌛','🌜','🌚','🌙','💫','⭐','🌟','✨','⚡','🔥','💥','🌀','🌈','🌂','☂️','⛱','❄️','⛄','☃️','💨','💧','🌊','🌬','🌪','🌫'];
+function initEmojiPicker(pickerId, inputId){
+  const picker=document.getElementById(pickerId);if(!picker)return;
+  picker.innerHTML=EMOJI_LIST.map(e=>`<span onclick="document.getElementById('${inputId}').value='${e}';document.getElementById('${pickerId}').style.display='none'">${e}</span>`).join('');
+}
+function toggleEmojiPicker(inputId, pickerId){
+  const picker=document.getElementById(pickerId);if(!picker)return;
+  if(picker.style.display==='none'||!picker.style.display){
+    if(!picker.innerHTML)initEmojiPicker(pickerId,inputId);
+    picker.style.display='flex';
+  }else{picker.style.display='none';}
+}
+
+// ── OPEN SOURCE REPOS ─────────────────────────────────────────────────────────
+let OSREPOS=[];
+function renderOSRepos(){
+  const el=document.getElementById('os-list');if(!el)return;
+  document.getElementById('nb-os').textContent=String(OSREPOS.length);
+  const cnt=document.getElementById('os-cnt');if(cnt)cnt.textContent=String(OSREPOS.length);
+  el.innerHTML=OSREPOS.length===0?'<div style="color:var(--t3);font-size:.82rem;padding:.5rem">No repos added yet.</div>':
+    OSREPOS.map((r,i)=>`<div class="it">
+      <div style="font-size:1.4rem;flex-shrink:0">${r.icon||'💾'}</div>
+      <div class="itb"><div class="it-title">${r.name}</div><div class="it-sub">${r.language||''}${r.language&&r.desc?' · ':''}${r.desc||''}</div></div>
+      <div class="it-acts">
+        <button class="btn bg bs" onclick="editOSRepo(${i})">✏</button>
+        <button class="btn bd bs" onclick="deleteOSRepo(${i})">✕</button>
+      </div></div>`).join('');
+}
+function editOSRepo(i){
+  modalType='osrepo';modalIdx=i;const r=OSREPOS[i];
+  document.getElementById('modal-title').textContent='Edit Repository';
+  document.getElementById('modal-body').innerHTML=`
+    <div class="g2"><div class="f"><label>Name</label><input id="mor-name" value="${r.name||''}"></div><div class="f"><label>Language</label><input id="mor-lang" value="${r.language||''}"></div></div><br>
+    <label>Description</label><input id="mor-desc" value="${r.desc||''}">
+    <label>GitHub URL</label><input id="mor-url" value="${r.url||''}">
+    <div class="g2"><div class="f"><label>Demo URL</label><input id="mor-demo" value="${r.demo||''}"></div><div class="f"><label>Paper URL</label><input id="mor-paper" value="${r.paper||''}"></div></div><br>
+    <div class="g2"><div class="f"><label>Icon (emoji)</label><input id="mor-icon" value="${r.icon||'💾'}" style="text-align:center;font-size:1.1rem"></div><div class="f"><label>Stars (override)</label><input id="mor-stars" type="number" value="${r.stars||''}"></div></div>`;
+  document.getElementById('modal-del').style.display='inline-flex';
+  openModal();
+}
+function deleteOSRepo(i){if(!confirm('Delete this repo?'))return;OSREPOS.splice(i,1);renderOSRepos();}
+async function addOSRepo(){
+  const name=document.getElementById('os-name').value.trim();
+  const lang=document.getElementById('os-lang').value.trim();
+  const desc=document.getElementById('os-desc').value.trim();
+  const url=document.getElementById('os-url').value.trim();
+  const demo=document.getElementById('os-demo').value.trim();
+  const paper=document.getElementById('os-paper').value.trim();
+  const icon=document.getElementById('os-icon').value.trim();
+  const stars=parseInt(document.getElementById('os-stars').value)||undefined;
+  if(!name){alert('Name required.');return;}
+  OSREPOS.push({name,language:lang,desc,url,demo,paper,icon:icon||'💾',stars});
+  renderOSRepos();
+  ['os-name','os-lang','os-desc','os-url','os-demo','os-paper','os-icon','os-stars'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  await pushOSRepos('s-os',`Add OS repo: ${name}`);
+  logA(`Added repo: ${name}`);
+}
+async function pushOSRepos(statusId,msg){
+  const sid=statusId||'s-os';
+  st(sid,'ld','Pushing…');
+  try{
+    const hf=await ghFile('index.html');if(!hf)throw new Error('Could not read index.html');
+    let h=hf.content;
+    const reposJson=JSON.stringify(OSREPOS,null,2);
+    h=h.replace(/const openSourceRepos\s*=\s*\[[\s\S]*?\];/,`const openSourceRepos = ${reposJson};`);
+    await ghPut('index.html',hf.sha,h,msg||'Update open source repos');
+    logA('Pushed open source repos to index.html');st(sid,'ok','✓ Pushed to GitHub.');
+  }catch(e){st(sid,'er','Error: '+e.message);}
+}
+async function fetchGHRepos(){
+  st('s-gh-repos','ld','Fetching repos…');
+  try{
+    const [owner]=REPO.split('/');
+    const r=await fetch(`https://api.github.com/users/${owner}/repos?sort=updated&per_page=50`,{headers:GHH()});
+    if(!r.ok)throw new Error('GitHub API error: '+r.status);
+    const repos=await r.json();
+    const el=document.getElementById('gh-repo-list');if(!el){st('s-gh-repos','er','UI element missing.');return;}
+    el.innerHTML=repos.map((repo,i)=>`
+      <label class="cbrow" style="align-items:flex-start">
+        <input type="checkbox" id="ghrc-${i}" value="${i}">
+        <span><strong>${repo.name}</strong> — ${repo.description||'(no description)'} <em style="color:var(--t3)">${repo.language||''} ★${repo.stargazers_count}</em></span>
+      </label>`).join('');
+    el.dataset.repos=JSON.stringify(repos);
+    document.getElementById('gh-repo-picks').style.display='block';
+    st('s-gh-repos','ok',`✓ Found ${repos.length} repos. Select and click "Add Selected".`);
+  }catch(e){st('s-gh-repos','er','Error: '+e.message);}
+}
+function addSelectedGHRepos(){
+  const el=document.getElementById('gh-repo-list');if(!el||!el.dataset.repos){alert('Fetch repos first.');return;}
+  const repos=JSON.parse(el.dataset.repos);
+  const checkboxes=el.querySelectorAll('input[type=checkbox]:checked');
+  let added=0;
+  checkboxes.forEach(cb=>{
+    const i=parseInt(cb.value);const repo=repos[i];
+    if(!OSREPOS.find(r=>r.url===repo.html_url)){
+      OSREPOS.push({name:repo.name,language:repo.language||'',desc:repo.description||'',url:repo.html_url,demo:'',paper:'',icon:'💾',stars:repo.stargazers_count});
+      added++;
+    }
+  });
+  renderOSRepos();
+  if(added)st('s-gh-repos','ok',`✓ Added ${added} repo(s). Use "Push to GitHub" below to save.`);
+  else st('s-gh-repos','er','No new repos selected.');
+}
+
+// ── PUBMED PULL ───────────────────────────────────────────────────────────────
+async function fetchPubMed(){
+  const author=document.getElementById('pm-author').value.trim();
+  if(!author){alert('Enter author name.');return;}
+  st('s-pm','ld','Searching PubMed…');
+  try{
+    const base='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+    const searchR=await fetch(`${base}esearch.fcgi?db=pubmed&term=${encodeURIComponent(author+'[Author]')}&retmax=50&retmode=json`);
+    if(!searchR.ok)throw new Error('PubMed search error');
+    const searchData=await searchR.json();
+    const ids=searchData.esearchresult?.idlist||[];
+    if(!ids.length){st('s-pm','er','No results found.');return;}
+    const sumR=await fetch(`${base}esummary.fcgi?db=pubmed&id=${ids.join(',')}&retmode=json`);
+    if(!sumR.ok)throw new Error('PubMed summary error');
+    const sumData=await sumR.json();
+    const pmResults=ids.map(id=>sumData.result[id]).filter(Boolean);
+    const existingPMIDs=new Set(PUBS.map(p=>p.pmid).filter(Boolean));
+    const newResults=pmResults.filter(r=>!existingPMIDs.has(r.uid));
+    window._pmResults=newResults;
+    const el=document.getElementById('pm-list');if(!el)return;
+    if(!newResults.length){el.innerHTML='<div style="color:var(--t3);padding:.5rem">No new publications found.</div>';st('s-pm','ok','✓ Done — no new results.');return;}
+    el.innerHTML=newResults.map((r,i)=>{
+      const title=r.title||'(untitled)';
+      const authors=(r.authors||[]).map(a=>a.name).join(', ');
+      const journal=r.source||'';
+      const year=r.pubdate?.substring(0,4)||'';
+      return `<div class="it" id="pm-r-${i}" style="flex-direction:column;align-items:flex-start;gap:.4rem">
+        <div class="it-title" style="font-size:.8rem">${title}</div>
+        <div class="it-sub">${authors}</div>
+        <div class="it-sub">${journal}${year?' · '+year:''}</div>
+        <div class="it-acts" style="margin-top:.25rem">
+          <button class="btn bp bs" onclick="acceptPMResult(${i})">✓ Accept</button>
+          <button class="btn bd bs" onclick="document.getElementById('pm-r-${i}').remove()">✕ Reject</button>
+        </div></div>`;
+    }).join('');
+    st('s-pm','ok',`✓ Found ${newResults.length} new result(s).`);
+  }catch(e){st('s-pm','er','Error: '+e.message);}
+}
+function acceptPMResult(i){
+  const data=window._pmResults?.[i];if(!data){alert('Result not found.');return;}
+  const newN=PUBS.length?Math.max(...PUBS.map(p=>p.n||0))+1:1;
+  const title=data.title||'(untitled)';
+  const authors=(data.authors||[]).map(a=>a.name).join(', ');
+  const journal=data.source||'';
+  const year=data.pubdate?.substring(0,4)||'';
+  const month=data.pubdate?.substring(5,8)||'';
+  PUBS.push({n:newN,year,month,type:'JA',tags:[],cat:[],title,authors,journal,url:`https://pubmed.ncbi.nlm.nih.gov/${data.uid}/`,pmid:data.uid});
+  const rowEl=document.getElementById(`pm-r-${i}`);if(rowEl)rowEl.remove();
+  renderPubList();syncDashboardCounts();
+  logA(`Accepted PubMed result: ${title.substring(0,50)}`);
+  st('s-pm','ok','✓ Added to list. Remember to push.');
+}
+
+// ── ORCID FETCH ───────────────────────────────────────────────────────────────
+async function fetchORCIDReviews(){
+  st('s-orcid','ld','Fetching from ORCID…');
+  try{
+    const orcid='0000-0001-5454-495X';
+    const r=await fetch(`https://pub.orcid.org/v3.0/${orcid}/peer-reviews`,{headers:{Accept:'application/json'}});
+    if(!r.ok)throw new Error('ORCID API error: '+r.status);
+    const data=await r.json();
+    const groups=data['peer-review-group']||[];
+    let total=0;
+    groups.forEach(g=>{const sums=g['peer-review-summary']||[];total+=sums.length;});
+    if(total>0){
+      STATS.peerReviews=String(total);
+      document.getElementById('rv-n').value=total;
+      ['ds-rv','rv-n'].forEach(id=>{const e=document.getElementById(id);if(e&&e.tagName!=='INPUT')e.textContent=total;});
+      st('s-orcid','ok',`✓ Found ${total} peer reviews.`);
+      logA(`Fetched ORCID peer reviews: ${total}`);
+    }else{st('s-orcid','er','No peer reviews found in ORCID.');}
+  }catch(e){st('s-orcid','er','Error: '+e.message);}
+}
+
+// ── SCHOLAR CITATION FETCH ────────────────────────────────────────────────────
+let _scholarFetched={};
+async function fetchScholarAdmin(){
+  st('s-scholar','ld','Fetching citations…');
+  const proxies=[
+    url=>`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+    url=>`https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url=>`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+  ];
+  const scholarUrl='https://scholar.google.com/citations?user=nSzopFYAAAAJ&hl=en';
+  let html='';
+  for(const px of proxies){
+    try{
+      const r=await fetch(px(scholarUrl));
+      if(!r.ok)continue;
+      const data=await r.json().catch(()=>null);
+      html=data?.contents||await r.text()||'';
+      if(html.includes('cites'))break;
+    }catch{continue;}
+  }
+  if(!html){st('s-scholar','er','Could not fetch Scholar page.');return;}
+  // Extract citations and h-index from Scholar profile
+  const citM=html.match(/All<\/a><\/td><td[^>]*>(\d+)<\/td>/);
+  const hiM=html.match(/h-index<\/a><\/td><td[^>]*>(\d+)<\/td>/);
+  const cit=citM?citM[1]:'';
+  const hi=hiM?hiM[1]:'';
+  _scholarFetched={citations:cit,hIndex:hi};
+  const rd=document.getElementById('scholar-result');
+  const citEl=document.getElementById('sch-cit');
+  const hiEl=document.getElementById('sch-hi');
+  if(rd)rd.style.display='block';
+  if(citEl)citEl.textContent=cit||'—';
+  if(hiEl)hiEl.textContent=hi||'—';
+  st('s-scholar',cit?'ok':'er',cit?`✓ Citations: ${cit}, H-index: ${hi}`:'Could not parse Scholar data.');
+}
+async function pushScholarStats(){
+  if(!_scholarFetched.citations){st('s-scholar','er','Fetch citations first.');return;}
+  st('s-scholar','ld','Saving stats…');
+  try{
+    const sf=await ghFile('cv_live_stats.json');if(!sf)throw new Error('cv_live_stats.json not found');
+    const stats=JSON.parse(sf.content);
+    stats.citations=_scholarFetched.citations;
+    stats.hIndex=_scholarFetched.hIndex;
+    await ghPut('cv_live_stats.json',sf.sha,JSON.stringify(stats,null,2),'Update Scholar citation stats');
+    STATS.citations=_scholarFetched.citations;
+    $('ds-cit',_scholarFetched.citations);
+    logA(`Updated citations: ${_scholarFetched.citations}`);
+    st('s-scholar','ok','✓ Stats saved to GitHub.');
+  }catch(e){st('s-scholar','er','Error: '+e.message);}
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
