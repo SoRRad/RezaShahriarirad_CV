@@ -518,7 +518,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <label>Description</label><input id="os-desc" placeholder="Brief description of what this tool does…">
     <div class="g2">
       <div class="f"><label>GitHub URL</label><input id="os-url" placeholder="https://github.com/SoRRad/…"></div>
-      <div class="f"><label>Live Demo / Deployment URL (optional)</label><input id="os-demo" placeholder="https://…"></div>
+      <div class="f"><label>Deployment URL (optional)</label><input id="os-demo" placeholder="https://…"></div>
     </div>
     <div class="g3">
       <div class="f"><label>Paper URL (optional)</label><input id="os-paper" placeholder="https://doi.org/…"></div>
@@ -759,7 +759,7 @@ function doDisc(){TOKEN='';REPO='';document.getElementById('conn-screen').style.
 // ── GH API ────────────────────────────────────────────────────────────────────
 const GHH=()=>({'Authorization':'Bearer '+TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
 async function ghF(path){const r=await fetch(`https://api.github.com/repos/${REPO}/${path}`,{headers:GHH()});if(!r.ok)return null;return r.json();}
-async function ghFile(p){const d=await ghF(`contents/${p}?ref=${BR}`);if(!d)return null;return{content:atob(d.content.replace(/\n/g,'')),sha:d.sha};}
+async function ghFile(p){const d=await ghF(`contents/${p}?ref=${BR}`);if(!d)return null;const bytes=atob(d.content.replace(/\n/g,''));const content=decodeURIComponent(escape(bytes));return{content,sha:d.sha};}
 async function ghPut(p,sha,content,msg){const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${p}`,{method:'PUT',headers:{...GHH(),'Content-Type':'application/json'},body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:BR})});if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.message||r.status);}return(await r.json()).content.sha;}
 
 async function loadStats(){
@@ -1232,15 +1232,27 @@ async function saveExp(){
   try{
     const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
     let h=f.content;
-    // Rebuild entire timeline
-    const timelineHtml=EXP.map(e=>`
-    <div class="timeline-item">
-      <div class="timeline-period">${e.period}</div>
-      <div class="timeline-role">${e.role}</div>
-      <div class="timeline-org">${e.org}</div>${e.desc?`\n      <div class="timeline-desc">${e.desc}</div>`:''}
-    </div>`).join('');
-    h=h.replace(/<div class="timeline">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>\s*(?=<!-- LEADERSHIP|<div id="leadership")/,
-      `<div class="timeline">${timelineHtml}\n    </div>\n  </div>\n</div>\n\n`);
+    const timelineHtml=EXP.map(e=>{
+      const logoEl=e.logoUrl
+        ?`<img src="${e.logoUrl}" class="timeline-logo" alt="">`
+        :`<div class="timeline-logo-placeholder"></div>`;
+      return`
+        <div class="timeline-item">
+          <div class="timeline-period">${e.period}</div>
+          <div class="timeline-header">
+            ${logoEl}
+            <div>
+              <div class="timeline-role">${e.role}</div>
+              <div class="timeline-org">${e.org}</div>${e.desc?`
+              <div class="timeline-desc">${e.desc}</div>`:''}
+            </div>
+          </div>
+        </div>`;
+    }).join('');
+    h=h.replace(
+      /(<div class="timeline-col"><h3>Professional Experience<\/h3><\/div>\s*<div class="timeline">)([\s\S]*?)(<\/div>\s*<\/div>\s*<div>\s*<div class="timeline-col"><h3>Education)/,
+      `$1${timelineHtml}\n      $3`
+    );
     await ghPut('index.html',f.sha,h,'Update experience timeline');
     logA('Updated experience timeline');st('s-exp','ok','✓ Experience updated.');
   }catch(e){st('s-exp','er','Error: '+e.message);}
@@ -1306,13 +1318,23 @@ async function saveEdu(){
   try{
     const f=await ghFile('index.html');if(!f)throw new Error('Could not read index.html');
     let h=f.content;
-    const eduHtml=EDU.map(e=>`
+    const eduHtml=EDU.map(e=>{
+      const logoEl=e.logoUrl
+        ?`<img src="${e.logoUrl}" class="timeline-logo" alt="">`
+        :`<div class="timeline-logo-placeholder"></div>`;
+      return`
         <div class="timeline-item">
           <div class="timeline-period">${e.period}</div>
-          <div class="timeline-role">${e.role}</div>
-          <div class="timeline-org">${e.org}</div>${e.desc?`
-          <div class="timeline-desc">${e.desc}</div>`:''}
-        </div>`).join('');
+          <div class="timeline-header">
+            ${logoEl}
+            <div>
+              <div class="timeline-role">${e.role}</div>
+              <div class="timeline-org">${e.org}</div>${e.desc?`
+              <div class="timeline-desc">${e.desc}</div>`:''}
+            </div>
+          </div>
+        </div>`;
+    }).join('');
     // Replace education timeline block
     h=h.replace(
       /(<div class="timeline-col"><h3>Education<\/h3><\/div>\s*<div class="timeline">)([\s\S]*?)(<\/div>\s*<div class="timeline-col" style="margin-top)/,
@@ -1904,7 +1926,7 @@ function editOSRepo(i){
     <div class="g2"><div class="f"><label>Name</label><input id="mor-name" value="${r.name||''}"></div><div class="f"><label>Language</label><input id="mor-lang" value="${r.language||''}"></div></div><br>
     <label>Description</label><input id="mor-desc" value="${r.desc||''}">
     <label>GitHub URL</label><input id="mor-url" value="${r.url||''}">
-    <div class="g2"><div class="f"><label>Demo URL</label><input id="mor-demo" value="${r.demo||''}"></div><div class="f"><label>Paper URL</label><input id="mor-paper" value="${r.paper||''}"></div></div><br>
+    <div class="g2"><div class="f"><label>Deployment URL</label><input id="mor-demo" value="${r.demo||''}"></div><div class="f"><label>Paper URL</label><input id="mor-paper" value="${r.paper||''}"></div></div><br>
     <div class="g2"><div class="f"><label>Icon (emoji)</label><input id="mor-icon" value="${r.icon||'💾'}" style="text-align:center;font-size:1.1rem"></div><div class="f"><label>Stars (override)</label><input id="mor-stars" type="number" value="${r.stars||''}"></div></div>`;
   document.getElementById('modal-del').style.display='inline-flex';
   openModal();

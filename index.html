@@ -1780,7 +1780,7 @@ function renderRepos(){
     const metaEl=metaParts.length?`<div class="repo-meta">${metaParts.join(' <span style="opacity:.35">·</span> ')}</div>`:'';
     const links=[
       r.url?`<a href="${r.url}" target="_blank" class="repo-link primary">GitHub →</a>`:'',
-      r.demo?`<a href="${r.demo}" target="_blank" class="repo-link">Live Demo ↗</a>`:'',
+      r.demo?`<a href="${r.demo}" target="_blank" class="repo-link">Deployment ↗</a>`:'',
       r.paper?`<a href="${r.paper}" target="_blank" class="repo-link">Paper ↗</a>`:''
     ].filter(Boolean).join('');
     return`<div class="repo-card">
