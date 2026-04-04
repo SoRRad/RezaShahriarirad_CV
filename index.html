@@ -1761,7 +1761,15 @@ document.getElementById('refs-grid').innerHTML=refs.map(r=>`
 
 /* ── OPEN SOURCE REPOS ── */
 const openSourceRepos = [
-  /* populated via admin panel */
+  {
+    "name": "MOSI-System",
+    "language": "HTML",
+    "desc": "A staging and decision support tool for weight loss and bariatric surgery",
+    "url": "https://github.com/SoRRad/MOSI-System",
+    "demo": "https://sorrad.github.io/MOSI-System/",
+    "paper": "",
+    "icon": "🫃"
+  }
 ];
 function renderRepos(){
   const grid=document.getElementById('repos-grid');
