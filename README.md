@@ -7,6 +7,49 @@ Personal academic CV website for Dr. Reza Shahriarirad, Research Fellow at the S
 
 ---
 
+## Data-driven workflow
+
+All CV content now lives in structured CSV files under `/data/`. A Python build system reads these files and regenerates `index.html`, `Shahriarirad_Reza_CV.docx`, and `Shahriarirad_Reza_CV.pdf` automatically.
+
+### How to update your CV
+
+1. Edit the relevant CSV file in `/data/` (e.g. open `data/publications.csv` in Excel or a text editor)
+2. Commit and push to `main`
+3. GitHub Actions rebuilds all outputs within ~2 minutes
+
+### Run the build locally
+
+```bash
+pip install -r build/requirements.txt
+python build/build.py
+```
+
+### Admin panel note
+
+`cv-admin.html` still works for quick browser-based edits, but changes made there do **not** update the CSV files. You must manually sync them back to keep the CSVs as the source of truth.
+
+### CSV files
+
+| File | Contents |
+|------|----------|
+| `data/profile.csv` | Name, title, bio paragraphs, contact info, social URLs, cached metrics |
+| `data/experience.csv` | Professional positions (period, role, org, city, description) |
+| `data/education.csv` | Academic degrees |
+| `data/leadership.csv` | Leadership and service roles |
+| `data/awards.csv` | Awards and honours |
+| `data/patents.csv` | Patents and innovations |
+| `data/publications.csv` | All 193+ publications (type, title, authors, journal, URL, tags, categories) |
+| `data/presentations.csv` | Conference presentations (date, type, title, venue, location, categories) |
+| `data/journals.csv` | Peer-reviewed journals reviewed (with acknowledgement URLs) |
+| `data/editorial.csv` | Editorial roles (Guest Editor, Associate Editor, etc.) |
+| `data/hobbies.csv` | Extracurricular interests |
+| `data/references.csv` | Professional references with contact links |
+| `data/skills_computing.csv` | Computing skills with proficiency levels |
+| `data/skills_interpersonal.csv` | Interpersonal skills |
+| `data/open_source.csv` | Open-source GitHub repos (currently empty; add via admin panel) |
+
+---
+
 ## Repository contents
 
 | File | Description |
