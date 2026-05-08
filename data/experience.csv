@@ -1,6 +1,6 @@
-# COLUMN GUIDE: period=date range, role=job title, org=organisation name, city=city+country, desc=short description, logo_initials=2-3 letter initials, logo_color=hex color
-period,role,org,city,desc,logo_initials,logo_color
-2024 – Present,Research Fellow,Surgery Innovation Center · Mayo Clinic,"Rochester, MN",,MC,#c8102e
-2018 – 2024,Senior Researcher & Project Manager,Thoracic & Vascular Surgery Research Center · Shiraz University of Medical Sciences,"Shiraz, Iran",,SUMS,#003087
-2020 – 2022,General Practitioner — Emergency Department,Khatam-al-Anbiya Hospital,"Bushehr, Iran",Ministry of Health mandatory medical service.,KH,#2d6b22
-2014 – 2020,Research Trainee,Student Research Committee · Shiraz University of Medical Sciences,"Shiraz, Iran",,SUMS,#003087
+# COLUMN GUIDE: period=date range, role=job title, org=organisation name, city=city+country, desc=short description, logo_initials=2-3 letter initials, logo_file=filename in assets/logos/ (overrides initials), logo_color=hex color (NOTE: keep logo_file before logo_color so pandas comment="#" does not truncate it)
+period,role,org,city,desc,logo_initials,logo_file,logo_color
+2024 – Present,Research Fellow,Surgery Innovation Center · Mayo Clinic,"Rochester, MN",,MC,mayo-clinic.png,#c8102e
+2018 – 2024,Senior Researcher & Project Manager,Thoracic & Vascular Surgery Research Center · Shiraz University of Medical Sciences,"Shiraz, Iran",,SUMS,tavs.png,#003087
+2020 – 2022,General Practitioner — Emergency Department,Khatam-al-Anbiya Hospital,"Bushehr, Iran",Ministry of Health mandatory medical service.,KH,,#2d6b22
+2014 – 2020,Research Trainee,Student Research Committee · Shiraz University of Medical Sciences,"Shiraz, Iran",,SUMS,sums.png,#003087

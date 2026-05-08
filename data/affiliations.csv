@@ -1,6 +1,6 @@
-# COLUMN GUIDE: org_key=unique key, name=lab/org full name, role=your role, pi_name=PI full name, pi_title=PI title, institution=full institution name, url=website URL, logo_file=filename in assets/logos/, period=date range, desc=short internal note, show_in_experience=[yes|no]
-org_key,name,role,pi_name,pi_title,institution,url,logo_file,period,desc,show_in_experience
-surgery-innovation-center,Surgery Innovation Center,Research Fellow,,,Mayo Clinic Rochester MN,,,2024 – Present,Compact public affiliation,no
-surgical-ai-collaborations,Surgical AI and Innovation Collaborations,Research Collaborator,,,Mayo Clinic and collaborators,,,2024 – Present,Compact public affiliation,no
-mstar-lab,MStar Lab,Research Fellow,Dr. Simon J. Laplante MD,Assistant Professor of Bariatric Surgery,Mayo Clinic Rochester MN,https://www.mstarlab.com/,,2024 – Present,Compact public affiliation,yes
-tavs,Thoracic and Vascular Surgery Research Center,Senior Researcher & Project Manager,Dr. Bizhan Ziaian MD,Associate Professor of Thoracic Surgery,Shiraz University of Medical Sciences Iran,,,2018 – 2024,Compact public affiliation,yes
+# COLUMN GUIDE: org_key=unique key, name=lab/org full name, role=your role, pi_name=PI full name, pi_title=PI title, institution=full institution name, url=website URL, logo_file=filename in assets/logos/, period=date range, desc=short internal note, show_in_experience=[yes|no], display_detail=optional short detail shown on public card, hide_meta=[yes|no] suppress institution+period from public card
+org_key,name,role,pi_name,pi_title,institution,url,logo_file,period,desc,show_in_experience,display_detail,hide_meta
+surgery-innovation-center,Surgery Innovation Center,Research Fellow,,,Mayo Clinic Rochester MN,,,2024 – Present,Compact public affiliation,no,,no
+surgical-ai-collaborations,Surgical AI and Innovation Collaborations,Research Collaborator,,,Mayo Clinic and collaborators,,,2024 – Present,Compact public affiliation,no,,no
+mstar-lab,MStar Lab,Research Fellow,Dr. Simon J. Laplante MD,Assistant Professor of Bariatric Surgery,Mayo Clinic Rochester MN,https://www.mstarlab.com/,,2024 – Present,Compact public affiliation,yes,Surgical Computer Vision Research,yes
+tavs,Thoracic and Vascular Surgery Research Center,Senior Researcher & Project Manager,Dr. Bizhan Ziaian MD,Associate Professor of Thoracic Surgery,Shiraz University of Medical Sciences Iran,,,2018 – 2024,Compact public affiliation,yes,,yes

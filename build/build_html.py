@@ -314,7 +314,7 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
           <div class="stat-label">Peer Reviews</div>
         </div>
       </div>
-      <p class="metrics-updated">Metrics last updated: {_e(metrics_date or 'see profile data')}</p>
+      <!-- metrics-last-updated: {_e(metrics_date or '')} — hidden from public page; tracked in data/profile.csv -->
     </div>
   </div>
 </div>"""
@@ -385,14 +385,11 @@ def _about(profile: dict) -> str:
       <div style="margin:1.8rem 0 0">
         <div class="section-label" style="margin-bottom:.8rem">Ongoing Research at Mayo Clinic</div>
         <!-- EDIT: Mayo Clinic / IRB research description paragraph -->
-        <p>{_e(profile.get("irb_description", f"Since joining the Surgery Innovation Center, Dr. Shahriarirad has been involved in over {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
+        <p>{_e(profile.get("irb_description", f"Since joining the Center for Surgery Innovation, I have been involved in more than {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
         <!-- EDIT: Research specialty tags list -->
         <div class="research-grid">
 {tags_html}
         </div>
-      </div>
-      <div class="social-icons">
-        {icons_html}
       </div>
     </div>
     <div>
@@ -400,15 +397,44 @@ def _about(profile: dict) -> str:
         <h3>Contact</h3>
         {contact_html}
       </div>
+      <div class="social-icons" style="margin-top:1rem;justify-content:flex-start">
+        {icons_html}
+      </div>
     </div>
   </div>
 </div>
 </div>"""
 
 
+_LOGO_SIZE_LIMIT = 150_000  # bytes — skip embedding logos larger than this
+
+def _institutional_logo(logo_file, org_name=""):
+    """Return <img class=timeline-logo> if logo_file found in LOGO_DIRS and small enough, else empty string."""
+    if not logo_file or not str(logo_file).strip():
+        return ""
+    fname = str(logo_file).strip()
+    for directory in LOGO_DIRS:
+        p = directory / fname
+        if p.exists() and p.is_file():
+            if p.stat().st_size > _LOGO_SIZE_LIMIT:
+                return ""  # file too large to embed; fall back to initials placeholder
+            mime = mimetypes.guess_type(str(p))[0] or "image/png"
+            data = base64.b64encode(p.read_bytes()).decode("ascii")
+            alt = _e(f"{org_name} logo" if org_name else "Institution logo")
+            return f'<img class="timeline-logo" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy">'
+    return ""
+
+
 def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) -> str:
+    def _logo_el(row, org_key="org"):
+        logo_file = str(row.get("logo_file", "")).strip()
+        img = _institutional_logo(logo_file, str(row.get(org_key, "")))
+        if img:
+            return img
+        return f'<div class="timeline-logo-placeholder" style="background:{_e(row.get("logo_color","#4a607e"))};color:#fff;font-size:.5rem;font-weight:700">{_e(row.get("logo_initials",""))}</div>'
+
     def timeline_item(row):
-        logo = f'<div class="timeline-logo-placeholder" style="background:{_e(row.get("logo_color","#4a607e"))};color:#fff;font-size:.5rem;font-weight:700">{_e(row.get("logo_initials",""))}</div>'
+        logo = _logo_el(row, "org")
         desc_html = f'\n          <div class="timeline-desc">{_e(row["desc"])}</div>' if row.get("desc","").strip() else ""
         return f"""        <!-- EDIT: Each timeline entry role description -->
         <div class="timeline-item">
@@ -423,7 +449,7 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
         </div>"""
 
     def edu_item(row):
-        logo = f'<div class="timeline-logo-placeholder" style="background:{_e(row.get("logo_color","#4a607e"))};color:#fff;font-size:.5rem;font-weight:700">{_e(row.get("logo_initials",""))}</div>'
+        logo = _logo_el(row, "org")
         return f"""        <div class="timeline-item">
           <div class="timeline-period">{_e(row["period"])}</div>
           <div class="timeline-header">
@@ -464,18 +490,26 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
             name = _e(r.get("name", ""))
             url = str(r.get("url", "")).strip()
             name_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer">{name}</a>' if url else name
-            meta = " · ".join(x for x in [
-                str(r.get("institution", "")).strip(),
-                str(r.get("period", "")).strip(),
-            ] if x)
             role = str(r.get("role", "")).strip()
             role_html = f'<div class="lab-card-role">{_e(role)}</div>' if role else ""
+            hide_meta = str(r.get("hide_meta", "")).strip().lower() == "yes"
+            display_detail = str(r.get("display_detail", "")).strip()
+            detail_html = f'<div class="lab-card-detail">{_e(display_detail)}</div>' if display_detail else ""
+            if not hide_meta:
+                meta = " · ".join(x for x in [
+                    str(r.get("institution", "")).strip(),
+                    str(r.get("period", "")).strip(),
+                ] if x)
+                meta_html = f'<div class="lab-card-inst">{_e(meta)}</div>' if meta else ""
+            else:
+                meta_html = ""
             aff_cards.append(f"""      <div class="lab-card">
         <div class="lab-card-logo-placeholder">{_e(name[:3].upper())}</div>
         <div class="lab-card-body">
           <div class="lab-card-name">{name_html}</div>
           {role_html}
-          <div class="lab-card-inst">{_e(meta)}</div>
+          {detail_html}
+          {meta_html}
         </div>
       </div>""")
         if aff_cards:
@@ -604,6 +638,11 @@ def _publications_section() -> str:
   <div class="pub-controls">
     <!-- Left: filter sidebar -->
     <div class="pub-filter-sidebar">
+      <div class="pub-filter-group">
+        <button class="filter-btn" type="button"
+          style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
+          onclick="resetPubFilters()" aria-label="Reset all publication filters">&#8635; Reset filters</button>
+      </div>
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Article Type</span>
 {type_dropdown}
@@ -790,8 +829,9 @@ def _presentations(pres_df) -> str:
     <!-- Left: filter sidebar -->
     <div class="pres-filter-sidebar">
       <div class="pres-filter-group">
-        <span class="pub-filter-group-label">Reset</span>
-        <button class="filter-btn active" type="button" aria-pressed="true" id="pres-reset" onclick="resetPresFilters(this)">All Presentations</button>
+        <button class="filter-btn" type="button"
+          style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
+          id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(this)">&#8635; Reset filters</button>
       </div>
       <div class="pres-filter-group">
         <span class="pub-filter-group-label">Type</span>
@@ -824,13 +864,32 @@ def _presentations(pres_df) -> str:
 
 
 def _open_source(profile: dict) -> str:
+    github_url = profile.get("github_url", "").strip()
+    github_user = profile.get("github_username", "").strip() or "SoRRad"
+    github_icon = ICONS.get("github", "")
+    github_card = ""
+    if github_url:
+        github_card = f"""  <div class="repos-grid" style="margin-bottom:1.2rem">
+    <div class="repo-card" style="border-color:var(--navy-mid)">
+      <div class="repo-card-header">
+        <span class="repo-card-icon" style="display:inline-flex;align-items:center;width:20px;height:20px">{github_icon}</span>
+        <span class="repo-card-name"><a href="{_e(github_url)}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile: {_e(github_user)}">GitHub Profile</a></span>
+      </div>
+      <p class="repo-desc">Open-source code, models, and academic software projects — all publicly available at github.com/{_e(github_user)}.</p>
+      <div class="repo-links">
+        <a href="{_e(github_url)}" target="_blank" rel="noopener noreferrer" class="repo-link primary" aria-label="View GitHub profile">View on GitHub &#8599;</a>
+      </div>
+    </div>
+  </div>"""
+
     return f"""
 <!-- OPEN SOURCE MODELS -->
 <div id="opensource">
 <div class="section-wrap">
   <div class="section-label">Open Science</div>
-  <h2>Open Source Models &amp; Tools</h2>
+  <h2>Open Source Models &amp; Code</h2>
   <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.8rem;line-height:1.85;max-width:680px">Open-source computational tools, machine learning models, and research software developed as part of ongoing surgical AI and clinical research. All repositories are publicly available on GitHub.</p>
+{github_card}
   <div class="repos-grid" id="repos-grid"></div>
 </div>
 </div>"""

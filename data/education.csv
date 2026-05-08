@@ -1,4 +1,4 @@
-# COLUMN GUIDE: period=date range, degree=degree/qualification, org=institution name, city=location, logo_initials=initials, logo_color=hex color
-period,degree,org,city,desc,logo_initials,logo_color
-2013 – 2020,Doctor of Medicine (M.D.),"Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)","Shiraz, Iran",,SUMS,#003087
-2009 – 2013,High School Diploma,National Organization for Development of Exceptional Talents (SAMPAD),"Shiraz, Iran",,SP,#4a607e
+# COLUMN GUIDE: period=date range, degree=degree/qualification, org=institution name, city=location, logo_initials=initials, logo_file=filename in assets/logos/ (overrides initials), logo_color=hex color (NOTE: keep logo_file before logo_color so pandas comment="#" does not truncate it)
+period,degree,org,city,desc,logo_initials,logo_file,logo_color
+2013 – 2020,Doctor of Medicine (M.D.),"Shiraz University of Medical Sciences · Shiraz, Iran (SUMS)","Shiraz, Iran",,SUMS,sums.png,#003087
+2009 – 2013,High School Diploma,National Organization for Development of Exceptional Talents (SAMPAD),"Shiraz, Iran",,SP,,#4a607e

@@ -279,8 +279,32 @@ def _validate_projects(rows, lines, errors):
         errors.append(f"projects.csv: duplicate display_order {order}")
 
 
+LOGO_DIRS = [
+    ROOT / "assets" / "logos",
+    ROOT / "assets",
+    ROOT / "images",
+    ROOT / "img",
+    ROOT / "public",
+    ROOT / "static",
+    ROOT / "build" / "static_assets" / "logos",
+    ROOT / "build" / "static_assets",
+]
+
+
+def _check_logo_file_refs(rows, lines, stem, warnings):
+    """Warn (not error) if logo_file value points to a non-existent asset."""
+    for row, lineno in zip(rows, lines):
+        logo_file = str(row.get("logo_file", "")).strip()
+        if not logo_file:
+            continue
+        found = any((d / logo_file).exists() for d in LOGO_DIRS if d.exists())
+        if not found:
+            warnings.append(f"{stem}.csv: row {lineno} logo_file '{logo_file}' not found in any logo directory (will fall back to initials)")
+
+
 def validate_all():
     errors = []
+    warnings = []
     summaries = []
 
     for path in sorted(DATA.glob("*.csv")):
@@ -303,7 +327,15 @@ def validate_all():
         elif stem == "projects":
             _validate_projects(rows, lines, errors)
 
+        if stem in ("experience", "education", "affiliations"):
+            _check_logo_file_refs(rows, lines, stem, warnings)
+
         summaries.append((stem, len(rows)))
+
+    if warnings:
+        print(f"\n[VALIDATE] {len(warnings)} warning(s):")
+        for w in warnings:
+            print(f"  ! {w}")
 
     if errors:
         print(f"\n[VALIDATE] FAILED: {len(errors)} error(s) found:\n")
