@@ -5,13 +5,16 @@
     "type": "original",
     "tags": [],
     "cat": [
-      "pubhealth"
+      "pubhealth",
+      "bariatric"
     ],
     "title": "Online patient education resources in bariatric surgery: a systematic evaluation of quality, readability, transparency, and representation",
     "authors": "Alomar A*, Shahriarirad R, Ghanem O, Laplante S",
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-026-12845-y?_gl=1*htwbjp*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIhJKXnsiilAMVED6HAx2gSDYMEAAYASAAEgLxKfD_BwE",
-    "keywords": [],
+    "keywords": [
+      "education"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -29,7 +32,10 @@
     "authors": "Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",
     "journal": "Journal of Robotic Surgery",
     "url": "",
-    "keywords": [],
+    "keywords": [
+      "Robitic",
+      "MIS"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -48,7 +54,10 @@
     "authors": "Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",
     "journal": "(Published 2026)",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/",
-    "keywords": [],
+    "keywords": [
+      "Breast",
+      "COVID"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -99,7 +108,9 @@
     "authors": "Dasmeh U, Mohammadi AA, Shahrokhi R, Shahriarirad S, Shahriarirad R, Naseri R*",
     "journal": "Journal of Wound Care",
     "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210",
-    "keywords": [],
+    "keywords": [
+      "Wound"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -3355,5 +3366,27 @@
     "keywords": [],
     "highlight_topics": [],
     "featured": ""
+  },
+  {
+    "n": 195,
+    "year": "2026",
+    "type": "original",
+    "tags": [
+      "first"
+    ],
+    "cat": [
+      "bariatric"
+    ],
+    "title": "Testing",
+    "authors": "Shahriarirad R*, Test A",
+    "journal": "Test Journal",
+    "url": "https://www.google.com",
+    "keywords": [
+      "Dummy"
+    ],
+    "highlight_topics": [
+      "bariatric"
+    ],
+    "featured": "yes"
   }
 ]
