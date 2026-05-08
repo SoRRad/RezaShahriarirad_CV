@@ -1,0 +1,1 @@
+Place logo image files here. Filename must match the org key used in experience.csv and affiliations.csv exactly (e.g. mayo-clinic.png, sums.png, mstar-lab.png, tavs.png). Supported formats: PNG, SVG, JPG. Recommended size: 80x80px minimum, square or near-square. If no logo file exists for an org, the page will display colored initials instead.

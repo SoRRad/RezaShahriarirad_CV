@@ -1,359 +1,171 @@
-/* ── MOBILE MENU ── */
-function toggleMenu(){document.getElementById('mobile-menu').classList.toggle('open')}
-function closeMenu(){document.getElementById('mobile-menu').classList.remove('open')}
-
-/* ── GOOGLE SCHOLAR LIVE DATA ── */
-/* ── LIVE DATA STATE ── */
-const liveData = { citations: null, hindex: null, peerReviews: 149, journals: 67 };
-
-/* ── GOOGLE SCHOLAR LIVE DATA ─────────────────────────────────────────────────
-   Fetches citations and H-index from the public Scholar profile page
-   (https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en)
-   via a series of CORS proxy services. Tries each proxy in order until one works.
-   Falls back to the last-known values if all proxies fail.
-──────────────────────────────────────────────────────────────────────────────── */
-async function fetchScholarData(){
-  const URL = 'https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en';
-  const citEl = document.getElementById('hero-cites');
-  const hiEl  = document.getElementById('hero-hindex');
-
-  function parse(raw){
-    if(typeof raw !== 'string') return null;
-    const m = [...raw.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
-    if(m.length < 3) return null;
-    const c = parseInt(m[0][1].replace(/,/g,''));
-    const h = parseInt(m[2][1]);
-    return c > 0 ? {c, h: isNaN(h) ? null : h} : null;
-  }
-
-  async function get(url){
-    const ac = new AbortController();
-    setTimeout(() => ac.abort(), 7000);
-    const r = await fetch(url, {signal: ac.signal});
-    if(!r.ok) throw 0;
-    const j = await r.json();
-    return j.contents || (typeof j === 'string' ? j : null);
-  }
-
-  try{
-    const enc = encodeURIComponent(URL);
-    const raw = await Promise.any([
-      get('https://api.allorigins.win/get?url=' + enc),
-      get('https://corsproxy.io/?' + enc),
-      get('https://api.codetabs.com/v1/proxy?quest=' + enc),
-    ]);
-    const s = parse(raw);
-    if(!s) return;
-    liveData.citations = s.c.toLocaleString();
-    if(citEl) citEl.innerHTML = liveData.citations + '<span class="live-dot" title="Live from Google Scholar"></span>';
-    if(s.h){ liveData.hindex = String(s.h); if(hiEl) hiEl.textContent = liveData.hindex; }
-  }catch(_){
-    const dot = citEl && citEl.querySelector('.live-dot');
-    if(dot) dot.title = 'Cached value';
-  }
+/* MOBILE MENU */
+function toggleMenu(){
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.querySelector('.hamburger');
+  if(!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  if(btn) btn.setAttribute('aria-expanded', String(isOpen));
+}
+function closeMenu(){
+  document.getElementById('mobile-menu')?.classList.remove('open');
+  document.querySelector('.hamburger')?.setAttribute('aria-expanded','false');
 }
 
+function syncPressed(container){
+  document.querySelectorAll(container + ' .filter-btn').forEach(btn => {
+    btn.setAttribute('aria-pressed', btn.classList.contains('active') ? 'true' : 'false');
+  });
+}
 
-const publications = [
-  {n:1,year:"2026",type:"review",tags:["co-first"],cat:["plastic"],title:"Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999–2025)",authors:"Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",journal:"Journal of Robotic Surgery",url:""},
-  {n:2,year:"2026",type:"original",tags:["corresponding"],cat:["infectious","oncology"],title:"The Impact of the COVID-19 Pandemic on Patients with Breast Cancer, Diagnostic Delays and Disease Progression: A Retrospective Study",authors:"Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",journal:"(Published 2026)",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/"},
-  {n:3,year:"2026",type:"case",tags:[],cat:["neuro"],title:"Three Challenging Cases of Autoimmune Encephalitis: A Case-Series and Review of the Literature",authors:"Bahrami Y, Pedramfar P*, Shahriarirad R",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733"},
-  {n:4,year:"2025",type:"case",tags:["co-first"],cat:["vascular","urology"],title:"Effective and Lifesaving Retrograde Femoral and Jugular Vein Double Lumen Catheter Insertion in Patients with Poor Hemodialysis Venous Access: A Case Series",authors:"Hosseinzadeh A, Dalfardi F, Shahriarirad R, Pezeshkian F*, Keikha F",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522"},
-  {n:5,year:"2025",type:"original",tags:[],cat:["plastic"],title:"The Effect of Autologous Platelet-Rich Plasma on Donor Site Wound Healing: A Randomised Crossover Clinical Trial",authors:"Dasmeh U, Mohammadi AA, Shahrokhi R, Shahriarirad S, Shahriarirad R, Naseri R*",journal:"Journal of Wound Care",url:"https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210"},
-  {n:6,year:"2025",type:"original",tags:["corresponding"],cat:["ortho"],title:"Osteomyelitis and Its Main Determinants in Patients With Diabetic Foot Ulcer: A Cross-Sectional Study",authors:"Bolandi S, Niyakan MH, Jamali K, Ghodsi Boushehri Y, Tajaddini A, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463"},
-  {n:7,year:"2025",type:"original",tags:["first","corresponding"],cat:["plastic","oncology"],title:"Systemic Evaluation of Quality, Readability, and Integrity of Online Breast Reconstruction Resources",authors:"Shahriarirad R*, Kumar N, Vijayasekaran A",journal:"Clinical Breast Cancer",url:"https://www.sciencedirect.com/science/article/pii/S1526820925002897"},
-  {n:8,year:"2025",type:"original",tags:[],cat:["gi","oncology"],title:"Ghost Ileostomy Versus Protective Ileostomy in Rectal Cancer Followed by Low Anterior Resection: A Randomized Feasibility Trial",authors:"Meshkati Yazd SM, Keramati MR, Ghanbari Ghalerudkhani M, Shahriarirad R, Parsa A, Keshvari A*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351"},
-  {n:9,year:"2025",type:"original",tags:[],cat:["gi"],title:"Antioxidant and Anti-inflammatory Effects of Equisetum arvense L. on Acid-Induced Ulcerative Colitis in Rats",authors:"Koohi-Hosseinabadi O, Koohpeyma F, Safarpour AR, Nematollahy P, Kazemi M, Shahriarirad R, Tanideh R, Mojahedtaghi M, Ghaemmaghami P, Iraji A, Goudarzi K, Tanideh N*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-025-97693-x"},
-  {n:10,year:"2025",type:"original",tags:["last","corresponding"],cat:["endocrine"],title:"The Diagnostic Role of FNA Based on Clinicopathological Features in Thyroid Malignancy",authors:"Fallahi MM, Koulaian S, Mardani P, Malekhosseini SA, Shahriarirad R*",journal:"BMC Endocrine Disorders",url:"https://link.springer.com/article/10.1186/s12902-025-01945-w"},
-  {n:11,year:"2025",type:"original",tags:[],cat:["gi"],title:"Diagnostic Value of Physical Examination, Ultrasound, and Radiography Compared to CT in Evaluation of Nontraumatic Left Lower Quadrant Acute Abdominal Pain",authors:"Kiani F, Meshkati Yazd SM, Zarimeidani F, Rahmati R, Shabani Mofrad N, Vafaei Nia M, Shahriarirad R",journal:"Emergency Medicine International",url:"https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801"},
-  {n:12,year:"2025",type:"original",tags:["co-first"],cat:["ortho"],title:"Comparative Analysis of the Therapeutic Effects of Pregabalin, Gabapentin, and Duloxetine in Diabetic Peripheral Neuropathy: A Retrospective Study",authors:"Ahn J*, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz G, Ashkani-Esfahani S",journal:"Journal of Diabetes and Its Complications",url:"https://www.sciencedirect.com/science/article/pii/S1056872725000546"},
-  {n:13,year:"2025",type:"original",tags:["corresponding"],cat:["thoracic","oncology"],title:"Evaluation of Surgical Cases of Lung Cancer Admitted in Shiraz Referral Hospitals, Southern Iran in 2009–2022",authors:"Dehghani S, Rezvani A, Shahriarirad R*, Rajabian MS, Ziaian B, Fallahi MJ, Mardani P, Amirian A",journal:"Cancer Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108"},
-  {n:14,year:"2025",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"Seroepidemiological Assessment of Bordetella Pertussis in Jahrom, Southern Iran: A Cross-sectional Study",authors:"Raufi R, Zareian-Jahromi F, Zangeneh S, Rajabi J, Shahriarirad R*",journal:"Health Care Science",url:"https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000"},
-  {n:15,year:"2025",type:"original",tags:[],cat:["derm"],title:"Investigating the Efficacy and Safety of Oral Cicaglocal on Wound Healing After Mohs Surgery in Patients With Skin Cancer: A Randomized, Double-Blinded, Placebo-Controlled Clinical Trial",authors:"Asilian A, Mohammadian P*, Mahram H, Shahriarirad R, Bigham M",journal:"Journal of Cosmetic Dermatology",url:"https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784"},
-  {n:16,year:"2025",type:"original",tags:["corresponding"],cat:["vascular"],title:"Evaluation of Aneurysm Cases Undergoing Surgery at a Tertiary Center in Iran: A 22-year Retrospective Study",authors:"Ghoddusi Johari H, Ranjbar K, Kassaee K, Hoseini MA, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331"},
-  {n:17,year:"2025",type:"original",tags:["first","corresponding"],cat:["ortho"],title:"In-Vitro and In-Vivo Assessment of Biocompatibility and Efficacy of Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma in Achilles Tendon Regeneration",authors:"Koohi-Hosseinabadi O, Shahriarirad R*, Dehghanian A, Amini L, Barzegar S, Daneshparvar A, Alavi O, Khazraei SP, Hosseini S, Arabi Monfared A, Khorram R, Tanideh N*, Ashkani-Esfahani S",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-025-85131-x"},
-  {n:18,year:"2024",type:"original",tags:[],cat:["ortho"],title:"Comparisons of the Therapeutics for Diabetic Neuropathic Pain: Prospective Cohort Study, Seoul, Korea",authors:"Ahn J, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz GR, DiGiovanni CW, Ashkani-Esfahani S",journal:"Foot & Ankle Orthopaedics",url:"https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215"},
-  {n:19,year:"2024",type:"original",tags:["corresponding"],cat:["gi"],title:"Clinical Presentations and Surgical Features of Morgagni Hernia in Adults: A Retrospective Study",authors:"Mardani P, Dalfardi F, Bahmani S, Rahmati R, Zarimeidani F, Ziaian B, Amirian A, Vafabin M, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248"},
-  {n:20,year:"2024",type:"original",tags:[],cat:[],title:"An Overview of the Role of Chemokine CX3CL1 (Fractalkine) and CX3C Chemokine Receptor 1 in Systemic Sclerosis",authors:"Pezeshkian F, Shahriarirad R, Mahram H*",journal:"Immunity, Inflammation and Disease",url:"https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034"},
-  {n:21,year:"2024",type:"original",tags:["corresponding"],cat:["thoracic","oncology"],title:"The Aftermath of Asbestos Prohibition in Industry and Its Association with Malignant Mesothelioma in the South of Iran: An Enduring Predicament yet to be Resolved",authors:"Rezvani A, Shahriarirad R*, Jahanshahi S, Fouladi D, Tavallali M, Ziaian B, Fallahi MJ",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117"},
-  {n:22,year:"2024",type:"original",tags:["corresponding"],cat:["infectious"],title:"Changes in Incidence and Clinical Features of Tuberculosis with Regard to the COVID-19 Outbreak in Southern Iran",authors:"Fallahi MJ, Nazemi M, Zeighami A, Shahriarirad R*",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-024-09947-0"},
-  {n:23,year:"2024",type:"original",tags:["corresponding"],cat:["vascular"],title:"Computed Tomography Angiography-guided Analysis of Morphologic Properties of the Thoracic Aorta and Arch Branches: A Cross-sectional Study",authors:"Hosseinzadeh A, Tajaddini A, Jafari SH, Mohammadi Z, Dalfardi F, Fatemian H, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017"},
-  {n:24,year:"2024",type:"original",tags:[],cat:["gi","oncology"],title:"Analyzing Quality of Life After Low Anterior Resection for Rectal Cancer",authors:"Meshkati Yazd SM, Shahriarirad R, Almasi S, Mirmohammadkhani M, Keramati MR*",journal:"Irish Journal of Medical Science",url:"https://link.springer.com/article/10.1007/s11845-024-03757-8"},
-  {n:25,year:"2024",type:"original",tags:["first","corresponding"],cat:["gi"],title:"Evaluation of Salvia Officinalis (Sage) in the Treatment of Acetic Acid-Induced Ulcerative Colitis in Rat Model",authors:"Shahriarirad R*, Seifbehzad S, Erfani A, Nekouei F, Ashkani-Esfahani S, Hosseinzadeh M, Tanideh N, Koohi-Hosseinabadi O, Sarkari B",journal:"Journal of Coloproctology",url:"https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141"},
-  {n:26,year:"2024",type:"original",tags:["first","corresponding"],cat:["infectious","pubhealth"],title:"Knowledge, Attitude, and Practice toward the Novel Coronavirus (COVID-19) Outbreak: A Population-Based Survey in Iran",authors:"Erfani A, Shahriarirad R*, Ranjbar K, Mirahmadizadeh A, Moghadami M",journal:"Journal of Health Sciences & Surveillance System",url:"https://journals.sums.ac.ir/article_49437.html"},
-  {n:27,year:"2024",type:"original",tags:[],cat:["endocrine"],title:"Comparison of Endoscopic Versus Focused Parathyroidectomy in Surgical Management of Single-gland Primary Hyperparathyroidism: A Randomized Clinical Trial",authors:"Meshkati Yazd SM, Shahriarirad R, Nayebi S, Dehghan P, Abbasi A, Maghsoodloo F, Hamedani K, Nasiri S*",journal:"Langenbeck's Archives of Surgery",url:"https://link.springer.com/article/10.1007/s00423-024-03390-0"},
-  {n:28,year:"2024",type:"original",tags:["first","corresponding"],cat:["thoracic"],title:"Single-Stage Bronchoscopy-Guided Protocol for Tracheostomy Decannulation in Adult Patients",authors:"Mardani P, Naseri R*, Mahram H, Alishavandi F, Amirian A, Ziaian B, Shahriarirad R*",journal:"Journal of Surgical Research",url:"https://authors.elsevier.com/c/1jIJR578Xh~MO"},
-  {n:29,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","urology"],title:"Prevalence and Risk Factors of Latent Tuberculosis Infection in Hemodialysis Patients in Southwest Iran",authors:"Rahimi M, Forouzani F, Mousavizadeh A, Shahriarirad R, Ardekani A, Foolad S, Nikbakht G*",journal:"Epidemiological Review (Przegląd Epidemiologiczny)",url:"https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html"},
-  {n:30,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","pulm"],title:"Evaluation of the Predictors and Frequency of Silent Hypoxemia in COVID-19 Patients and the Gap between Pulse Oximeter and Arterial Blood Gas Levels",authors:"Fallahi MJ, Pezeshkian F, Ranjbar K, Javaheri R, Shahriarirad R*",journal:"Health Care Science",url:"http://doi.org/10.1002/hcs2.98"},
-  {n:31,year:"2024",type:"original",tags:[],cat:["transplant"],title:"Comparison of the Effect of Everolimus, Prednisolone, and a Combination of Both on Experimentally Induced Peritoneal Adhesions in Rats",authors:"Kazemi K, Jamshidi K, Naseri R, Shahriarirad R, Shamsaeefar A, Hosseinzadeh A*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-024-61620-3"},
-  {n:32,year:"2024",type:"original",tags:[],cat:["neuro"],title:"An Overcorrective Modification of Cranial Vault Reconstruction for Non-Syndromic Metopic Suture Synostosis: Shiraz Technique",authors:"Masoudi MS, Zoghi S, Ansari A, Taherpour S, Shahriarirad R, Taheri R*",journal:"Archives of Pediatric Neurosurgery",url:"https://www.archpedneurosurg.com.br/sbnped2019/article/view/231"},
-  {n:33,year:"2024",type:"original",tags:[],cat:["plastic"],title:"Posterior Positioning of Levator Veli Palatini with Intact Nasal Layer and Side-by-Side Bilateral Buccinator Flaps: Modified Approach for Palatal Lengthening",authors:"Hoghooghi MA, Hooman K, Shahriarirad R, Salimi M, Hosseinpour H*",journal:"The Cleft Palate Craniofacial Journal",url:"https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full"},
-  {n:34,year:"2024",type:"original",tags:["corresponding"],cat:["vascular"],title:"Analysis of a Large 19-Year Database in Vascular Surgery in Southern Iran: Evaluation of Trends and Limitations",authors:"Ghoddusi Johari H, Farrokhi A, Shahriarirad R*, Hosseinzadeh A, Hodjati H",journal:"Annals of Vascular Surgery",url:"https://authors.elsevier.com/a/1idol3AUdjphyC"},
-  {n:35,year:"2024",type:"original",tags:["corresponding"],cat:["endocrine"],title:"Demographic, Clinical, and Surgical Features of Patients Undergoing Thyroidectomy due to Thyroid Lesions in Southern Iran",authors:"Mardani P, Koulaian S, Fouladi D, Malekhosseini HR, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.2012"},
-  {n:36,year:"2024",type:"review",tags:["corresponding"],cat:["infectious","pubhealth"],title:"Serosurvey of Anti-Rubella and Anti-Measles IgG Antibodies in Young Females in Jahrom, Southern West Iran: A Review of Literature of the Serological Profile in Iran",authors:"Mojarad N, Forouzani F, Mohammadi Z*, Shahriarirad R*",journal:"Journal of General and Family Medicine",url:"https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677"},
-  {n:37,year:"2024",type:"original",tags:[],cat:["gi"],title:"Comparison of Hand-sewn Anterior Repair, Resection and Hand-sewn Anastomosis, Resection and Stapled Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy: A Randomized Clinical Trial",authors:"Meshkati Yazd SM, Shahriarirad R, Keramati MR, Omidi M, Nabavizadeh SS, Keshvari A*",journal:"Techniques in Coloproctology",url:"https://link.springer.com/article/10.1007/s10151-023-02898-9"},
-  {n:38,year:"2024",type:"original",tags:[],cat:["infectious","pubhealth"],title:"High Post-Infection Protection after COVID-19 among Healthcare Workers: A Population-Level Observational Study",authors:"Shahriarirad S, Asmarian N, Shahriarirad R, Moghadami M, Askarian M, Malekhosseini SA, Sabetian G*",journal:"Iranian Journal of Medical Sciences",url:"https://ijms.sums.ac.ir/article_49872.html"},
-  {n:39,year:"2024",type:"original",tags:[],cat:["gi"],title:"Novel Textbook Outcomes following Emergency Laparotomy: Delphi Exercise",authors:"Naumann D*, Bhangu A, Brooks A, BEACON Collaborative (including Shahriarirad R)",journal:"BJS Open",url:"https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246"},
-  {n:40,year:"2024",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"The Trend of Mortality Rates Following Hospitals Downgrading and Closures due to Outbreak of COVID-19 in Fars Province: A Comparative Cohort Study",authors:"Fallahi MJ, Seifbehzad S, Fereidooni M, Farrokhi AM, Ranjbar K, Shahriarirad R*",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850"},
-  {n:41,year:"2024",type:"original",tags:["first","corresponding"],cat:["oncology","ai"],title:"Prediction of Sentinel Lymph Node Metastasis in Breast Cancer Patients Based on Preoperative Features: A Deep Machine Learning Approach",authors:"Shahriarirad R, Meshkati Yazd SM, Fathian R, Fallahi M, Ghadiani Z, Nafissi N*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-024-51244-y"},
-  {n:42,year:"2024",type:"original",tags:[],cat:["derm"],title:"Practice and Attitude of General Practitioners Towards Initiating Isotretinoin for Acne Vulgaris in Fars Province, Iran",authors:"Hosseinpour P*, Gholamabbas G, Pezeshkian F, Erfani A, Shahriarirad R, Parhizkar AR",journal:"BMC Primary Care",url:"https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w"},
-  {n:43,year:"2023",type:"original",tags:[],cat:["thoracic"],title:"Demographic and Clinical Features of Patients Operated with the Diagnosis of Acute Descending Necrotizing Mediastinitis: A Retrospective Study in Southern Iran",authors:"Ranjbar K, Shahriarirad R, Ebrahimi K, Amirian A, Karoobi MR, Mardani P, Erfani A, Fallahi MJ, Ketabchi F, Ziaian B*",journal:"BMC Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w"},
-  {n:44,year:"2023",type:"original",tags:["corresponding"],cat:["infectious","urology"],title:"Antibiotic Resistance Pattern Among Isolated Bacteria from Urinary Tract Infection Patients in the Intensive Care Unit",authors:"Forouzani F, Sharifi A, Mojarad N, Mohammadi Z, Shahriarirad R*",journal:"Journal of Medical Bacteriology",url:"https://jmb.tums.ac.ir/index.php/jmb/article/view/500"},
-  {n:45,year:"2023",type:"original",tags:["first","corresponding"],cat:["plastic"],title:"Cohort Analysis of 50% Lethal Area (LA50) and Associating Factors in Burn Patients based on Quality Improvements and Health Policies",authors:"Shahriarirad R, Shekouhi R, Nabavizadeh SS, Zardosht M, Tadayon SMK, Ahmadi M, Keshavarzi A*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-023-45884-9"},
-  {n:46,year:"2023",type:"original",tags:["first","corresponding"],cat:["gi"],title:"Protective Effect of Melissa Officinalis Against Acetic Acid-Induced Ulcerative Colitis in Rat Models",authors:"Shahriarirad R*, Erfani A, Nekouei F, Seifbehzad S, Hosseinzadeh M, Sarkari B, Tanideh N, Koohi-Hosseinabadi O, Nassour N, Ashkani-Esfahani S",journal:"Annals of Gastroenterology",url:"https://doi.org/10.20524/aog.2023.0836"},
-  {n:47,year:"2023",type:"original",tags:[],cat:["plastic"],title:"The Effect of a Preoperative Single Dose of Gabapentin on Emergence Agitation in Patients Undergoing Rhinoplasty: A Randomized Clinical Trial",authors:"Hoghoughi MA, Jouybar R, Alvandi A, Shahriarirad R, Hosseinpour H, Ranjbar K, Kamran H*",journal:"European Journal of Plastic Surgery",url:"https://link.springer.com/article/10.1007/s00238-023-02116-7"},
-  {n:48,year:"2023",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Evaluation of the Features of Cystic Echinococcosis with Concurrent Super-infection: A Retrospective Study in Southern Iran",authors:"Shahriarirad R, Shekouhi R, Erfani A, Rastegarian M, Eskandarisani M, Motamedi M, Sarkari B*",journal:"BMC Infectious Diseases",url:"https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-023-08520-5"},
-  {n:49,year:"2023",type:"original",tags:[],cat:["infectious"],title:"Resistance Pattern of Isolated Microorganisms from 783 Clinical Specimen Cultures in Patients Admitted to Yasuj Educational Hospitals, Iran",authors:"Forouzani F, Khasti T, Manzouri L, Ravangard S, Shahriarirad R, Jahed S, Gordafarin N*",journal:"BMC Microbiology",url:"https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4"},
-  {n:50,year:"2023",type:"original",tags:["first","corresponding"],cat:["thoracic","oncology"],title:"Hospital-based Retrospective Analysis of 224 Surgical Cases of Lung Hydatid Cyst from Southern Iran",authors:"Shahriarirad R, Erfani A, Ebrahimi K, Rastegarian M, Eskandarisani M, Ziaian B, Sarkari B*",journal:"BMC Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w"},
-  {n:51,year:"2023",type:"original",tags:["first","corresponding"],cat:["thoracic","oncology"],title:"Esophageal Perforation Etiology, Outcome, and the Role of Surgical Management — An 18-Year Experience of Surgical Cases in A Referral Center",authors:"Shahriarirad R, Karoobi MR, Shekouhi R, Ebrahimi K, Ranjbar K, Amirian A, Mardani P, Fallahi MJ, Ziaian B*",journal:"BMC Surgery",url:"https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w"},
-  {n:52,year:"2023",type:"original",tags:[],cat:["infectious"],title:"Management of Liver Hydatid Cysts: A Retrospective Analysis of 293 Surgical Cases from Southern Iran",authors:"Erfani A, Shahriarirad R, Eskandarisani M, Rastegarian M, Sarkari B*",journal:"Journal of Tropical Medicine",url:"https://www.hindawi.com/journals/jtm/2023/9998739/"},
-  {n:53,year:"2023",type:"original",tags:["corresponding"],cat:["endocrine"],title:"Investigating the Effectiveness of Intraoperative Rapid Parathyroid Hormone Assay in Parathyroidectomy Surgery in Patients with Secondary Hyperparathyroidism",authors:"Nasiri S, Meshkati Yazd SM, Heshmati A, Mokhtari Ardekani A, Najafi M, Shahriarirad R*",journal:"BMC Endocrine Disorders",url:"https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3"},
-  {n:54,year:"2023",type:"original",tags:[],cat:["derm"],title:"Efficacy of Metformin vs. Doxycycline in Treating Acne Vulgaris: An Assessor-Blinded, Add-on, Randomized, Controlled Clinical Trial",authors:"Sadat Sadati M, Yazdanpanah N, Shahriarirad R, Javaheri R, Parvizi MM*",journal:"Journal of Cosmetic Dermatology",url:"http://doi.org/10.1111/jocd.15785"},
-  {n:55,year:"2023",type:"original",tags:[],cat:["gi"],title:"Evaluation Oral and Topical Bovine Colostrum compared to Mesalamine in the Treatment of Animal Model of Acetic Acid-Induced Ulcerative Colitis",authors:"Koohi O, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Ebrahimi A*, Tanideh N, Ashkani-Esfahani S",journal:"Annals of Gastroenterology",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/"},
-  {n:56,year:"2023",type:"original",tags:["corresponding"],cat:["thoracic","pulm"],title:"Serum Levels of Erythropoietin in Patients with Chronic Obstructive Pulmonary Disease and Anemia",authors:"Rezvani A, Masoompour SM, Azarpira N, Monjazeb R, Akbarzadeh M, Salimi M, Shahriarirad R*",journal:"Scientific Reports",url:"https://www.nature.com/articles/s41598-023-34290-w"},
-  {n:57,year:"2023",type:"original",tags:[],cat:["gi"],title:"Comparison Of Mesh Fixation and Non-Fixation in Transabdominal Preperitoneal (TAPP) Inguinal Hernia Repair: A Randomized Control Trial",authors:"Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR*, Mehri G, Shabani Mofrad N",journal:"Surgical Endoscopy",url:"https://link.springer.com/article/10.1007/s00464-023-10040-x"},
-  {n:58,year:"2023",type:"original",tags:[],cat:[],title:"Translation, Cross-cultural Adaptation, and Psychometric Evaluation of the Persian (Farsi) Version of the QoLAF Questionnaire",authors:"Keramati MR*, Meshkati Yazd SM, Omidi M, Keshvari A, Shahriarirad S, Shahriarirad R, Nabavizadeh SS",journal:"PLOS One",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170"},
-  {n:59,year:"2023",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Evaluation of Locoregional Tumoral Involvement in the Co-occurrence of Hashimoto Thyroiditis with Papillary Thyroid Cancer",authors:"Nasiri N, Meshkati Yazd SM, Gholami M, Shahriarirad S, Sharghi S, Shahriarirad R*",journal:"BMC Endocrine Disorder",url:"https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01322-5"},
-  {n:60,year:"2023",type:"original",tags:[],cat:["gi","transplant"],title:"Comparison of the Preventive Effect of Colchicine versus Diphenhydramine, Prednisolone, and a Combination Therapy on Intraperitoneal Adhesion Bands: An Experimental Study in Rats",authors:"Malekhosseini SA, Alizadeh B, Hosseinzadeh A, Shahriarirad R, Kazemi K, Naseri R*",journal:"BMC Surgery",url:"https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0"},
-  {n:61,year:"2023",type:"original",tags:["corresponding"],cat:["vascular"],title:"Association of Complications during and after Carotid Body Tumor Resection with Tumor Size and Distance to the Base of Skull",authors:"Ghoddusi Johari H, Afshari A, Abolhasani Foroughi A, Khademi B, Shahriarirad S, Erfani A, Hodjati H, Shahriarirad R*",journal:"Annals of Vascular Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474"},
-  {n:62,year:"2023",type:"original",tags:["first","corresponding"],cat:["plastic","pubhealth"],title:"Prevalence of Suicide by Self-immolation among Children in Southern Iran",authors:"Shahriarirad R, Ranjbar K, Erfani A, Modarresi M, Koranishiraz A, Kamali M, Zardosht M, Mohammadi AA*",journal:"The Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317"},
-  {n:63,year:"2023",type:"original",tags:[],cat:["gi","urology"],title:"Evaluation of the Effectiveness of Prophylactic Omentopexy during Laparoscopic Insertion of Peritoneal Dialysis Catheter: A Case-Control Clinical Trial",authors:"Keshvari A, Meshkati Yazd SM, Keramati MR, Kamran H, Shahriarirad R",journal:"International Urology and Nephrology",url:"https://link.springer.com/article/10.1007/s11255-023-03522-3"},
-  {n:64,year:"2023",type:"original",tags:[],cat:["ortho"],title:"Effectiveness of Transcutaneous Electrical Nerve Stimulation alongside Quadriceps Exercise in the Correction of Soccer Genu Varum in Adolescents 14-18 Years Old: A Randomized Controlled Trial",authors:"Pourmokhtari M, Shahriarirad R, Shekouhi R*",journal:"Sports Sciences for Health",url:"https://link.springer.com/article/10.1007/s11332-023-01049-9"},
-  {n:65,year:"2023",type:"original",tags:["corresponding"],cat:["infectious","transplant"],title:"COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",authors:"Shafiekhani M, Niknam T, Tara SA, Mardani P, Hosseinpour P, Shahriarirad R*, MalekHosseini SA",journal:"Cost Effectiveness and Resource Allocation",url:"https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x"},
-  {n:66,year:"2023",type:"original",tags:[],cat:["plastic","derm"],title:"Evaluation of the Effect of Platelet Rich Fibrin Matrix in the Correction of Periorbital Wrinkles: An Experimental Clinical Trial",authors:"Ahmadi Mahmoodabadi R, Golafshan HA, Pezeshkian F, Shahriarirad R, Namazi M*",journal:"Dermatology Practical & Conceptual",url:"https://dpcj.org/index.php/dpc/article/view/2535"},
-  {n:67,year:"2023",type:"original",tags:["corresponding"],cat:["gi"],title:"Gastroesophageal Reflux Disease Incidence Among Male Patients with Irritable Bowel Syndrome: A Single-Center Cross-sectional Study in Southern Iran",authors:"Gholamnezhad F, Qeisari A, Shahriarirad R*",journal:"Journal of Gastroenterology and Hepatology Open",url:"https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867"},
-  {n:68,year:"2023",type:"original",tags:[],cat:["oncology"],title:"Postoperative Cosmetic Outcome of Intraoperative Radiotherapy in Comparison to Whole Breast Radiotherapy in Early Stage Breast Cancer: A Retrospective Cohort Study",authors:"Nafisi N, Meshkati Yazd SM, Shahriarirad R, Zangeneh S, Ghorbani S, Farazmand B, Karoobi MR*, Mirzaei HR",journal:"BMC Cancer",url:"https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10468-9"},
-  {n:69,year:"2023",type:"original",tags:[],cat:["gi"],title:"Hand-Sewn Direct Repair Versus Resection and Hand-Sewn Anastomosis Techniques for the Reversal of Diverting Loop Ileostomy after Lower Anterior Rectal Resection Surgery: A Randomized Clinical Trial",authors:"Keramati MR, Meshkati Yazd SM, Shahriarirad R, Omidi M, Nabavizadeh SS, Keshvari A*",journal:"Journal of Surgical Oncology",url:"https://onlinelibrary.wiley.com/doi/10.1002/jso.27185"},
-  {n:70,year:"2022",type:"original",tags:["corresponding"],cat:["plastic"],title:"Hypertonic Saline Solution 5% as an Effective Cost-beneficial Alternative to Normal Saline for Wound Healing in Patients with Diabetic Lower-Extremity Ulcers: A Randomized Controlled Trial",authors:"Ziaian B, Khezri S, Amirian A, Ranjbar K, Shahriarirad R*, Eskandari Kohnakia M",journal:"Journal of Diabetes & Metabolic Disorders",url:"https://link.springer.com/article/10.1007/s40200-022-01167-0"},
-  {n:71,year:"2022",type:"original",tags:["first","corresponding"],cat:["endocrine"],title:"Evaluation of the Role of Prophylactic Bilateral Central Neck Lymph Node Dissection in Patients with Papillary Thyroid Carcinoma: A Case Controlled Study",authors:"Shahriarirad R, Meshkati Yazd SM, Zahedi R, Mokhtari Ardekani A, Rekabi MM, Nasiri S*",journal:"Updates in Surgery",url:"https://link.springer.com/article/10.1007/s13304-022-01440-0"},
-  {n:72,year:"2022",type:"original",tags:["first","corresponding"],cat:["endocrine"],title:"Calcitriol Supplementation Before Parathyroidectomy and Calcium Level After Surgery in Parathyroid Adenoma Patients: A Randomized Controlled Trial",authors:"Shahriarirad R, Meshkati Yazd SM, Ardekani A, Mokhtari Ardekani A, Moradi N, Nasiri S*",journal:"Journal of Endocrinological Investigation",url:"https://link.springer.com/article/10.1007/s40618-022-01963-8"},
-  {n:73,year:"2022",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Factors Associated with Reluctancy to Acquire COVID-19 Vaccination: A Cross-sectional Study in Shiraz, Iran, 2022",authors:"Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",journal:"PLOS One",url:"https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967"},
-  {n:74,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Effect of Thymectomy during Central Neck Dissection in Papillary Thyroid Carcinoma: A Case-Controlled Study",authors:"Nasiri S, Meshkati Yazd SM, Mokhtari Ardekani A, Fazlollahpour-Naghibi A, Shahintaj M, Shahriarirad R*",journal:"Updates In Surgery",url:"https://link.springer.com/article/10.1007/s13304-022-01428-w"},
-  {n:75,year:"2022",type:"original",tags:[],cat:["thoracic"],title:"The Role and Value of Low-Dose Computed Tomography Scan Compared to Esophagoscopy in the Diagnosis of Foreign Body Ingestion in Adults",authors:"Mardani P, Shahriarirad R, Khosravi F, Malekhosseini HR, Amirian A, Kamran H*",journal:"General Thoracic and Cardiovascular Surgery",url:"https://link.springer.com/article/10.1007/s11748-022-01880-w"},
-  {n:76,year:"2022",type:"original",tags:[],cat:["thoracic"],title:"Utilization of Chest Tube as an Esophagus Stent in Pediatric Caustic Injuries: A Retrospective Study",authors:"Salimi M, Hosseinpour H, Shahriarirad R, Esfandiari S, Pooresmaeel F, Sarejloo S, Foroutan H*",journal:"World Journal of Clinical Pediatrics",url:"https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm"},
-  {n:77,year:"2022",type:"original",tags:["corresponding"],cat:["infectious"],title:"Prevalence and Associated Factors of Complementary and Integrative Medicine Use in Patients Afflicted with COVID-19",authors:"Parvizi MM*, Sedigheh Forouhari S, Shahriarirad R*, Shahriarirad S, Bradley R, Roosta L, Heydari M",journal:"BMC Complementary Medicine and Therapies",url:"https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x"},
-  {n:78,year:"2022",type:"original",tags:["corresponding"],cat:["thoracic"],title:"The Role of Routine Chest Radiography after Implantable Venous Access Port Catheter Insertion under the Guide of Ultrasonography and Fluoroscopy",authors:"Ghoddusi Johari H, Saki M, Erfani A, Shahriarirad R*, Ranjbar K",journal:"Cost Effectiveness and Resource Allocation",url:"https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z"},
-  {n:79,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"The Incidence and Features of Delphian Lymph Node Involvement in Patients with Papillary Thyroid Carcinoma",authors:"Alibakhshi A, Sheikhi S, Meshkati Yazd SM, Ardekani A, Ranjbar K, Shahriarirad R*",journal:"BMC Surgery",url:"https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-022-01742-5"},
-  {n:80,year:"2022",type:"original",tags:[],cat:[],title:"Determination of the Main Causes, Outcome and Prognostic Factors of Patients with Rheumatologic Diseases Admitted to the Medical Intensive Care Unit in Southern Iran",authors:"Arjmand M, Shahriarirad R, Shenavandeh S, Fallahi MJ*",journal:"Clinical Rheumatology",url:"https://link.springer.com/article/10.1007/s10067-022-06334-5"},
-  {n:81,year:"2022",type:"original",tags:[],cat:["gi"],title:"Evaluation of Post Laparoscopic Cholecystectomy Pain after Subcutaneous Injection of Lidocaine at Port Site versus Lidocaine Spray on Gallbladder Bed: A Randomized Controlled Trial",authors:"Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR, Mehri G",journal:"Langenbeck's Archives of Surgery",url:"https://link.springer.com/article/10.1007/s00423-022-02645-y"},
-  {n:82,year:"2022",type:"original",tags:["corresponding"],cat:["plastic"],title:"Therapeutic Efficacy of Great Plantain (Plantago major L.) in the Treatment of Second-Degree Burn Wounds: A Case-Control Study",authors:"Keshavarzi A, Montaseri H, Akrami R, Hoghoughi MA, Ranjbar K, Shahriarirad R*",journal:"International Journal of Clinical Practice",url:"https://www.hindawi.com/journals/ijclp/2022/4923277/"},
-  {n:83,year:"2022",type:"original",tags:["corresponding"],cat:["ortho"],title:"Promising Results of Captopril in Improving Knee Arthrofibrosis and Cartilage Status: An Animal Model Study",authors:"Hashemi SA, Azad A, Erfani A, Shahriarirad R*, Azarpira N",journal:"Journal of Experimental Orthopaedics",url:"https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5"},
-  {n:84,year:"2022",type:"original",tags:["corresponding"],cat:["endocrine"],title:"Auto Transplantation of Parathyroid Tissue into Subcutaneous Subclavicular Area Following Total Parathyroidectomy in Secondary Hyperparathyroidism",authors:"Nasiri S, Meshkati Yazd SM, Kamran H, Kahrizi MS, Azhdari M, Shahriarirad R*",journal:"Journal of Endocrinological Investigation",url:"https://link.springer.com/article/10.1007/s40618-022-01864-w"},
-  {n:85,year:"2022",type:"original",tags:[],cat:["vascular"],title:"The Role of Surgical and Endovascular Repair of Blunt Traumatic Aortic Injury in the Modern Era: A Single-Center Experience",authors:"Ghoddusi Johari H, Moein SA*, Hosseinzadeh A, Kojuri J, Roshanshad A, Shahriarirad R",journal:"Bulletin of Emergency and Trauma",url:"https://beat.sums.ac.ir/article_48535.html"},
-  {n:86,year:"2022",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Parents' Attitude to School Reopening before the Emergence of Omicron Variant of SARS-CoV-2: A Retrospective Web-based Survey",authors:"Mirahmadizadeh A, Heiran A, Sahebi R, Azadian F, Shahriarirad R, Sharifi MH",journal:"Health Management & Information Science",url:"https://jhmi.sums.ac.ir/article_48840.html"},
-  {n:87,year:"2022",type:"original",tags:[],cat:["infectious"],title:"Evaluation and Comparison of Mucormycosis Patients' Features Undergoing Functional Endoscopic Sinus Surgery Prior to and during the COVID-19 Pandemic: A Case-Control Study",authors:"Dehghanpisheh L, Eghbal MH, Salari M, Shahriarirad R, Borzou N, Vatankhah P*",journal:"International Journal of Clinical Practice",url:"https://www.hindawi.com/journals/ijclp/2022/1248325/"},
-  {n:88,year:"2022",type:"original",tags:[],cat:["infectious","ai","pulm"],title:"Prediction of Patients with COVID-19 Requiring Intensive Care: A Cross-sectional Study Based on Machine-learning Approach from Iran",authors:"Sabetian G, Azimi A*, Kazemi A*, Hoseini B, Asmarian N, Khaloo V, Zand F, Masjedi M, Shahriarirad R, Shahriarirad S",journal:"Indian Journal of Critical Care Medicine",url:"https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article"},
-  {n:89,year:"2022",type:"original",tags:[],cat:["infectious","transplant"],title:"Incidence, Clinicomicrobiological Characteristics, Risk Factors, and Treatment Outcomes of Bacterial Infections Following Liver Transplantation in Pediatrics: A Retrospective Cohort Study",authors:"Vazin A, Shahriarirad R, Malekhosseini SA, Shafiekhani M, Nikoupour H, Arasteh P",journal:"Archives of Pediatric Infectious Diseases",url:"https://brieflands.com/articles/apid-118809.html"},
-  {n:90,year:"2022",type:"original",tags:[],cat:["ortho"],title:"Evaluation of Crossover Sign in Pelvis Models Made with a Three-Dimensional Printer",authors:"Salimi A, Mirghaderi SP, Gholamzadeh MJ, Qahremani R, Hadizadeh A, Shahriarirad R, Shekouhi R",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2022/4665342/"},
-  {n:91,year:"2022",type:"review",tags:[],cat:["gi"],title:"Effects of Neuromodulation on Treatment of Recurrent Anal Fissure: A Systematic Review",authors:"Bananzadeh A, Sohooli M, Tahereh Shamsi T, Darabi MH, Shahriarirad R, Shekouhi R*",journal:"International Journal of Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381"},
-  {n:92,year:"2022",type:"review",tags:[],cat:["thoracic"],title:"The Effect of Suture Techniques on the Outcome of Tracheal Reconstruction: An Observational Study and Review of Literature",authors:"Ziaian B, Shahriarirad R, Fouladi D*, Mardani P, Amirian A, Kamran H",journal:"The Surgeon",url:"https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580"},
-  {n:93,year:"2022",type:"original",tags:["corresponding"],cat:["gi","transplant"],title:"Comparison of Oral Sirolimus, Prednisolone, and Combination of Both in Experimentally Induced Peritoneal Adhesion",authors:"Kazemi K, Hosseinzadeh A, Shahriarirad R*, Naseri R, Shamsaeefar A, Malekhosseini SA",journal:"Journal of Surgical Research",url:"https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287"},
-  {n:94,year:"2022",type:"original",tags:[],cat:["ortho","neuro"],title:"A Comparison between Effectiveness of Gluteal Trigger Point and Epidural Steroid Injection in Lumbosacral Canal Stenosis Patients: A Randomized Clinical Trial",authors:"Khoshnazar SS, Farpour HR*, Shahriarirad R",journal:"British Journal of Neurosurgery",url:"https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698"},
-  {n:95,year:"2022",type:"original",tags:[],cat:["plastic"],title:"Burn Injuries in People Who Used Drug, 2009-2017: A Case-Control Study in Shiraz, Southern Iran",authors:"Hoghoughi MA, Marzban MR, Shahrbaf MA, Shahriarirad R, Karoobi M, Ranjbar K",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346"},
-  {n:96,year:"2022",type:"original",tags:[],cat:["infectious","ai"],title:"A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images",authors:"Zare M, Akbarialiabad H, Parsaei H, Asgari Q, Alinejad A, Shahriarirad R, Abdollahifard G*",journal:"BMC Infectious Diseases",url:"https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7"},
-  {n:97,year:"2022",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Prevalence of Anxiety, Depression, Stress, and Perceived Stress and Their Relation with Resilience in the General Population during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Parvar SY, Ghamari N*, Pezeshkian F, Shahriarirad R",journal:"Health Science Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460"},
-  {n:98,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Serosurvey and Molecular Detection of Toxoplasma gondii in Dogs in Rural Areas of Kazeroun District, Fars Province, Southern Iran",authors:"Rezaei Z, Zeighami A, Shahriarirad R, Arefkhah N, Sarkari B",journal:"Journal of Parasitology Research",url:"https://www.hindawi.com/journals/jpr/2021/4499086/"},
-  {n:99,year:"2021",type:"review",tags:[],cat:["ortho"],title:"Transportal versus All-Inside Techniques of Anterior Cruciate Ligament Reconstruction: A Systematic Review",authors:"Bhimani R, Shahriarirad R, Ranjbar K, Erfani A*, Ashkani-Esfahani S",journal:"Journal of Orthopaedic Surgery and Research",url:"https://link.springer.com/article/10.1186/s13018-021-02872-x"},
-  {n:100,year:"2021",type:"original",tags:[],cat:["ortho"],title:"Evaluation of the Relationship between Vitamin D Levels and Related Serum Markers as Well as Disease Activity in Patients with Rheumatoid Arthritis",authors:"Moghimi N, Faridfar A, Jelodari Mamaghani H, Nikandish M, Shahriarirad R, Shenavandeh S",journal:"Journal of Bioengineering Research",url:"http://www.journalbe.com/article_140812.html"},
-  {n:101,year:"2021",type:"original",tags:[],cat:["endocrine"],title:"Comparison of Serologic Celiac Disease in Patients with Hypothyroidism and Healthy Controls: A Case-Control Study",authors:"Sheikhesmaeili F, Salimi M, Salimi A, Nikandish M, Shahriarirad R, Falahati A",journal:"Journal of Bioengineering Research",url:"http://www.journalbe.com/article_140814.html"},
-  {n:102,year:"2021",type:"original",tags:["corresponding"],cat:["plastic","pubhealth"],title:"Socioeconomic Features of Burn Injuries in Southern Iran: A Cross-sectional Study",authors:"Mohammadi AA, Hoghoughi MA, Karoobi M, Ranjbar K, Shahriarirad R*, Erfani A, Modarresi MS, Zardosht M",journal:"Journal of Burn Care & Research",url:"https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985"},
-  {n:103,year:"2021",type:"original",tags:["corresponding"],cat:["infectious","transplant"],title:"Evaluation of the Therapeutic Regimen in COVID-19 in Transplant Patients: Where do Immunomodulatory and Antivirals Stand?",authors:"Shafiekhani M, Shahabinezhad F, Niknam T, Tara SA, Hosseinpour P, Shahriarirad R*, Malekhosseini SA",journal:"BMC Clinical Virology",url:"https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2"},
-  {n:104,year:"2021",type:"original",tags:[],cat:["derm"],title:"Epidemiological Factors in Patients with Dermatologic Conditions Referring to the Clinic of Traditional Persian Medicine: A Cross-sectional Study",authors:"Parvizi MM*, Fatehi N, Jaladat AM, Gholampour Z, Shahriarirad R, Erfani A",journal:"International Journal of Clinical Practice",url:"https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788"},
-  {n:105,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Stereological Analysis of Liver, Spleen and Bone of Leishmania infantum-Experimentally Infected Hamsters",authors:"Modabberi F, Ghadimi SN, Shahriarirad R, Nadimi E, Karbalay-Doust S, Rashidi S, Sarkari B*",journal:"Experimental Parasitology",url:"https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746"},
-  {n:106,year:"2021",type:"review",tags:[],cat:[],title:"Therapeutic Effects of Stem Cells in Different Body Systems — A Novel Method that is Yet to Gain Trust: A Comprehensive Review",authors:"Ebrahimi A, Ahmadi H, Borhaninia M, Tanideh N*, Shahriarirad R, Erfani A, Ranjbar K, Ashkani-Esfahani S",journal:"Bosnian Journal of Basic Medical Sciences",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/"},
-  {n:107,year:"2021",type:"original",tags:[],cat:["gi","transplant"],title:"Experiences with Intestinal Failure from an Intestinal Rehabilitation Unit in a Country without Home Parenteral Nutrition",authors:"Nikoupour H, Arasteh P, Shamsaeefar A, Malekhosseini SA, Shafiekhani M*, Shahriarirad R, Kazemi K",journal:"Journal of Parenteral and Enteral Nutrition",url:"https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231"},
-  {n:108,year:"2021",type:"original",tags:[],cat:["gi"],title:"Prevalence of Helicobacter Pylori Infection Before and One Year After Classic Gastric Bypass Surgery",authors:"Valiee S, Hosseini B, Amini M, Haghighat N, Hosseinpour H, Moeinvaziri N*, Shahriarirad R, Tanideh N",journal:"Annals of Bariatric Surgery",url:"https://www.researchgate.net/publication/354862675"},
-  {n:109,year:"2021",type:"original",tags:["corresponding"],cat:["vascular","transplant","urology"],title:"Renal Revascularization by a Pedicled Intestinal Segment Wrapping the Kidney: A New Method for Kidney Revascularization",authors:"Hodjati H, Moosavi SM, Hosseinzadeh A, Anbardar MH, Sherafatmand S, Kazemnia K, Hosseinpour H, Shahriarirad R*",journal:"International Urology and Nephrology",url:"https://link.springer.com/article/10.1007/s11255-021-02897-5"},
-  {n:110,year:"2021",type:"review",tags:[],cat:["infectious"],title:"Prevalence of HBV and HCV Infections in Iranian Blood Donors: An Updated Systematic Review and Meta-Analysis",authors:"Kasraian L, Imanieh MH*, Tabrizi R, Shahriarirad R, Erfani A, Hosseini S",journal:"Middle East Journal of Digestive Diseases",url:"https://mejdd.org/index.php/mejdd/article/viewFile/2243/2208"},
-  {n:111,year:"2021",type:"original",tags:[],cat:["infectious"],title:"Cystic Echinococcosis: Knowledge, Attitude, and Practices (KAP) among Surgically Operated Cases in Fars Province, Southern Iran",authors:"Hosseini Z, Shahriarirad R, Sarkari B*",journal:"Journal of Parasitology Research",url:"https://www.hindawi.com/journals/jpr/2021/9976548/"},
-  {n:112,year:"2021",type:"original",tags:["corresponding"],cat:["thoracic","pulm"],title:"Evaluation of Lung Contusion, Associated Injuries, and Outcome in a Major Trauma Center in Shiraz, Southern Iran",authors:"Mardani P, Moayedi Rad M, Paydar S, Amirian A, Shahriarirad R*, Erfani A, Ranjbar K",journal:"Emergency Medicine International",url:"https://www.hindawi.com/journals/emi/2021/3789132/"},
-  {n:113,year:"2021",type:"original",tags:[],cat:["infectious","pulm"],title:"Methylprednisolone or Dexamethasone, Which One is Superior Corticosteroid in the Treatment of Hospitalized COVID-19 Patients: A Triple-blinded Randomized Controlled Trial",authors:"Ranjbar K, Moghadami M*, Mirahmadizadeh A, Fallahi MJ, Khaloo V, Shahriarirad R, Hosseinpour H, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-021-06045-3"},
-  {n:114,year:"2021",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"COVID-19 Infection among Healthcare Workers: A Cross-sectional Study in Southwest Iran",authors:"Sabetian G, Moghadami M, Haghighi LHF, Shahriarirad R*, Fallahi MJ, Asmarian N, Malekhosseini SA",journal:"Virology Journal",url:"https://link.springer.com/article/10.1186/s12985-021-01532-0"},
-  {n:115,year:"2021",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Students' Attitude and Sleep Pattern during School Closure following COVID-19 Pandemic Quarantine: A Web-based Survey in South of Iran",authors:"Ranjbar K, Hosseinpour H, Shahriarirad R, Ghaem H, Jafari K, Rahimi T, Mirahmadizadeh A*",journal:"Environmental Health and Preventive Medicine",url:"https://link.springer.com/article/10.1186/s12199-021-00950-4"},
-  {n:116,year:"2021",type:"original",tags:[],cat:["neuro"],title:"The Association between Emotional Stress, Sleep Disturbance, Depression, and Burning Mouth Syndrome",authors:"Rezazadeh F, Farahmand F, Hosseinpour H, Shahriarirad R, Sabet Eghlidi A*",journal:"BioMed Research International",url:"https://www.hindawi.com/journals/bmri/2021/5555316/"},
-  {n:117,year:"2021",type:"first",tags:["first","corresponding"],cat:["infectious","neuro"],title:"The Mental Health Impact of COVID-19 Outbreak: A Nationwide Survey in Iran",authors:"Shahriarirad R, Erfani A*, Ranjbar K, Bazrafshan A, Mirahmadizadeh A",journal:"International Journal of Mental Health Systems",url:"https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3"},
-  {n:118,year:"2021",type:"original",tags:[],cat:["vascular"],title:"An Investigation of the Knowledge of General Surgeons in Fars Province in Terms of the Complications of Central Venous Stenosis and Thrombosis Following Insertion of a Double-Lumen Subclavian Catheter",authors:"Ghoddusi Johari H, Fatehpoor S, Mardani P, Shahriarirad R, Ranjbar K*",journal:"Sadra Medical Journal",url:"https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html"},
-  {n:119,year:"2020",type:"original",tags:[],cat:["infectious","neuro","pubhealth"],title:"Evaluation of Students' Attitude and Emotions towards the Sudden Closure of Schools during the COVID-19 Pandemic: A Cross-sectional Study",authors:"Mirahmadizadeh A, Ranjbar K, Shahriarirad R, Erfani A, Ghaem H, Jafari K, Ranjbar K*",journal:"BMC Psychology",url:"https://link.springer.com/article/10.1186/s40359-020-00500-7"},
-  {n:120,year:"2020",type:"original",tags:[],cat:["infectious"],title:"Serosurvey of HBV Surface Antigen and Anti-HBV Surface Antibody among HIV-infected Patients in Fars Province, Southern Iran",authors:"Rastegarian M, Zeighami A, Shahriarirad R, Erfani A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",journal:"Le Infezioni in Medicina",url:"https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf"},
-  {n:121,year:"2020",type:"original",tags:["corresponding"],cat:["plastic","pubhealth"],title:"Suicide by Self-immolation in Southern Iran: An Epidemiological Study",authors:"Mohammadi AA, Karoobi M, Erfani A, Shahriarirad R, Ranjbar K*, Zardosht M, Modarresi MS",journal:"BMC Public Health",url:"https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z"},
-  {n:122,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Uncommon Locations of Cystic Echinococcosis: A Report of 46 Cases from Southern Iran",authors:"Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Sarkari B*",journal:"Surgery Research and Practice",url:"https://www.hindawi.com/journals/srp/2020/2061045/"},
-  {n:123,year:"2020",type:"original",tags:["first"],cat:["infectious"],title:"Seroprevalence of Anti-hepatitis E Antibodies and Antigens among HIV-infected Patients in Fars Province, Southern Iran",authors:"Shahriarirad R, Erfani A, Rastegarian M, Zeighami A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",journal:"BMC Virology",url:"https://link.springer.com/article/10.1186/s12985-020-01384-0"},
-  {n:124,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Human Cystic Echinococcosis in Southwest Iran: A 15-year Retrospective Epidemiological Study of Hospitalized Cases",authors:"Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Taghizadeh H, Sarkari B*",journal:"Tropical Medicine and Health",url:"https://link.springer.com/article/10.1186/s41182-020-00238-3"},
-  {n:125,year:"2020",type:"original",tags:["corresponding"],cat:["infectious","pubhealth"],title:"Frequency and Antimicrobial Susceptibility Patterns of Diabetic Foot Infection of Patients from Bandar Abbas District, Southern Iran",authors:"Ahmadishooli A, Davoodian P, Shoja S, Ahmadishooli B, Dadvand H, Hamadiyan H, Shahriarirad R*",journal:"Journal of Pathogens",url:"https://www.hindawi.com/journals/jpath/2020/1057167/"},
-  {n:126,year:"2020",type:"original",tags:[],cat:["infectious"],title:"Diagnostic Performance of Echinococcus granulosus Protoscolices Antigens in the Serodiagnosis of Human Cystic Echinococcosis",authors:"Shahabinejad P, Shahriarirad R, Omidian M, Ghorbani F, Barazesh A, Sarkari B*",journal:"Journal of Immunoassay and Immunochemistry",url:"https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653"},
-  {n:127,year:"2020",type:"original",tags:["first","corresponding"],cat:["infectious"],title:"Epidemiological and Clinical Features of 2019 Novel Coronavirus Diseases (COVID-19) in the South of Iran",authors:"Shahriarirad R, Khodamoradi Z, Erfani A, Hosseinpour H, Ranjbar K, Emami Y, Mirahmadizadeh A, Honarvar B",journal:"BMC Infectious Diseases",url:"https://link.springer.com/article/10.1186/s12879-020-05128-x"},
-  {n:128,year:"2020",type:"original",tags:[],cat:["plastic","pubhealth"],title:"Evaluation of Epilepsy and Burn Patterns in a Tertiary Hospital in Southwestern Iran",authors:"Mohammadi AA, Keshavarzi A, Erfani A, Modarresi MS, Shahriarirad R, Ranjbar K*",journal:"Epilepsy and Behavior",url:"https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929"},
-  {n:129,year:"2020",type:"original",tags:["corresponding"],cat:["ortho"],title:"Comparison of Accuracy in Expert Clinical Examination versus Magnetic Resonance Imaging and Arthroscopic Exam in Diagnosis of Meniscal Tear",authors:"Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2020/1895852/"},
-  {n:130,year:"2020",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz District in Fars Province, Southern Iran",authors:"Erfani A, Pouryousef A, Arefkhah N, Shahriarirad R, Rastegarian M, Zeighami A, Sarkari B*",journal:"Clinical Epidemiology and Global Health",url:"https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038"},
-  {n:131,year:"2020",type:"original",tags:[],cat:["vascular","transplant"],title:"Inferior Vena Cava Repair Using Diaphragm in Animal Model",authors:"Hodjati H, Hosseinzadeh A, Farzaneh BA*, Ghoddusi Johari H, Ebrahimi N, Anbardar MH, Shahriarirad R",journal:"Annals of Vascular Surgery",url:"https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928"},
-  {n:132,year:"2019",type:"original",tags:[],cat:["infectious"],title:"Seroepidemiological Study of Cystic Echinococcosis in Nomadic Communities in the Southwest of Iran: A Population-based Study",authors:"Moshfe A, Sarkari B, Arefkhah N, Nikbakht R, Shahriarirad R, Rezaei Z, Hosseini Z",journal:"Journal of Immunoassay and Immunochemistry",url:"https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974"},
-  {n:133,year:"2019",type:"original",tags:[],cat:["infectious"],title:"Attenuated Leishmania major Induce a High Level of Protection against Leishmania infantum in BALB/c Mice",authors:"Ghadimi SN, Homayoon L, Shahriarirad R, Fatehpour S, Rastegarian M, Sarkari B*",journal:"Iranian Journal of Parasitology",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/"},
-  {n:134,year:"2017",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Seroepidemiological Survey of Toxoplasmosis among Female University Students in Shiraz, Southern Iran",authors:"Taghizadeh H, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Khabisi SA, Sarkari B",journal:"Annals of Tropical Medicine and Public Health",url:""},
-  {n:135,year:"2017",type:"original",tags:[],cat:["infectious"],title:"Effect of Hydroalcoholic Extract of Echinacea purpurea in Combination with Meglumine Antimoniate on Treatment of Leishmania major-Induced Cutaneous Leishmaniasis in BALB/c Mice",authors:"Sarkari B, Mohseni M, Moein MR, Shahriarirad R, Asgari Q*",journal:"International Journal of Applied and Basic Medical Research",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/"},
-  {n:136,year:"2016",type:"original",tags:[],cat:["infectious"],title:"Effect of Topical Gel Prepared with Hydroalcoholic Extract of Echinacea purpurea on Treatment of Leishmania major-Induced Cutaneous Leishmaniasis in BALB/C Mice",authors:"Sarkari B, Sattari H, Moein MR, Tamadon AM, Shahriarirad R, Asgari Q*",journal:"Journal of Pharmaceutical Negative Results",url:"http://www.pnrjournal.com/index.php?mno=133709"},
-  {n:137,year:"2015",type:"original",tags:[],cat:["infectious","pubhealth"],title:"Population-based Seroprevalence of Malaria in Hormozgan Province, Southeastern Iran: A Low Transmission Area",authors:"Hatam GR, Nejati F, Mohammadzadeh T, Shahriarirad R, Sarkari B*",journal:"Malaria Research and Treatment",url:"https://downloads.hindawi.com/archive/2015/174570.pdf"},
-  /* Case Reports */
-  {n:138,year:"2024",type:"case",tags:[],cat:["vascular"],title:"Vascular Complications During Appendectomy; Severe Adhesion of the Appendix to the Right Iliac Artery: A Case Report",authors:"Hosseinzadeh A, Rezaeibana H, Khosravi MR, Sourani A, Yazdanshenas H, Shahriarirad R*",journal:"Journal of Medical Case Reports",url:"https://link.springer.com/article/10.1186/s13256-024-04794-8"},
-  {n:139,year:"2024",type:"case",tags:[],cat:["vascular"],title:"An Unsuspected Extracranial Internal Carotid Pseudoaneurysm Following Dog Bites: A Case Report and Review of Literature",authors:"Hosseinzadeh A, Shahriarirad R, Dalfardi F, Arianpour H, Zarimeidani F*",journal:"International Journal of Emergency Medicine",url:"https://link.springer.com/article/10.1186/s12245-024-00688-0"},
-  {n:140,year:"2024",type:"case",tags:[],cat:["infectious","neuro"],title:"Chronic Inflammatory Demyelinating Polyneuropathy following COVID-19 Vaccination: A Case Report and Literature Review",authors:"Bahramy MA, Hashempour Z*, Shahriarirad R",journal:"BMC Neurology",url:"https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3"},
-  {n:141,year:"2024",type:"case",tags:[],cat:["thoracic","transplant"],title:"Successful Bilateral Lung Transplantation in Pulmonary Alveolar Microlithiasis: A Case Report and Review of Literature",authors:"Mardani P, Naseri R, Shahriarirad R, Mahram H*, Shafi M, Dehghanian A, Ziaian B",journal:"The Clinical Respiratory Journal",url:"http://doi.org/10.1111/crj.13773"},
-  {n:142,year:"2024",type:"case",tags:[],cat:["thoracic","oncology"],title:"Pleural Epithelioid Hemangioendothelioma in a 39-Year-Old Female: A Case Report",authors:"Mardani P, Shahriarirad R, Nekooeian M, Anbardar MH, Ziaian B, Kamran H, Ayare N, Vafabin M, Fouladi D*",journal:"Journal of Cardiothoracic Surgery",url:"http://dx.doi.org/10.1186/s13019-024-02602-4"},
-  {n:143,year:"2024",type:"case",tags:["corresponding"],cat:["urology"],title:"Nephrotic Syndrome due to Focal Segmental Glomerulosclerosis Complicating Scleroderma: A Case Report",authors:"Mehdipour Dalivand M, Hadjiabbasi A, Ramezanzadeh E, Habibzadeh SM, Goudarzi K, Shahriarirad R, Zayeni H*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6"},
-  {n:144,year:"2023",type:"case",tags:["corresponding"],cat:["vascular"],title:"Aortoduodenal Fistula and Abdominal Aortic Aneurysm as a Complication of Brucella Aortitis managed with In Situ Aortic Aneurysm Repair: A Case Report",authors:"Hosseinzadeh A, Zehra J, Davarpanah MA, Moeini Farsani M, Ghasemi Gorji M, Shahriarirad R*",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269"},
-  {n:145,year:"2023",type:"case",tags:[],cat:["gi"],title:"Primary Abdominal Cocoon Syndrome Manifesting with Chilaiditi Syndrome and Intestinal Obstruction: A Case Report",authors:"Tajaddini A, Fallahi MM*, Haghshenas H, Nourmohammadi SS, Ghahramani L, Shahriarirad R",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363"},
-  {n:146,year:"2023",type:"case",tags:["corresponding"],cat:["transplant"],title:"Nonoperative Management of Biliopleural Fistula following Living-Donor Liver Transplantation: A Case Report",authors:"Kazemi K, Rasekhi A, Sohrabi Nazari S, Lashkarizadeh MM, Shamsaeefar A, Alikhani M, Akbari A, Shahriarirad R*",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210"},
-  {n:147,year:"2023",type:"case",tags:["corresponding"],cat:["thoracic","oncology"],title:"A Massive Immature Mediastinal Teratoma Treated with Chemotherapy and Surgical Resection: A Case Report",authors:"Mardani P, Kamran H, Ghaderpanah R, Geramizadeh B, Fouladi D, Shahriarirad R*, Amirian A",journal:"Journal of Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w"},
-  {n:148,year:"2023",type:"case",tags:["corresponding"],cat:["thoracic","oncology"],title:"Surgical Removal of an Unusual Huge Solitary Fibrous Tumor in the Mediastinum: A Case Report",authors:"Mardani P, Nekooeian M, Zangeneh S, Kamran H, Shahriarirad R*, Anbardar MH, Amirian A, Vafabin M",journal:"Journal of Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3"},
-  {n:149,year:"2023",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Bronchobiliary Fistulae as a Complication of Untreated Pulmonary Hydatid Cyst Presenting with Bilioptysis: A Report of Two Cases",authors:"Mardani P, Kamran H, Khosravi F, Shahriarirad R*, Amirian A, Ziaian B",journal:"Clinical Case Reports",url:"http://doi.org/10.1002/ccr3.7524"},
-  {n:150,year:"2023",type:"case",tags:[],cat:["plastic","derm"],title:"Coexistence of Mucinous Nevus and Multiple Collagenoma with Unilateral, Dermatomal, and Multi Segmental Distribution",authors:"Faghihi G, Moeine R, Mohaghegh F*, Rajabi P, Shahriarirad R",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.7429"},
-  {n:151,year:"2023",type:"case",tags:[],cat:["plastic","derm"],title:"Granuloma Annulare with Alopecia Areata in a 6-Years-Old Girl: A Case Report",authors:"Mohaghegh F*, Moeine R, Saber M, Fatemeh S, Nekooeian M, Shahriarirad R",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03864-7"},
-  {n:152,year:"2023",type:"case",tags:[],cat:[],title:"Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",authors:"Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2023/1553163/"},
-  {n:153,year:"2023",type:"case",tags:["co-first"],cat:["oncology"],title:"Extramedullary Relapse of Immunoglobulin A-Kappa Myeloma Manifesting as Plasmacytoma of the Pleura: A Case Report",authors:"Rezvani A, Shahriarirad R, Fallahi MJ, Zeighami A*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03765-9"},
-  {n:154,year:"2023",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Cavernous Mediastinal Hemangioma Presenting with Persistent Cough: A Rare Case Report and Review of Literature",authors:"Mardani P, Kamran H, Geramizadeh B, Darabi MH, Najafi M, Amirian A, Shahriarirad R*",journal:"Journal of Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7"},
-  {n:155,year:"2022",type:"case",tags:[],cat:["infectious"],title:"Necrotizing Autoimmune Myositis following Coronavirus Disease 2019 Infection: A Case Report",authors:"Loghman M, Rahmanian E, Alikhani M, Saffar H, Ziaadini B, Shahriarirad R, Faezi ST*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5"},
-  {n:156,year:"2022",type:"case",tags:["corresponding"],cat:["vascular","infectious"],title:"Lower Limb Lymphedema and Cellulitis as a Complication of COVID-19 Vaccine: A Case Report",authors:"Hosseinzadeh A, Ebrahimi K, Shahriarirad R*, Dalfardi F",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317"},
-  {n:157,year:"2022",type:"case",tags:[],cat:["infectious"],title:"COVID-19 Vaccine-Induced Vasculitis in a Patient with Sarcoidosis: A Case Report",authors:"Rahmanian E, Alikhani M*, Loghman M, Beikmohamadi Hezaveh S, Zangeneh S, Shahriarirad R, Faezi ST, Nejadhosseinian M",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501"},
-  {n:158,year:"2022",type:"case",tags:["corresponding"],cat:["vascular"],title:"Great Saphenous Vein Aneurysm Mimicking Inguinal Hernia: A Case Report",authors:"Ghoddusi Johari H, Malekhosseini H, Erfani A, Shahriarirad R*",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6"},
-  {n:159,year:"2022",type:"case",tags:[],cat:["oncology"],title:"Adenocarcinoma Metastasis from Colon to the Thyroid: A Case Report",authors:"Mardani P, Ayareh N, Kamran H, Shahriarirad R",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/cris/2022/8705143/"},
-  {n:160,year:"2022",type:"case",tags:["corresponding"],cat:["vascular"],title:"Spontaneous Rupture of a Large Splenic Artery Aneurysm in a 59-year-old Male Patient with Pemphigus Vulgaris: A Case Report",authors:"Hosseinzadeh A, Shahriarirad R*, Asgharzadeh Majdazar V, Moeini Farsani M, Tadayon SMK",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x"},
-  {n:161,year:"2022",type:"case",tags:[],cat:["plastic","derm"],title:"Pemphigus Vegetans Misdiagnosed as Condyloma Acuminata: A Case Report",authors:"Siadat AH, Moeine R*, Iraji F, Galehdari H, Shahriarirad R",journal:"Clinical Case Reports",url:"http://dx.doi.org/10.1002/ccr3.6393"},
-  {n:162,year:"2022",type:"case",tags:[],cat:["plastic","derm"],title:"Treatment of Vulvar Basal Cell Carcinoma with Slow-Mohs Micrographic Surgery: A Case Report",authors:"Asilian A, Moeine R*, Hafezi H, Shahriarirad R",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6442"},
-  {n:163,year:"2022",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Near-Complete Tracheal Obstruction Due to Mucormycosis: Report of Two Cases",authors:"Fallahi MJ, Nikandish R, Ziaian B, Shahriarirad R*",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278"},
-  {n:164,year:"2022",type:"case",tags:["corresponding"],cat:["thoracic","oncology"],title:"Primary Malignant Epithelioid Hemangioendothelioma of the Pleura: A Review and Report of a Novel Case",authors:"Rezvani A, Shahriarirad R*, Erfani A, Ranjbar K",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211"},
-  {n:165,year:"2022",type:"case",tags:["corresponding"],cat:["plastic"],title:"Subscapular Elastofibrolipoma Treated with Marginal Resection: A Report of Two Rare Cases",authors:"Mardani P, Kamran H, Ayare N, Shahriarirad R*, Anbardar MH, Amirian A",journal:"Journal of Medical Case Reports",url:"https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03522-4"},
-  {n:166,year:"2022",type:"case",tags:["corresponding"],cat:["gi"],title:"Gallbladder Agenesis without Additional Biliary Tracts Abnormality",authors:"Meshkati Yazd SM, Bayati H, Nabavizadeh SS, Shahriarirad R*",journal:"Case Reports in Gastrointestinal Medicine",url:"https://www.hindawi.com/journals/crigm/2022/3209658/"},
-  {n:167,year:"2022",type:"case",tags:["corresponding"],cat:["thoracic","oncology"],title:"Mediastinal Thymoma in A Patient with Previous Rectal and Breast Cancers: A Report of a Case with Multiple Primary Cancers and Review of Literature",authors:"Mardani P, Fallahi MM, Kamran H, Shahriarirad R*",journal:"Clinical Case Reports",url:"https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987"},
-  {n:168,year:"2022",type:"case",tags:[],cat:["thoracic"],title:"Tracheal Myoepithelioma Resected by Using Rigid Bronchoscopy: A Case Report and Review of the Literature",authors:"Mardani P, Ebrahimi K, Shahriarirad R, Geramizadeh B, Kamran H*, Ziaian B, Amirian A",journal:"Journal of Cardiothoracic Surgery",url:"https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0"},
-  {n:169,year:"2022",type:"case",tags:["corresponding"],cat:["vascular"],title:"Simultaneous Retrograde Venous and Anterograde Arterial Bullet Embolism: A Rare Case Report of Shotgun Pellet Embolism to the Heart and Popliteal Artery",authors:"Hosseinzadeh A, Moeini Farsani M, Mahmoudi MM, Tadayon SMK, Ghoddusi Johari H, Shahriarirad R*",journal:"BMC Journal of Medical Case Reports",url:"https://link.springer.com/article/10.1186/s13256-022-03414-7"},
-  {n:170,year:"2022",type:"case",tags:[],cat:["gi"],title:"Management of Drug-Induced Liver Injury with Persian Medicine: Case Report",authors:"Jaladat AM, Zareifar S, Daneshfard B*, Shahriarirad R",journal:"Integrative Medicine Reports",url:"https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006"},
-  {n:171,year:"2022",type:"case",tags:[],cat:[],title:"Antineutrophil Cytoplasmic Antibody-associated Vasculitis in Presence of Positive Antiphospholipid Antibody: A Case Report",authors:"Akhlaghi Kalahroodi M, Loghman M, Ramezanpoor M, Shahriarirad R, Rahmanian E*",journal:"BMC Journal of Medical Case Reports",url:"https://link.springer.com/article/10.1186/s13256-022-03256-3"},
-  {n:172,year:"2022",type:"case",tags:[],cat:["gi","oncology"],title:"A Large Undifferentiated Sarcoma of the Liver in a 13-year-old Girl Treated with Anatomical Resection: A Case Report and Review of the Literature",authors:"Bahador A, Forooghi M, Shahriarirad R, Geramizadeh B, Ataollahi M, Kamran H*",journal:"BMC Gastroenterology",url:"https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x"},
-  {n:173,year:"2021",type:"case",tags:[],cat:["gi"],title:"Management of Asymptomatic Perforation of a Pediatric Rectal Foreign Body into the Peritoneal Cavity Retrieved with Laparoscopy: A Case Report",authors:"Forooghi M, Hooman K*, Shahriarirad R",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2021/5851967/"},
-  {n:174,year:"2021",type:"case",tags:[],cat:["thoracic","infectious","pulm"],title:"Management of Pleural Empyema in a 12-year-old Obese Patient with COVID-19: A Pediatric Case Report",authors:"Abbasi R, Javanmardi F*, Mokhtari A, Hosseinpour P, Shahriarirad R, Ebrahimi K",journal:"BMC Pediatrics",url:"https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1"},
-  {n:175,year:"2021",type:"case",tags:[],cat:["vascular","ortho"],title:"Profunda Brachii Pseudoaneurysm following Supracondylar Fracture of Humerus Repair in an 8-Year-Old Boy: A Case Report and Review of Literature",authors:"Ghoddusi Johari H, Erfani MA, Erfani A*, Shahriarirad R, Karami MM",journal:"Case Reports in Orthopedics",url:"https://www.hindawi.com/journals/crior/2021/1768529/"},
-  {n:176,year:"2021",type:"case",tags:["first","corresponding"],cat:["infectious"],title:"Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease during the COVID-19 Pandemic",authors:"Shahriarirad R, Sanaei Dashti A*, Hajiani Ghotbabadi S",journal:"Case Reports in Pediatrics",url:"https://www.hindawi.com/journals/cripe/2021/9950588/"},
-  {n:177,year:"2021",type:"case",tags:[],cat:["urology"],title:"ROHHAD Syndrome an Inconspicuous Cause of Hypernatremia: A Case Report",authors:"Basiratnia M, Derakhshan D*, Foloudi D, Ranjbar K, Shahriarirad R",journal:"Iranian Journal of Kidney Diseases",url:""},
-  {n:178,year:"2021",type:"case",tags:[],cat:[],title:"Successful Use of 'Ma'oljobon', a Persian Medicine Product, in a Patient with Severe Chronic Cough: A Case Report",authors:"Jaladat AM, Ranjbar K*, Shahriarirad R, Salehi Z",journal:"Advances in Integrative Medicine",url:"https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458"},
-  {n:179,year:"2021",type:"case",tags:[],cat:["thoracic"],title:"Non-operative Management of Bilateral Contained Thoracic Esophageal Perforation: A Case Report",authors:"Amirian A, Shahriarirad R, Mardani P, Salimi M*",journal:"BMC Surgery",url:"https://link.springer.com/article/10.1186/s12893-021-01121-6"},
-  {n:180,year:"2021",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Main Bronchus Penetration by Thoracostomy Tube: A Rare Inadvertent Complication",authors:"Mardani P, Shahriarirad R*, Erfani A, Ranjbar K, Ziaian B, Amirian A, Kamran H",journal:"Bulletin of Emergency and Trauma",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/"},
-  {n:181,year:"2020",type:"case",tags:[],cat:["thoracic"],title:"Concomitant Pulmonary Hydatid Cyst and Aspergilloma: A Rare Co-infection",authors:"Zareshahrabadi Z, Sarkari B, Shamsolvaezin N, Ziaian B, Tootoonchi A, Shahriarirad R, Erfani A",journal:"Case Reports in Infectious Diseases",url:"https://www.hindawi.com/journals/criid/2020/6650478/"},
-  {n:182,year:"2020",type:"case",tags:[],cat:["thoracic"],title:"Intrapulmonary Mature Cystic Teratoma of the Lung: Case Report of a Rare Entity",authors:"Mardani P, Naseri R, Amirian A, Shahriarirad R, Anbardar MH, Fouladi D*, Ranjbar K",journal:"BMC Surgery",url:"https://link.springer.com/article/10.1186/s12893-020-00864-y"},
-  {n:183,year:"2020",type:"case",tags:[],cat:["vascular"],title:"Internal Jugular Vein Injury by Fishbone Ingestion",authors:"Amirian A, Ghoddusi Johari H, Karoobi M*, Shahriarirad R, Ranjbar K",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/crim/2020/9182379/"},
-  {n:184,year:"2020",type:"case",tags:["corresponding"],cat:["vascular"],title:"Median Arcuate Ligament Syndrome Presenting as Splenic Infarction",authors:"Ghoddusi Johari H, Eskandari S, Parvizi H, Farshadi M, Shahriarirad R*",journal:"The American Surgeon",url:"https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1"},
-  {n:185,year:"2020",type:"case",tags:["corresponding"],cat:["plastic","vascular"],title:"High Flow Scalp Arteriovenous Malformation: A Case Report",authors:"Ghoddusi Johari H, Shahriarirad R*, Erfani A, Darabi MH",journal:"World Journal of Plastic Surgery",url:"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/"},
-  {n:186,year:"2020",type:"case",tags:[],cat:["thoracic"],title:"Successful Management of a Huge Pulmonary Hydatid Cyst with Lung-Preserving Surgery",authors:"Amirian A, Ziaian B, Erfani A*, Shahriarirad R, Ranjbar K",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/cris/2020/9526406/"},
-  {n:187,year:"2020",type:"case",tags:["corresponding"],cat:["vascular"],title:"Massive Hemoptysis following Cannulation of Right Internal Jugular Vein for Insertion of Cuffed Hemodialysis Catheter: A Rare Complication of Central Venous Catheterization",authors:"Ghoddusi Johari H, Lashkarizadeh MM, Mardani P, Shahriarirad R*",journal:"The Journal of Vascular Access",url:"https://journals.sagepub.com/doi/full/10.1177/1129729820910304"},
-  {n:188,year:"2020",type:"case",tags:[],cat:["plastic","ortho"],title:"Masson's Tumor of the Hand: An Uncommon Histopathological Entity",authors:"Mardani P, Askari A, Shahriarirad R*, Ranjbar K, Erfani A, Anbardar MH, Moradmand S",journal:"Case Reports in Pathology",url:"https://www.hindawi.com/journals/cripa/2020/4348629/"},
-  {n:189,year:"2020",type:"case",tags:["corresponding"],cat:["thoracic"],title:"Misplacement of Tracheostomy Tube in Right Main Bronchus: A Rare Complication",authors:"Amirian A, Shahriarirad R*, Ziaian B, Mardani P, Erfani A",journal:"Case Reports in Surgery",url:"https://www.hindawi.com/journals/cris/2020/3597901/"},
-  /* Letters */
-  {n:190,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious","pulm"],title:"TB and the COVID-19 Pandemic: Brothers in Arms against Lung Health",authors:"Shahriarirad R, Fallahi MJ*",journal:"The International Journal of Tuberculosis and Lung Disease",url:"https://pubmed.ncbi.nlm.nih.gov/33126954/"},
-  {n:191,year:"2020",type:"letter",tags:["first","corresponding"],cat:["infectious"],title:"COVID-19: Clinical or Laboratory Diagnosis? A Matter of Debate",authors:"Shahriarirad R, Sarkari B*",journal:"Tropical Doctor",url:"https://journals.sagepub.com/doi/full/10.1177/0049475520945446"},
-  /* Correction for numbering — remaining 2 numbered from CV */
-  {n:192,year:"2022",type:"case",tags:[],cat:["ortho"],title:"Comparison of Accuracy in Expert Clinical Examination versus MRI and Arthroscopic Exam in Diagnosis of Meniscal Tear",authors:"Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",journal:"Advances in Orthopedics",url:"https://www.hindawi.com/journals/aorth/2020/1895852/"},
-  {n:193,year:"2023",type:"case",tags:[],cat:[],title:"Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",authors:"Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",journal:"Case Reports in Medicine",url:"https://www.hindawi.com/journals/crim/2023/1553163/"}
-];
+/* Metrics are cached at build time from data/profile.csv. */
 
-let currentFilter='all', currentCat='all', currentSearch='', showingAll=false;
-const SHOW=25;
+/* ── CACHED METRICS ───────────────────────────────────────────────────────────
+   Citation metrics are injected at build time from data/profile.csv.
+   The public page does not scrape metrics in the browser.
+──────────────────────────────────────────────────────────────────────────────── */
+function initCachedMetrics(){
+  document.querySelectorAll('.metrics-updated').forEach(el => {
+    el.setAttribute('aria-live', 'polite');
+  });
+}
+
+/* ── PUBLICATIONS ─────────────────────────────────────────────────────────────
+   The `publications` array is injected by build_html.py immediately before this
+   script block. Each entry: {n, year, type, title, authors, journal, url,
+   tags[], cat[], keywords[], highlight_topics[], featured}
+──────────────────────────────────────────────────────────────────────────────── */
+
+const mainGroupSubs = {
+  'surgery':          ['bariatric','endocrine','gi','oncology','ortho','plastic','thoracic','transplant','urosurg','vascular'],
+  'internal_medicine':['derm','infectious','neuro','pulm','urology'],
+  'ai':               ['computer_vision','machine_learning'],
+  'health_sciences':  ['education','epidemiology','health_systems','pubhealth'],
+};
+
+/* Multi-select dropdown filter state */
+let pubTypeSelections  = [];  // [] = all
+let pubTagSelections   = [];  // [] = all
+let currentCat         = 'all';
+let currentSearch      = '';
+let showingAll         = false;
+const SHOW             = 25;
 
 function boldName(str){
   return str.replace(/(Shahriarirad R\*?)/g,'<b>$1</b>');
 }
 
-/* Derive authorship tags from the authors string at runtime */
 function computeTags(authors){
-  const tags=[];
+  const tags = [];
   if(/Shahriarirad R\*/.test(authors)) tags.push('corresponding');
-  const parts=authors.split(',').map(s=>s.trim()).filter(s=>s.length>0);
-  const realParts=parts.filter(s=>!/^et\s+al/.test(s));
-  const pos=realParts.findIndex(s=>s.includes('Shahriarirad R'));
+  const parts     = authors.split(',').map(s=>s.trim()).filter(s=>s.length>0);
+  const realParts = parts.filter(s=>!/^et\s+al/i.test(s));
+  const pos       = realParts.findIndex(s=>s.includes('Shahriarirad R'));
   if(pos===0) tags.push('first');
   else if(pos===1) tags.push('co-first');
-  if(realParts.length>0 && realParts[realParts.length-1].includes('Shahriarirad R') && pos!==0){
+  if(realParts.length>0 && realParts[realParts.length-1].includes('Shahriarirad R') && pos!==0)
     tags.push('last');
-  }
   return tags;
 }
 
-const mainGroupSubs = {'surgery':["plastic", "thoracic", "vascular", "gi", "endocrine", "ortho", "urosurg", "transplant", "oncology"],'medicine':["infectious", "pulm", "neuro", "derm", "urology"],'ai':["ai"],'pubhealth':["pubhealth"]};
 function renderPubs(){
-  const list=document.getElementById('pub-list');
-  const countEl=document.getElementById('pub-count');
-  const moreEl=document.getElementById('pub-more');
-  const typeMap={original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter',first:'Original Article'};
-  const classMap={original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter',first:'badge-original'};
+  const list    = document.getElementById('pub-list');
+  const countEl = document.getElementById('pub-count');
+  const moreEl  = document.getElementById('pub-more');
 
-  const monthOrd={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
-  const sorted=[...publications].sort((a,b)=>{
-    const yd=parseInt(b.year)-parseInt(a.year);
-    if(yd!==0)return yd;
+  const typeMap  = {original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter'};
+  const classMap = {original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter'};
+
+  const sorted = [...publications].sort((a,b) => {
+    const yd = parseInt(b.year) - parseInt(a.year);
+    if(yd!==0) return yd;
+    const monthOrd={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
     return (monthOrd[b.month]||0)-(monthOrd[a.month]||0);
   });
-  let filtered=sorted.filter(p=>{
-    // ── Type / authorship filter ──
-    let matchType=true;
-    if(currentFilter==='all'){
-      matchType=true;
-    } else if(currentFilter==='original'){
-      matchType=p.type==='original'||p.type==='first';
-    } else if(currentFilter==='review'){
-      matchType=p.type==='review';
-    } else if(currentFilter==='case'){
-      matchType=p.type==='case';
-    } else if(currentFilter==='letter'){
-      matchType=p.type==='letter';
-    } else {
-      const tags=computeTags(p.authors);
-      matchType=tags.includes(currentFilter);
+
+  let filtered = sorted.filter(p => {
+    /* ── Type filter (multi-select OR) ── */
+    let matchType = true;
+    if(pubTypeSelections.length > 0){
+      matchType = pubTypeSelections.some(sel => {
+        if(sel==='original') return p.type==='original';
+        if(sel==='review')   return p.type==='review';
+        if(sel==='case')     return p.type==='case';
+        if(sel==='letter')   return p.type==='letter';
+        return false;
+      });
     }
 
-    // ── Category filter ──
-    let matchCat=true;
-    if(currentCat!=='all'){
+    /* ── Authorship filter (multi-select OR) ── */
+    let matchTag = true;
+    if(pubTagSelections.length > 0){
+      const tags = computeTags(p.authors);
+      matchTag = pubTagSelections.some(sel => tags.includes(sel));
+    }
+
+    /* ── Category filter ── */
+    let matchCat = true;
+    if(currentCat !== 'all'){
       if(currentCat.startsWith('main:')){
-        // Main group filter — match any sub category in this group
-        const groupSubs=mainGroupSubs[currentCat.slice(5)]||[];
-        matchCat=Array.isArray(p.cat)&&p.cat.some(c=>groupSubs.includes(c));
+        const groupSubs = mainGroupSubs[currentCat.slice(5)] || [];
+        matchCat = Array.isArray(p.cat) && p.cat.some(c => groupSubs.includes(c));
       } else {
-        matchCat=Array.isArray(p.cat)&&p.cat.includes(currentCat);
+        matchCat = Array.isArray(p.cat) && p.cat.includes(currentCat);
       }
     }
 
-    // ── Search ──
-    const q=currentSearch.toLowerCase();
-    const matchSearch=!q||p.title.toLowerCase().includes(q)||p.authors.toLowerCase().includes(q)||p.journal.toLowerCase().includes(q);
+    /* ── Search (title + authors + journal + keywords) ── */
+    const q = currentSearch.toLowerCase();
+    let matchSearch = true;
+    if(q){
+      const kw = Array.isArray(p.keywords) ? p.keywords.join(' ') : (p.keywords||'');
+      matchSearch = p.title.toLowerCase().includes(q)
+                 || p.authors.toLowerCase().includes(q)
+                 || p.journal.toLowerCase().includes(q)
+                 || kw.toLowerCase().includes(q);
+    }
 
-    return matchType&&matchCat&&matchSearch;
+    return matchType && matchTag && matchCat && matchSearch;
   });
 
-  const displayed=showingAll?filtered:filtered.slice(0,SHOW);
-  countEl.textContent=`Showing ${displayed.length} of ${filtered.length}`;
-  moreEl.style.display=(filtered.length>SHOW&&!showingAll)?'block':'none';
+  /* ── Highlight topics: sort matching pubs to top when cat filter active ── */
+  if(currentCat !== 'all' && !currentCat.startsWith('main:')){
+    const activeCat = currentCat;
+    filtered = [
+      ...filtered.filter(p => Array.isArray(p.highlight_topics) && p.highlight_topics.includes(activeCat)),
+      ...filtered.filter(p => !(Array.isArray(p.highlight_topics) && p.highlight_topics.includes(activeCat))),
+    ];
+  }
 
-  list.innerHTML=displayed.map(p=>{
-    const ym=p.month?`${p.month} ${p.year}`:p.year;
-    const badge=`<span class="pub-type-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span>`;
-    const titleHtml=p.url?`<a href="${p.url}" target="_blank">${p.title}</a>`:p.title;
-    const authHtml=boldName(p.authors);
-    const journalHtml=p.journalUrl?`<a href="${p.journalUrl}" target="_blank">${p.journal}</a>`:p.journal;
+  const displayed = showingAll ? filtered : filtered.slice(0, SHOW);
+  countEl.textContent = `Showing ${displayed.length} of ${filtered.length}`;
+  moreEl.style.display = (filtered.length > SHOW && !showingAll) ? 'block' : 'none';
+
+  list.innerHTML = displayed.map(p => {
+    const ym    = p.month ? `${p.month} ${p.year}` : p.year;
+    const badge = `<span class="pub-type-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span>`;
+    const star  = p.featured === 'yes' ? '<span class="pub-star-badge" title="Featured publication">&#11088;</span>' : '';
+    const titleHtml = p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title}</a>` : p.title;
+    const authHtml  = boldName(p.authors);
     return `<div class="pub-item">
-      <div class="pub-year-col">${ym}${badge}</div>
+      <div class="pub-year-col">${ym}${badge}${star}</div>
       <div>
         <div class="pub-title">${titleHtml}</div>
         <div class="pub-authors">${authHtml}</div>
-        <div class="pub-journal">${journalHtml}</div>
+        <div class="pub-journal"><em>${p.journal}</em></div>
       </div>
     </div>`;
   }).join('');
 }
 
+function showAllPubs(){ showingAll=true; renderPubs(); }
 
-
+/* ── Topic category filter (tree buttons in sidebar) ── */
 function filterPubsMain(btn){
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && currentCat === 'main:'+groupKey;
   showingAll = false;
-  document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active','has-active','open'));
+  document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
+    .forEach(b=>b.classList.remove('active','has-active','open'));
   document.getElementById('cat-all-btn')?.classList.remove('active');
   const sub = document.getElementById('grp-'+groupKey);
   if(isActive){
@@ -365,287 +177,278 @@ function filterPubsMain(btn){
     btn.classList.add('active','has-active','open');
     currentCat = 'main:'+groupKey;
   }
+  syncPressed('.pub-filter-sidebar');
   renderPubs();
 }
+
+function filterPubs(val, btn, dimension){
+  showingAll = false;
+  if(dimension === 'cat'){
+    currentCat = val;
+    document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
+      .forEach(b=>b.classList.remove('active','has-active'));
+    document.getElementById('cat-all-btn')?.classList.remove('active');
+    if(val === 'all'){
+      document.getElementById('cat-all-btn')?.classList.add('active');
+    } else {
+      btn.classList.add('active');
+      const parent = btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
+      if(parent) parent.classList.add('has-active');
+      const sub = btn.closest('.filter-sub-group');
+      if(sub){ sub.style.display='block'; sub.previousElementSibling?.classList.add('open'); }
+    }
+  }
+  syncPressed('.pub-filter-sidebar');
+  renderPubs();
+}
+
+/* ── Custom multi-select dropdown ─────────────────────────────────────────── */
+function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
+  const btn   = document.getElementById(btnId);
+  const panel = document.getElementById(panelId);
+  if(!btn || !panel) return;
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = panel.classList.contains('open');
+    document.querySelectorAll('.custom-dropdown-panel.open').forEach(p=>p.classList.remove('open'));
+    document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>b.classList.remove('open'));
+    if(!isOpen){
+      panel.classList.add('open');
+      btn.classList.add('open');
+    }
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  panel.addEventListener('click', e => {
+    const opt = e.target.closest('.custom-dropdown-option');
+    if(!opt) return;
+    const val = opt.dataset.value;
+    const chk = opt.querySelector('input[type=checkbox]');
+    if(val === 'all'){
+      panel.querySelectorAll('input[type=checkbox]').forEach(c=>{c.checked=false;c.closest('.custom-dropdown-option').classList.remove('selected')});
+    } else {
+      if(chk){
+        chk.checked = !chk.checked;
+        opt.classList.toggle('selected', chk.checked);
+        opt.setAttribute('aria-selected', chk.checked ? 'true' : 'false');
+      }
+      panel.querySelector('[data-value=all]')?.classList.remove('selected');
+    }
+    const selected = [...panel.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.value);
+    btn.classList.toggle('has-selection', selected.length > 0);
+    const label = btn.querySelector('.dropdown-label');
+    if(label) label.textContent = selected.length === 0 ? defaultLabel : (selected.length === 1 ? panel.querySelector(`[data-value="${selected[0]}"] .opt-label`)?.textContent||defaultLabel : `${selected.length} selected`);
+    onChangeCallback(selected);
+  });
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.custom-dropdown-panel.open').forEach(p=>p.classList.remove('open'));
+  document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>{b.classList.remove('open'); b.setAttribute('aria-expanded','false');});
+});
+
+/* ── Research topic tag click → scroll to publications + apply filter ── */
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.research-tag[data-cat]').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const cat = tag.dataset.cat;
+      currentCat = cat;
+      showingAll  = false;
+      document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
+        .forEach(b=>b.classList.remove('active','has-active'));
+      document.getElementById('cat-all-btn')?.classList.remove('active');
+      const btn = document.querySelector(`.filter-sub-btn[data-cat="${cat}"]`);
+      if(btn){
+        btn.classList.add('active');
+        const parent = btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
+        if(parent){ parent.classList.add('has-active','open'); }
+        const sub = btn.closest('.filter-sub-group');
+        if(sub) sub.style.display = 'block';
+      }
+      renderPubs();
+      document.getElementById('publications')?.scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  /* ── Init publication type dropdown ── */
+  initCustomDropdown('pub-type-btn','pub-type-panel','All Types', selected => {
+    pubTypeSelections = selected; showingAll=false; renderPubs();
+  });
+
+  /* ── Init authorship dropdown ── */
+  initCustomDropdown('pub-auth-btn','pub-auth-panel','All Roles', selected => {
+    pubTagSelections = selected; showingAll=false; renderPubs();
+  });
+
+  /* ── Init presentation type dropdown ── */
+  initCustomDropdown('pres-type-btn','pres-type-panel','All Types', selected => {
+    presDropFilters.type = selected; applyPresFilters();
+  });
+
+  /* ── Init presentation location dropdown ── */
+  initCustomDropdown('pres-loc-btn','pres-loc-panel','All Locations', selected => {
+    presDropFilters.location = selected; applyPresFilters();
+  });
+
+  renderPubs();
+  renderRepos();
+  renderRefs();
+  renderJournals();
+  initCachedMetrics();
+  syncPressed('.pub-filter-sidebar');
+  syncPressed('.pres-filter-sidebar');
+});
+
+/* ── JOURNALS REVIEWED ── */
+function renderJournals(){
+  const el = document.getElementById('journal-grid');
+  if(!el) return;
+  el.innerHTML = journals.map(j =>
+    j.url
+      ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer" class="journal-pill">${j.name} ↗</a>`
+      : `<span class="journal-pill">${j.name}</span>`
+  ).join('');
+}
+
+/* ── PRESENTATIONS FILTER ─────────────────────────────────────────────────── */
+let presFilters    = {cat: null, search: ''};
+let presDropFilters= {type: [], location: []};
 
 function filterPresMain(btn){
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && presFilters.cat === 'main:'+groupKey;
-  document.querySelectorAll('.pres-filter-sidebar .filter-main-btn,.pres-filter-sidebar .filter-sub-btn').forEach(b=>b.classList.remove('active','has-active','open'));
+  document.querySelectorAll('.pres-filter-sidebar .filter-main-btn,.pres-filter-sidebar .filter-sub-btn')
+    .forEach(b=>b.classList.remove('active','has-active','open'));
   const sub = document.getElementById('pgrp-'+groupKey);
   if(isActive){
-    if(sub) sub.style.display = 'none';
+    if(sub) sub.style.display='none';
     presFilters.cat = null;
   } else {
-    if(sub) sub.style.display = 'block';
+    if(sub) sub.style.display='block';
     btn.classList.add('active','has-active','open');
     presFilters.cat = 'main:'+groupKey;
   }
+  syncPressed('.pres-filter-sidebar');
   applyPresFilters();
 }
 
-function toggleFilterGroup(btn, groupKey){
-  const sub = document.getElementById('grp-'+groupKey);
-  if(!sub) return;
-  const isOpen = sub.style.display !== 'none';
-  sub.style.display = isOpen ? 'none' : 'block';
-  btn.classList.toggle('open', !isOpen);
-}
-// Also expand group when a sub-filter is active
-function expandGroupForCat(cat){
-  document.querySelectorAll('.filter-sub-btn').forEach(b => {
-    if(b.textContent && b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+cat+"'")){
-      const grpId = b.closest('.filter-sub-group')?.id;
-      if(grpId){
-        document.getElementById(grpId).style.display = 'block';
-        const mainBtn = document.getElementById(grpId).previousElementSibling;
-        if(mainBtn) mainBtn.classList.add('open');
-      }
-    }
-  });
-}
-
-function filterPubs(val, btn, dimension){
-  showingAll=false;
-  if(dimension==='type'){
-    currentFilter=val;
-    document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>{
-      if(!b.classList.contains('filter-main-btn')&&!b.classList.contains('filter-sub-btn'))
-        b.classList.remove('active');
-    });
-  } else {
-    currentCat=val;
-    // Remove active from all cat buttons
-    document.querySelectorAll('.pub-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
-    document.getElementById('cat-all-btn')?.classList.remove('active');
-    // Mark parent main-btn if subcategory selected
-    if(val!=='all'){
-      const parent=btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
-      if(parent) parent.classList.add('has-active');
-      // Ensure sub-group is open
-      const sub=btn.closest('.filter-sub-group');
-      if(sub){sub.style.display='block';sub.previousElementSibling?.classList.add('open');}
-    } else {
-      document.querySelectorAll('.filter-main-btn').forEach(b=>b.classList.remove('has-active'));
-    }
-  }
-  btn.classList.add('active');
-  renderPubs();
-}
-function searchPubs(v){currentSearch=v;showingAll=false;renderPubs()}
-function showAllPubs(){showingAll=true;renderPubs()}
-renderPubs();
-
-
-/* ── DOWNLOAD CV (self-updating DOCX) ─────────────────────────────────────────
-   Downloads a Word document matching the uploaded CV format, with live-updated
-   citations, H-index, peer reviews, and full publication list.
-   Uses the docx.js library loaded below.
-─────────────────────────────────────────────────────────────────────────────── */
-
-// Static base64 DOCX (generated from current data) — used as instant fallback
-const STATIC_CV_B64 = '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';
-
-function downloadCV() {
-  /* Try to generate a fresh DOCX with live data via the Anthropic API.
-     Falls back to the embedded static DOCX if the API call fails or takes too long. */
-  const btn = document.querySelector('.btn-pdf');
-  const origHTML = btn.innerHTML;
-  btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor"/></svg> Generating…';
-  btn.style.opacity = '0.7';
-
-  const reset = () => { btn.innerHTML = origHTML; btn.style.opacity = '1'; };
-
-  // Collect live data
-  const citations = liveData.citations || '3,248';
-  const hindex = liveData.hindex || '24';
-  const peerReviews = String(liveData.peerReviews || '149');
-  const journals = String(liveData.journals || '67');
-  const today = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
-
-  // Call Anthropic API to regenerate the CV with fresh data
-  const pubsJSON = JSON.stringify(publications.map(p => ({
-    n: p.n, year: p.year, type: p.type,
-    title: p.title, authors: p.authors, journal: p.journal, url: p.url || ''
-  })));
-
-  const systemPrompt = `You are a CV generator. You will receive JSON data and must return ONLY a valid base64-encoded .docx file (Word document) — no explanation, no markdown, just the raw base64 string.
-
-Generate a professional academic CV in Word format (.docx) for Dr. Reza Shahriarirad, M.D. matching the structure of the original uploaded CV exactly:
-- Name header with contact links
-- Personal Information table (citations: ${citations}, H-index: ${hindex}, peer reviews: ${peerReviews})  
-- Education, Experience, Awards, Leadership, Skills, Patents sections
-- Publications summary metrics table
-- Editor & Reviewer Experience (${peerReviews} peer reviews, ${journals} journals)
-- Presentations, Languages/Hobbies, References
-- Appendix A: Full publication list (all ${publications.length} publications)
-- Appendix B: Journals reviewed list
-- Appendix C: Presentations list
-- Date: ${today}
-
-Return ONLY the base64-encoded docx. No other text.`;
-
-  Promise.race([
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: `Generate the CV docx. Publications data: ${pubsJSON.substring(0,500)}... [truncated for API call - use static version]` }],
-        system: systemPrompt,
-      })
-    }).then(() => { throw new Error('Use static'); }),
-    new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 500))
-  ]).catch(() => {
-    // Always use the enhanced static version with live data spliced in
-    downloadStaticCV(citations, hindex, peerReviews, journals, today);
-    reset();
-  });
-}
-
-function downloadStaticCV(citations, hindex, peerReviews, journals, today) {
-  /* Download the static embedded DOCX. The static version was generated with
-     the publication data at build time. The filename includes today's date. */
-  const date = new Date().toISOString().slice(0,10);
-  const link = document.createElement('a');
-  link.href = 'data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,' + STATIC_CV_B64;
-  link.download = `Shahriarirad_Reza_CV_${date}.docx`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
-/* ── JOURNALS REVIEWED ── */
-// DATA: journals array injected by build_html.py
-document.getElementById('journal-grid').innerHTML=journals.map(j=>
-  j.url
-    ? `<a href="${j.url}" target="_blank" class="journal-pill">${j.name} ↗</a>`
-    : `<span class="journal-pill">${j.name}</span>`
-).join('');
-
-
-function togglePresGroup(btn, groupKey){
-  const sub = document.getElementById('pgrp-'+groupKey);
-  if(!sub) return;
-  const isOpen = sub.style.display !== 'none';
-  sub.style.display = isOpen ? 'none' : 'block';
-  btn.classList.toggle('open', !isOpen);
-}
-
-/* ── PRESENTATIONS FILTER ── */
-let presFilters = {type: null, location: null, cat: null, search: ''};
 function filterPres(dim, val, btn){
-  if(presFilters[dim] === val){ presFilters[dim] = null; btn.classList.remove('active');
+  if(presFilters[dim] === val){
+    presFilters[dim] = null; btn.classList.remove('active');
     if(dim==='cat') btn.closest('.filter-main-group')?.querySelector('.filter-main-btn')?.classList.remove('has-active');
   } else {
     btn.closest('.pres-filter-group')?.querySelectorAll('.filter-btn:not(.filter-main-btn)').forEach(b=>b.classList.remove('active'));
     presFilters[dim] = val; btn.classList.add('active');
     if(dim==='cat'){
-      const parent=btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
+      const parent = btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
       if(parent) parent.classList.add('has-active');
-      const sub=btn.closest('.filter-sub-group');
-      if(sub){sub.style.display='block';sub.previousElementSibling?.classList.add('open');}
+      const sub = btn.closest('.filter-sub-group');
+      if(sub){ sub.style.display='block'; sub.previousElementSibling?.classList.add('open'); }
     }
   }
+  syncPressed('.pres-filter-sidebar');
   applyPresFilters();
 }
+
 function resetPresFilters(btn){
-  presFilters = {type:null, location:null, cat:null, search:''};
+  presFilters = {cat:null, search:''};
+  presDropFilters = {type:[], location:[]};
   document.querySelectorAll('.pres-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   const searchEl = document.getElementById('pres-search');
-  if(searchEl) searchEl.value = '';
+  if(searchEl) searchEl.value='';
+  /* Reset dropdowns */
+  ['pres-type-panel','pres-loc-panel'].forEach(id=>{
+    const panel=document.getElementById(id);
+    if(panel) panel.querySelectorAll('input[type=checkbox]').forEach(c=>{c.checked=false;c.closest('.custom-dropdown-option').classList.remove('selected');});
+  });
+  ['pres-type-btn','pres-loc-btn'].forEach(id=>{
+    const btn=document.getElementById(id);
+    if(btn){ btn.classList.remove('has-selection','open'); const lbl=btn.querySelector('.dropdown-label'); if(lbl) lbl.textContent=lbl.dataset.default; }
+  });
+  syncPressed('.pres-filter-sidebar');
   applyPresFilters();
 }
+
 function filterPresSearch(q){
   presFilters.search = q.toLowerCase();
   applyPresFilters();
 }
+
 function applyPresFilters(){
   const items = document.querySelectorAll('#pres-list .pres-item');
   let shown = 0;
   items.forEach(item => {
     const type = item.dataset.type || '';
     const loc  = item.dataset.location || '';
-    const cats = (item.dataset.cats || '').split(',');
+    const cats = (item.dataset.cats || '').split(',').filter(Boolean);
     const text = item.textContent.toLowerCase();
+
     let catMatch = true;
     if(presFilters.cat){
       if(presFilters.cat.startsWith('main:')){
         const groupSubs = mainGroupSubs[presFilters.cat.slice(5)] || [];
-        catMatch = cats.some(c => groupSubs.includes(c));
+        catMatch = cats.some(c=>groupSubs.includes(c));
       } else {
         catMatch = cats.includes(presFilters.cat);
       }
     }
-    const ok =
-      (!presFilters.type     || type === presFilters.type) &&
-      (!presFilters.location || loc  === presFilters.location) &&
-      catMatch &&
-      (!presFilters.search   || text.includes(presFilters.search));
+
+    const typeOk = presDropFilters.type.length===0 || presDropFilters.type.includes(type);
+    const locOk  = presDropFilters.location.length===0 || presDropFilters.location.some(l=>loc.includes(l));
+
+    const ok = typeOk && locOk && catMatch && (!presFilters.search || text.includes(presFilters.search));
     item.style.display = ok ? '' : 'none';
     if(ok) shown++;
   });
   const countEl = document.getElementById('pres-count');
-  if(countEl) countEl.textContent = shown + ' presentation' + (shown !== 1 ? 's' : '');
+  if(countEl) countEl.textContent = shown + ' presentation' + (shown!==1?'s':'');
 }
 
 /* ── REFERENCES ── */
-// DATA: refs array injected by build_html.py
-document.getElementById('refs-grid').innerHTML=refs.map(r=>`
+function renderRefs(){
+  const el = document.getElementById('refs-grid');
+  if(!el) return;
+  el.innerHTML = refs.map(r=>`
   <div class="ref-card">
     <div class="ref-name">${r.name}</div>
     <div class="ref-role">${r.role}<br><em style="font-size:.73rem">${r.inst}</em></div>
-    <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" class="ref-link">${l.label} ↗</a>`).join('')}</div>
+    <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="ref-link">${l.label} ↗</a>`).join('')}</div>
   </div>`).join('');
-
-
+}
 
 /* ── OPEN SOURCE REPOS ── */
-// DATA: openSourceRepos array injected by build_html.py
 function renderRepos(){
-  const grid=document.getElementById('repos-grid');
-  if(!grid)return;
-  if(!openSourceRepos.length){
-    grid.innerHTML='<div class="repo-empty">No repositories added yet. Add via the admin panel or GitHub.</div>';
-    return;
-  }
+  const grid = document.getElementById('repos-grid');
+  if(!grid) return;
+  if(!openSourceRepos.length){ grid.innerHTML=''; return; }
   const langColor={Python:'#3572A5',R:'#198CE7',JavaScript:'#f1e05a',TypeScript:'#2b7489',MATLAB:'#e16737',Shell:'#89e051'};
-  grid.innerHTML=openSourceRepos.map(r=>{
-    const lc=langColor[r.language]||'#6b84a0';
-    const langEl=r.language?`<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${r.language}</span>`:'';
-    const metaParts=[];
-    if(r.stars)metaParts.push(`⭐ ${r.stars}`);
-    if(r.forks)metaParts.push(`🍴 ${r.forks}`);
-    const metaEl=metaParts.length?`<div class="repo-meta">${metaParts.join(' <span style="opacity:.35">·</span> ')}</div>`:'';
-    const links=[
-      r.url?`<a href="${r.url}" target="_blank" class="repo-link primary">GitHub →</a>`:'',
-      r.demo?`<a href="${r.demo}" target="_blank" class="repo-link">Deployment ↗</a>`:'',
-      r.paper?`<a href="${r.paper}" target="_blank" class="repo-link">Paper ↗</a>`:''
+  grid.innerHTML = openSourceRepos.map(r=>{
+    const lc = langColor[r.language]||'#6b84a0';
+    const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${r.language}</span>` : '';
+    const links = [
+      r.url   ? `<a href="${r.url}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
+      r.demo  ? `<a href="${r.demo}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
+      r.paper ? `<a href="${r.paper}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
     ].filter(Boolean).join('');
-    return`<div class="repo-card">
+    return `<div class="repo-card">
       <div class="repo-card-header">
-        <span class="repo-card-icon">${r.icon||'⚗️'}</span>
-        <span class="repo-card-name">${r.url?`<a href="${r.url}" target="_blank">${r.name}</a>`:r.name}</span>
+        <span class="repo-card-icon">${r.icon||'🔬'}</span>
+        <span class="repo-card-name">${r.url?`<a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.name}</a>`:r.name}</span>
         ${langEl}
       </div>
       ${r.desc?`<p class="repo-desc">${r.desc}</p>`:''}
-      ${metaEl}
       ${links?`<div class="repo-links">${links}</div>`:''}
     </div>`;
   }).join('');
 }
 
-/* ── Start Scholar fetch on page load ── */
-if(document.readyState!=='loading'){fetchScholarData();renderRepos();}
-else document.addEventListener('DOMContentLoaded',()=>{fetchScholarData();renderRepos();});
-
-/* ── EMAIL PROTECTION: reconstruct addresses from split parts ── */
+/* ── EMAIL PROTECTION ── */
 document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('a.cf-email').forEach(function(a){
     const email = a.dataset.u + '@' + a.dataset.d;
     a.textContent = email;
-    a.href = 'mai' + 'lto:' + email;
+    a.href = 'mai'+'lto:'+email;
   });
 });

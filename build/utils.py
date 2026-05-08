@@ -6,37 +6,46 @@ ROOT = pathlib.Path(__file__).parent.parent
 DATA = ROOT / "data"
 
 TAXONOMY = {
-    "surgery": {
-        "label": "Surgery",
+    "ai": {
+        "label": "Artificial Intelligence",
         "subs": {
-            "plastic":   "Plastic, Reconstructive & Burns",
-            "thoracic":  "Thoracic Surgery",
-            "vascular":  "Vascular Surgery",
-            "gi":        "GI & Colorectal Surgery",
-            "endocrine": "Endocrine Surgery",
-            "ortho":     "Orthopaedic Surgery",
-            "urosurg":   "Urological Surgery",
-            "transplant":"Transplant Surgery",
-            "oncology":  "Surgical Oncology",
+            "computer_vision": "Computer Vision",
+            "machine_learning": "Machine Learning",
         },
     },
-    "medicine": {
+    "health_sciences": {
+        "label": "Health Sciences",
+        "subs": {
+            "education":      "Medical Education",
+            "epidemiology":   "Epidemiology",
+            "health_systems": "Health Systems & Policy",
+            "pubhealth":      "Public Health",
+        },
+    },
+    "internal_medicine": {
         "label": "Internal Medicine",
         "subs": {
-            "infectious": "Infectious Disease",
-            "pulm":       "Pulmonology",
-            "neuro":      "Neurology",
             "derm":       "Dermatology",
+            "infectious": "Infectious Disease",
+            "neuro":      "Neurology",
+            "pulm":       "Pulmonology",
             "urology":    "Urology",
         },
     },
-    "ai": {
-        "label": "Artificial Intelligence",
-        "subs": {"ai": "AI & Machine Learning"},
-    },
-    "pubhealth": {
-        "label": "Public Health",
-        "subs": {"pubhealth": "Public Health & Epidemiology"},
+    "surgery": {
+        "label": "Surgery",
+        "subs": {
+            "bariatric":  "Bariatric & Metabolic Surgery",
+            "endocrine":  "Endocrine Surgery",
+            "gi":         "GI & Colorectal Surgery",
+            "oncology":   "Surgical Oncology",
+            "ortho":      "Orthopaedic Surgery",
+            "plastic":    "Plastic, Reconstructive & Burns",
+            "thoracic":   "Thoracic Surgery",
+            "transplant": "Transplant Surgery",
+            "urosurg":    "Urological Surgery",
+            "vascular":   "Vascular Surgery",
+        },
     },
 }
 
@@ -46,12 +55,17 @@ CAT_LABELS = {
     for sub, label in grp["subs"].items()
 }
 
+# Flat set of all valid sub-keys
+ALL_VALID_CAT_KEYS = set(CAT_LABELS.keys())
+
 
 def load_all_data() -> dict:
     """Load every CSV from /data/ into a dict of DataFrames keyed by file stem."""
     result = {}
     for csv_path in DATA.glob("*.csv"):
-        result[csv_path.stem] = pd.read_csv(csv_path, dtype=str, keep_default_na=False)
+        result[csv_path.stem] = pd.read_csv(
+            csv_path, dtype=str, keep_default_na=False, comment="#"
+        )
     return result
 
 

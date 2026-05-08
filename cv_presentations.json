@@ -6,8 +6,11 @@
     "type": "poster",
     "title": "Mayo Obesity Staging Index: A Novel Obesity Classification System",
     "venue": "American Society for Metabolic and Bariatric Surgery (ASMBS)",
+    "conference": "",
     "location": "United States",
-    "cat": []
+    "cat": [],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Jun 2026",
@@ -20,7 +23,9 @@
     "location": "United States",
     "cat": [
       "plastic"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Mar 2026",
@@ -34,7 +39,9 @@
     "cat": [
       "oncology",
       "gi"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Dec 2025",
@@ -47,7 +54,9 @@
     "location": "United States",
     "cat": [
       "ortho"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Oct 2025",
@@ -60,8 +69,10 @@
     "location": "United States",
     "cat": [
       "plastic",
-      "ai"
-    ]
+      "machine_learning"
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Oct 2025",
@@ -74,8 +85,10 @@
     "location": "United States",
     "cat": [
       "plastic",
-      "ai"
-    ]
+      "machine_learning"
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Jul 2025",
@@ -87,8 +100,10 @@
     "conference": "Mayo Clinic AI Summit",
     "location": "United States",
     "cat": [
-      "ai"
-    ]
+      "machine_learning"
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Apr 2025",
@@ -101,7 +116,9 @@
     "location": "United States",
     "cat": [
       "thoracic"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Dec 2022",
@@ -114,9 +131,10 @@
     "location": "Iran",
     "cat": [
       "infectious",
-      "transplant",
-      "infectious"
-    ]
+      "transplant"
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Oct 2022",
@@ -130,7 +148,9 @@
     "cat": [
       "gi",
       "oncology"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Oct 2021",
@@ -144,7 +164,9 @@
     "cat": [
       "plastic",
       "pubhealth"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Jul 2021",
@@ -158,7 +180,9 @@
     "cat": [
       "gi",
       "transplant"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Sep 2020",
@@ -170,9 +194,10 @@
     "conference": "PReS European Paediatric Rheumatology Congress",
     "location": "Netherlands",
     "cat": [
-      "infectious",
       "infectious"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Oct 2019",
@@ -186,7 +211,9 @@
     "cat": [
       "infectious",
       "pubhealth"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Apr 2016",
@@ -199,7 +226,9 @@
     "location": "Iran",
     "cat": [
       "gi"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Mar 2016",
@@ -212,7 +241,9 @@
     "location": "Iran",
     "cat": [
       "pulm"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Jun 2015",
@@ -225,7 +256,9 @@
     "location": "Netherlands",
     "cat": [
       "gi"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   },
   {
     "date": "Jun 2015",
@@ -238,6 +271,8 @@
     "location": "Netherlands",
     "cat": [
       "gi"
-    ]
+    ],
+    "keywords": [],
+    "featured": ""
   }
 ]

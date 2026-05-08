@@ -3,3 +3,4 @@ __pycache__/
 .DS_Store
 build/.venv/
 node_modules/
+site_public/

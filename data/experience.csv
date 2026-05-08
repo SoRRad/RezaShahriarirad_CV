@@ -1,3 +1,4 @@
+# COLUMN GUIDE: period=date range, role=job title, org=organisation name, city=city+country, desc=short description, logo_initials=2-3 letter initials, logo_color=hex color
 period,role,org,city,desc,logo_initials,logo_color
 2024 – Present,Research Fellow,Surgery Innovation Center · Mayo Clinic,"Rochester, MN",,MC,#c8102e
 2018 – 2024,Senior Researcher & Project Manager,Thoracic & Vascular Surgery Research Center · Shiraz University of Medical Sciences,"Shiraz, Iran",,SUMS,#003087

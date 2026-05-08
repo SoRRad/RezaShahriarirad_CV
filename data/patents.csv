@@ -1,3 +1,4 @@
+# COLUMN GUIDE: date=registration date, title=patent title, issuer=issuing authority, number=registration number
 date,title,issuer,number
 Apr 2021,A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images,IR,140050140003000416
 Oct 2020,Utilization of Chest Tube in Pediatric Caustic Injuries: A New Method for Esophageal Stenting,IR,139950140003006653

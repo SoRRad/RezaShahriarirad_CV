@@ -1,0 +1,12 @@
+# COLUMN GUIDE: project_name=public project name, category=brief public category, collaborators=public collaborators only, irb_number=public IRB number only, short_description=public-safe one-sentence summary, role=public role, status=current status, display_order=sort order, public_visible=[yes|no]
+project_name,category,collaborators,irb_number,short_description,role,status,display_order,public_visible
+ApoQlar,Surgical visualization,,,"Clinical innovation work related to surgical visualization and immersive planning.",Research collaborator,Ongoing,1,yes
+ALARM/OmniWatch,Clinical monitoring,,,"Public-facing work on data-driven approaches for clinical monitoring and early warning.",Research collaborator,Ongoing,2,yes
+JelloX,Surgical simulation,,,"Innovation project focused on practical simulation concepts for surgical education and planning.",Research collaborator,Ongoing,3,yes
+CTA Perforator,Surgical imaging,,,"Image-guided innovation concept supporting vascular and reconstructive surgical planning.",Research collaborator,Ongoing,4,yes
+GoNoGoNET,Artificial intelligence,,,"AI-focused project exploring decision-support concepts for surgical care workflows.",Research collaborator,Ongoing,5,yes
+INTERCEPTION,Surgical AI,,,"Public-facing surgical AI project centered on safer, more informed clinical decision-making.",Research collaborator,Ongoing,6,yes
+Alpenglow,Digital health,,,"Digital health innovation project with a focus on accessible clinical insight and workflow support.",Research collaborator,Ongoing,7,yes
+ExerAI,Artificial intelligence,,,"AI-enabled project related to movement, performance, and health-focused assessment.",Research collaborator,Ongoing,8,yes
+Lexo Drain,Surgical devices,,,"Surgical innovation concept related to postoperative drain assessment and care workflows.",Research collaborator,Ongoing,9,yes
+BRIDGE App,Digital health,,,"App-based clinical innovation project designed to support communication and continuity of care.",Research collaborator,Ongoing,10,yes

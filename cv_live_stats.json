@@ -1,10 +1,12 @@
 {
+  "generated": true,
+  "source": "data/profile.csv",
   "citations": "3248",
   "hindex": "24",
   "peerReviews": "149",
   "journals": "67",
   "manuscripts": "129",
-  "pubCount": "193",
+  "pubCount": "194",
   "firstAuth": "20",
   "secondAuth": "31",
   "lastAuth": "50",

@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 6 * * 1'   # Every Monday at 6:00 AM UTC
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 jobs:
@@ -18,86 +18,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── Live stats fetch (kept from original workflow) ──────────────────
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-
-      - name: Fetch live stats
-        run: |
-          node << 'JSEOF'
-          const https = require('https');
-          const fs = require('fs');
-
-          function get(url) {
-            return new Promise((resolve) => {
-              https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0' } }, (res) => {
-                let data = '';
-                res.on('data', d => data += d);
-                res.on('end', () => resolve(data));
-              }).on('error', () => resolve(''));
-            });
-          }
-
-          async function main() {
-            const scholar = await get('https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en');
-            const blocks = [...scholar.matchAll(/<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)<\/td>/g)];
-            const citations = blocks[0]?.[1]?.replace(/,/g,'') || '3248';
-            const hindex    = blocks[2]?.[1] || '24';
-
-            const wos = await get('https://www.webofscience.com/wos/author/record/ABC-9194-2020');
-            const revMatch = wos.match(/(\d+)\s*peer\s*reviews?/i);
-            const peerReviews = revMatch?.[1] || '149';
-
-            const stats = {
-              citations, hindex, peerReviews,
-              journals: '67', manuscripts: '129', pubCount: '193',
-              firstAuth: '20', secondAuth: '31', lastAuth: '50', corrAuth: '68',
-              date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }),
-            };
-            fs.writeFileSync('cv_live_stats.json', JSON.stringify(stats, null, 2));
-            console.log('Stats:', JSON.stringify(stats));
-          }
-          main().catch(e => { console.error(e); process.exit(1); });
-          JSEOF
-
-      # ── Sync live stats into profile.csv so build picks them up ─────────
-      - name: Sync live stats into profile.csv
-        run: |
-          python3 << 'PYEOF'
-          import json, csv, pathlib, io
-
-          stats_raw = pathlib.Path('cv_live_stats.json').read_text()
-          stats = json.loads(stats_raw)
-
-          csv_path = pathlib.Path('data/profile.csv')
-          text = csv_path.read_text(encoding='utf-8')
-          rows = list(csv.reader(io.StringIO(text)))
-
-          fields_to_update = {
-              'h_index_cached':      stats['hindex'],
-              'citations_cached':    stats['citations'],
-              'peer_reviews':        stats['peerReviews'],
-              'journals_reviewed':   stats['journals'],
-              'manuscripts_reviewed':stats['manuscripts'],
-          }
-
-          updated_rows = []
-          for row in rows:
-              if len(row) >= 2 and row[0] in fields_to_update:
-                  updated_rows.append([row[0], fields_to_update[row[0]]])
-              else:
-                  updated_rows.append(row)
-
-          out = io.StringIO()
-          w = csv.writer(out)
-          w.writerows(updated_rows)
-          csv_path.write_text(out.getvalue(), encoding='utf-8')
-          print('Updated profile.csv with live stats:', fields_to_update)
-          PYEOF
-
-      # ── Python build ─────────────────────────────────────────────────────
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -116,18 +36,111 @@ jobs:
       - name: Install Python requirements
         run: pip install -r build/requirements.txt
 
+      - name: Attempt cached metric refresh
+        continue-on-error: true
+        run: |
+          python << 'PYEOF'
+          import csv
+          import datetime as dt
+          import json
+          import pathlib
+          import re
+          import urllib.request
+
+          root = pathlib.Path('.')
+          profile_path = root / 'data' / 'profile.csv'
+
+          def get(url, timeout=20):
+              req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+              with urllib.request.urlopen(req, timeout=timeout) as response:
+                  return response.read().decode('utf-8', errors='ignore')
+
+          def load_profile():
+              comments = []
+              rows = []
+              with profile_path.open(encoding='utf-8-sig', newline='') as handle:
+                  for line in handle:
+                      if line.startswith('#'):
+                          comments.append(line.rstrip('\n'))
+                      else:
+                          rows.append(line)
+              parsed = list(csv.DictReader(rows))
+              return comments, parsed
+
+          def write_profile(comments, rows):
+              fields = ['field', 'value']
+              out_lines = []
+              if comments:
+                  out_lines.extend(comments)
+              import io
+              buffer = io.StringIO()
+              writer = csv.DictWriter(buffer, fieldnames=fields, lineterminator='\n')
+              writer.writeheader()
+              writer.writerows(rows)
+              out_lines.append(buffer.getvalue().rstrip('\n'))
+              profile_path.write_text('\n'.join(out_lines) + '\n', encoding='utf-8')
+
+          comments, rows = load_profile()
+          profile = {row['field']: row['value'] for row in rows}
+          stats = {}
+
+          try:
+              raw = get(profile.get('scholar_url', ''))
+              blocks = re.findall(r'<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)</td>', raw)
+              if len(blocks) >= 3:
+                  stats['citations_cached'] = blocks[0].replace(',', '')
+                  stats['h_index_cached'] = blocks[2]
+          except Exception as exc:
+              print(f'Google Scholar metric refresh skipped: {exc}')
+
+          if stats:
+              stats['metrics_last_updated'] = dt.date.today().strftime('%B %-d, %Y')
+              for row in rows:
+                  if row['field'] in stats:
+                      row['value'] = stats[row['field']]
+              write_profile(comments, rows)
+              print('Updated cached metrics:', json.dumps(stats))
+          else:
+              print('No cached metric changes; continuing with existing data/profile.csv values.')
+          PYEOF
+
+      - name: Validate CSV data
+        run: python build/validate_data.py
+
       - name: Run CV build
         run: python build/build.py
 
-      # ── Commit generated outputs ─────────────────────────────────────────
-      - name: Commit and push generated files
+      - name: Commit generated files
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html \
                   Shahriarirad_Reza_CV.docx \
                   Shahriarirad_Reza_CV.pdf \
+                  cv_pubs.json \
+                  cv_presentations.json \
+                  cv_journals.json \
                   cv_live_stats.json \
                   data/profile.csv
-          git diff --staged --quiet || \
-            git commit -m "Auto-update CV stats $(date +'%Y-%m-%d')" && git push
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto-update CV $(date +'%Y-%m-%d')"
+            git push
+          else
+            echo "No changes to commit"
+          fi
+
+      - name: Prepare public site
+        run: |
+          rm -rf site_public
+          mkdir site_public
+          cp index.html site_public/
+          cp Shahriarirad_Reza_CV.docx site_public/
+          cp Shahriarirad_Reza_CV.pdf site_public/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site_public
+          publish_branch: gh-pages

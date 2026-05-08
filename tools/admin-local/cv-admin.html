@@ -128,6 +128,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
 .conn-title em{color:var(--gold2);font-style:italic}
 .conn-sub{font-size:.8rem;color:var(--t3);text-align:center;margin-bottom:2rem;line-height:1.8}
 .hl{font-size:.68rem;color:var(--t3);line-height:1.6;margin-top:-.5rem;margin-bottom:.8rem}
+.legacy-warning{font-size:.74rem;line-height:1.55;color:#f0c36a;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.26);border-radius:4px;padding:.75rem .9rem;margin:0 0 1rem}
 #conn-screen .card{border-top:2px solid var(--gold);padding:1.6rem 1.8rem}
 .hl a{color:var(--gold);text-decoration:none}
 /* Pub search */
@@ -159,12 +160,13 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="conn-box">
     <div class="conn-ey">CV Admin Panel</div>
     <h1 class="conn-title">Reza <em>Shahriarirad</em></h1>
-    <p class="conn-sub">Connect your GitHub repository to edit all CV sections,<br>update metrics, and push changes live to your website.</p>
+    <p class="conn-sub">Legacy local-only CV admin panel.<br>CSV files in <code>data/</code> are the source of truth.</p>
+    <div class="legacy-warning"><strong>Local-only warning:</strong> do not publish or link this page from the public CV site. It asks for a GitHub token and still writes legacy JSON in places, so use it only with caution on a trusted local machine.</div>
     <div class="card">
       <div class="ch"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>GitHub Access Token</div>
       <label>Personal access token</label>
       <input type="password" id="inp-tok" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-      <p class="hl">Generate at <a href="https://github.com/settings/tokens/new?scopes=repo&description=CV+Admin" target="_blank">github.com/settings/tokens</a> — scope: <strong>repo</strong>. Stored in memory only.</p>
+      <p class="hl">Use this legacy tool only if you understand the risk of pasting a GitHub token into a browser page. Prefer editing CSV files directly and running <code>python build/build.py</code>.</p>
       <label>Repository</label>
       <input type="text" id="inp-repo" value="SoRRad/RezaShahriarirad_CV">
       <button class="btn bp bw" onclick="doConnect()"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Connect &amp; Load CV</button>

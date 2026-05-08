@@ -1,246 +1,107 @@
-# Reza Shahriarirad, M.D. — Academic CV Website
+# Reza Shahriarirad, M.D. - Academic CV Website
 
-Personal academic CV website for Dr. Reza Shahriarirad, Research Fellow at the Surgery Innovation Center, Mayo Clinic. A single self-contained HTML file with live citation metrics, filterable publications, and an auto-updating downloadable Word CV.
+Academic CV website for Dr. Reza Shahriarirad, Research Fellow at the Surgery Innovation Center, Mayo Clinic.
 
-**Live site:** `https://SoRRad.github.io/RezaShahriarirad_CV`
-**Admin panel:** `https://SoRRad.github.io/RezaShahriarirad_CV/cv-admin.html`
+Live site: `https://SoRRad.github.io/RezaShahriarirad_CV/`
 
----
+## CSV-First Workflow
 
-## Data-driven workflow
+The canonical CV content lives in structured CSV files under `data/`. The build system reads those CSV files and regenerates:
 
-All CV content now lives in structured CSV files under `/data/`. A Python build system reads these files and regenerates `index.html`, `Shahriarirad_Reza_CV.docx`, and `Shahriarirad_Reza_CV.pdf` automatically.
+- `index.html`
+- `Shahriarirad_Reza_CV.docx`
+- `Shahriarirad_Reza_CV.pdf`
+- legacy generated JSON files: `cv_pubs.json`, `cv_presentations.json`, `cv_journals.json`, and `cv_live_stats.json`
 
-### How to update your CV
+Do not manually edit generated outputs. Make content changes in `data/*.csv`, then run the build or push to `main` and let GitHub Actions rebuild the site.
 
-1. Edit the relevant CSV file in `/data/` (e.g. open `data/publications.csv` in Excel or a text editor)
-2. Commit and push to `main`
-3. GitHub Actions rebuilds all outputs within ~2 minutes
-
-### Run the build locally
+## Local Build
 
 ```bash
 pip install -r build/requirements.txt
+python build/validate_data.py
 python build/build.py
 ```
 
-### Admin panel note
+The build validates CSV data, regenerates legacy JSON artifacts, then generates the website, Word CV, and PDF CV.
 
-`cv-admin.html` still works for quick browser-based edits, but changes made there do **not** update the CSV files. You must manually sync them back to keep the CSVs as the source of truth.
+## Updating Content
 
-### CSV files
+Use the CSV files in `data/`:
 
-| File | Contents |
-|------|----------|
-| `data/profile.csv` | Name, title, bio paragraphs, contact info, social URLs, cached metrics |
-| `data/experience.csv` | Professional positions (period, role, org, city, description) |
-| `data/education.csv` | Academic degrees |
-| `data/leadership.csv` | Leadership and service roles |
+| File | Purpose |
+| --- | --- |
+| `data/profile.csv` | Name, title, bio, public/private contact fields, profile links, cached metrics, SEO text |
+| `data/publications.csv` | Publication list, authorship tags, topic categories, DOI/URLs |
+| `data/presentations.csv` | Conference presentations and filters |
+| `data/projects.csv` | Public-facing selected innovation projects |
+| `data/affiliations.csv` | Compact lab and institutional affiliations |
+| `data/experience.csv` | Professional experience |
+| `data/education.csv` | Education |
+| `data/leadership.csv` | Leadership and service |
 | `data/awards.csv` | Awards and honours |
 | `data/patents.csv` | Patents and innovations |
-| `data/publications.csv` | All 193+ publications (type, title, authors, journal, URL, tags, categories) |
-| `data/presentations.csv` | Conference presentations (date, type, title, venue, location, categories) |
-| `data/journals.csv` | Peer-reviewed journals reviewed (with acknowledgement URLs) |
-| `data/editorial.csv` | Editorial roles (Guest Editor, Associate Editor, etc.) |
-| `data/hobbies.csv` | Extracurricular interests |
-| `data/references.csv` | Professional references with contact links |
-| `data/skills_computing.csv` | Computing skills with proficiency levels |
+| `data/editorial.csv` | Editorial roles |
+| `data/journals.csv` | Journals reviewed |
+| `data/references.csv` | Professional references |
+| `data/skills_computing.csv` | Computing skills |
 | `data/skills_interpersonal.csv` | Interpersonal skills |
-| `data/open_source.csv` | Open-source GitHub repos (currently empty; add via admin panel) |
+| `data/hobbies.csv` | Interests |
+| `data/open_source.csv` | Public open-source repositories, if any |
 
----
+### Publications
 
-## Repository contents
+Add or edit rows in `data/publications.csv`. Required fields include `n`, `year`, `type`, `title`, `authors`, and `journal`.
 
-| File | Description |
-|------|-------------|
-| `index.html` | The full CV website — rename from `Shahriarirad_CV_Website_v4.html` before uploading |
-| `cv-admin.html` | Admin panel for editing all CV sections directly from the browser |
-| `cv_pubs.json` | All 193 publications as structured JSON |
-| `cv_presentations.json` | 17 conference presentations with location and topic data |
-| `cv_journals.json` | 67 peer-reviewed journals reviewed |
-| `cv_generator.js` | Node.js script that builds the downloadable DOCX from live data |
-| `cv_live_stats.json` | Latest fetched metrics — auto-updated by the weekly workflow |
-| `Shahriarirad_Reza_CV.docx` | Downloadable CV in Word format — auto-regenerated weekly |
-| `.github/workflows/update-cv.yml` | GitHub Actions workflow for weekly auto-updates |
-| `README.md` | This file |
+Valid publication types: `original`, `review`, `case`, `letter`.
 
----
+Use semicolon-separated category keys from `build/utils.py` for `cat` and `highlight_topics`. Preserve corresponding author markers such as `Shahriarirad R*`.
 
-## CV sections
+### Presentations
 
-The website covers the following sections, all editable via the admin panel:
+Edit `data/presentations.csv`. Required fields include `date`, `type`, `title`, `venue`, and `location`.
 
-- **About** — Bio, headshot, Mayo Clinic ongoing research projects, specialty tags
-- **Experience & Education** — Professional timeline and academic credentials
-- **Leadership & Community Service**
-- **Publications** — 193 papers filterable by type, authorship role, and 17 topic categories
-- **Awards & Honours**
-- **Patents & Innovations**
-- **Editor & Reviewer Experience** — Editorial roles and 149 verified peer reviews across 67 journals
-- **Presentations** — 17 conference presentations filterable by type, location, and topic
-- **Extracurricular & Interests**
-- **References** — 9 professional references
+Valid presentation types: `poster`, `oral`.
 
----
+### Profile And Metrics
 
-## Live data
+Edit `data/profile.csv`.
 
-| Metric | Source | Update frequency |
-|--------|--------|-----------------|
-| Citations | Google Scholar (via CORS proxy) | Every page load |
-| H-index | Google Scholar (via CORS proxy) | Every page load |
-| Publications count | Hardcoded (193) | Manual — update when you publish |
-| Peer reviews | Hardcoded (149) | Manual via admin panel |
+- Public website contact uses fields marked public-visible, currently the Mayo email only.
+- Personal Gmail and phone can remain in the CSV for private generated CV outputs, but they are not rendered on the public website.
+- Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
+- The public site does not fetch live Google Scholar data in the browser.
 
-Google Scholar data is fetched live on every page visit using three CORS proxy fallbacks. If all proxies fail, the last known values (3,248 citations, H-index 24) are shown.
+### Selected Innovation Projects
 
----
+Edit `data/projects.csv`. Only rows with `public_visible` set to `yes` are shown on the public website. Keep descriptions concise and public-safe.
 
-## Auto-update workflow
+## Generated Files
 
-A GitHub Actions workflow (`.github/workflows/update-cv.yml`) runs every **Monday at 6:00 AM UTC**. It:
+These files are generated artifacts and should not be edited manually:
 
-1. Fetches the latest citation count and H-index from Google Scholar
-2. Regenerates `Shahriarirad_Reza_CV.docx` with fresh stats
-3. Updates `index.html` fallback values
-4. Commits and pushes all changes back to the repository
+- `index.html`
+- `Shahriarirad_Reza_CV.docx`
+- `Shahriarirad_Reza_CV.pdf`
+- `cv_pubs.json`
+- `cv_presentations.json`
+- `cv_journals.json`
+- `cv_live_stats.json`
 
-You can also trigger it manually: **Actions tab → Update CV Weekly → Run workflow**.
+If a generated file needs to change, update the relevant CSV or build source, then run `python build/build.py`.
 
-For this to work, the repository must have **read and write permissions** enabled:
-**Settings → Actions → General → Workflow permissions → Read and write permissions → Save**
+## GitHub Actions And Pages
 
----
+`.github/workflows/update-cv.yml` validates CSV files, rebuilds all generated outputs, commits only when generated files changed, and deploys the public site to GitHub Pages.
 
-## Admin panel
+The deployed public site is intentionally limited to:
 
-The admin panel at `cv-admin.html` connects directly to GitHub via a Personal Access Token and lets you edit every section of your CV without touching code.
+- `index.html`
+- `Shahriarirad_Reza_CV.docx`
+- `Shahriarirad_Reza_CV.pdf`
 
-**To use it:**
-1. Go to `https://github.com/settings/tokens/new?scopes=repo&description=CV+Admin`
-2. Generate a token with **repo** scope
-3. Open `cv-admin.html`, paste the token, enter `SoRRad/RezaShahriarirad_CV`
-4. Click Connect
+The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build.
 
-**What you can edit:**
+## Legacy Local Admin
 
-| Section | Capabilities |
-|---------|-------------|
-| About & Headshot | Edit bio paragraphs, upload a new profile photo |
-| Contact Info | Email, Mayo email, phone, location, research interests, languages |
-| Mayo Research | IRB project count, description paragraph, specialty tags (add/remove) |
-| Experience | Add, edit, or delete any timeline entry |
-| Education | Add, edit, or delete any education entry |
-| Leadership | Add, edit, or delete leadership entries |
-| Skills | Add, edit, or delete skills with proficiency levels |
-| Peer Reviews | Update count with optional journal name, manuscript count, and hyperlink |
-| Publications | Add new papers; edit type, categories, authors, URL for any existing paper |
-| Presentations | Add new presentations with month, year, location, and topic categories |
-| Awards | Add new awards or edit existing ones |
-| Patents | Add new patents or edit existing ones |
-| Hobbies | Add, edit, or delete hobby entries |
-| Deploy | Trigger the GitHub Actions workflow manually |
-
-The token is stored in browser memory only and never persisted. Each session requires re-entering the token.
-
----
-
-## Adding a new publication
-
-### Via admin panel (recommended)
-Go to admin panel → Publications → Add New Publication. Fill in year, type, authors, journal, and DOI, select topic categories, and click **Add & Push to GitHub**.
-
-### Manual JSON edit
-Add an entry to `cv_pubs.json` directly on GitHub:
-
-```json
-{
-  "n": 194,
-  "year": "2026",
-  "type": "original",
-  "title": "Your Paper Title Here",
-  "authors": "Shahriarirad R*, Co-author A, Co-author B",
-  "journal": "Journal Name",
-  "url": "https://doi.org/...",
-  "tags": [],
-  "cat": ["plastic"]
-}
-```
-
-**Type options:** `original`, `review`, `case`, `letter`
-
-**Category keys:** `plastic`, `thoracic`, `vascular`, `gi`, `endocrine`, `ortho`, `burns`, `infectious`, `covid`, `oncology`, `transplant`, `ai`, `pulm`, `neuro`, `derm`, `urology`, `pubhealth`
-
-**Author formatting:** Mark corresponding author with `*` after last initial — `Shahriarirad R*`. List all authors in full, no `et al.` The site auto-detects authorship position (1st, co-first, last, corresponding) from the author string.
-
-After editing `cv_pubs.json`, also update `"pubCount"` in `cv_live_stats.json`.
-
----
-
-## Adding a presentation
-
-Via admin panel → Presentations → Add New Presentation. You can specify month, year, type (poster/oral), title, venue, location/country, and topic categories.
-
-Or edit `cv_presentations.json` directly:
-
-```json
-{
-  "date": "Mar 2026",
-  "month": "Mar",
-  "year": "2026",
-  "type": "poster",
-  "title": "Presentation title",
-  "venue": "Conference name",
-  "conference": "Short conference name",
-  "location": "United States",
-  "cat": ["plastic"]
-}
-```
-
----
-
-## Updating peer reviews
-
-1. Open `cv-admin.html` → Peer Reviews
-2. Set the new total, optionally add journal and note
-3. Click **Push to GitHub**
-
-The count updates instantly on the live website.
-
----
-
-## Local development
-
-Open `index.html` in any browser — no build step or server required.
-
-To regenerate the DOCX locally:
-
-```bash
-npm install docx
-node cv_generator.js citations=3500 hindex=25 peerReviews=155 journals=68
-```
-
----
-
-## Profile links
-
-| Platform | Link |
-|----------|------|
-| Google Scholar | https://scholar.google.com/citations?user=mOE1KmEAAAAJ |
-| PubMed | https://www.ncbi.nlm.nih.gov/myncbi/reza.shahriari.1/bibliography/public/ |
-| ORCID | https://orcid.org/0000-0001-5454-495X |
-| Scopus | https://www.scopus.com/authid/detail.uri?authorId=57194698048 |
-| Web of Science | https://www.webofscience.com/wos/author/record/ABC-9194-2020 |
-| ResearchGate | https://www.researchgate.net/profile/Reza-Shahriarirad |
-| LinkedIn | https://www.linkedin.com/in/reza-shahriarirad/ |
-
----
-
-## Tech stack
-
-- **Website:** Vanilla HTML/CSS/JavaScript — zero frameworks, zero build tools, zero dependencies
-- **Fonts:** Cormorant Garamond + DM Sans via Google Fonts
-- **DOCX generation:** [docx.js](https://docxjs.org/) (Node.js, runs server-side in GitHub Actions)
-- **Live citations:** Google Scholar via CORS proxy (allorigins.win, corsproxy.io, codetabs.com)
-- **CI/CD:** GitHub Actions — runs every Monday, self-commits updated stats and DOCX
+The browser admin panel has been moved to `tools/admin-local/cv-admin.html` and is legacy/local-only. It is not linked from the public website and should not be served publicly because it asks for a GitHub token and may still write legacy JSON files. Prefer editing CSV files directly.
