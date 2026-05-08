@@ -240,7 +240,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 /* SOCIAL ICON BUTTONS */
 .social-icons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem;align-items:center}
 .social-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:4px;background:transparent;border:1px solid var(--mist);color:var(--silver);text-decoration:none;transition:all .2s;flex-shrink:0}
-.social-icon-btn svg{width:18px;height:18px;fill:currentColor}
+.social-icon-btn svg,.social-icon-img{width:18px;height:18px;fill:currentColor}
+.social-icon-img{object-fit:contain;display:block}
 .social-icon-btn:hover{border-color:var(--gold);color:var(--gold-light);background:rgba(184,149,58,.08)}
 .social-icon-btn.scholar:hover{color:#4285f4;border-color:#4285f4}
 .social-icon-btn.pubmed:hover{color:#326496;border-color:#326496}
@@ -270,7 +271,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .pub-star-badge{display:block;margin-top:.2rem;font-size:.7rem;color:var(--gold);text-align:center;line-height:1}
 
 /* LAB AFFILIATIONS */
-.lab-affiliations-heading{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--text-mid);margin:2.5rem 0 1rem;padding-bottom:0}
+.lab-affiliations-heading{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--text-mid);margin:1.8rem 0 .75rem;padding-bottom:0;border:0}
+.lab-affiliations-heading h3{border:0;margin:0;padding:0}
 .lab-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem;margin-bottom:1rem}
 .lab-card{border:1px solid var(--mist);border-radius:4px;padding:1rem;background:var(--white);display:flex;gap:.85rem;align-items:flex-start;transition:border-color .2s}
 .lab-card:hover{border-color:var(--gold)}
@@ -281,16 +283,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .lab-card-name a:hover{color:var(--gold)}
 .lab-card-role{font-size:.76rem;font-weight:500;color:var(--gold);margin-bottom:.2rem;display:flex;align-items:center;gap:.5rem}
 .lab-card-inst{font-size:.72rem;color:var(--text-muted);margin-bottom:.15rem}
-
-/* SELECTED PROJECTS */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1rem}
-.project-card{border:1px solid var(--mist);border-radius:4px;padding:1.2rem;background:var(--white);transition:border-color .2s}
-.project-card:hover{border-color:var(--gold)}
-.project-category{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem}
-.project-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--text);line-height:1.25;margin-bottom:.45rem}
-.project-card p{font-size:.82rem;color:var(--text-mid);line-height:1.65}
-.project-meta{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-top:.8rem}
-
 
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}

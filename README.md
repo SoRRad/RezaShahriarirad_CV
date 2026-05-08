@@ -34,7 +34,7 @@ Use the CSV files in `data/`:
 | `data/profile.csv` | Name, title, bio, public/private contact fields, profile links, cached metrics, SEO text |
 | `data/publications.csv` | Publication list, authorship tags, topic categories, DOI/URLs |
 | `data/presentations.csv` | Conference presentations and filters |
-| `data/projects.csv` | Public-facing selected innovation projects |
+| `data/projects.csv` | Stored innovation project data; not rendered on the public website |
 | `data/affiliations.csv` | Compact lab and institutional affiliations |
 | `data/experience.csv` | Professional experience |
 | `data/education.csv` | Education |
@@ -67,14 +67,14 @@ Valid presentation types: `poster`, `oral`.
 
 Edit `data/profile.csv`.
 
-- Public website contact uses fields marked public-visible, currently the Mayo email only.
-- Personal Gmail and phone can remain in the CSV for private generated CV outputs, but they are not rendered on the public website.
+- Public website contact renders email fields marked public-visible, currently the Mayo email and personal Gmail.
+- Phone can remain in the CSV for private generated CV outputs, but it is not rendered publicly unless `phone_public_visible` is set to `yes`.
 - Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
 - The public site does not fetch live Google Scholar data in the browser.
 
-### Selected Innovation Projects
+### Innovation Project Data
 
-Edit `data/projects.csv`. Only rows with `public_visible` set to `yes` are shown on the public website. Keep descriptions concise and public-safe.
+`data/projects.csv` is retained for structured project data, but selected innovation projects are not rendered on the public website.
 
 ## Generated Files
 

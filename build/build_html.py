@@ -2,7 +2,7 @@
 build_html.py — regenerate index.html from /data/ CSVs + build/static_assets/.
 Reads cv_style.css and cv_script.js verbatim; all dynamic content comes from CSVs.
 """
-import json, pathlib, sys
+import base64, json, mimetypes, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from utils import load_all_data, get_profile, parse_semicolon, TAXONOMY
 
@@ -24,38 +24,135 @@ def _q(s):
 def _yes(value):
     return str(value or "").strip().lower() == "yes"
 
-def _profile_email(profile):
+def _public_email_records(profile):
+    candidates = []
     if _yes(profile.get("email_professional_public_visible", "yes")):
-        return profile.get("email_professional", "")
+        candidates.append(("Mayo Email", profile.get("email_professional", "")))
     if _yes(profile.get("email_personal_public_visible", "no")):
-        return profile.get("email_personal", "")
-    return ""
+        candidates.append(("Personal Email", profile.get("email_personal", "")))
+
+    seen = set()
+    records = []
+    for label, email in candidates:
+        email = str(email or "").strip()
+        key = email.lower()
+        if email and key not in seen:
+            seen.add(key)
+            records.append((label, email))
+    return records
+
+def _public_emails(profile):
+    return [email for _, email in _public_email_records(profile)]
+
+def _primary_public_email(profile):
+    emails = _public_emails(profile)
+    return emails[0] if emails else ""
 
 def _email_parts(email):
     return (str(email).split("@") + [""])[:2]
+
+def _email_link(email, text="[loading]", extra_class="", keep_content=False):
+    email_u, email_d = _email_parts(email)
+    classes = " ".join(c for c in ["cf-email", extra_class] if c)
+    keep = ' data-keep-content="true"' if keep_content else ""
+    return f'<a href="#" class="{_e(classes)}" data-u="{_e(email_u)}" data-d="{_e(email_d)}"{keep}>{_e(text)}</a>'
 
 
 # ── SVG icons ──────────────────────────────────────────────────────────────
 
 ICONS = {
     "scholar": '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 2.5 8 12 13l9.5-5L12 3z"/><path d="M5 11.2V16c0 1.9 3.1 3.5 7 3.5s7-1.6 7-3.5v-4.8l-7 3.7-7-3.7z"/></svg>',
-    "pubmed":  '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 8h10M7 12h10M7 16h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    "pubmed":  '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><text x="12" y="15.5" text-anchor="middle" font-size="6.7" font-weight="700" stroke="none" fill="currentColor">PM</text></svg>',
+    "orcid":   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="16" text-anchor="middle" font-size="8.8" font-weight="700" stroke="none" fill="currentColor">iD</text></svg>',
     "scopus":  '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="16" text-anchor="middle" font-size="10" font-weight="700" stroke="none" fill="currentColor">S</text></svg>',
+    "wos":     '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="15.6" text-anchor="middle" font-size="7.2" font-weight="700" stroke="none" fill="currentColor">WoS</text></svg>',
     "researchgate": '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="15.8" text-anchor="middle" font-size="7.2" font-weight="700" stroke="none" fill="currentColor">RG</text></svg>',
-    "wos":     '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" stroke="none" fill="currentColor">WoS</text></svg>',
-    "linkedin":'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
-    "orcid":   '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><text x="12" y="16" text-anchor="middle" font-size="9" font-weight="700" stroke="none" fill="currentColor">iD</text></svg>',
-    "github":  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
+    "linkedin":'<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    "github":  '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>',
     "email": '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m4.5 7 7.5 6 7.5-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 }
+
+LOGO_DIRS = [
+    ROOT / "assets" / "logos",
+    ROOT / "assets",
+    ROOT / "images",
+    ROOT / "img",
+    ROOT / "public",
+    ROOT / "static",
+    ASSETS / "logos",
+    ASSETS,
+]
+LOGO_SUFFIXES = {".svg", ".png", ".jpg", ".jpeg", ".webp"}
+SOCIAL_LOGO_NAMES = {
+    "scholar": ["google-scholar", "google_scholar", "googlescholar", "scholar"],
+    "pubmed": ["pubmed", "ncbi"],
+    "orcid": ["orcid"],
+    "scopus": ["scopus"],
+    "wos": ["web-of-science", "webofscience", "web_of_science", "wos"],
+    "researchgate": ["researchgate", "research-gate", "research_gate"],
+    "linkedin": ["linkedin", "linked-in", "linked_in"],
+    "github": ["github", "git-hub", "git_hub"],
+    "email": ["email", "mail"],
+}
+_SOCIAL_LOGO_CACHE = {}
+
+def _norm_name(value):
+    return "".join(ch for ch in str(value).lower() if ch.isalnum())
+
+def _iter_logo_files():
+    for directory in LOGO_DIRS:
+        if not directory.exists():
+            continue
+        for path in sorted(directory.rglob("*")):
+            if path.is_file() and path.suffix.lower() in LOGO_SUFFIXES:
+                yield path
+
+def _find_social_logo(key):
+    if key in _SOCIAL_LOGO_CACHE:
+        return _SOCIAL_LOGO_CACHE[key]
+
+    wanted = {_norm_name(name) for name in SOCIAL_LOGO_NAMES.get(key, [key])}
+    files = list(_iter_logo_files())
+    for path in files:
+        if _norm_name(path.stem) in wanted:
+            _SOCIAL_LOGO_CACHE[key] = path
+            return path
+    for path in files:
+        stem = _norm_name(path.stem)
+        if any(name and name in stem for name in wanted):
+            _SOCIAL_LOGO_CACHE[key] = path
+            return path
+
+    _SOCIAL_LOGO_CACHE[key] = None
+    return None
+
+def _local_logo_markup(key):
+    path = _find_social_logo(key)
+    if not path:
+        return ""
+    mime = mimetypes.guess_type(str(path))[0] or "image/svg+xml"
+    data = base64.b64encode(path.read_bytes()).decode("ascii")
+    src = f"data:{mime};base64,{data}"
+    return f'<img class="social-icon-img" src="{_e(src)}" alt="" aria-hidden="true" loading="lazy" decoding="async">'
+
+def _icon_markup(key):
+    return _local_logo_markup(key) or ICONS.get(key, "")
 
 def _icon_btn(href, title, key, extra_class="", mail=False):
     if not href or href == "#":
         return ""
-    svg = ICONS.get(key, "")
+    icon = _icon_markup(key)
     cls = f"social-icon-btn {key} {extra_class}".strip()
     target = "" if mail else ' target="_blank"'
-    return f'<a href="{_e(href)}"{target} class="{cls}" title="{_e(title)}" aria-label="{_e(title)}" rel="noopener noreferrer">{svg}<span class="sr-only">{_e(title)}</span></a>'
+    rel = "" if mail else ' rel="noopener noreferrer"'
+    return f'<a href="{_e(href)}"{target} class="{cls}" title="{_e(title)}" aria-label="{_e(title)}"{rel}>{icon}<span class="sr-only">{_e(title)}</span></a>'
+
+def _email_icon_btn(email):
+    if not email:
+        return ""
+    email_u, email_d = _email_parts(email)
+    icon = _icon_markup("email")
+    return f'<a href="#" class="social-icon-btn email cf-email" data-u="{_e(email_u)}" data-d="{_e(email_d)}" data-keep-content="true" title="Email" aria-label="Email">{icon}<span class="sr-only">Email</span></a>'
 
 
 # ── section generators ─────────────────────────────────────────────────────
@@ -91,7 +188,7 @@ def _head(css: str, profile: dict) -> str:
         "description": desc,
         "sameAs": [url for url in same_as if url],
     }
-    public_email = _profile_email(profile)
+    public_email = _primary_public_email(profile)
     if public_email:
         person["email"] = public_email
     return f"""<!DOCTYPE html>
@@ -134,7 +231,6 @@ def _nav() -> str:
     <li><a href="#publications">Publications</a></li>
     <li><a href="#awards">Awards</a></li>
     <li><a href="#patents">Patents</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#reviewer">Editorial</a></li>
     <li><a href="#presentations">Presentations</a></li>
     <li><a href="#opensource">Code</a></li>
@@ -150,7 +246,6 @@ def _nav() -> str:
   <a href="#publications" onclick="closeMenu()">Publications</a>
   <a href="#awards" onclick="closeMenu()">Awards</a>
   <a href="#patents" onclick="closeMenu()">Patents</a>
-  <a href="#projects" onclick="closeMenu()">Projects</a>
   <a href="#reviewer" onclick="closeMenu()">Editorial</a>
   <a href="#presentations" onclick="closeMenu()">Presentations</a>
   <a href="#opensource" onclick="closeMenu()">Code</a>
@@ -164,8 +259,8 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
     hindex  = profile.get("h_index_cached",   "24")
     reviews = profile.get("peer_reviews",      "149")
     metrics_date = profile.get("metrics_last_updated", "")
-    public_email = _profile_email(profile)
-    email_u, email_d = _email_parts(public_email)
+    public_email = _primary_public_email(profile)
+    email_cta = _email_link(public_email, "Get in Touch", "btn-outline", keep_content=True) if public_email else ""
     try:
         cites_fmt = f"{int(cites):,}"
     except Exception:
@@ -189,7 +284,7 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
       </div>
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
-        <a href="#" class="btn-outline cf-email" data-u="{_e(email_u)}" data-d="{_e(email_d)}">Get in Touch</a>
+        {email_cta}
         <a href="Shahriarirad_Reza_CV.pdf"
            target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV PDF">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
@@ -246,14 +341,14 @@ def _about(profile: dict) -> str:
         for label, cat in tags_data
     )
 
-    public_email = _profile_email(profile)
-    email_u, email_d = _email_parts(public_email)
+    email_records = _public_email_records(profile)
+    primary_email = email_records[0][1] if email_records else ""
     loc  = f"{profile.get('city_state','Rochester, MN')}, USA"
     langs    = profile.get("languages", "English (Fluent) · Farsi (Native)")
     res_int  = profile.get("research_interests","Surgery · Minimally Invasive Surgery · Artificial Intelligence")
     contact_rows = []
-    if public_email:
-        contact_rows.append(f'<div class="contact-item"><span>Email</span><a href="#" class="cf-email" data-u="{_e(email_u)}" data-d="{_e(email_d)}">[loading]</a></div>')
+    for label, email in email_records:
+        contact_rows.append(f'<div class="contact-item"><span>{_e(label)}</span>{_email_link(email)}</div>')
     if _yes(profile.get("phone_public_visible", "no")) and profile.get("phone"):
         contact_rows.append(f'<div class="contact-item"><span>Phone</span><span>{_e(profile.get("phone",""))}</span></div>')
     contact_rows.extend([
@@ -266,13 +361,13 @@ def _about(profile: dict) -> str:
     icons_html = "\n        ".join([
         _icon_btn(profile.get("scholar_url","#"),     "Google Scholar",  "scholar"),
         _icon_btn(profile.get("pubmed_url","#"),       "PubMed / NCBI",   "pubmed"),
-        _icon_btn(profile.get("scopus_url","#"),       "Scopus",          "scopus"),
-        _icon_btn(profile.get("researchgate_url","#"), "ResearchGate",    "researchgate"),
-        _icon_btn(profile.get("wos_url","#"),          "Web of Science",  "wos"),
-        _icon_btn(profile.get("linkedin_url","#"),     "LinkedIn",        "linkedin"),
         _icon_btn(profile.get("orcid_url","#"),        "ORCID",           "orcid"),
+        _icon_btn(profile.get("scopus_url","#"),       "Scopus",          "scopus"),
+        _icon_btn(profile.get("wos_url","#"),          "Web of Science",  "wos"),
+        _icon_btn(profile.get("researchgate_url","#"), "ResearchGate",    "researchgate"),
+        _icon_btn(profile.get("linkedin_url","#"),     "LinkedIn",        "linkedin"),
         _icon_btn(profile.get("github_url","#"),       "GitHub",          "github"),
-        _icon_btn(f"mailto:{public_email}" if public_email else "", "Email", "email", mail=True),
+        _email_icon_btn(primary_email),
     ])
 
     return f"""
@@ -728,47 +823,6 @@ def _presentations(pres_df) -> str:
 </div>"""
 
 
-def _projects(projects_df) -> str:
-    if projects_df is None or len(projects_df) == 0:
-        return ""
-    rows = []
-    for _, r in projects_df.iterrows():
-        if str(r.get("public_visible", "")).strip().lower() != "yes":
-            continue
-        try:
-            order = int(str(r.get("display_order", "")).strip())
-        except ValueError:
-            order = 999
-        rows.append((order, r))
-    if not rows:
-        return ""
-    cards = []
-    for _, r in sorted(rows, key=lambda item: item[0]):
-        category = str(r.get("category", "")).strip()
-        category_html = f'<div class="project-category">{_e(category)}</div>' if category else ""
-        role = str(r.get("role", "")).strip()
-        status = str(r.get("status", "")).strip()
-        meta = " · ".join(x for x in [role, status] if x)
-        meta_html = f'<div class="project-meta">{_e(meta)}</div>' if meta else ""
-        cards.append(f"""    <div class="project-card">
-      {category_html}
-      <div class="project-name">{_e(r.get("project_name", ""))}</div>
-      <p>{_e(r.get("short_description", ""))}</p>
-      {meta_html}
-    </div>""")
-    return f"""
-<!-- SELECTED INNOVATION PROJECTS -->
-<div id="projects">
-<div class="section-wrap">
-  <div class="section-label">Innovation</div>
-  <h2>Selected Innovation Projects</h2>
-  <div class="projects-grid">
-{''.join(cards)}
-  </div>
-</div>
-</div>"""
-
-
 def _open_source(profile: dict) -> str:
     return f"""
 <!-- OPEN SOURCE MODELS -->
@@ -816,6 +870,23 @@ def _references_section() -> str:
 
 
 def _footer(profile: dict) -> str:
+    profile_links = []
+    for label, href in [
+        ("Google Scholar", profile.get("scholar_url", "")),
+        ("PubMed", profile.get("pubmed_url", "")),
+        ("ORCID", profile.get("orcid_url", "")),
+        ("Scopus", profile.get("scopus_url", "")),
+        ("Web of Science", profile.get("wos_url", "")),
+        ("ResearchGate", profile.get("researchgate_url", "")),
+        ("LinkedIn", profile.get("linkedin_url", "")),
+        ("GitHub", profile.get("github_url", "")),
+    ]:
+        if href:
+            profile_links.append(f'<a href="{_e(href)}" target="_blank" rel="noopener noreferrer">{_e(label)}</a>')
+    for label, email in _public_email_records(profile):
+        profile_links.append(_email_link(email, label, keep_content=True))
+    footer_links_html = "\n    ".join(profile_links)
+
     return f"""
 <!-- FOOTER -->
 <footer>
@@ -824,12 +895,7 @@ def _footer(profile: dict) -> str:
   <div class="footer-note">{_e(profile.get('title','Research Fellow'))} · {_e(profile.get('institution','Surgery Innovation Center · Mayo Clinic'))} · {_e(profile.get('city_state','Rochester, MN'))}</div>
   <div class="footer-divider"></div>
   <div class="footer-links">
-    <a href="{_e(profile.get('scholar_url',''))}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
-    <a href="{_e(profile.get('pubmed_url',''))}" target="_blank" rel="noopener noreferrer">PubMed</a>
-    <a href="{_e(profile.get('orcid_url',''))}" target="_blank" rel="noopener noreferrer">ORCID</a>
-    <a href="{_e(profile.get('researchgate_url',''))}" target="_blank" rel="noopener noreferrer">ResearchGate</a>
-    <a href="{_e(profile.get('scopus_url',''))}" target="_blank" rel="noopener noreferrer">Scopus</a>
-    <a href="{_e(profile.get('linkedin_url',''))}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    {footer_links_html}
   </div>
 </footer>"""
 
@@ -936,7 +1002,6 @@ def main():
         _publications_section(),
         _awards(data["awards"]),
         _patents(data["patents"]),
-        _projects(data.get("projects")),
         _editorial(data["editorial"], profile),
         _presentations(data["presentations"]),
         _open_source(profile),

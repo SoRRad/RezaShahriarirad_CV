@@ -448,7 +448,12 @@ function renderRepos(){
 document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('a.cf-email').forEach(function(a){
     const email = a.dataset.u + '@' + a.dataset.d;
-    a.textContent = email;
+    if(!a.dataset.keepContent){
+      a.textContent = a.dataset.label || email;
+    }
     a.href = 'mai'+'lto:'+email;
+    if(!a.getAttribute('aria-label')){
+      a.setAttribute('aria-label', email);
+    }
   });
 });
