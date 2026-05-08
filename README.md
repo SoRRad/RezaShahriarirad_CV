@@ -25,6 +25,19 @@ python build/build.py
 
 The build validates CSV data, regenerates legacy JSON artifacts, then generates the website, Word CV, and PDF CV.
 
+## Editing CSV Files Safely
+
+Excel's warning that "some features might be lost" is normal when saving as CSV. CSV files cannot store workbook formatting, formulas, filters, colors, or multiple sheets, but that does not affect the website as long as the plain CSV data is preserved.
+
+- Save from Excel as **CSV UTF-8 (Comma delimited) (*.csv)**.
+- Keep the file extension as `.csv`; do not save the build inputs as `.xlsx`.
+- Preserve the header row exactly.
+- Quote any field that contains a comma, for example `"Author A, Author B"`.
+- Use semicolons inside multi-value fields such as `tags`, `cat`, `keywords`, and `highlight_topics`.
+- Run `python build/validate_data.py` before pushing.
+
+The validator checks for common CSV/Excel issues including UTF-8 BOMs, hidden tabs or non-breaking spaces, missing required columns, invalid category keys, invalid publication or presentation types, duplicate publication numbers, bad yes/no flags, and extra columns usually caused by unquoted commas.
+
 ## Updating Content
 
 Use the CSV files in `data/`:
@@ -92,15 +105,19 @@ If a generated file needs to change, update the relevant CSV or build source, th
 
 ## GitHub Actions And Pages
 
-`.github/workflows/update-cv.yml` validates CSV files, rebuilds all generated outputs, commits only when generated files changed, and deploys the public site to GitHub Pages.
+`.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow. It validates CSV files, rebuilds all generated outputs, commits only when generated files changed, and deploys the public site to GitHub Pages.
 
-The deployed public site is intentionally limited to:
+The deployed public site includes:
 
 - `index.html`
 - `Shahriarirad_Reza_CV.docx`
 - `Shahriarirad_Reza_CV.pdf`
+- generated JSON files for compatibility
+- `assets/` when present
 
 The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build.
+
+Preferred GitHub Pages configuration is **Deploy from a branch -> `gh-pages` / root**. If the repository is instead configured to publish from `main` / root, the workflow still commits the rebuilt generated files back to `main`, so CSV-only pushes can update the live site after validation passes. If a valid build/deploy finishes but the live site is still stale, check **Settings -> Pages** and browser/CDN cache before editing generated files manually.
 
 ## Legacy Local Admin
 

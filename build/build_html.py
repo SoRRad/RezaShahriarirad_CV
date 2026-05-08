@@ -4,7 +4,7 @@ Reads cv_style.css and cv_script.js verbatim; all dynamic content comes from CSV
 """
 import base64, json, mimetypes, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import load_all_data, get_profile, parse_semicolon, TAXONOMY
+from utils import load_all_data, get_profile, parse_semicolon, TAXONOMY, CAT_LABELS
 
 ROOT   = pathlib.Path(__file__).parent.parent
 ASSETS = pathlib.Path(__file__).parent / "static_assets"
@@ -408,8 +408,8 @@ def _about(profile: dict) -> str:
 
 _LOGO_SIZE_LIMIT = 150_000  # bytes — skip embedding logos larger than this
 
-def _institutional_logo(logo_file, org_name=""):
-    """Return <img class=timeline-logo> if logo_file found in LOGO_DIRS and small enough, else empty string."""
+def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
+    """Return an embedded local logo image if logo_file is found and small enough."""
     if not logo_file or not str(logo_file).strip():
         return ""
     fname = str(logo_file).strip()
@@ -417,11 +417,13 @@ def _institutional_logo(logo_file, org_name=""):
         p = directory / fname
         if p.exists() and p.is_file():
             if p.stat().st_size > _LOGO_SIZE_LIMIT:
+                print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes; using fallback initials.")
                 return ""  # file too large to embed; fall back to initials placeholder
             mime = mimetypes.guess_type(str(p))[0] or "image/png"
             data = base64.b64encode(p.read_bytes()).decode("ascii")
             alt = _e(f"{org_name} logo" if org_name else "Institution logo")
-            return f'<img class="timeline-logo" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy">'
+            return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy" decoding="async">'
+    print(f"[build_html] WARNING: logo_file '{fname}' was not found; using fallback initials.")
     return ""
 
 
@@ -490,11 +492,16 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
             name = _e(r.get("name", ""))
             url = str(r.get("url", "")).strip()
             name_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer">{name}</a>' if url else name
-            role = str(r.get("role", "")).strip()
-            role_html = f'<div class="lab-card-role">{_e(role)}</div>' if role else ""
             hide_meta = str(r.get("hide_meta", "")).strip().lower() == "yes"
             display_detail = str(r.get("display_detail", "")).strip()
-            detail_html = f'<div class="lab-card-detail">{_e(display_detail)}</div>' if display_detail else ""
+            role = str(r.get("role", "")).strip()
+            role_display = display_detail if hide_meta and display_detail else role
+            role_html = f'<div class="lab-card-role">{_e(role_display)}</div>' if role_display else ""
+            detail_html = (
+                f'<div class="lab-card-detail">{_e(display_detail)}</div>'
+                if display_detail and not (hide_meta and display_detail)
+                else ""
+            )
             if not hide_meta:
                 meta = " · ".join(x for x in [
                     str(r.get("institution", "")).strip(),
@@ -503,8 +510,10 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
                 meta_html = f'<div class="lab-card-inst">{_e(meta)}</div>' if meta else ""
             else:
                 meta_html = ""
+            logo_img = _institutional_logo(r.get("logo_file", ""), str(r.get("name", "")), "lab-card-logo")
+            logo_html = logo_img or f'<div class="lab-card-logo-placeholder">{_e(name[:3].upper())}</div>'
             aff_cards.append(f"""      <div class="lab-card">
-        <div class="lab-card-logo-placeholder">{_e(name[:3].upper())}</div>
+        {logo_html}
         <div class="lab-card-body">
           <div class="lab-card-name">{name_html}</div>
           {role_html}
@@ -776,9 +785,20 @@ def _presentations(pres_df) -> str:
         cats = parse_semicolon(r.get("cat",""))
         seen = set(); cats_u = [c for c in cats if not (c in seen or seen.add(c))]
         data_cats = ",".join(cats_u)
-        type_cls  = r.get("type","poster").lower()
+        keywords = parse_semicolon(r.get("keywords", ""))
+        data_keywords = " ".join(keywords)
+        cat_labels = " ".join(CAT_LABELS.get(c, c) for c in cats_u)
+        search_text = " ".join([
+            str(r.get("title", "")),
+            str(r.get("venue", "")),
+            str(r.get("conference", "")),
+            str(r.get("location", "")),
+            data_keywords,
+            cat_labels,
+        ])
+        type_cls  = r.get("type","poster").strip().lower()
         type_lbl  = type_cls.capitalize()
-        items.append(f"""    <div class="pres-item" data-type="{_e(type_cls)}" data-location="{_e(r.get('location',''))}" data-cats="{_e(data_cats)}">
+        items.append(f"""    <div class="pres-item" data-type="{_e(type_cls)}" data-location="{_e(r.get('location',''))}" data-cats="{_e(data_cats)}" data-keywords="{_e(data_keywords)}" data-search="{_e(search_text)}">
       <div class="pres-date-col">
         <span class="pres-year-txt">{_e(r.get('date',''))}</span>
         <span class="pres-type {type_cls}">{type_lbl}</span>
@@ -795,10 +815,15 @@ def _presentations(pres_df) -> str:
         ["Poster", "Oral"],
         ["poster", "oral"]
     )
+    locations = sorted({
+        str(r.get("location", "")).strip()
+        for _, r in pres_df.iterrows()
+        if str(r.get("location", "")).strip()
+    })
     pres_loc_dropdown = _dropdown_html(
         "pres-loc-btn", "pres-loc-panel", "All Locations",
-        ["Iran", "Netherlands", "Turkey", "United States"],
-        ["Iran", "Netherlands", "Turkey", "United States"]
+        locations,
+        locations
     )
 
     # Presentations topic tree (same taxonomy)
@@ -806,7 +831,7 @@ def _presentations(pres_df) -> str:
     for grp_key in sorted(TAXONOMY.keys()):
         grp = TAXONOMY[grp_key]
         subs_html = "\n".join(
-            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(\'cat\',\'{sub_key}\',this)" data-main="{grp_key}">{_e(sub_label)}</button>'
+            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(\'cat\',\'{sub_key}\',this)" data-cat="{sub_key}" data-main="{grp_key}">{_e(sub_label)}</button>'
             for sub_key, sub_label in sorted(grp["subs"].items(), key=lambda x: x[1])
         )
         pres_topic_tree += f"""
@@ -856,6 +881,9 @@ def _presentations(pres_df) -> str:
       </div>
       <div class="pres-list" id="pres-list">
 {''.join(items)}
+      </div>
+      <div class="pres-more-wrap" id="pres-more">
+        <button class="btn-outline" type="button" onclick="togglePresMore()" style="border-color:var(--navy);color:var(--navy)">Show more presentations</button>
       </div>
     </div>
   </div></div>
@@ -961,24 +989,35 @@ def _footer(profile: dict) -> str:
 
 # ── JS data generators ─────────────────────────────────────────────────────
 
+def _category_labels_js() -> str:
+    payload = {
+        **CAT_LABELS,
+        **{grp_key: grp["label"] for grp_key, grp in TAXONOMY.items()},
+    }
+    return "const categoryLabels = " + json.dumps(payload, ensure_ascii=False, sort_keys=True) + ";"
+
+
 def _pubs_js(pubs_df) -> str:
     """Generate const publications=[...] from the CSV."""
     entries = []
     for _, r in pubs_df.iterrows():
-        tags      = parse_semicolon(r.get("tags",""))
-        cats      = parse_semicolon(r.get("cat",""))
-        keywords  = parse_semicolon(r.get("keywords",""))
-        h_topics  = parse_semicolon(r.get("highlight_topics",""))
-        featured  = str(r.get("featured","")).strip().lower()
-        tags_js   = "[" + ",".join(f'"{_q(t)}"' for t in tags) + "]"
-        cats_js   = "[" + ",".join(f'"{_q(c)}"' for c in cats) + "]"
-        kw_js     = "[" + ",".join(f'"{_q(k)}"' for k in keywords) + "]"
-        ht_js     = "[" + ",".join(f'"{_q(h)}"' for h in h_topics) + "]"
-        n_val     = int(r.get("n",0)) if str(r.get("n","")).isdigit() else 0
-        entries.append(
-            f'{{n:{n_val},year:"{_q(r.get("year",""))}",type:"{_q(r.get("type",""))}",title:"{_q(r.get("title",""))}",authors:"{_q(r.get("authors",""))}",journal:"{_q(r.get("journal",""))}",url:"{_q(r.get("url",""))}",tags:{tags_js},cat:{cats_js},keywords:{kw_js},highlight_topics:{ht_js},featured:"{_q(featured)}"}}'
-        )
-    return "const publications=[\n  " + ",\n  ".join(entries) + "\n];"
+        n_raw = str(r.get("n", "")).strip()
+        entries.append({
+            "n": int(n_raw) if n_raw.isdigit() else 0,
+            "year": str(r.get("year", "")).strip(),
+            "month": str(r.get("month", "")).strip(),
+            "type": str(r.get("type", "")).strip().lower(),
+            "tags": [t.lower() for t in parse_semicolon(r.get("tags", ""))],
+            "cat": [c.lower() for c in parse_semicolon(r.get("cat", ""))],
+            "title": str(r.get("title", "")).strip(),
+            "authors": str(r.get("authors", "")).strip(),
+            "journal": str(r.get("journal", "")).strip(),
+            "url": str(r.get("url", "")).strip(),
+            "keywords": parse_semicolon(r.get("keywords", "")),
+            "highlight_topics": [h.lower() for h in parse_semicolon(r.get("highlight_topics", ""))],
+            "featured": "yes" if _yes(r.get("featured", "")) else "",
+        })
+    return "const publications = " + json.dumps(entries, ensure_ascii=False, indent=2) + ";"
 
 
 def _journals_js(journals_df) -> str:
@@ -1068,6 +1107,7 @@ def main():
         _references_section(),
         _footer(profile),
         '\n<script>',
+        _category_labels_js(),
         _pubs_js(data["publications"]),
         _journals_js(data["journals"]),
         _refs_js(data["references"]),

@@ -3,6 +3,12 @@ name: Build & Deploy CV
 on:
   push:
     branches: [main]
+    paths:
+      - 'data/**/*.csv'
+      - 'build/**'
+      - 'assets/**'
+      - '.github/workflows/update-cv.yml'
+      - 'README.md'
   schedule:
     - cron: '0 6 * * 1'
   workflow_dispatch:
@@ -136,6 +142,21 @@ jobs:
           cp index.html site_public/
           cp Shahriarirad_Reza_CV.docx site_public/
           cp Shahriarirad_Reza_CV.pdf site_public/
+          cp cv_pubs.json site_public/
+          cp cv_presentations.json site_public/
+          cp cv_journals.json site_public/
+          cp cv_live_stats.json site_public/
+          if [ -d assets ]; then
+            cp -R assets site_public/assets
+          fi
+
+      - name: Verify deployment payload
+        run: |
+          test -s site_public/index.html
+          test -s site_public/Shahriarirad_Reza_CV.docx
+          test -s site_public/Shahriarirad_Reza_CV.pdf
+          test -s site_public/cv_pubs.json
+          test -s site_public/cv_presentations.json
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

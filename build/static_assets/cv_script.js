@@ -56,8 +56,9 @@ function boldName(str){
 
 function computeTags(authors){
   const tags = [];
-  if(/Shahriarirad R\*/.test(authors)) tags.push('corresponding');
-  const parts     = authors.split(',').map(s=>s.trim()).filter(s=>s.length>0);
+  const authorText = String(authors || '');
+  if(/Shahriarirad R\*/.test(authorText)) tags.push('corresponding');
+  const parts     = authorText.split(',').map(s=>s.trim()).filter(s=>s.length>0);
   const realParts = parts.filter(s=>!/^et\s+al/i.test(s));
   const pos       = realParts.findIndex(s=>s.includes('Shahriarirad R'));
   if(pos===0) tags.push('first');
@@ -67,10 +68,74 @@ function computeTags(authors){
   return tags;
 }
 
+function uniqueValues(values){
+  return [...new Set(values.filter(Boolean))];
+}
+
+function normalizedArray(values){
+  return Array.isArray(values)
+    ? values.map(v => String(v || '').trim().toLowerCase()).filter(Boolean)
+    : [];
+}
+
+function getPubTags(pub){
+  return uniqueValues([...normalizedArray(pub.tags), ...computeTags(pub.authors)]);
+}
+
+function getCategoryLabel(cat){
+  return (typeof categoryLabels !== 'undefined' && categoryLabels[cat]) ? categoryLabels[cat] : cat;
+}
+
+function pubCategoryText(pub){
+  return uniqueValues([...normalizedArray(pub.cat), ...normalizedArray(pub.highlight_topics)])
+    .map(cat => `${cat} ${getCategoryLabel(cat)}`)
+    .join(' ');
+}
+
+function pubMatchesCurrentHighlight(pub){
+  if(currentCat === 'all') return false;
+  const highlights = normalizedArray(pub.highlight_topics);
+  if(currentCat.startsWith('main:')){
+    const groupSubs = mainGroupSubs[currentCat.slice(5)] || [];
+    return highlights.some(cat => groupSubs.includes(cat));
+  }
+  return highlights.includes(currentCat);
+}
+
+function escapeHtml(value){
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[ch]));
+}
+
+function safeUrl(value){
+  const url = String(value || '').trim();
+  return /^https?:\/\//i.test(url) ? url : '';
+}
+
+function normalizeSearch(value){
+  return String(value ?? '')
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function textMatchesSearch(text, query){
+  const normalizedText = normalizeSearch(text);
+  const terms = normalizeSearch(query).split(/\s+/).filter(Boolean);
+  return terms.length === 0 || terms.every(term => normalizedText.includes(term));
+}
+
 function renderPubs(){
   const list    = document.getElementById('pub-list');
   const countEl = document.getElementById('pub-count');
   const moreEl  = document.getElementById('pub-more');
+  if(!list) return;
 
   const typeMap  = {original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter'};
   const classMap = {original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter'};
@@ -98,60 +163,67 @@ function renderPubs(){
     /* ── Authorship filter (multi-select OR) ── */
     let matchTag = true;
     if(pubTagSelections.length > 0){
-      const tags = (p.tags && p.tags.length > 0) ? p.tags : computeTags(p.authors);
+      const tags = getPubTags(p);
       matchTag = pubTagSelections.some(sel => tags.includes(sel));
     }
 
     /* ── Category filter ── */
     let matchCat = true;
     if(currentCat !== 'all'){
+      const cats = normalizedArray(p.cat);
       if(currentCat.startsWith('main:')){
         const groupSubs = mainGroupSubs[currentCat.slice(5)] || [];
-        matchCat = Array.isArray(p.cat) && p.cat.some(c => groupSubs.includes(c));
+        matchCat = cats.some(c => groupSubs.includes(c));
       } else {
-        matchCat = Array.isArray(p.cat) && p.cat.includes(currentCat);
+        matchCat = cats.includes(currentCat);
       }
     }
 
     /* ── Search (title + authors + journal + keywords) ── */
-    const q = currentSearch.toLowerCase();
+    const q = normalizeSearch(currentSearch);
     let matchSearch = true;
     if(q){
-      const kw = Array.isArray(p.keywords) ? p.keywords.join(' ') : (p.keywords||'');
-      matchSearch = p.title.toLowerCase().includes(q)
-                 || p.authors.toLowerCase().includes(q)
-                 || p.journal.toLowerCase().includes(q)
-                 || kw.toLowerCase().includes(q);
+      const searchText = [
+        p.title,
+        p.authors,
+        p.journal,
+        Array.isArray(p.keywords) ? p.keywords.join(' ') : '',
+        getPubTags(p).join(' '),
+        pubCategoryText(p),
+      ].join(' ');
+      matchSearch = textMatchesSearch(searchText, q);
     }
 
     return matchType && matchTag && matchCat && matchSearch;
   });
 
   /* ── Highlight topics: sort matching pubs to top when cat filter active ── */
-  if(currentCat !== 'all' && !currentCat.startsWith('main:')){
-    const activeCat = currentCat;
+  if(currentCat !== 'all'){
     filtered = [
-      ...filtered.filter(p => Array.isArray(p.highlight_topics) && p.highlight_topics.includes(activeCat)),
-      ...filtered.filter(p => !(Array.isArray(p.highlight_topics) && p.highlight_topics.includes(activeCat))),
+      ...filtered.filter(pubMatchesCurrentHighlight),
+      ...filtered.filter(p => !pubMatchesCurrentHighlight(p)),
     ];
   }
 
   const displayed = showingAll ? filtered : filtered.slice(0, SHOW);
-  countEl.textContent = `Showing ${displayed.length} of ${filtered.length}`;
-  moreEl.style.display = (filtered.length > SHOW && !showingAll) ? 'block' : 'none';
+  if(countEl) countEl.textContent = `Showing ${displayed.length} of ${filtered.length}`;
+  if(moreEl) moreEl.style.display = (filtered.length > SHOW && !showingAll) ? 'block' : 'none';
 
   list.innerHTML = displayed.map(p => {
-    const ym    = p.month ? `${p.month} ${p.year}` : p.year;
-    const badge = `<span class="pub-type-badge ${classMap[p.type]||'badge-original'}">${typeMap[p.type]||p.type}</span>`;
-    const star  = p.featured === 'yes' ? '<span class="pub-star-badge" title="Featured publication">&#11088;</span>' : '';
-    const titleHtml = p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer">${p.title}</a>` : p.title;
-    const authHtml  = boldName(p.authors);
+    const typeKey = String(p.type || '').toLowerCase();
+    const ym    = p.month ? `${escapeHtml(p.month)} ${escapeHtml(p.year)}` : escapeHtml(p.year);
+    const badge = `<span class="pub-type-badge ${classMap[typeKey]||'badge-original'}">${escapeHtml(typeMap[typeKey]||typeKey)}</span>`;
+    const star  = p.featured === 'yes' ? '<span class="pub-star-badge" title="Featured publication" aria-label="Featured publication">&#9733;</span>' : '';
+    const href = safeUrl(p.url);
+    const title = escapeHtml(p.title);
+    const titleHtml = href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${title}</a>` : title;
+    const authHtml  = boldName(escapeHtml(p.authors));
     return `<div class="pub-item">
       <div class="pub-year-col">${ym}${badge}${star}</div>
       <div>
         <div class="pub-title">${titleHtml}</div>
         <div class="pub-authors">${authHtml}</div>
-        <div class="pub-journal"><em>${p.journal}</em></div>
+        <div class="pub-journal"><em>${escapeHtml(p.journal)}</em></div>
       </div>
     </div>`;
   }).join('');
@@ -164,6 +236,7 @@ function resetPubFilters(){
   ['pub-type-panel','pub-auth-panel'].forEach(id=>{
     const panel=document.getElementById(id);
     if(!panel) return;
+    panel.classList.remove('open');
     panel.querySelectorAll('input[type=checkbox]').forEach(c=>{
       c.checked=false;
       const opt=c.closest('.custom-dropdown-option');
@@ -180,6 +253,8 @@ function resetPubFilters(){
   });
   document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
     .forEach(b=>b.classList.remove('active','has-active','open'));
+  document.querySelectorAll('.pub-filter-sidebar .filter-btn')
+    .forEach(b=>b.setAttribute('aria-pressed','false'));
   document.querySelectorAll('.pub-filter-sidebar .filter-sub-group')
     .forEach(g=>g.style.display='none');
   document.getElementById('cat-all-btn')?.classList.add('active');
@@ -196,6 +271,8 @@ function filterPubsMain(btn){
   showingAll = false;
   document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
     .forEach(b=>b.classList.remove('active','has-active','open'));
+  document.querySelectorAll('.pub-filter-sidebar .filter-sub-group')
+    .forEach(g=>g.style.display='none');
   document.getElementById('cat-all-btn')?.classList.remove('active');
   const sub = document.getElementById('grp-'+groupKey);
   if(isActive){
@@ -217,6 +294,8 @@ function filterPubs(val, btn, dimension){
     currentCat = val;
     document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
       .forEach(b=>b.classList.remove('active','has-active'));
+    document.querySelectorAll('.pub-filter-sidebar .filter-sub-group')
+      .forEach(g=>g.style.display='none');
     document.getElementById('cat-all-btn')?.classList.remove('active');
     if(val === 'all'){
       document.getElementById('cat-all-btn')?.classList.add('active');
@@ -239,10 +318,14 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
   if(!btn || !panel) return;
 
   btn.addEventListener('click', e => {
+    e.preventDefault();
     e.stopPropagation();
     const isOpen = panel.classList.contains('open');
     document.querySelectorAll('.custom-dropdown-panel.open').forEach(p=>p.classList.remove('open'));
-    document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>{
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded','false');
+    });
     if(!isOpen){
       panel.classList.add('open');
       btn.classList.add('open');
@@ -253,10 +336,16 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
   panel.addEventListener('click', e => {
     const opt = e.target.closest('.custom-dropdown-option');
     if(!opt) return;
+    e.preventDefault();
+    e.stopPropagation();
     const val = opt.dataset.value;
     const chk = opt.querySelector('input[type=checkbox]');
     if(val === 'all'){
-      panel.querySelectorAll('input[type=checkbox]').forEach(c=>{c.checked=false;c.closest('.custom-dropdown-option').classList.remove('selected')});
+      panel.querySelectorAll('input[type=checkbox]').forEach(c=>{
+        c.checked=false;
+        const option = c.closest('.custom-dropdown-option');
+        if(option){ option.classList.remove('selected'); option.setAttribute('aria-selected','false'); }
+      });
     } else {
       if(chk){
         chk.checked = !chk.checked;
@@ -281,12 +370,15 @@ document.addEventListener('click', () => {
 /* ── Research topic tag click → scroll to publications + apply filter ── */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.research-tag[data-cat]').forEach(tag => {
-    tag.addEventListener('click', () => {
+    tag.addEventListener('click', event => {
+      event.preventDefault();
       const cat = tag.dataset.cat;
       currentCat = cat;
       showingAll  = false;
       document.querySelectorAll('.pub-filter-sidebar .filter-main-btn,.pub-filter-sidebar .filter-sub-btn')
         .forEach(b=>b.classList.remove('active','has-active'));
+      document.querySelectorAll('.pub-filter-sidebar .filter-sub-group')
+        .forEach(g=>g.style.display='none');
       document.getElementById('cat-all-btn')?.classList.remove('active');
       const btn = document.querySelector(`.filter-sub-btn[data-cat="${cat}"]`);
       if(btn){
@@ -296,6 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sub = btn.closest('.filter-sub-group');
         if(sub) sub.style.display = 'block';
       }
+      syncPressed('.pub-filter-sidebar');
       renderPubs();
       document.getElementById('publications')?.scrollIntoView({behavior:'smooth'});
     });
@@ -313,15 +406,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Init presentation type dropdown ── */
   initCustomDropdown('pres-type-btn','pres-type-panel','All Types', selected => {
+    presShowingAll = false;
     presDropFilters.type = selected; applyPresFilters();
   });
 
   /* ── Init presentation location dropdown ── */
   initCustomDropdown('pres-loc-btn','pres-loc-panel','All Locations', selected => {
+    presShowingAll = false;
     presDropFilters.location = selected; applyPresFilters();
   });
 
   renderPubs();
+  applyPresFilters();
   renderRepos();
   renderRefs();
   renderJournals();
@@ -344,12 +440,17 @@ function renderJournals(){
 /* ── PRESENTATIONS FILTER ─────────────────────────────────────────────────── */
 let presFilters    = {cat: null, search: ''};
 let presDropFilters= {type: [], location: []};
+let presShowingAll = false;
+const PRES_INITIAL_SHOW = 8;
 
 function filterPresMain(btn){
+  presShowingAll = false;
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && presFilters.cat === 'main:'+groupKey;
   document.querySelectorAll('.pres-filter-sidebar .filter-main-btn,.pres-filter-sidebar .filter-sub-btn')
     .forEach(b=>b.classList.remove('active','has-active','open'));
+  document.querySelectorAll('.pres-filter-sidebar .filter-sub-group')
+    .forEach(g=>g.style.display='none');
   const sub = document.getElementById('pgrp-'+groupKey);
   if(isActive){
     if(sub) sub.style.display='none';
@@ -364,11 +465,19 @@ function filterPresMain(btn){
 }
 
 function filterPres(dim, val, btn){
+  presShowingAll = false;
   if(presFilters[dim] === val){
     presFilters[dim] = null; btn.classList.remove('active');
     if(dim==='cat') btn.closest('.filter-main-group')?.querySelector('.filter-main-btn')?.classList.remove('has-active');
   } else {
-    btn.closest('.pres-filter-group')?.querySelectorAll('.filter-btn:not(.filter-main-btn)').forEach(b=>b.classList.remove('active'));
+    if(dim === 'cat'){
+      document.querySelectorAll('.pres-filter-sidebar .filter-main-btn,.pres-filter-sidebar .filter-sub-btn')
+        .forEach(b=>b.classList.remove('active','has-active','open'));
+      document.querySelectorAll('.pres-filter-sidebar .filter-sub-group')
+        .forEach(g=>g.style.display='none');
+    } else {
+      btn.closest('.pres-filter-group')?.querySelectorAll('.filter-btn:not(.filter-main-btn)').forEach(b=>b.classList.remove('active'));
+    }
     presFilters[dim] = val; btn.classList.add('active');
     if(dim==='cat'){
       const parent = btn.closest('.filter-main-group')?.querySelector('.filter-main-btn');
@@ -384,36 +493,57 @@ function filterPres(dim, val, btn){
 function resetPresFilters(btn){
   presFilters = {cat:null, search:''};
   presDropFilters = {type:[], location:[]};
-  document.querySelectorAll('.pres-filter-sidebar .filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
+  presShowingAll = false;
+  document.querySelectorAll('.pres-filter-sidebar .filter-btn').forEach(b=>{
+    b.classList.remove('active','has-active','open');
+    b.setAttribute('aria-pressed','false');
+  });
+  document.querySelectorAll('.pres-filter-sidebar .filter-sub-group').forEach(g=>g.style.display='none');
   const searchEl = document.getElementById('pres-search');
   if(searchEl) searchEl.value='';
   /* Reset dropdowns */
   ['pres-type-panel','pres-loc-panel'].forEach(id=>{
     const panel=document.getElementById(id);
-    if(panel) panel.querySelectorAll('input[type=checkbox]').forEach(c=>{c.checked=false;c.closest('.custom-dropdown-option').classList.remove('selected');});
+    if(panel){
+      panel.classList.remove('open');
+      panel.querySelectorAll('input[type=checkbox]').forEach(c=>{
+        c.checked=false;
+        const opt = c.closest('.custom-dropdown-option');
+        if(opt){ opt.classList.remove('selected'); opt.setAttribute('aria-selected','false'); }
+      });
+    }
   });
   ['pres-type-btn','pres-loc-btn'].forEach(id=>{
     const btn=document.getElementById(id);
-    if(btn){ btn.classList.remove('has-selection','open'); const lbl=btn.querySelector('.dropdown-label'); if(lbl) lbl.textContent=lbl.dataset.default; }
+    if(btn){
+      btn.classList.remove('has-selection','open');
+      btn.setAttribute('aria-expanded','false');
+      const lbl=btn.querySelector('.dropdown-label');
+      if(lbl) lbl.textContent=lbl.dataset.default;
+    }
   });
   syncPressed('.pres-filter-sidebar');
   applyPresFilters();
 }
 
 function filterPresSearch(q){
+  presShowingAll = false;
   presFilters.search = q.toLowerCase();
   applyPresFilters();
 }
 
 function applyPresFilters(){
-  const items = document.querySelectorAll('#pres-list .pres-item');
-  let shown = 0;
+  const items = [...document.querySelectorAll('#pres-list .pres-item')];
+  const activeFilters = presDropFilters.type.length > 0
+    || presDropFilters.location.length > 0
+    || Boolean(presFilters.cat)
+    || Boolean(presFilters.search);
+  const matches = [];
   items.forEach(item => {
     const type = item.dataset.type || '';
-    const loc  = item.dataset.location || '';
+    const loc  = (item.dataset.location || '').toLowerCase();
     const cats = (item.dataset.cats || '').split(',').filter(Boolean);
-    const text = item.textContent.toLowerCase();
+    const text = `${item.dataset.search || ''} ${item.textContent || ''}`.toLowerCase();
 
     let catMatch = true;
     if(presFilters.cat){
@@ -426,14 +556,35 @@ function applyPresFilters(){
     }
 
     const typeOk = presDropFilters.type.length===0 || presDropFilters.type.includes(type);
-    const locOk  = presDropFilters.location.length===0 || presDropFilters.location.some(l=>loc.includes(l));
+    const locOk  = presDropFilters.location.length===0 || presDropFilters.location.some(l=>loc.includes(String(l).toLowerCase()));
 
-    const ok = typeOk && locOk && catMatch && (!presFilters.search || text.includes(presFilters.search));
-    item.style.display = ok ? '' : 'none';
-    if(ok) shown++;
+    const ok = typeOk && locOk && catMatch && (!presFilters.search || textMatchesSearch(text, presFilters.search));
+    if(ok) matches.push(item);
+  });
+
+  const limit = (!activeFilters && !presShowingAll) ? PRES_INITIAL_SHOW : matches.length;
+  const visible = new Set(matches.slice(0, limit));
+  items.forEach(item => {
+    item.style.display = visible.has(item) ? '' : 'none';
   });
   const countEl = document.getElementById('pres-count');
-  if(countEl) countEl.textContent = shown + ' presentation' + (shown!==1?'s':'');
+  if(countEl){
+    countEl.textContent = activeFilters
+      ? `${matches.length} matching presentation${matches.length!==1?'s':''}`
+      : `Showing ${visible.size} of ${matches.length}`;
+  }
+  const more = document.getElementById('pres-more');
+  if(more){
+    const btn = more.querySelector('button');
+    const canToggle = !activeFilters && matches.length > PRES_INITIAL_SHOW;
+    more.style.display = canToggle ? 'block' : 'none';
+    if(btn) btn.textContent = presShowingAll ? 'Show fewer presentations' : 'Show more presentations';
+  }
+}
+
+function togglePresMore(){
+  presShowingAll = !presShowingAll;
+  applyPresFilters();
 }
 
 /* ── REFERENCES ── */
@@ -487,3 +638,18 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 });
+
+window.cvDiagnostics = function(){
+  const result = {
+    publicationsLoaded: Array.isArray(publications) ? publications.length : 0,
+    presentationsLoaded: document.querySelectorAll('#pres-list .pres-item').length,
+    row195Present: Array.isArray(publications) && publications.some(pub => Number(pub.n) === 195),
+    publicationFiltersExist: Boolean(document.getElementById('pub-type-btn') && document.getElementById('pub-auth-btn') && document.getElementById('cat-all-btn') && document.getElementById('pub-search')),
+    presentationFiltersExist: Boolean(document.getElementById('pres-type-btn') && document.getElementById('pres-loc-btn') && document.getElementById('pres-search')),
+    resetButtonsExist: Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset')),
+    openSourceGithubCardExists: Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]')),
+    tavsLogoElementExists: Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo'))),
+  };
+  console.table(result);
+  return result;
+};

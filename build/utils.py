@@ -64,8 +64,9 @@ def load_all_data() -> dict:
     result = {}
     for csv_path in DATA.glob("*.csv"):
         result[csv_path.stem] = pd.read_csv(
-            csv_path, dtype=str, keep_default_na=False, comment="#"
+            csv_path, dtype=str, keep_default_na=False, comment="#", encoding="utf-8-sig"
         )
+        result[csv_path.stem].columns = [str(c).strip().lstrip("\ufeff") for c in result[csv_path.stem].columns]
     return result
 
 

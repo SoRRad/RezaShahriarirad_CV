@@ -194,4 +194,4 @@ n,year,type,tags,cat,title,authors,journal,url,keywords,highlight_topics,feature
 192,2020,letter,first;corresponding,infectious,COVID-19: Clinical or Laboratory Diagnosis? A Matter of Debate,"Shahriarirad R, Sarkari B*",Tropical Doctor,https://journals.sagepub.com/doi/full/10.1177/0049475520945446,,,
 193,2022,case,,ortho,Comparison of Accuracy in Expert Clinical Examination versus MRI and Arthroscopic Exam in Diagnosis of Meniscal Tear,"Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",Advances in Orthopedics,https://www.hindawi.com/journals/aorth/2020/1895852/,,,
 194,2023,case,,,Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness,"Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",Case Reports in Medicine,https://www.hindawi.com/journals/crim/2023/1553163/,,,
-195,2026,original,first,bariatric,Testing,"Shahriarirad R*, Test A",Test Journal,https://www.google.com,Dummy,bariatric,yes
+195,2024,case,co-first,ortho,test,"Testing A, Shahriarirad R",Journal of testing,www.google.com,,,

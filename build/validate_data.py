@@ -71,6 +71,7 @@ REQUIRED_PROFILE_FIELDS = {
 VALID_PUB_TYPES = {"original", "review", "case", "letter"}
 VALID_PRESENTATION_TYPES = {"poster", "oral"}
 VALID_YES_NO = {"yes", "no", ""}
+VALID_MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""}
 KEY_TEXT_FIELDS = {
     "publications": ["title", "authors", "journal"],
     "presentations": ["title", "venue", "location"],
@@ -146,6 +147,21 @@ def _valid_year(value, min_year=1900, max_year=2035):
 
 
 def _validate_columns(stem, columns, errors):
+    seen = Counter(columns)
+    for col in columns:
+        label = str(col or "")
+        issues = _text_issues(label)
+        if not label:
+            errors.append(f"{stem}.csv: header contains an empty column name")
+        if issues:
+            errors.append(
+                f"{stem}.csv: header '{label}' contains "
+                + ", ".join(sorted(set(issues)))
+            )
+    for col, count in seen.items():
+        if col and count > 1:
+            errors.append(f"{stem}.csv: duplicate column '{col}'")
+
     required = REQUIRED_COLS.get(stem, [])
     missing = [col for col in required if col not in columns]
     for col in missing:
@@ -154,8 +170,9 @@ def _validate_columns(stem, columns, errors):
 
 
 def _validate_text_fields(stem, row, lineno, errors):
-    for field in KEY_TEXT_FIELDS.get(stem, []):
-        if field not in row:
+    fields = set(row.keys()) | set(KEY_TEXT_FIELDS.get(stem, []))
+    for field in fields:
+        if field is None or field not in row:
             continue
         issues = _text_issues(row.get(field, ""))
         if issues:
@@ -169,6 +186,12 @@ def _validate_url(stem, row, lineno, field, errors):
     url = str(row.get(field, "")).strip()
     if url and not (url.startswith("http://") or url.startswith("https://")):
         errors.append(f"{stem}.csv: row {lineno} field '{field}' must start with http:// or https://")
+
+
+def _warn_file_encoding(path, warnings):
+    raw = path.read_bytes()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        warnings.append(f"{path.name}: UTF-8 BOM detected and tolerated; build reads UTF-8-SIG")
 
 
 def _validate_publications(rows, lines, errors):
@@ -189,6 +212,11 @@ def _validate_publications(rows, lines, errors):
         ok, msg = _valid_year(row.get("year", ""))
         if not ok:
             errors.append(f"publications.csv: row {lineno} year '{row.get('year', '')}' {msg}")
+
+        if "month" in row:
+            month = str(row.get("month", "")).strip()
+            if month not in VALID_MONTHS:
+                errors.append(f"publications.csv: row {lineno} month '{month}' is not a valid three-letter month")
 
         type_s = str(row.get("type", "")).strip().lower()
         if type_s and type_s not in VALID_PUB_TYPES:
@@ -219,6 +247,15 @@ def _validate_presentations(rows, lines, errors):
         ok, msg = _valid_year(row.get("year", ""))
         if not ok:
             errors.append(f"presentations.csv: row {lineno} year '{row.get('year', '')}' {msg}")
+
+        month = str(row.get("month", "")).strip()
+        if month not in VALID_MONTHS:
+            errors.append(f"presentations.csv: row {lineno} month '{month}' is not a valid three-letter month")
+
+        date_text = str(row.get("date", "")).strip()
+        year_text = str(row.get("year", "")).strip()
+        if year_text and date_text and year_text not in date_text:
+            errors.append(f"presentations.csv: row {lineno} date '{date_text}' does not include year '{year_text}'")
 
         type_s = str(row.get("type", "")).strip().lower()
         if type_s and type_s not in VALID_PRESENTATION_TYPES:
@@ -279,6 +316,25 @@ def _validate_projects(rows, lines, errors):
         errors.append(f"projects.csv: duplicate display_order {order}")
 
 
+def _validate_affiliations(rows, lines, errors):
+    for row, lineno in zip(rows, lines):
+        for field in ("org_key", "name"):
+            if not str(row.get(field, "")).strip():
+                errors.append(f"affiliations.csv: row {lineno} missing required field '{field}'")
+        for field in ("show_in_experience", "hide_meta"):
+            value = str(row.get(field, "")).strip().lower()
+            if value not in VALID_YES_NO:
+                errors.append(f"affiliations.csv: row {lineno} {field} must be yes, no, or empty")
+        _validate_url("affiliations", row, lineno, "url", errors)
+
+
+def _validate_open_source(rows, lines, errors):
+    for row, lineno in zip(rows, lines):
+        _validate_url("open_source", row, lineno, "url", errors)
+        _validate_url("open_source", row, lineno, "demo", errors)
+        _validate_url("open_source", row, lineno, "paper", errors)
+
+
 LOGO_DIRS = [
     ROOT / "assets" / "logos",
     ROOT / "assets",
@@ -309,11 +365,16 @@ def validate_all():
 
     for path in sorted(DATA.glob("*.csv")):
         stem = path.stem
+        _warn_file_encoding(path, warnings)
         columns, rows, lines = _read_csv_with_lines(path)
         if not _validate_columns(stem, columns, errors):
             continue
 
         for row, lineno in zip(rows, lines):
+            if None in row and row[None]:
+                errors.append(
+                    f"{stem}.csv: row {lineno} has extra column data; quote fields that contain commas"
+                )
             if all(str(value or "").strip() == "" for value in row.values()):
                 errors.append(f"{stem}.csv: row {lineno} is completely empty")
             _validate_text_fields(stem, row, lineno, errors)
@@ -326,6 +387,10 @@ def validate_all():
             _validate_profile(rows, lines, errors)
         elif stem == "projects":
             _validate_projects(rows, lines, errors)
+        elif stem == "affiliations":
+            _validate_affiliations(rows, lines, errors)
+        elif stem == "open_source":
+            _validate_open_source(rows, lines, errors)
 
         if stem in ("experience", "education", "affiliations"):
             _check_logo_file_refs(rows, lines, stem, warnings)
