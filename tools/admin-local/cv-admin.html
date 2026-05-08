@@ -161,12 +161,12 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
     <div class="conn-ey">CV Admin Panel</div>
     <h1 class="conn-title">Reza <em>Shahriarirad</em></h1>
     <p class="conn-sub">Legacy local-only CV admin panel.<br>CSV files in <code>data/</code> are the source of truth.</p>
-    <div class="legacy-warning"><strong>Local-only warning:</strong> do not publish or link this page from the public CV site. It asks for a GitHub token and still writes legacy JSON in places, so use it only with caution on a trusted local machine.</div>
+    <div class="legacy-warning"><strong>Local-only warning:</strong> do not publish or link this page from the public CV site. It asks for a GitHub token and cannot run a local git pull/rebase. For normal publishing, use <code>powershell -ExecutionPolicy Bypass -File scripts/safe_push.ps1</code> from the repository root. Browser API edits re-check the latest remote SHA and stop if the remote changed.</div>
     <div class="card">
       <div class="ch"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>GitHub Access Token</div>
       <label>Personal access token</label>
       <input type="password" id="inp-tok" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-      <p class="hl">Use this legacy tool only if you understand the risk of pasting a GitHub token into a browser page. Prefer editing CSV files directly and running <code>python build/build.py</code>.</p>
+      <p class="hl">Use this legacy tool only if you understand the risk of pasting a GitHub token into a browser page. Prefer editing CSV files directly and running <code>scripts/safe_push.ps1</code>, which validates, rebuilds, fetches, rebases, and pushes safely.</p>
       <label>Repository</label>
       <input type="text" id="inp-repo" value="SoRRad/RezaShahriarirad_CV">
       <button class="btn bp bw" onclick="doConnect()"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Connect &amp; Load CV</button>
@@ -674,7 +674,7 @@ hr{border:none;border-top:1px solid var(--border);margin:1rem 0}
   <div class="ph"><h2>Push &amp; <em>Deploy</em></h2></div>
   <div class="card">
     <div class="ch"><svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>Trigger Workflow</div>
-    <p style="font-size:.78rem;color:var(--t3);line-height:1.65;margin-bottom:1rem">Runs GitHub Actions — fetches fresh Scholar stats and regenerates the downloadable DOCX CV.</p>
+    <p style="font-size:.78rem;color:var(--t3);line-height:1.65;margin-bottom:1rem">Runs GitHub Actions after remote source changes are pushed. For local CSV/build edits, use the safe push script first so the repo fetches and rebases before pushing.</p>
     <button class="btn bp bw" onclick="triggerWF()"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>Trigger Update Workflow</button>
     <div id="s-dep" class="st"></div>
   </div>
@@ -762,7 +762,20 @@ function doDisc(){TOKEN='';REPO='';document.getElementById('conn-screen').style.
 const GHH=()=>({'Authorization':'Bearer '+TOKEN,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'});
 async function ghF(path){const r=await fetch(`https://api.github.com/repos/${REPO}/${path}`,{headers:GHH()});if(!r.ok)return null;return r.json();}
 async function ghFile(p){const d=await ghF(`contents/${p}?ref=${BR}`);if(!d)return null;const bytes=atob(d.content.replace(/\n/g,''));const content=decodeURIComponent(escape(bytes));return{content,sha:d.sha};}
-async function ghPut(p,sha,content,msg){const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${p}`,{method:'PUT',headers:{...GHH(),'Content-Type':'application/json'},body:JSON.stringify({message:msg,content:btoa(unescape(encodeURIComponent(content))),sha,branch:BR})});if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e?.message||r.status);}return(await r.json()).content.sha;}
+function remoteChangedMessage(p){return `Remote changed; pull first or reload this admin panel before updating ${p}. No force push was attempted.`;}
+async function ghPut(p,sha,content,msg){
+  const latest=await ghF(`contents/${p}?ref=${BR}`);
+  if(latest?.sha && sha && latest.sha!==sha) throw new Error(remoteChangedMessage(p));
+  const payload={message:msg,content:btoa(unescape(encodeURIComponent(content))),branch:BR};
+  if(latest?.sha||sha) payload.sha=latest?.sha||sha;
+  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${p}`,{method:'PUT',headers:{...GHH(),'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  if(!r.ok){
+    const e=await r.json().catch(()=>({}));
+    if(r.status===409||r.status===422) throw new Error(remoteChangedMessage(p));
+    throw new Error(e?.message||r.status);
+  }
+  return(await r.json()).content.sha;
+}
 
 async function loadStats(){
   try{
@@ -1887,7 +1900,7 @@ async function triggerWF(){
   st(sid,'ld','Triggering…');
   try{
     const r=await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/update-cv.yml/dispatches`,{method:'POST',headers:{...GHH(),'Content-Type':'application/json'},body:JSON.stringify({ref:BR})});
-    if(r.ok||r.status===204){logA('Triggered workflow');st(sid,'ok','✓ Workflow triggered.');}
+    if(r.ok||r.status===204){logA('Triggered workflow');st(sid,'ok','Workflow triggered. It will validate, build, and deploy from the current remote branch.');}
     else{const e=await r.json().catch(()=>({}));st(sid,'er','Error: '+(e.message||r.status));}
   }catch(e){st(sid,'er','Error: '+e.message);}
 }
@@ -1950,16 +1963,25 @@ async function addOSRepo(){
   await pushOSRepos('s-os',`Add OS repo: ${name}`);
   logA(`Added repo: ${name}`);
 }
+function csvEscape(value){
+  const text=String(value??'');
+  return /[",\r\n]/.test(text) ? `"${text.replace(/"/g,'""')}"` : text;
+}
+function reposToOpenSourceCsv(){
+  const header='# COLUMN GUIDE: name=repo name, language=primary language, desc=description, url=GitHub URL, demo=demo URL (optional), paper=paper URL (optional), icon=emoji icon\nname,language,desc,url,demo,paper,icon';
+  const rows=OSREPOS.map(r=>[
+    r.name||'', r.language||'', r.desc||'', r.url||'', r.demo||'', r.paper||'', r.icon||''
+  ].map(csvEscape).join(','));
+  return [header,...rows].join('\n')+'\n';
+}
 async function pushOSRepos(statusId,msg){
   const sid=statusId||'s-os';
-  st(sid,'ld','Pushing…');
+  st(sid,'ld','Pushing source CSV...');
   try{
-    const hf=await ghFile('index.html');if(!hf)throw new Error('Could not read index.html');
-    let h=hf.content;
-    const reposJson=JSON.stringify(OSREPOS,null,2);
-    h=h.replace(/const openSourceRepos\s*=\s*\[[\s\S]*?\];/,`const openSourceRepos = ${reposJson};`);
-    await ghPut('index.html',hf.sha,h,msg||'Update open source repos');
-    logA('Pushed open source repos to index.html');st(sid,'ok','✓ Pushed to GitHub.');
+    const of=await ghFile('data/open_source.csv');if(!of)throw new Error('Could not read data/open_source.csv');
+    await ghPut('data/open_source.csv',of.sha,reposToOpenSourceCsv(),msg||'Update open source repos');
+    await triggerWF();
+    logA('Pushed open source repos to data/open_source.csv');st(sid,'ok','Pushed source CSV and triggered rebuild workflow.');
   }catch(e){st(sid,'er','Error: '+e.message);}
 }
 async function fetchGHRepos(){

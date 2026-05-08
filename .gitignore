@@ -4,3 +4,4 @@ __pycache__/
 build/.venv/
 node_modules/
 site_public/
+.tmp-edge-cv-profile/

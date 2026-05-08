@@ -362,6 +362,7 @@ def validate_all():
     errors = []
     warnings = []
     summaries = []
+    last_publication = None
 
     for path in sorted(DATA.glob("*.csv")):
         stem = path.stem
@@ -381,6 +382,8 @@ def validate_all():
 
         if stem == "publications":
             _validate_publications(rows, lines, errors)
+            if rows:
+                last_publication = rows[-1]
         elif stem == "presentations":
             _validate_presentations(rows, lines, errors)
         elif stem == "profile":
@@ -412,6 +415,12 @@ def validate_all():
     for stem, count in summaries:
         print(f"  ok {stem}.csv -- {count} rows")
     pub_count = next((count for stem, count in summaries if stem == "publications"), 0)
+    if last_publication:
+        print(
+            "[VALIDATE] Last publication row: "
+            f"#{str(last_publication.get('n', '')).strip()} "
+            f"{str(last_publication.get('title', '')).strip()}"
+        )
     print(f"\n[VALIDATE] PASSED: All checks passed. {pub_count} publications in data.")
     return 0
 

@@ -3369,24 +3369,20 @@
   },
   {
     "n": 195,
-    "year": "2026",
-    "type": "original",
+    "year": "2024",
+    "type": "case",
     "tags": [
-      "first"
+      "co-first"
     ],
     "cat": [
-      "bariatric"
+      "ortho"
     ],
-    "title": "Testing",
-    "authors": "Shahriarirad R*, Test A",
-    "journal": "Test Journal",
+    "title": "test",
+    "authors": "Testing A, Shahriarirad R",
+    "journal": "Journal of testing",
     "url": "https://www.google.com",
-    "keywords": [
-      "Dummy"
-    ],
-    "highlight_topics": [
-      "bariatric"
-    ],
-    "featured": "yes"
+    "keywords": [],
+    "highlight_topics": [],
+    "featured": ""
   }
 ]

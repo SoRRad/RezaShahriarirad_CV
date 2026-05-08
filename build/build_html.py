@@ -406,22 +406,27 @@ def _about(profile: dict) -> str:
 </div>"""
 
 
-_LOGO_SIZE_LIMIT = 150_000  # bytes — skip embedding logos larger than this
+_LOGO_SIZE_LIMIT = 150_000  # bytes; embed small logos, reference larger local assets
 
 def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
-    """Return an embedded local logo image if logo_file is found and small enough."""
+    """Return a local logo image, embedding small files and referencing larger ones."""
     if not logo_file or not str(logo_file).strip():
         return ""
     fname = str(logo_file).strip()
     for directory in LOGO_DIRS:
         p = directory / fname
         if p.exists() and p.is_file():
+            alt = _e(f"{org_name} logo" if org_name else "Institution logo")
             if p.stat().st_size > _LOGO_SIZE_LIMIT:
-                print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes; using fallback initials.")
-                return ""  # file too large to embed; fall back to initials placeholder
+                try:
+                    rel = p.relative_to(ROOT).as_posix()
+                except ValueError:
+                    print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes and cannot be referenced from the site root; using fallback initials.")
+                    return ""
+                print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes; referencing local asset '{rel}' instead of embedding.")
+                return f'<img class="{_e(class_name)}" src="{_e(rel)}" alt="{alt}" loading="lazy" decoding="async">'
             mime = mimetypes.guess_type(str(p))[0] or "image/png"
             data = base64.b64encode(p.read_bytes()).decode("ascii")
-            alt = _e(f"{org_name} logo" if org_name else "Institution logo")
             return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy" decoding="async">'
     print(f"[build_html] WARNING: logo_file '{fname}' was not found; using fallback initials.")
     return ""

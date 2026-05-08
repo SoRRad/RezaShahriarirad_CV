@@ -7,6 +7,9 @@ on:
       - 'data/**/*.csv'
       - 'build/**'
       - 'assets/**'
+      - 'scripts/**'
+      - 'tools/admin-local/**'
+      - 'push_to_github.*'
       - '.github/workflows/update-cv.yml'
       - 'README.md'
   schedule:
@@ -115,6 +118,36 @@ jobs:
 
       - name: Run CV build
         run: python build/build.py
+
+      - name: Debug generated publication output
+        run: |
+          python << 'PYEOF'
+          import csv
+          import html
+          import os
+          import pathlib
+
+          root = pathlib.Path('.')
+          rows = []
+          with (root / 'data' / 'publications.csv').open(encoding='utf-8-sig', newline='') as handle:
+              for line in handle:
+                  if not line.startswith('#'):
+                      rows.append(line)
+          pubs = list(csv.DictReader(rows))
+          last = pubs[-1] if pubs else {}
+          title = (last.get('title') or '').strip()
+          index_text = (root / 'index.html').read_text(encoding='utf-8') if (root / 'index.html').exists() else ''
+          contains = bool(title and any(variant in index_text for variant in (title, html.escape(title, quote=True), title.replace('&', '&amp;'))))
+          print(f"Current commit SHA being deployed: {os.environ.get('GITHUB_SHA', '')}")
+          print(f"Rows in data/publications.csv: {len(pubs)}")
+          print(f"Last publication number/title: #{(last.get('n') or '').strip()} {title}")
+          print(f"Generated index.html contains last title: {contains}")
+          if title and not contains:
+              raise SystemExit("Generated index.html is missing the newest publication title")
+          PYEOF
+
+      - name: Smoke test generated site
+        run: python build/smoke_test.py
 
       - name: Commit generated files
         run: |

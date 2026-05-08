@@ -35,8 +35,19 @@ Excel's warning that "some features might be lost" is normal when saving as CSV.
 - Quote any field that contains a comma, for example `"Author A, Author B"`.
 - Use semicolons inside multi-value fields such as `tags`, `cat`, `keywords`, and `highlight_topics`.
 - Run `python build/validate_data.py` before pushing.
+- Then run `scripts/safe_push.ps1` to validate, build, commit, pull/rebase, and push.
 
 The validator checks for common CSV/Excel issues including UTF-8 BOMs, hidden tabs or non-breaking spaces, missing required columns, invalid category keys, invalid publication or presentation types, duplicate publication numbers, bad yes/no flags, and extra columns usually caused by unquoted commas.
+
+## Safe Push Workflow
+
+From the repository root on Windows PowerShell, use:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/safe_push.ps1 -Message "Update publications"
+```
+
+This script validates the CSV files, rebuilds `index.html`, DOCX, PDF, and JSON outputs, stages the relevant CV files, commits only when there are staged changes, fetches `origin/main`, pulls with `--rebase --autostash`, and then pushes. It does not force-push; if a conflict occurs, resolve it in VS Code, then run `git rebase --continue` and `git push origin main`.
 
 ## Updating Content
 
@@ -121,4 +132,4 @@ Preferred GitHub Pages configuration is **Deploy from a branch -> `gh-pages` / r
 
 ## Legacy Local Admin
 
-The browser admin panel has been moved to `tools/admin-local/cv-admin.html` and is legacy/local-only. It is not linked from the public website and should not be served publicly because it asks for a GitHub token and may still write legacy JSON files. Prefer editing CSV files directly.
+The browser admin panel has been moved to `tools/admin-local/cv-admin.html` and is legacy/local-only. It is not linked from the public website and should not be served publicly because it asks for a GitHub token. It cannot perform a local `git pull --rebase`; browser GitHub API writes re-check the latest remote file SHA and stop if the remote changed. Prefer editing CSV files directly and publishing with `scripts/safe_push.ps1`.

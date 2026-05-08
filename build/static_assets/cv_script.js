@@ -79,7 +79,9 @@ function normalizedArray(values){
 }
 
 function getPubTags(pub){
-  return uniqueValues([...normalizedArray(pub.tags), ...computeTags(pub.authors)]);
+  const aliases = {'senior':'last','last/senior':'last','cofirst':'co-first','co_first':'co-first'};
+  const explicit = normalizedArray(pub.tags).map(tag => aliases[tag] || tag);
+  return uniqueValues([...explicit, ...computeTags(pub.authors)]);
 }
 
 function getCategoryLabel(cat){
@@ -639,17 +641,137 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 });
 
+function pubFilterStateSnapshot(){
+  return {
+    types: [...pubTypeSelections],
+    authorship: [...pubTagSelections],
+    topic: currentCat,
+    search: currentSearch,
+    showingAll,
+  };
+}
+
+function presFilterStateSnapshot(){
+  return {
+    types: [...presDropFilters.type],
+    locations: [...presDropFilters.location],
+    topic: presFilters.cat || 'all',
+    search: presFilters.search,
+    showingAll: presShowingAll,
+  };
+}
+
+function countTextTotal(id){
+  const text = document.getElementById(id)?.textContent || '';
+  const match = text.match(/of\s+(\d+)/i) || text.match(/^(\d+)\s+matching/i);
+  return match ? parseInt(match[1], 10) : 0;
+}
+
+function visibleCount(selector){
+  return [...document.querySelectorAll(selector)].filter(el => el.style.display !== 'none').length;
+}
+
 window.cvDiagnostics = function(){
+  const lastPublication = Array.isArray(publications) && publications.length ? publications[publications.length - 1] : null;
+  const publicationFilterElementsExist = [
+    'pub-list','pub-count','pub-search','pub-more','pub-type-btn','pub-type-panel','pub-auth-btn','pub-auth-panel','cat-all-btn'
+  ].every(id => Boolean(document.getElementById(id)));
+  const presentationFilterElementsExist = [
+    'pres-list','pres-count','pres-search','pres-more','pres-type-btn','pres-type-panel','pres-loc-btn','pres-loc-panel','pres-reset'
+  ].every(id => Boolean(document.getElementById(id)));
+  const resetButtonsExist = Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset'));
+  const tavsLogoElementExists = Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo')));
+  const openSourceGithubCardExists = Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]'));
+  const errorsFound = [];
+  if(!publicationFilterElementsExist) errorsFound.push('Missing one or more publication filter elements');
+  if(!presentationFilterElementsExist) errorsFound.push('Missing one or more presentation filter elements');
+  if(!resetButtonsExist) errorsFound.push('Missing reset button');
+  if(!openSourceGithubCardExists) errorsFound.push('Missing open-source GitHub card');
+  if(!tavsLogoElementExists) errorsFound.push('Missing TAVS lab logo element');
   const result = {
     publicationsLoaded: Array.isArray(publications) ? publications.length : 0,
     presentationsLoaded: document.querySelectorAll('#pres-list .pres-item').length,
+    lastPublicationNumber: lastPublication ? Number(lastPublication.n) : null,
+    lastPublicationTitle: lastPublication ? lastPublication.title : '',
     row195Present: Array.isArray(publications) && publications.some(pub => Number(pub.n) === 195),
-    publicationFiltersExist: Boolean(document.getElementById('pub-type-btn') && document.getElementById('pub-auth-btn') && document.getElementById('cat-all-btn') && document.getElementById('pub-search')),
-    presentationFiltersExist: Boolean(document.getElementById('pres-type-btn') && document.getElementById('pres-loc-btn') && document.getElementById('pres-search')),
-    resetButtonsExist: Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset')),
-    openSourceGithubCardExists: Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]')),
-    tavsLogoElementExists: Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo'))),
+    publicationFilterElementsExist,
+    presentationFilterElementsExist,
+    resetButtonsExist,
+    activePublicationFilterState: JSON.stringify(pubFilterStateSnapshot()),
+    activePresentationFilterState: JSON.stringify(presFilterStateSnapshot()),
+    tavsLogoElementExists,
+    openSourceGithubCardExists,
+    errorsFound: errorsFound.join('; '),
   };
+  console.table(result);
+  return result;
+};
+
+window.testPubFilters = function(){
+  resetPubFilters();
+  const total = Array.isArray(publications) ? publications.length : 0;
+  const defaultVisible = visibleCount('#pub-list .pub-item');
+
+  pubTypeSelections = ['letter'];
+  showingAll = true;
+  renderPubs();
+  const typeTotal = countTextTotal('pub-count');
+
+  pubTypeSelections = [];
+  pubTagSelections = ['first'];
+  showingAll = true;
+  renderPubs();
+  const authorTotal = countTextTotal('pub-count');
+
+  pubTagSelections = [];
+  const pubWithSearch = publications.find(p => normalizedArray(p.keywords).length) || publications[publications.length - 1] || {};
+  currentSearch = normalizedArray(pubWithSearch.keywords)[0] || String(pubWithSearch.title || '').split(/\s+/)[0] || '';
+  showingAll = true;
+  renderPubs();
+  const searchTotal = countTextTotal('pub-count');
+
+  resetPubFilters();
+  const resetVisible = visibleCount('#pub-list .pub-item');
+  const result = {
+    totalPublications: total,
+    typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
+    authorshipFilterChangesCount: authorTotal > 0 && authorTotal < total,
+    publicationSearchWorks: searchTotal > 0 && searchTotal <= total,
+    resetRestoresDefaultCount: resetVisible === Math.min(SHOW, total) && resetVisible === defaultVisible,
+    overallPass: false,
+  };
+  result.overallPass = result.typeFilterChangesCount && result.authorshipFilterChangesCount && result.publicationSearchWorks && result.resetRestoresDefaultCount;
+  console.table(result);
+  return result;
+};
+
+window.testPresFilters = function(){
+  resetPresFilters();
+  const total = document.querySelectorAll('#pres-list .pres-item').length;
+  const defaultVisible = visibleCount('#pres-list .pres-item');
+
+  presDropFilters.type = ['poster'];
+  presShowingAll = true;
+  applyPresFilters();
+  const typeTotal = countTextTotal('pres-count');
+
+  presDropFilters.type = [];
+  const firstLocation = document.querySelector('#pres-list .pres-item')?.dataset.location || '';
+  presDropFilters.location = firstLocation ? [firstLocation] : [];
+  presShowingAll = true;
+  applyPresFilters();
+  const locationTotal = countTextTotal('pres-count');
+
+  resetPresFilters();
+  const resetVisible = visibleCount('#pres-list .pres-item');
+  const result = {
+    totalPresentations: total,
+    typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
+    locationFilterChangesCount: locationTotal > 0 && locationTotal < total,
+    resetRestoresDefaultCount: resetVisible === Math.min(PRES_INITIAL_SHOW, total) && resetVisible === defaultVisible,
+    overallPass: false,
+  };
+  result.overallPass = result.typeFilterChangesCount && result.locationFilterChangesCount && result.resetRestoresDefaultCount;
   console.table(result);
   return result;
 };
