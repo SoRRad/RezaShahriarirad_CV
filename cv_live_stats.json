@@ -1,15 +1,15 @@
 {
   "generated": true,
-  "source": "data/profile.csv",
+  "source": "data/*.csv",
   "citations": "3388",
   "hindex": "24",
   "peerReviews": "149",
   "journals": "67",
   "manuscripts": "129",
-  "pubCount": "195",
+  "pubCount": "192",
   "firstAuth": "20",
-  "secondAuth": "31",
-  "lastAuth": "50",
+  "secondAuth": "24",
+  "lastAuth": "37",
   "corrAuth": "68",
   "date": "May 8, 2026"
 }
