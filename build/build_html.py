@@ -2,7 +2,7 @@
 build_html.py — regenerate index.html from /data/ CSVs + build/static_assets/.
 Reads cv_style.css and cv_script.js verbatim; all dynamic content comes from CSVs.
 """
-import base64, json, mimetypes, pathlib, sys
+import base64, json, mimetypes, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from utils import load_all_data, get_profile, parse_semicolon, TAXONOMY, CAT_LABELS
 
@@ -260,8 +260,8 @@ def _nav() -> str:
     <li><a href="#patents">Patents</a></li>
     <li><a href="#reviewer">Editorial</a></li>
     <li><a href="#presentations">Presentations</a></li>
-    <li><a href="#opensource">Code</a></li>
-    <li><a href="#hobbies">Interests</a></li>
+    <li><a href="#opensource">Open Source</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#references">References</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -275,8 +275,8 @@ def _nav() -> str:
   <a href="#patents" onclick="closeMenu()">Patents</a>
   <a href="#reviewer" onclick="closeMenu()">Editorial</a>
   <a href="#presentations" onclick="closeMenu()">Presentations</a>
-  <a href="#opensource" onclick="closeMenu()">Code</a>
-  <a href="#hobbies" onclick="closeMenu()">Interests</a>
+  <a href="#opensource" onclick="closeMenu()">Open Source</a>
+  <a href="#hobbies" onclick="closeMenu()">Hobbies</a>
   <a href="#references" onclick="closeMenu()">References</a>
 </div>"""
 
@@ -286,6 +286,8 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
     hindex  = profile.get("h_index_cached",   "24")
     reviews = profile.get("peer_reviews",      "149")
     metrics_date = profile.get("metrics_last_updated", "")
+    hero_institution = profile.get("institution", "Department of Surgery - Surgical Innovation · Mayo Clinic")
+    hero_institution = hero_institution.replace(" · Mayo Clinic", "")
     public_email = _primary_public_email(profile)
     email_cta = _email_link(public_email, "Get in Touch", "btn-outline", keep_content=True) if public_email else ""
     try:
@@ -305,7 +307,7 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
       <h1>Reza<br><span class="hero-title-accent">Shahriarirad,</span><br>M.D.</h1>
       <!-- EDIT: Hero credentials line (title, institution, ORCID) -->
       <div class="hero-credentials">
-        <strong>Research Fellow, Surgery Innovation Center</strong><br>
+        <strong>{_e(profile.get('title','Research Fellow'))}, {_e(hero_institution)}</strong><br>
         Mayo Clinic · Rochester, Minnesota<br>
         ORCID: {_e(profile.get('orcid',''))}
       </div>
@@ -355,13 +357,12 @@ def _about(profile: dict) -> str:
     # Research tags mapped to taxonomy cat keys
     tags_data = [
         ("Plastic & Reconstructive Surgery",   "plastic"),
-        ("Bariatric Surgery",                    "bariatric"),
-        ("Thoracic Surgery",                     "thoracic"),
-        ("Vascular Surgery",                     "vascular"),
+        ("Bariatric Surgery",                  "bariatric"),
+        ("Orthopaedic Surgery",                "ortho"),
+        ("Thoracic Surgery",                   "thoracic"),
+        ("Vascular Surgery",                   "vascular"),
         ("GI & Colorectal Surgery",            "gi"),
-        ("Trauma & Burns",                     "plastic"),
         ("Surgical AI & Innovation",           "machine_learning"),
-        ("Orthopaedic Surgery",                  "ortho"),
     ]
     tags_html = "\n".join(
         f'          <span class="research-tag" data-cat="{cat}">{label}</span>'
@@ -466,13 +467,37 @@ def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
     return ""
 
 
+def _initials_from_text(text, max_chars=4):
+    words = [
+        word
+        for word in re.split(r"[^A-Za-z0-9]+", str(text or ""))
+        if word and word.lower() not in {"and", "of", "the", "for"}
+    ]
+    if not words:
+        return "CV"
+    initials = "".join(word[0].upper() for word in words[:max_chars])
+    return initials[:max_chars] or words[0][:max_chars].upper()
+
+
+def _logo_placeholder(initials, org_name="", color="", class_name="timeline-logo-placeholder"):
+    text = str(initials or "").strip() or _initials_from_text(org_name)
+    color_value = str(color or "").strip() or "#4a607e"
+    long_class = " placeholder-long" if len(text) > 4 else ""
+    label = _e(f"{org_name} logo placeholder" if org_name else "Logo placeholder")
+    return (
+        f'<div class="{_e(class_name + long_class)}" style="background:{_e(color_value)};color:#fff" '
+        f'role="img" aria-label="{label}">{_e(text)}</div>'
+    )
+
+
 def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) -> str:
     def _logo_el(row, org_key="org"):
         logo_file = str(row.get("logo_file", "")).strip()
-        img = _institutional_logo(logo_file, str(row.get(org_key, "")))
+        org_name = str(row.get(org_key, "")).strip()
+        img = _institutional_logo(logo_file, org_name)
         if img:
             return img
-        return f'<div class="timeline-logo-placeholder" style="background:{_e(row.get("logo_color","#4a607e"))};color:#fff;font-size:.5rem;font-weight:700">{_e(row.get("logo_initials",""))}</div>'
+        return _logo_placeholder(row.get("logo_initials", ""), org_name, row.get("logo_color", ""))
 
     def timeline_item(row):
         logo = _logo_el(row, "org")
@@ -550,7 +575,12 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
             else:
                 meta_html = ""
             logo_img = _institutional_logo(r.get("logo_file", ""), str(r.get("name", "")), "lab-card-logo")
-            logo_html = logo_img or f'<div class="lab-card-logo-placeholder">{_e(name[:3].upper())}</div>'
+            logo_html = logo_img or _logo_placeholder(
+                r.get("logo_initials", ""),
+                str(r.get("name", "")),
+                r.get("logo_color", ""),
+                "lab-card-logo-placeholder",
+            )
             aff_cards.append(f"""      <div class="lab-card">
         {logo_html}
         <div class="lab-card-body">
@@ -710,7 +740,7 @@ def _publications_section() -> str:
       <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
         <input type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword…"
           style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
-          oninput="currentSearch=this.value;showingAll=false;renderPubs()">
+          oninput="handlePubSearchInput(this.value)">
         <div id="pub-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">—</div>
       </div>
       <div class="pub-list" id="pub-list"></div>
@@ -963,7 +993,7 @@ def _open_source(profile: dict) -> str:
 <div class="section-wrap">
   <div class="section-label">Open Science</div>
   <h2>Open Source Models &amp; Code</h2>
-  <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.8rem;line-height:1.85;max-width:680px">Open-source computational tools, machine learning models, and research software developed as part of ongoing surgical AI and clinical research. All repositories are publicly available on GitHub.</p>
+  <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.8rem;line-height:1.85;max-width:680px">Open-source code, models, and academic software projects — all publicly available at github.com/{_e(github_user)}.</p>
 {github_card}
   <div class="repos-grid" id="repos-grid"></div>
 </div>
@@ -983,7 +1013,7 @@ def _hobbies(hobbies_df) -> str:
 <div class="section-alt" id="hobbies">
 <div class="section-wrap">
   <div class="section-label">Personal</div>
-  <h2>Extracurricular &amp; Interests</h2>
+  <h2>Extracurricular &amp; Hobbies</h2>
   <div class="hobbies-grid">
 {''.join(cards)}
   </div>

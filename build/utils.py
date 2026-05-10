@@ -1,5 +1,5 @@
 """Shared utilities for all CV build scripts."""
-import csv, re, pathlib
+import csv, io, re, pathlib
 import pandas as pd
 
 ROOT = pathlib.Path(__file__).parent.parent
@@ -65,8 +65,12 @@ def load_all_data() -> dict:
     """Load every CSV from /data/ into a dict of DataFrames keyed by file stem."""
     result = {}
     for csv_path in DATA.glob("*.csv"):
+        with csv_path.open(encoding="utf-8-sig", newline="") as handle:
+            data_lines = [line for line in handle if not line.startswith("#")]
         result[csv_path.stem] = pd.read_csv(
-            csv_path, dtype=str, keep_default_na=False, comment="#", encoding="utf-8-sig"
+            io.StringIO("".join(data_lines)),
+            dtype=str,
+            keep_default_na=False,
         )
         result[csv_path.stem].columns = [str(c).strip().lstrip("\ufeff") for c in result[csv_path.stem].columns]
     return result

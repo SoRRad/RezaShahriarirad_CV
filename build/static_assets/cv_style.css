@@ -87,6 +87,7 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .timeline-header{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.15rem}
 .timeline-logo{width:36px;height:36px;border-radius:6px;object-fit:contain;background:#fff;border:1px solid var(--mist);padding:3px;flex-shrink:0;margin-top:1px}
 .timeline-logo-placeholder{width:36px;height:36px;border-radius:6px;background:var(--frost);border:1px solid var(--mist);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:500;color:var(--text-muted);text-align:center;line-height:1.2;margin-top:1px;padding:2px}
+.timeline-logo-placeholder.placeholder-long{font-size:.46rem;font-weight:700}
 .timeline-role{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--text);margin-bottom:.1rem}
 .timeline-org{font-size:.85rem;font-weight:400;color:var(--steel);margin-bottom:.4rem}
 .timeline-desc{font-size:.83rem;font-weight:300;color:var(--text-muted);line-height:1.7}
@@ -282,6 +283,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .lab-card:hover{border-color:var(--gold)}
 .lab-card-logo-placeholder,.lab-card-logo{width:48px;height:48px;border-radius:6px;background:var(--frost);border:1px solid var(--mist);flex-shrink:0}
 .lab-card-logo-placeholder{display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--text-muted);text-align:center;line-height:1.2;padding:3px}
+.lab-card-logo-placeholder.placeholder-long{font-size:.55rem;font-weight:700}
 .lab-card-logo{display:block;object-fit:contain;padding:5px}
 .lab-card-body{flex:1;min-width:0}
 .lab-card-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:.2rem;line-height:1.3}

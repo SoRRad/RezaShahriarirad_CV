@@ -1,4 +1,4 @@
 # COLUMN GUIDE: name=repo name, language=primary language, desc=description, url=GitHub URL, demo=demo URL (optional), paper=paper URL (optional), icon=emoji icon
 name,language,desc,url,demo,paper,icon
-MOSI System,Python,Open-source platform for surgical innovation and research workflow support.,https://github.com/SoRRad/MOSI-System,,,github
-SIRIS,Python,Open-source research tool supporting surgical innovation and intelligent research systems.,https://github.com/SoRRad/SIRIS,,,github
+MOSI System,Python,Open-source academic software platform for surgical innovation workflow support.,https://github.com/SoRRad/MOSI-System,https://sorrad.github.io/MOSI-System/,,github
+SIRIS,Python,Open-source research software for surgical innovation and intelligent research systems.,https://github.com/SoRRad/SIRIS,https://siris-1029209978489.us-central1.run.app/,,github

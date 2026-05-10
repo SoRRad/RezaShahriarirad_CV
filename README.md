@@ -1,6 +1,6 @@
 # Reza Shahriarirad, M.D. - Academic CV Website
 
-Academic CV website for Dr. Reza Shahriarirad, Research Fellow at the Surgery Innovation Center, Mayo Clinic.
+Academic CV website for Dr. Reza Shahriarirad, Research Fellow in Department of Surgery - Surgical Innovation at Mayo Clinic.
 
 Live site: `https://SoRRad.github.io/RezaShahriarirad_CV/`
 
@@ -79,7 +79,7 @@ Use the CSV files in `data/`:
 | `data/references.csv` | Professional references |
 | `data/skills_computing.csv` | Computing skills |
 | `data/skills_interpersonal.csv` | Interpersonal skills |
-| `data/hobbies.csv` | Interests |
+| `data/hobbies.csv` | Hobbies and extracurricular interests |
 | `data/open_source.csv` | Public open-source repositories, if any |
 
 ### Publications

@@ -27,6 +27,7 @@ GOLD = RGBColor(0xB8, 0x95, 0x3A)
 GRAY = RGBColor(0x5D, 0x68, 0x78)
 LIGHT_BLUE = "D9EAF7"
 LIGHT_GOLD = "F7F0DC"
+TABLE_BORDER = "C8D4E0"
 
 
 def _clean(value) -> str:
@@ -59,6 +60,45 @@ def _cell_shade(cell, fill_hex):
     tc_pr.append(shd)
 
 
+def _cell_margins(cell, top=70, start=80, bottom=70, end=80):
+    tc_pr = cell._tc.get_or_add_tcPr()
+    tc_mar = tc_pr.first_child_found_in("w:tcMar")
+    if tc_mar is None:
+        tc_mar = OxmlElement("w:tcMar")
+        tc_pr.append(tc_mar)
+    for margin, value in (("top", top), ("start", start), ("bottom", bottom), ("end", end)):
+        node = tc_mar.find(qn(f"w:{margin}"))
+        if node is None:
+            node = OxmlElement(f"w:{margin}")
+            tc_mar.append(node)
+        node.set(qn("w:w"), str(value))
+        node.set(qn("w:type"), "dxa")
+
+
+def _table_borders(table, color=TABLE_BORDER, size="4"):
+    tbl_pr = table._tbl.tblPr
+    borders = tbl_pr.first_child_found_in("w:tblBorders")
+    if borders is None:
+        borders = OxmlElement("w:tblBorders")
+        tbl_pr.append(borders)
+    for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+        node = borders.find(qn(f"w:{edge}"))
+        if node is None:
+            node = OxmlElement(f"w:{edge}")
+            borders.append(node)
+        node.set(qn("w:val"), "single")
+        node.set(qn("w:sz"), size)
+        node.set(qn("w:space"), "0")
+        node.set(qn("w:color"), color)
+
+
+def _repeat_table_header(row):
+    tr_pr = row._tr.get_or_add_trPr()
+    tbl_header = OxmlElement("w:tblHeader")
+    tbl_header.set(qn("w:val"), "true")
+    tr_pr.append(tbl_header)
+
+
 def _cell_text(cell, text, size=9, bold=False, italic=False, color=None, shade=None):
     cell.text = ""
     cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
@@ -75,6 +115,7 @@ def _table(doc, rows, headers=None, widths=None):
     table = doc.add_table(rows=1 if headers else 0, cols=n_cols)
     table.style = "Table Grid"
     table.alignment = WD_TABLE_ALIGNMENT.LEFT
+    table.autofit = True
     if headers:
         for idx, header in enumerate(headers):
             _cell_text(table.rows[0].cells[idx], header, size=8.5, bold=True, color=NAVY, shade=LIGHT_BLUE)
@@ -86,7 +127,9 @@ def _table(doc, rows, headers=None, widths=None):
         for row in table.rows:
             for idx, width in enumerate(widths):
                 row.cells[idx].width = Inches(width)
-    doc.add_paragraph().paragraph_format.space_after = Pt(2)
+    spacer = doc.add_paragraph()
+    spacer.paragraph_format.space_after = Pt(2)
+    spacer.paragraph_format.space_before = Pt(0)
     return table
 
 
@@ -102,7 +145,22 @@ def _section_heading(doc, title):
     bottom.set(qn("w:val"), "single")
     bottom.set(qn("w:sz"), "6")
     bottom.set(qn("w:space"), "1")
-    bottom.set(qn("w:color"), "1F3864")
+    bottom.set(qn("w:color"), "B8953A")
+    border.append(bottom)
+    p_pr.append(border)
+
+
+def _gold_rule(doc):
+    p = doc.add_paragraph()
+    p.paragraph_format.space_before = Pt(1)
+    p.paragraph_format.space_after = Pt(6)
+    p_pr = p._p.get_or_add_pPr()
+    border = OxmlElement("w:pBdr")
+    bottom = OxmlElement("w:bottom")
+    bottom.set(qn("w:val"), "single")
+    bottom.set(qn("w:sz"), "8")
+    bottom.set(qn("w:space"), "1")
+    bottom.set(qn("w:color"), "B8953A")
     border.append(bottom)
     p_pr.append(border)
 
@@ -180,6 +238,7 @@ def _header(doc, profile):
         p.paragraph_format.space_after = Pt(2)
         run = p.add_run(line)
         _set_run(run, size=8.2, color=BLUE)
+    _gold_rule(doc)
 
 
 def _personal_information(doc, profile):
@@ -282,7 +341,7 @@ def _presentation_summary(doc, pres_df):
 def _languages_hobbies(doc, profile, hobbies_df):
     _section_heading(doc, "Languages, Extracurricular Activities and Hobbies")
     hobbies = "; ".join(_clean(r.get("name")) for _, r in hobbies_df.iterrows())
-    _table(doc, [("Languages", profile.get("languages", "")), ("Interests", hobbies)], widths=[1.4, 5.2])
+    _table(doc, [("Languages", profile.get("languages", "")), ("Hobbies", hobbies)], widths=[1.4, 5.2])
 
 
 def _references(doc, refs_df):

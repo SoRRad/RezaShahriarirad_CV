@@ -142,7 +142,7 @@ function preserveScroll(callback){
   const x = window.scrollX;
   const y = window.scrollY;
   callback();
-  window.requestAnimationFrame(() => window.scrollTo(x, y));
+  window.requestAnimationFrame(() => window.scrollTo({top: y, left: x, behavior: 'auto'}));
 }
 
 function dedupeDisplayTags(values, limit=6){
@@ -173,6 +173,12 @@ function applyPubSearchTag(event, source){
   const search = document.getElementById('pub-search');
   if(search) search.value = tag;
   currentSearch = tag;
+  showingAll = false;
+  preserveScroll(renderPubs);
+}
+
+function handlePubSearchInput(value){
+  currentSearch = value;
   showingAll = false;
   preserveScroll(renderPubs);
 }
@@ -427,7 +433,7 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
     btn.classList.toggle('has-selection', selected.length > 0);
     const label = btn.querySelector('.dropdown-label');
     if(label) label.textContent = selected.length === 0 ? defaultLabel : (selected.length === 1 ? panel.querySelector(`[data-value="${selected[0]}"] .opt-label`)?.textContent||defaultLabel : `${selected.length} selected`);
-    onChangeCallback(selected);
+    preserveScroll(() => onChangeCallback(selected));
   });
 
   panel.addEventListener('keydown', e => {
@@ -693,7 +699,7 @@ function renderRepos(){
     const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${escapeHtml(r.language)}</span>` : '';
     const links = [
       r.url   ? `<a href="${escapeHtml(r.url)}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
-      r.demo  ? `<a href="${escapeHtml(r.demo)}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
+      r.demo  ? `<a href="${escapeHtml(r.demo)}"  target="_blank" rel="noopener noreferrer" class="repo-link">Webpage/Demo ↗</a>` : '',
       r.paper ? `<a href="${escapeHtml(r.paper)}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
     ].filter(Boolean).join('');
     return `<div class="repo-card">
