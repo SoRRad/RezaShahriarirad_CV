@@ -12,7 +12,8 @@
       "plastic"
     ],
     "keywords": [
-      "hernia"
+      "Hernia",
+      "Plastic surgery"
     ],
     "featured": ""
   },
@@ -30,8 +31,11 @@
       "machine_learning"
     ],
     "keywords": [
-      "LLM",
-      "chatbot"
+      "Large language models",
+      "Patient decision aid",
+      "Plastic surgery",
+      "Machine learning",
+      "Breast reconstruction"
     ],
     "featured": "yes"
   },
@@ -49,7 +53,9 @@
       "machine_learning"
     ],
     "keywords": [
-      "Age"
+      "Biological age",
+      "Bariatric surgery",
+      "Machine learning"
     ],
     "featured": "yes"
   },
@@ -63,7 +69,9 @@
     "conference": "",
     "location": "United States",
     "cat": [],
-    "keywords": [],
+    "keywords": [
+      "Bariatric surgery"
+    ],
     "featured": ""
   },
   {
@@ -78,7 +86,9 @@
     "cat": [
       "plastic"
     ],
-    "keywords": [],
+    "keywords": [
+      "Plastic surgery"
+    ],
     "featured": ""
   },
   {
@@ -94,7 +104,11 @@
       "oncology",
       "gi"
     ],
-    "keywords": [],
+    "keywords": [
+      "Surgical oncology",
+      "Gastrointestinal surgery",
+      "GIST"
+    ],
     "featured": ""
   },
   {
@@ -109,7 +123,11 @@
     "cat": [
       "ortho"
     ],
-    "keywords": [],
+    "keywords": [
+      "Orthopaedic surgery",
+      "Animal model",
+      "Regenerative medicine"
+    ],
     "featured": ""
   },
   {
@@ -125,7 +143,12 @@
       "plastic",
       "machine_learning"
     ],
-    "keywords": [],
+    "keywords": [
+      "Plastic surgery",
+      "Machine learning",
+      "Robotic surgery",
+      "Bibliometric analysis"
+    ],
     "featured": ""
   },
   {
@@ -141,7 +164,11 @@
       "plastic",
       "machine_learning"
     ],
-    "keywords": [],
+    "keywords": [
+      "Plastic surgery",
+      "Machine learning",
+      "Animal model"
+    ],
     "featured": ""
   },
   {
@@ -156,7 +183,9 @@
     "cat": [
       "machine_learning"
     ],
-    "keywords": [],
+    "keywords": [
+      "Machine learning"
+    ],
     "featured": ""
   },
   {
@@ -171,7 +200,11 @@
     "cat": [
       "thoracic"
     ],
-    "keywords": [],
+    "keywords": [
+      "Thoracic surgery",
+      "Robotic surgery",
+      "Lung cancer"
+    ],
     "featured": ""
   },
   {
@@ -187,7 +220,11 @@
       "infectious",
       "transplant"
     ],
-    "keywords": [],
+    "keywords": [
+      "Infectious disease",
+      "Transplant surgery",
+      "COVID-19"
+    ],
     "featured": ""
   },
   {
@@ -203,7 +240,11 @@
       "gi",
       "oncology"
     ],
-    "keywords": [],
+    "keywords": [
+      "Gastrointestinal surgery",
+      "Surgical oncology",
+      "Colorectal surgery"
+    ],
     "featured": ""
   },
   {
@@ -219,7 +260,11 @@
       "plastic",
       "pubhealth"
     ],
-    "keywords": [],
+    "keywords": [
+      "Plastic surgery",
+      "Public health",
+      "Burns"
+    ],
     "featured": ""
   },
   {
@@ -235,7 +280,10 @@
       "gi",
       "transplant"
     ],
-    "keywords": [],
+    "keywords": [
+      "Gastrointestinal surgery",
+      "Transplant surgery"
+    ],
     "featured": ""
   },
   {
@@ -250,7 +298,11 @@
     "cat": [
       "infectious"
     ],
-    "keywords": [],
+    "keywords": [
+      "Infectious disease",
+      "COVID-19",
+      "Case report"
+    ],
     "featured": ""
   },
   {
@@ -266,7 +318,10 @@
       "infectious",
       "pubhealth"
     ],
-    "keywords": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health"
+    ],
     "featured": ""
   },
   {
@@ -281,7 +336,10 @@
     "cat": [
       "gi"
     ],
-    "keywords": [],
+    "keywords": [
+      "Gastrointestinal surgery",
+      "Animal model"
+    ],
     "featured": ""
   },
   {
@@ -296,7 +354,10 @@
     "cat": [
       "pulm"
     ],
-    "keywords": [],
+    "keywords": [
+      "Pulmonology",
+      "Animal model"
+    ],
     "featured": ""
   },
   {
@@ -311,7 +372,11 @@
     "cat": [
       "gi"
     ],
-    "keywords": [],
+    "keywords": [
+      "Gastrointestinal surgery",
+      "Colorectal surgery",
+      "Animal model"
+    ],
     "featured": ""
   },
   {
@@ -326,7 +391,11 @@
     "cat": [
       "gi"
     ],
-    "keywords": [],
+    "keywords": [
+      "Gastrointestinal surgery",
+      "Colorectal surgery",
+      "Animal model"
+    ],
     "featured": ""
   }
 ]

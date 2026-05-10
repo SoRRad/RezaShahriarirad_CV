@@ -15,9 +15,9 @@
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-026-12845-y?_gl=1*htwbjp*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIhJKXnsiilAMVED6HAx2gSDYMEAAYASAAEgLxKfD_BwE",
     "keywords": [
-      "Education",
+      "Medical education",
       "Public health",
-      "Bariatric",
+      "Bariatric surgery",
       "Health systems",
       "Readability",
       "Quality"
@@ -44,12 +44,12 @@
     "journal": "Journal of Robotic Surgery",
     "url": "",
     "keywords": [
-      "Robotic",
-      "MIS",
+      "Robotic surgery",
+      "Minimally invasive surgery",
       "Plastic surgery",
       "Health systems",
       "Systematic review",
-      "Robotic surgery"
+      "Bibliometric analysis"
     ],
     "highlight_topics": [
       "plastic",
@@ -74,8 +74,8 @@
     "journal": "The Iranian Journal of Medical Sciences",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/",
     "keywords": [
-      "Breast",
-      "COVID",
+      "Breast cancer",
+      "COVID-19",
       "Infectious disease",
       "Surgical oncology",
       "Health systems",
@@ -101,7 +101,8 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733",
     "keywords": [
       "Neurology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "neuro"
@@ -124,7 +125,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Urology",
       "Case report"
     ],
@@ -147,10 +148,9 @@
     "journal": "Journal of Wound Care",
     "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210",
     "keywords": [
-      "Wound",
-      "regenerative",
-      "Plastic surgery",
-      "Wound healing"
+      "Wound healing",
+      "Regenerative medicine",
+      "Plastic surgery"
     ],
     "highlight_topics": [
       "plastic"
@@ -174,9 +174,8 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463",
     "keywords": [
       "Osteomyelitis",
-      "diabetes",
-      "DM",
-      "Orthopedics",
+      "Diabetes",
+      "Orthopaedic surgery",
       "Infectious disease",
       "Diabetic foot"
     ],
@@ -206,7 +205,7 @@
     "journal": "Clinical Breast Cancer",
     "url": "https://www.sciencedirect.com/science/article/pii/S1526820925002897",
     "keywords": [
-      "education",
+      "Medical education",
       "Plastic surgery",
       "Surgical oncology",
       "Health systems",
@@ -233,8 +232,8 @@
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351",
     "keywords": [
-      "Colorectal",
-      "GI surgery",
+      "Colorectal surgery",
+      "Gastrointestinal surgery",
       "Surgical oncology",
       "Randomized trial"
     ],
@@ -257,12 +256,12 @@
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-025-97693-x",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -311,8 +310,8 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801",
     "keywords": [
       "Diagnostics",
-      "Radiology",
-      "GI surgery"
+      "Imaging",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -336,9 +335,9 @@
     "url": "https://www.sciencedirect.com/science/article/pii/S1056872725000546",
     "keywords": [
       "Diabetes",
-      "DM",
-      "Orthopedics",
-      "Endocrine surgery"
+      "Orthopaedic surgery",
+      "Endocrine surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "ortho",
@@ -362,7 +361,7 @@
     "journal": "Cancer Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Lung cancer"
     ],
@@ -389,7 +388,7 @@
     "journal": "Health Care Science",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health",
       "Health systems"
@@ -414,9 +413,9 @@
     "journal": "Journal of Cosmetic Dermatology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
       "Dermatology",
       "Surgical oncology",
       "Wound healing"
@@ -442,7 +441,7 @@
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Aneurysm"
     ],
     "highlight_topics": [
@@ -467,9 +466,10 @@
     "url": "https://www.nature.com/articles/s41598-025-85131-x",
     "keywords": [
       "Tissue engineering",
-      "Translational",
-      "laboratory",
-      "Orthopedics"
+      "Translational research",
+      "Orthopaedic surgery",
+      "Animal model",
+      "Regenerative medicine"
     ],
     "highlight_topics": [
       "ortho"
@@ -491,8 +491,7 @@
     "url": "https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215",
     "keywords": [
       "Diabetes",
-      "DM",
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Endocrine surgery"
     ],
     "highlight_topics": [
@@ -516,7 +515,7 @@
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Hernia"
     ],
     "highlight_topics": [
@@ -537,7 +536,7 @@
     "journal": "Immunity, Inflammation and Disease",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034",
     "keywords": [
-      "Cell",
+      "Immunology",
       "Dermatology",
       "Systematic review"
     ],
@@ -564,7 +563,7 @@
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Public health",
       "Health systems"
@@ -618,9 +617,9 @@
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017",
     "keywords": [
-      "Radiology",
-      "Vascular",
-      "Thoracic"
+      "Imaging",
+      "Vascular surgery",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -642,11 +641,11 @@
     "journal": "Irish Journal of Medical Science",
     "url": "https://link.springer.com/article/10.1007/s11845-024-03757-8",
     "keywords": [
-      "QoL",
-      "GI surgery",
+      "Quality of life",
+      "Gastrointestinal surgery",
       "Surgical oncology",
       "Public health",
-      "Colorectal",
+      "Colorectal surgery",
       "Quality"
     ],
     "highlight_topics": [
@@ -671,12 +670,12 @@
     "journal": "Journal of Coloproctology",
     "url": "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -701,10 +700,10 @@
     "journal": "Journal of Health Sciences & Surveillance System",
     "url": "https://journals.sums.ac.ir/article_49437.html",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Infectious disease",
       "Public health",
-      "Education",
+      "Medical education",
       "COVID-19"
     ],
     "highlight_topics": [
@@ -726,10 +725,11 @@
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-024-03390-0",
     "keywords": [
-      "MIS",
+      "Minimally invasive surgery",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -752,7 +752,7 @@
     "journal": "Journal of Surgical Research",
     "url": "https://pubmed.ncbi.nlm.nih.gov/38905767/",
     "keywords": [
-      "Thoracic"
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -824,8 +824,8 @@
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-024-61620-3",
     "keywords": [
-      "animal",
-      "Transplant"
+      "Animal model",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "transplant"
@@ -846,8 +846,8 @@
     "journal": "Archives of Pediatric Neurosurgery",
     "url": "https://www.archpedneurosurg.com.br/sbnped2019/article/view/231",
     "keywords": [
-      "neurosurgery",
-      "pediatric",
+      "Neurosurgery",
+      "Pediatric surgery",
       "Neurology",
       "Plastic surgery"
     ],
@@ -870,7 +870,7 @@
     "journal": "The Cleft Palate Craniofacial Journal",
     "url": "https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Plastic surgery"
     ],
     "highlight_topics": [
@@ -893,7 +893,7 @@
     "journal": "Annals of Vascular Surgery",
     "url": "https://authors.elsevier.com/a/1idol3AUdjphyC",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -939,10 +939,11 @@
     "journal": "Journal of General and Family Medicine",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health",
-      "Systematic review"
+      "Systematic review",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -963,7 +964,7 @@
     "journal": "Techniques in Coloproctology",
     "url": "https://link.springer.com/article/10.1007/s10151-023-02898-9",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -1009,8 +1010,8 @@
     "journal": "BJS Open",
     "url": "https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246",
     "keywords": [
-      "GI surgery",
-      "Education"
+      "Gastrointestinal surgery",
+      "Medical education"
     ],
     "highlight_topics": [
       "gi",
@@ -1038,7 +1039,8 @@
       "Infectious disease",
       "Public health",
       "Health systems",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -1065,7 +1067,9 @@
     "keywords": [
       "Surgical oncology",
       "Machine learning",
-      "Breast reconstruction"
+      "Breast reconstruction",
+      "Breast cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "oncology",
@@ -1088,10 +1092,10 @@
     "journal": "BMC Primary Care",
     "url": "https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Dermatology",
       "Public health",
-      "Education"
+      "Medical education"
     ],
     "highlight_topics": [
       "derm",
@@ -1115,8 +1119,9 @@
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w",
     "keywords": [
-      "Thoracic",
-      "Infectious disease"
+      "Thoracic surgery",
+      "Infectious disease",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -1192,12 +1197,12 @@
     "journal": "Annals of Gastroenterology",
     "url": "https://doi.org/10.20524/aog.2023.0836",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -1218,7 +1223,8 @@
     "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7",
     "keywords": [
       "Plastic surgery",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "plastic"
@@ -1261,7 +1267,7 @@
     "url": "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4",
     "keywords": [
       "Infectious disease",
-      "Education"
+      "Medical education"
     ],
     "highlight_topics": [
       "infectious"
@@ -1284,10 +1290,10 @@
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Lung cancer",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic",
@@ -1311,8 +1317,9 @@
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w",
     "keywords": [
-      "Thoracic",
-      "Surgical oncology"
+      "Thoracic surgery",
+      "Surgical oncology",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -1334,7 +1341,7 @@
     "url": "https://www.hindawi.com/journals/jtm/2023/9998739/",
     "keywords": [
       "Infectious disease",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "infectious"
@@ -1357,7 +1364,8 @@
     "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3",
     "keywords": [
       "Endocrine surgery",
-      "Thyroid"
+      "Thyroid",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -1400,11 +1408,11 @@
     "journal": "Annals of Gastroenterology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/",
     "keywords": [
-      "complementary",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery",
+      "Complementary medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery",
       "Animal model"
     ],
     "highlight_topics": [
@@ -1448,7 +1456,7 @@
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-023-10040-x",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Hernia",
       "Randomized trial"
     ],
@@ -1470,8 +1478,8 @@
     "journal": "PLOS One",
     "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170",
     "keywords": [
-      "QoL",
-      "GI surgery"
+      "Quality of life",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -1516,8 +1524,9 @@
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0",
     "keywords": [
-      "GI surgery",
-      "Transplant"
+      "Gastrointestinal surgery",
+      "Transplant surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi",
@@ -1541,7 +1550,7 @@
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -1564,7 +1573,7 @@
     "journal": "The Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Plastic surgery",
       "Public health",
       "Burns"
@@ -1589,7 +1598,7 @@
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-023-03522-3",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Urology"
     ],
     "highlight_topics": [
@@ -1613,10 +1622,10 @@
     "journal": "Sports Sciences for Health",
     "url": "https://link.springer.com/article/10.1007/s11332-023-01049-9",
     "keywords": [
-      "Nerve",
-      "rehabilitation",
-      "sport",
-      "Orthopedics",
+      "Peripheral nerve",
+      "Rehabilitation",
+      "Sports medicine",
+      "Orthopaedic surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -1642,7 +1651,7 @@
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x",
     "keywords": [
       "Infectious disease",
-      "Transplant",
+      "Transplant surgery",
       "Health systems",
       "COVID-19"
     ],
@@ -1691,7 +1700,7 @@
     "journal": "Journal of Gastroenterology and Hepatology Open",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867",
     "keywords": [
-      "GI surgery"
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -1714,7 +1723,9 @@
     "keywords": [
       "Surgical oncology",
       "Plastic surgery",
-      "Breast reconstruction"
+      "Breast reconstruction",
+      "Breast cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "oncology",
@@ -1735,8 +1746,8 @@
     "journal": "Journal of Surgical Oncology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jso.27185",
     "keywords": [
-      "GI surgery",
-      "Colorectal",
+      "Gastrointestinal surgery",
+      "Colorectal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -1761,7 +1772,6 @@
     "url": "https://link.springer.com/article/10.1007/s40200-022-01167-0",
     "keywords": [
       "Diabetes",
-      "DM",
       "Plastic surgery",
       "Endocrine surgery",
       "Wound healing",
@@ -1811,11 +1821,12 @@
     "journal": "Journal of Endocrinological Investigation",
     "url": "https://link.springer.com/article/10.1007/s40618-022-01963-8",
     "keywords": [
-      "nutrition",
-      "supplement",
+      "Nutrition",
+      "Supplement",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -1885,9 +1896,9 @@
     "journal": "General Thoracic and Cardiovascular Surgery",
     "url": "https://link.springer.com/article/10.1007/s11748-022-01880-w",
     "keywords": [
-      "Radiology",
-      "Thoracic",
-      "Vascular"
+      "Imaging",
+      "Thoracic surgery",
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -1907,11 +1918,10 @@
     "journal": "World Journal of Clinical Pediatrics",
     "url": "https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm",
     "keywords": [
-      "patent",
-      "technique",
-      "technical",
-      "pediatric",
-      "Thoracic"
+      "Innovation",
+      "Surgical technique",
+      "Pediatric surgery",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -1933,10 +1943,10 @@
     "journal": "BMC Complementary Medicine and Therapies",
     "url": "https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Infectious disease",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious"
@@ -1958,8 +1968,8 @@
     "journal": "Cost Effectiveness and Resource Allocation",
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z",
     "keywords": [
-      "Radiology",
-      "Thoracic"
+      "Imaging",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -2006,7 +2016,7 @@
     "journal": "Clinical Rheumatology",
     "url": "https://link.springer.com/article/10.1007/s10067-022-06334-5",
     "keywords": [
-      "rheumatology"
+      "Rheumatology"
     ],
     "highlight_topics": [],
     "featured": ""
@@ -2024,8 +2034,8 @@
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-022-02645-y",
     "keywords": [
-      "MIS",
-      "GI surgery",
+      "Minimally invasive surgery",
+      "Gastrointestinal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -2049,9 +2059,9 @@
     "journal": "International Journal of Clinical Practice",
     "url": "https://www.hindawi.com/journals/ijclp/2022/4923277/",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
       "Plastic surgery",
       "Burns",
       "Wound healing"
@@ -2076,10 +2086,9 @@
     "journal": "Journal of Experimental Orthopaedics",
     "url": "https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5",
     "keywords": [
-      "animal",
-      "knee",
-      "Orthopedics",
-      "Animal model"
+      "Animal model",
+      "Knee",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -2104,7 +2113,8 @@
     "keywords": [
       "Endocrine surgery",
       "Thyroid",
-      "Transplant"
+      "Transplant surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -2126,7 +2136,7 @@
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://beat.sums.ac.ir/article_48535.html",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -2147,7 +2157,7 @@
     "journal": "Health Management & Information Science",
     "url": "https://jhmi.sums.ac.ir/article_48840.html",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -2221,9 +2231,9 @@
     "journal": "Archives of Pediatric Infectious Diseases",
     "url": "https://brieflands.com/articles/apid-118809.html",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
-      "Transplant"
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "infectious",
@@ -2244,8 +2254,8 @@
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2022/4665342/",
     "keywords": [
-      "Radiology",
-      "Orthopedics"
+      "Imaging",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -2266,8 +2276,8 @@
     "journal": "International Journal of Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381",
     "keywords": [
-      "nerve",
-      "GI surgery",
+      "Peripheral nerve",
+      "Gastrointestinal surgery",
       "Neurology",
       "Systematic review"
     ],
@@ -2292,8 +2302,9 @@
     "journal": "The Surgeon",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580",
     "keywords": [
-      "Thoracic",
-      "Systematic review"
+      "Thoracic surgery",
+      "Systematic review",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -2316,8 +2327,8 @@
     "journal": "Journal of Surgical Research",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287",
     "keywords": [
-      "GI surgery",
-      "Transplant"
+      "Gastrointestinal surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -2341,7 +2352,7 @@
     "journal": "British Journal of Neurosurgery",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698",
     "keywords": [
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Neurology",
       "Randomized trial"
     ],
@@ -2387,7 +2398,7 @@
     "journal": "BMC Infectious Diseases",
     "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7",
     "keywords": [
-      "patent",
+      "Innovation",
       "Infectious disease",
       "Machine learning",
       "Computer vision"
@@ -2437,7 +2448,7 @@
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/4499086/",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -2460,8 +2471,8 @@
     "journal": "Journal of Orthopaedic Surgery and Research",
     "url": "https://link.springer.com/article/10.1186/s13018-021-02872-x",
     "keywords": [
-      "MIS",
-      "Orthopedics",
+      "Minimally invasive surgery",
+      "Orthopaedic surgery",
       "Systematic review"
     ],
     "highlight_topics": [
@@ -2482,10 +2493,10 @@
     "journal": "Journal of Bioengineering Research",
     "url": "http://www.journalbe.com/article_140812.html",
     "keywords": [
-      "complementary",
-      "supplementary",
-      "nutrition",
-      "Orthopedics"
+      "Complementary medicine",
+      "Supplement",
+      "Nutrition",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -2529,10 +2540,9 @@
     "journal": "Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985",
     "keywords": [
-      "burn",
+      "Burns",
       "Plastic surgery",
-      "Public health",
-      "Burns"
+      "Public health"
     ],
     "highlight_topics": [
       "plastic",
@@ -2557,7 +2567,7 @@
     "url": "https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2",
     "keywords": [
       "Infectious disease",
-      "Transplant",
+      "Transplant surgery",
       "COVID-19"
     ],
     "highlight_topics": [
@@ -2580,8 +2590,7 @@
     "journal": "International Journal of Clinical Practice",
     "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Dermatology",
       "Epidemiology"
     ],
@@ -2604,7 +2613,7 @@
     "journal": "Experimental Parasitology",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -2623,10 +2632,9 @@
     "journal": "Bosnian Journal of Basic Medical Sciences",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/",
     "keywords": [
-      "stem",
-      "cell",
-      "Systematic review",
-      "Regenerative medicine"
+      "Regenerative medicine",
+      "Immunology",
+      "Systematic review"
     ],
     "highlight_topics": [],
     "featured": ""
@@ -2645,9 +2653,9 @@
     "journal": "Journal of Parenteral and Enteral Nutrition",
     "url": "https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231",
     "keywords": [
-      "nutrition",
-      "GI surgery",
-      "Transplant"
+      "Nutrition",
+      "Gastrointestinal surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -2669,8 +2677,8 @@
     "journal": "Annals of Bariatric Surgery",
     "url": "https://www.researchgate.net/publication/354862675",
     "keywords": [
-      "GI surgery",
-      "Bariatric"
+      "Gastrointestinal surgery",
+      "Bariatric surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -2696,8 +2704,8 @@
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-021-02897-5",
     "keywords": [
-      "Vascular",
-      "Transplant",
+      "Vascular surgery",
+      "Transplant surgery",
       "Urology"
     ],
     "highlight_topics": [
@@ -2743,9 +2751,10 @@
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/9976548/",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Infectious disease",
-      "Public health"
+      "Public health",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -2770,7 +2779,7 @@
     "url": "https://www.hindawi.com/journals/emi/2021/3789132/",
     "keywords": [
       "Trauma",
-      "Thoracic",
+      "Thoracic surgery",
       "Pulmonology",
       "Lung cancer"
     ],
@@ -2821,7 +2830,7 @@
     "journal": "Virology Journal",
     "url": "https://link.springer.com/article/10.1186/s12985-021-01532-0",
     "keywords": [
-      "healthcare",
+      "Health systems",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -2847,7 +2856,7 @@
     "journal": "Environmental Health and Preventive Medicine",
     "url": "https://link.springer.com/article/10.1186/s12199-021-00950-4",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
       "Neurology",
       "Public health",
@@ -2872,7 +2881,7 @@
     "journal": "BioMed Research International",
     "url": "https://www.hindawi.com/journals/bmri/2021/5555316/",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Neurology",
       "Burns"
     ],
@@ -2897,7 +2906,7 @@
     "journal": "International Journal of Mental Health Systems",
     "url": "https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Infectious disease",
       "Neurology",
       "COVID-19"
@@ -2922,8 +2931,8 @@
     "journal": "Sadra Medical Journal",
     "url": "https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html",
     "keywords": [
-      "Vascular",
-      "Education"
+      "Vascular surgery",
+      "Medical education"
     ],
     "highlight_topics": [
       "vascular",
@@ -2945,8 +2954,8 @@
     "journal": "BMC Psychology",
     "url": "https://link.springer.com/article/10.1186/s40359-020-00500-7",
     "keywords": [
-      "mental health",
-      "pediatric",
+      "Mental health",
+      "Pediatric surgery",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -2970,7 +2979,7 @@
     "journal": "Le Infezioni in Medicina",
     "url": "https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -2992,7 +3001,7 @@
     "journal": "BMC Public Health",
     "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Plastic surgery",
       "Public health"
     ],
@@ -3085,7 +3094,6 @@
     "url": "https://www.hindawi.com/journals/jpath/2020/1057167/",
     "keywords": [
       "Diabetes",
-      "DM",
       "Infectious disease",
       "Diabetic foot"
     ],
@@ -3109,7 +3117,7 @@
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3154,10 +3162,9 @@
     "journal": "Epilepsy and Behavior",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929",
     "keywords": [
-      "burn",
+      "Burns",
       "Plastic surgery",
-      "Neurology",
-      "Burns"
+      "Neurology"
     ],
     "highlight_topics": [
       "plastic",
@@ -3180,8 +3187,8 @@
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
     "keywords": [
-      "Radiology",
-      "Orthopedics"
+      "Imaging",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -3202,7 +3209,7 @@
     "journal": "Clinical Epidemiology and Global Health",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health"
     ],
@@ -3228,11 +3235,10 @@
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928",
     "keywords": [
-      "animal",
-      "technique",
-      "Vascular",
-      "Transplant",
-      "Animal model"
+      "Animal model",
+      "Surgical technique",
+      "Vascular surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "vascular",
@@ -3253,7 +3259,7 @@
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3274,7 +3280,7 @@
     "journal": "Iranian Journal of Parasitology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3298,7 +3304,7 @@
     "journal": "Annals of Tropical Medicine and Public Health",
     "url": "",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health"
     ],
@@ -3321,10 +3327,9 @@
     "journal": "International Journal of Applied and Basic Medical Research",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/",
     "keywords": [
-      "animal",
-      "complementary",
-      "alternative",
-      "herbal",
+      "Animal model",
+      "Complementary medicine",
+      "Herbal medicine",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3345,10 +3350,9 @@
     "journal": "Journal of Pharmaceutical Negative Results",
     "url": "http://www.pnrjournal.com/index.php?mno=133709",
     "keywords": [
-      "animal",
-      "complementary",
-      "alternative",
-      "herbal",
+      "Animal model",
+      "Complementary medicine",
+      "Herbal medicine",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3396,8 +3400,8 @@
     "journal": "Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-024-04794-8",
     "keywords": [
-      "Vascular",
-      "GI surgery",
+      "Vascular surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -3421,9 +3425,10 @@
     "journal": "International Journal of Emergency Medicine",
     "url": "https://link.springer.com/article/10.1186/s12245-024-00688-0",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
-      "Aneurysm"
+      "Aneurysm",
+      "Animal model"
     ],
     "highlight_topics": [
       "vascular"
@@ -3449,7 +3454,8 @@
       "Infectious disease",
       "Neurology",
       "Case report",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -3472,11 +3478,12 @@
     "journal": "The Clinical Respiratory Journal",
     "url": "http://doi.org/10.1111/crj.13773",
     "keywords": [
-      "Thoracic",
-      "Transplant",
+      "Thoracic surgery",
+      "Transplant surgery",
       "Pulmonology",
       "Case report",
-      "Lung cancer"
+      "Lung cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -3501,7 +3508,7 @@
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "http://dx.doi.org/10.1186/s13019-024-02602-4",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report"
@@ -3525,7 +3532,7 @@
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Urology",
       "Case report"
     ],
@@ -3550,7 +3557,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
       "Aneurysm"
     ],
@@ -3574,7 +3581,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -3598,8 +3605,9 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210",
     "keywords": [
-      "Transplant",
-      "Case report"
+      "Transplant surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "transplant"
@@ -3622,9 +3630,10 @@
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -3648,7 +3657,7 @@
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Case report"
     ],
@@ -3673,9 +3682,9 @@
     "journal": "Clinical Case Reports",
     "url": "http://doi.org/10.1002/ccr3.7524",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3741,7 +3750,7 @@
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Neurology",
       "Case report"
     ],
@@ -3792,8 +3801,9 @@
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3837,7 +3847,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Infectious disease",
       "Case report",
       "COVID-19"
@@ -3861,7 +3871,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Infectious disease",
       "Case report",
       "COVID-19"
@@ -3887,7 +3897,7 @@
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
       "Hernia",
       "Aneurysm"
@@ -3914,9 +3924,9 @@
     "url": "https://www.hindawi.com/journals/cris/2022/8705143/",
     "keywords": [
       "Surgical oncology",
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report",
-      "Colorectal",
+      "Colorectal surgery",
       "Thyroid"
     ],
     "highlight_topics": [
@@ -3942,7 +3952,7 @@
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Dermatology",
       "Case report",
       "Aneurysm"
@@ -4021,7 +4031,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Infectious disease",
       "Case report"
     ],
@@ -4049,7 +4059,7 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report"
@@ -4102,7 +4112,7 @@
     "journal": "Case Reports in Gastrointestinal Medicine",
     "url": "https://www.hindawi.com/journals/crigm/2022/3209658/",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4127,11 +4137,12 @@
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Case report",
       "Breast reconstruction",
-      "Colorectal"
+      "Colorectal surgery",
+      "Breast cancer"
     ],
     "highlight_topics": [
       "thoracic",
@@ -4152,8 +4163,9 @@
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4176,8 +4188,8 @@
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03414-7",
     "keywords": [
-      "embolism",
-      "Vascular",
+      "Embolism",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4200,10 +4212,10 @@
     "journal": "Integrative Medicine Reports",
     "url": "https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006",
     "keywords": [
-      "complementary",
-      "alternative",
-      "GI surgery",
-      "Case report"
+      "Complementary medicine",
+      "Gastrointestinal surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi"
@@ -4223,7 +4235,7 @@
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03256-3",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Neurology",
       "Case report"
     ],
@@ -4246,10 +4258,11 @@
     "journal": "BMC Gastroenterology",
     "url": "https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x",
     "keywords": [
-      "pediatric",
-      "GI surgery",
+      "Pediatric surgery",
+      "Gastrointestinal surgery",
       "Surgical oncology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi",
@@ -4272,10 +4285,11 @@
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2021/5851967/",
     "keywords": [
-      "MIS",
-      "GI surgery",
+      "Minimally invasive surgery",
+      "Gastrointestinal surgery",
       "Case report",
-      "Colorectal"
+      "Colorectal surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi"
@@ -4297,8 +4311,8 @@
     "journal": "BMC Pediatrics",
     "url": "https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1",
     "keywords": [
-      "pediatric",
-      "Thoracic",
+      "Pediatric surgery",
+      "Thoracic surgery",
       "Infectious disease",
       "Pulmonology",
       "Case report",
@@ -4324,10 +4338,11 @@
     "journal": "Case Reports in Orthopedics",
     "url": "https://www.hindawi.com/journals/crior/2021/1768529/",
     "keywords": [
-      "Vascular",
-      "Orthopedics",
+      "Vascular surgery",
+      "Orthopaedic surgery",
       "Case report",
-      "Aneurysm"
+      "Aneurysm",
+      "Animal model"
     ],
     "highlight_topics": [
       "vascular",
@@ -4398,10 +4413,10 @@
     "journal": "Advances in Integrative Medicine",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Pulmonology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "pulm"
@@ -4423,8 +4438,9 @@
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4447,8 +4463,9 @@
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4468,9 +4485,9 @@
     "journal": "Case Reports in Infectious Diseases",
     "url": "https://www.hindawi.com/journals/criid/2020/6650478/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4492,11 +4509,12 @@
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-020-00864-y",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report",
-      "Lung cancer"
+      "Lung cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -4517,7 +4535,7 @@
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/crim/2020/9182379/",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4541,7 +4559,7 @@
     "journal": "The American Surgeon",
     "url": "https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4567,7 +4585,7 @@
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/",
     "keywords": [
       "Plastic surgery",
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4589,10 +4607,10 @@
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/9526406/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
       "Lung cancer",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4615,7 +4633,7 @@
     "journal": "The Journal of Vascular Access",
     "url": "https://journals.sagepub.com/doi/full/10.1177/1129729820910304",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4641,7 +4659,7 @@
     "url": "https://www.hindawi.com/journals/cripa/2020/4348629/",
     "keywords": [
       "Plastic surgery",
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Surgical oncology",
       "Case report"
     ],
@@ -4667,7 +4685,7 @@
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/3597901/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4721,7 +4739,8 @@
     "keywords": [
       "Infectious disease",
       "Letter",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious"

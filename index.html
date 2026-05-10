@@ -465,11 +465,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
           Download CV (PDF)
         </a>
-        <a href="Shahriarirad_Reza_CV.docx"
-           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV Word document">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1 7V4.5L18.5 9H15zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z" fill="currentColor"/></svg>
-          Download CV (Word)
-        </a>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
@@ -482,7 +477,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <div class="stat-label">Publications</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num" id="hero-cites">3,388</div>
+          <div class="stat-num" id="hero-cites">3,387</div>
           <div class="stat-label">Citations</div>
         </div>
         <div class="stat-box">
@@ -494,7 +489,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <div class="stat-label">Peer Reviews</div>
         </div>
       </div>
-      <!-- metrics-last-updated: May 8, 2026 — hidden from public page; tracked in data/profile.csv -->
+      <!-- metrics-last-updated: May 10, 2026 — hidden from public page; tracked in data/profile.csv -->
     </div>
   </div>
 </div>
@@ -712,7 +707,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="pub-filter-group">
         <button class="filter-btn" type="button"
           style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
-          onclick="resetPubFilters()" aria-label="Reset all publication filters">&#8635; Reset filters</button>
+          onclick="resetPubFilters(event)" aria-label="Reset all publication filters">&#8635; Reset filters</button>
       </div>
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Article Type</span>
@@ -746,55 +741,55 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Topic</span>
-        <button class="filter-btn active" type="button" aria-pressed="true" onclick="filterPubs('all',this,'cat')" id="cat-all-btn">All Topics</button>
+        <button class="filter-btn active" type="button" aria-pressed="true" onclick="filterPubs(event,'all',this,'cat')" id="cat-all-btn">All Topics</button>
 
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(this)" data-group="ai">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(event,this)" data-group="ai">
             <span>Artificial Intelligence</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="grp-ai" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('computer_vision',this,'cat')" data-cat="computer_vision" data-main="ai">Computer Vision</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('machine_learning',this,'cat')" data-cat="machine_learning" data-main="ai">Machine Learning</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'computer_vision',this,'cat')" data-cat="computer_vision" data-main="ai">Computer Vision</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'machine_learning',this,'cat')" data-cat="machine_learning" data-main="ai">Machine Learning</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(this)" data-group="health_sciences">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(event,this)" data-group="health_sciences">
             <span>Health Sciences</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="grp-health_sciences" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('epidemiology',this,'cat')" data-cat="epidemiology" data-main="health_sciences">Epidemiology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('health_systems',this,'cat')" data-cat="health_systems" data-main="health_sciences">Health Systems &amp; Policy</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('education',this,'cat')" data-cat="education" data-main="health_sciences">Medical Education</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('pubhealth',this,'cat')" data-cat="pubhealth" data-main="health_sciences">Public Health</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'epidemiology',this,'cat')" data-cat="epidemiology" data-main="health_sciences">Epidemiology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'health_systems',this,'cat')" data-cat="health_systems" data-main="health_sciences">Health Systems &amp; Policy</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'education',this,'cat')" data-cat="education" data-main="health_sciences">Medical Education</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'pubhealth',this,'cat')" data-cat="pubhealth" data-main="health_sciences">Public Health</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(this)" data-group="internal_medicine">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(event,this)" data-group="internal_medicine">
             <span>Internal Medicine</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="grp-internal_medicine" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('derm',this,'cat')" data-cat="derm" data-main="internal_medicine">Dermatology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('infectious',this,'cat')" data-cat="infectious" data-main="internal_medicine">Infectious Disease</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('neuro',this,'cat')" data-cat="neuro" data-main="internal_medicine">Neurology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('pulm',this,'cat')" data-cat="pulm" data-main="internal_medicine">Pulmonology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('urology',this,'cat')" data-cat="urology" data-main="internal_medicine">Urology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'derm',this,'cat')" data-cat="derm" data-main="internal_medicine">Dermatology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'infectious',this,'cat')" data-cat="infectious" data-main="internal_medicine">Infectious Disease</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'neuro',this,'cat')" data-cat="neuro" data-main="internal_medicine">Neurology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'pulm',this,'cat')" data-cat="pulm" data-main="internal_medicine">Pulmonology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'urology',this,'cat')" data-cat="urology" data-main="internal_medicine">Urology</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(this)" data-group="surgery">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(event,this)" data-group="surgery">
             <span>Surgery</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="grp-surgery" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('bariatric',this,'cat')" data-cat="bariatric" data-main="surgery">Bariatric &amp; Metabolic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('endocrine',this,'cat')" data-cat="endocrine" data-main="surgery">Endocrine Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('gi',this,'cat')" data-cat="gi" data-main="surgery">GI &amp; Colorectal Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('ortho',this,'cat')" data-cat="ortho" data-main="surgery">Orthopaedic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('plastic',this,'cat')" data-cat="plastic" data-main="surgery">Plastic, Reconstructive &amp; Burns</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('oncology',this,'cat')" data-cat="oncology" data-main="surgery">Surgical Oncology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('thoracic',this,'cat')" data-cat="thoracic" data-main="surgery">Thoracic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('transplant',this,'cat')" data-cat="transplant" data-main="surgery">Transplant Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('urosurg',this,'cat')" data-cat="urosurg" data-main="surgery">Urological Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs('vascular',this,'cat')" data-cat="vascular" data-main="surgery">Vascular Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'bariatric',this,'cat')" data-cat="bariatric" data-main="surgery">Bariatric &amp; Metabolic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'endocrine',this,'cat')" data-cat="endocrine" data-main="surgery">Endocrine Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'gi',this,'cat')" data-cat="gi" data-main="surgery">GI &amp; Colorectal Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'ortho',this,'cat')" data-cat="ortho" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'plastic',this,'cat')" data-cat="plastic" data-main="surgery">Plastic, Reconstructive &amp; Burns</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'oncology',this,'cat')" data-cat="oncology" data-main="surgery">Surgical Oncology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'thoracic',this,'cat')" data-cat="thoracic" data-main="surgery">Thoracic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'transplant',this,'cat')" data-cat="transplant" data-main="surgery">Transplant Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'urosurg',this,'cat')" data-cat="urosurg" data-main="surgery">Urological Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,'vascular',this,'cat')" data-cat="vascular" data-main="surgery">Vascular Surgery</button>
           </div>
         </div>
       </div>
@@ -812,7 +807,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   </div><!-- /pub-controls -->
   <p class="pub-note" style="font-size:.74rem;color:var(--text-muted);margin-bottom:1.5rem">* denotes corresponding author. My name is highlighted in bold.</p>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
-    <button class="btn-outline" type="button" onclick="showAllPubs()" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
+    <button class="btn-outline" type="button" onclick="showAllPubs(event)" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
   </div>
 </div>
 </div>
@@ -905,7 +900,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="pres-filter-group">
         <button class="filter-btn" type="button"
           style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
-          id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(this)">&#8635; Reset filters</button>
+          id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(event)">&#8635; Reset filters</button>
       </div>
       <div class="pres-filter-group">
         <span class="pub-filter-group-label">Type</span>
@@ -939,52 +934,52 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <span class="pub-filter-group-label">Topic</span>
 
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(this)" data-group="ai">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(event,this)" data-group="ai">
             <span>Artificial Intelligence</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="pgrp-ai" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','computer_vision',this)" data-cat="computer_vision" data-main="ai">Computer Vision</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','machine_learning',this)" data-cat="machine_learning" data-main="ai">Machine Learning</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','computer_vision',this)" data-cat="computer_vision" data-main="ai">Computer Vision</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','machine_learning',this)" data-cat="machine_learning" data-main="ai">Machine Learning</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(this)" data-group="health_sciences">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(event,this)" data-group="health_sciences">
             <span>Health Sciences</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="pgrp-health_sciences" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','epidemiology',this)" data-cat="epidemiology" data-main="health_sciences">Epidemiology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','health_systems',this)" data-cat="health_systems" data-main="health_sciences">Health Systems &amp; Policy</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','education',this)" data-cat="education" data-main="health_sciences">Medical Education</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','pubhealth',this)" data-cat="pubhealth" data-main="health_sciences">Public Health</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','epidemiology',this)" data-cat="epidemiology" data-main="health_sciences">Epidemiology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','health_systems',this)" data-cat="health_systems" data-main="health_sciences">Health Systems &amp; Policy</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','education',this)" data-cat="education" data-main="health_sciences">Medical Education</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','pubhealth',this)" data-cat="pubhealth" data-main="health_sciences">Public Health</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(this)" data-group="internal_medicine">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(event,this)" data-group="internal_medicine">
             <span>Internal Medicine</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="pgrp-internal_medicine" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','derm',this)" data-cat="derm" data-main="internal_medicine">Dermatology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','infectious',this)" data-cat="infectious" data-main="internal_medicine">Infectious Disease</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','neuro',this)" data-cat="neuro" data-main="internal_medicine">Neurology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','pulm',this)" data-cat="pulm" data-main="internal_medicine">Pulmonology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','urology',this)" data-cat="urology" data-main="internal_medicine">Urology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','derm',this)" data-cat="derm" data-main="internal_medicine">Dermatology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','infectious',this)" data-cat="infectious" data-main="internal_medicine">Infectious Disease</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','neuro',this)" data-cat="neuro" data-main="internal_medicine">Neurology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','pulm',this)" data-cat="pulm" data-main="internal_medicine">Pulmonology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','urology',this)" data-cat="urology" data-main="internal_medicine">Urology</button>
           </div>
         </div>
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(this)" data-group="surgery">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(event,this)" data-group="surgery">
             <span>Surgery</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="pgrp-surgery" style="display:none">
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','bariatric',this)" data-cat="bariatric" data-main="surgery">Bariatric &amp; Metabolic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','endocrine',this)" data-cat="endocrine" data-main="surgery">Endocrine Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','gi',this)" data-cat="gi" data-main="surgery">GI &amp; Colorectal Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','ortho',this)" data-cat="ortho" data-main="surgery">Orthopaedic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','plastic',this)" data-cat="plastic" data-main="surgery">Plastic, Reconstructive &amp; Burns</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','oncology',this)" data-cat="oncology" data-main="surgery">Surgical Oncology</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','thoracic',this)" data-cat="thoracic" data-main="surgery">Thoracic Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','transplant',this)" data-cat="transplant" data-main="surgery">Transplant Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','urosurg',this)" data-cat="urosurg" data-main="surgery">Urological Surgery</button>
-            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres('cat','vascular',this)" data-cat="vascular" data-main="surgery">Vascular Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','bariatric',this)" data-cat="bariatric" data-main="surgery">Bariatric &amp; Metabolic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','endocrine',this)" data-cat="endocrine" data-main="surgery">Endocrine Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','gi',this)" data-cat="gi" data-main="surgery">GI &amp; Colorectal Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','ortho',this)" data-cat="ortho" data-main="surgery">Orthopaedic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','plastic',this)" data-cat="plastic" data-main="surgery">Plastic, Reconstructive &amp; Burns</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','oncology',this)" data-cat="oncology" data-main="surgery">Surgical Oncology</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','thoracic',this)" data-cat="thoracic" data-main="surgery">Thoracic Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','transplant',this)" data-cat="transplant" data-main="surgery">Transplant Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','urosurg',this)" data-cat="urosurg" data-main="surgery">Urological Surgery</button>
+            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,'cat','vascular',this)" data-cat="vascular" data-main="surgery">Vascular Surgery</button>
           </div>
         </div>
       </div>
@@ -998,7 +993,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div id="pres-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">21 presentations</div>
       </div>
       <div class="pres-list" id="pres-list">
-    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="hernia" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Summit Mayo Clinic AI Summit United States hernia Plastic, Reconstructive &amp; Burns hernia Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Summit United States">
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Hernia Plastic surgery" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Summit Mayo Clinic AI Summit United States Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1007,9 +1002,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="hernia" onclick="applyPresSearchTag(event,this)">hernia</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Hernia" onclick="applyPresSearchTag(event,this)">Hernia</button><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="LLM chatbot" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Summit Mayo Clinic AI Summit United States LLM chatbot Plastic, Reconstructive &amp; Burns Machine Learning LLM chatbot Plastic, Reconstructive &amp; Burns Machine Learning Poster Mayo Clinic AI Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Summit Mayo Clinic AI Summit United States Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1018,9 +1013,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="LLM" onclick="applyPresSearchTag(event,this)">LLM</button><button type="button" class="pres-tag-chip" data-tag="chatbot" onclick="applyPresSearchTag(event,this)">chatbot</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Large language models" onclick="applyPresSearchTag(event,this)">Large language models</button><button type="button" class="pres-tag-chip" data-tag="Patient decision aid" onclick="applyPresSearchTag(event,this)">Patient decision aid</button><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Breast reconstruction" onclick="applyPresSearchTag(event,this)">Breast reconstruction</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Age" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Summit Mayo Clinic AI Summit United States Age Bariatric &amp; Metabolic Surgery Machine Learning Age Bariatric &amp; Metabolic Surgery Machine Learning Poster Mayo Clinic AI Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Biological age Bariatric surgery Machine learning" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Summit Mayo Clinic AI Summit United States Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1029,9 +1024,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Age" onclick="applyPresSearchTag(event,this)">Age</button><button type="button" class="pres-tag-chip" data-tag="Bariatric &amp; Metabolic Surgery" onclick="applyPresSearchTag(event,this)">Bariatric &amp; Metabolic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Biological age" onclick="applyPresSearchTag(event,this)">Biological age</button><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Bariatric &amp; Metabolic Surgery" onclick="applyPresSearchTag(event,this)">Bariatric &amp; Metabolic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States   Poster  United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="Bariatric surgery" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States Bariatric surgery  Bariatric surgery Poster  United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1040,9 +1035,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mayo Obesity Staging Index: A Novel Obesity Classification System</div>
         <div class="pres-venue">American Society for Metabolic and Bariatric Surgery (ASMBS)</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States  Plastic, Reconstructive &amp; Burns Plastic, Reconstructive &amp; Burns Poster PSRC Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Plastic surgery" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States Plastic surgery Plastic, Reconstructive &amp; Burns Plastic surgery Plastic, Reconstructive &amp; Burns Poster PSRC Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1051,9 +1046,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div>
         <div class="pres-venue">Plastic Surgery Research Council (PSRC)</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="PSRC Annual Meeting" onclick="applyPresSearchTag(event,this)">PSRC Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="PSRC Annual Meeting" onclick="applyPresSearchTag(event,this)">PSRC Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States  Surgical Oncology GI &amp; Colorectal Surgery Surgical Oncology GI &amp; Colorectal Surgery Poster SSO Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="Surgical oncology Gastrointestinal surgery GIST" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Poster SSO Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1062,9 +1057,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div>
         <div class="pres-venue">Society of Surgical Oncology (SSO)</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Surgical Oncology" onclick="applyPresSearchTag(event,this)">Surgical Oncology</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="SSO Annual Meeting" onclick="applyPresSearchTag(event,this)">SSO Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Surgical oncology" onclick="applyPresSearchTag(event,this)">Surgical oncology</button><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="GIST" onclick="applyPresSearchTag(event,this)">GIST</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="SSO Annual Meeting" onclick="applyPresSearchTag(event,this)">SSO Annual Meeting</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States  Orthopaedic Surgery Orthopaedic Surgery Poster AOFAS Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="Orthopaedic surgery Animal model Regenerative medicine" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Poster AOFAS Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1073,9 +1068,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div>
         <div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Orthopaedic Surgery" onclick="applyPresSearchTag(event,this)">Orthopaedic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="AOFAS Annual Meeting" onclick="applyPresSearchTag(event,this)">AOFAS Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Orthopaedic surgery" onclick="applyPresSearchTag(event,this)">Orthopaedic surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="Regenerative medicine" onclick="applyPresSearchTag(event,this)">Regenerative medicine</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="AOFAS Annual Meeting" onclick="applyPresSearchTag(event,this)">AOFAS Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery Machine learning Robotic surgery Bibliometric analysis" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1084,9 +1079,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Robotic surgery" onclick="applyPresSearchTag(event,this)">Robotic surgery</button><button type="button" class="pres-tag-chip" data-tag="Bibliometric analysis" onclick="applyPresSearchTag(event,this)">Bibliometric analysis</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery Machine learning Animal model" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Machine learning Animal model Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Machine learning Animal model Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1095,9 +1090,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States  Machine Learning Machine Learning Poster Mayo Clinic AI Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="Machine learning" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States Machine learning Machine Learning Machine learning Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1106,9 +1101,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States  Thoracic Surgery Thoracic Surgery Poster Advanced Robotic Surgery Conference United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="Thoracic surgery Robotic surgery Lung cancer" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Poster Advanced Robotic Surgery Conference United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1117,9 +1112,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study</div>
         <div class="pres-venue">Advanced Robotic Surgery Conference 2025</div>
         <div class="pres-location">United States</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Thoracic Surgery" onclick="applyPresSearchTag(event,this)">Thoracic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Advanced Robotic Surgery Conference" onclick="applyPresSearchTag(event,this)">Advanced Robotic Surgery Conference</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Thoracic surgery" onclick="applyPresSearchTag(event,this)">Thoracic surgery</button><button type="button" class="pres-tag-chip" data-tag="Robotic surgery" onclick="applyPresSearchTag(event,this)">Robotic surgery</button><button type="button" class="pres-tag-chip" data-tag="Lung cancer" onclick="applyPresSearchTag(event,this)">Lung cancer</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Advanced Robotic Surgery Conference" onclick="applyPresSearchTag(event,this)">Advanced Robotic Surgery Conference</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran  Infectious Disease Transplant Surgery Infectious Disease Transplant Surgery Poster International Transplantation Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="Infectious disease Transplant surgery COVID-19" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Poster International Transplantation Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1128,9 +1123,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div>
         <div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Transplant Surgery" onclick="applyPresSearchTag(event,this)">Transplant Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="Transplant surgery" onclick="applyPresSearchTag(event,this)">Transplant surgery</button><button type="button" class="pres-tag-chip" data-tag="COVID-19" onclick="applyPresSearchTag(event,this)">COVID-19</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey  GI &amp; Colorectal Surgery Surgical Oncology GI &amp; Colorectal Surgery Surgical Oncology Poster ISUCRS Biennial Congress Turkey">
+    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="Gastrointestinal surgery Surgical oncology Colorectal surgery" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Poster ISUCRS Biennial Congress Turkey">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1139,9 +1134,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy</div>
         <div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div>
         <div class="pres-location">Turkey</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Surgical Oncology" onclick="applyPresSearchTag(event,this)">Surgical Oncology</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISUCRS Biennial Congress" onclick="applyPresSearchTag(event,this)">ISUCRS Biennial Congress</button><button type="button" class="pres-tag-chip" data-tag="Turkey" onclick="applyPresSearchTag(event,this)">Turkey</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Surgical oncology" onclick="applyPresSearchTag(event,this)">Surgical oncology</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISUCRS Biennial Congress" onclick="applyPresSearchTag(event,this)">ISUCRS Biennial Congress</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran  Plastic, Reconstructive &amp; Burns Public Health Plastic, Reconstructive &amp; Burns Public Health Oral National Burn Congress Iran">
+    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="Plastic surgery Public health Burns" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Oral National Burn Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2021</span>
         <span class="pres-type oral">Oral</span>
@@ -1150,9 +1145,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div>
         <div class="pres-venue">10th National Burn Congress 2021</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Public Health" onclick="applyPresSearchTag(event,this)">Public Health</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="National Burn Congress" onclick="applyPresSearchTag(event,this)">National Burn Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Public health" onclick="applyPresSearchTag(event,this)">Public health</button><button type="button" class="pres-tag-chip" data-tag="Burns" onclick="applyPresSearchTag(event,this)">Burns</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="National Burn Congress" onclick="applyPresSearchTag(event,this)">National Burn Congress</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran  GI &amp; Colorectal Surgery Transplant Surgery GI &amp; Colorectal Surgery Transplant Surgery Poster International Transplantation Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="Gastrointestinal surgery Transplant surgery" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Poster International Transplantation Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2021</span>
         <span class="pres-type poster">Poster</span>
@@ -1161,9 +1156,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div>
         <div class="pres-venue">Transplantation (International Congress)</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Transplant Surgery" onclick="applyPresSearchTag(event,this)">Transplant Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Transplant surgery" onclick="applyPresSearchTag(event,this)">Transplant surgery</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands  Infectious Disease Infectious Disease Oral PReS European Paediatric Rheumatology Congress Netherlands">
+    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="Infectious disease COVID-19 Case report" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands Infectious disease COVID-19 Case report Infectious Disease Infectious disease COVID-19 Case report Infectious Disease Oral PReS European Paediatric Rheumatology Congress Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Sep 2020</span>
         <span class="pres-type oral">Oral</span>
@@ -1172,9 +1167,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div>
         <div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div>
         <div class="pres-location">Netherlands</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="PReS European Paediatric Rheumatology Congress" onclick="applyPresSearchTag(event,this)">PReS European Paediatric Rheumatology Congress</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="COVID-19" onclick="applyPresSearchTag(event,this)">COVID-19</button><button type="button" class="pres-tag-chip" data-tag="Case report" onclick="applyPresSearchTag(event,this)">Case report</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="PReS European Paediatric Rheumatology Congress" onclick="applyPresSearchTag(event,this)">PReS European Paediatric Rheumatology Congress</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran  Infectious Disease Public Health Infectious Disease Public Health Poster NICOPA11 Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="Infectious disease Public health" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran Infectious disease Public health Infectious Disease Public Health Infectious disease Public health Infectious Disease Public Health Poster NICOPA11 Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2019</span>
         <span class="pres-type poster">Poster</span>
@@ -1183,9 +1178,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran</div>
         <div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Public Health" onclick="applyPresSearchTag(event,this)">Public Health</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="NICOPA11" onclick="applyPresSearchTag(event,this)">NICOPA11</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="Public health" onclick="applyPresSearchTag(event,this)">Public health</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="NICOPA11" onclick="applyPresSearchTag(event,this)">NICOPA11</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster National Congress on Animal Models Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="Gastrointestinal surgery Animal model" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Poster National Congress on Animal Models Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1194,9 +1189,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div>
         <div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="National Congress on Animal Models" onclick="applyPresSearchTag(event,this)">National Congress on Animal Models</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="National Congress on Animal Models" onclick="applyPresSearchTag(event,this)">National Congress on Animal Models</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran  Pulmonology Pulmonology Poster Professor Amirhakimi Pediatric Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="Pulmonology Animal model" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran Pulmonology Animal model Pulmonology Pulmonology Animal model Pulmonology Poster Professor Amirhakimi Pediatric Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1205,9 +1200,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough</div>
         <div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div>
         <div class="pres-location">Iran</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Pulmonology" onclick="applyPresSearchTag(event,this)">Pulmonology</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Professor Amirhakimi Pediatric Congress" onclick="applyPresSearchTag(event,this)">Professor Amirhakimi Pediatric Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Pulmonology" onclick="applyPresSearchTag(event,this)">Pulmonology</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Professor Amirhakimi Pediatric Congress" onclick="applyPresSearchTag(event,this)">Professor Amirhakimi Pediatric Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1216,9 +1211,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1227,12 +1222,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
-        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button></div>
       </div>
     </div>
       </div>
       <div class="pres-more-wrap" id="pres-more">
-        <button class="btn-outline" type="button" onclick="togglePresMore()" style="border-color:var(--navy);color:var(--navy)">Show more presentations</button>
+        <button class="btn-outline" type="button" onclick="togglePresMore(event)" style="border-color:var(--navy);color:var(--navy)">Show more presentations</button>
       </div>
     </div>
   </div></div>
@@ -1297,7 +1292,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 <footer>
   <div class="footer-name">Reza Shahriarirad, M.D.</div>
   <!-- EDIT: Footer tagline -->
-  <div class="footer-note">Research Fellow · Surgery Innovation Center · Mayo Clinic · Rochester, MN</div>
+  <div class="footer-note">Research Fellow · Department of Surgery - Surgical Innovation · Rochester, MN</div>
   <div class="footer-divider"></div>
   <div class="footer-links">
     <a href="https://scholar.google.com/citations?user=mOE1KmEAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
@@ -1333,9 +1328,9 @@ const publications = [
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-026-12845-y?_gl=1*htwbjp*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIhJKXnsiilAMVED6HAx2gSDYMEAAYASAAEgLxKfD_BwE",
     "keywords": [
-      "Education",
+      "Medical education",
       "Public health",
-      "Bariatric",
+      "Bariatric surgery",
       "Health systems",
       "Readability",
       "Quality"
@@ -1363,12 +1358,12 @@ const publications = [
     "journal": "Journal of Robotic Surgery",
     "url": "",
     "keywords": [
-      "Robotic",
-      "MIS",
+      "Robotic surgery",
+      "Minimally invasive surgery",
       "Plastic surgery",
       "Health systems",
       "Systematic review",
-      "Robotic surgery"
+      "Bibliometric analysis"
     ],
     "highlight_topics": [
       "plastic",
@@ -1394,8 +1389,8 @@ const publications = [
     "journal": "The Iranian Journal of Medical Sciences",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/",
     "keywords": [
-      "Breast",
-      "COVID",
+      "Breast cancer",
+      "COVID-19",
       "Infectious disease",
       "Surgical oncology",
       "Health systems",
@@ -1422,7 +1417,8 @@ const publications = [
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733",
     "keywords": [
       "Neurology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "neuro"
@@ -1446,7 +1442,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Urology",
       "Case report"
     ],
@@ -1470,10 +1466,9 @@ const publications = [
     "journal": "Journal of Wound Care",
     "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210",
     "keywords": [
-      "Wound",
-      "regenerative",
-      "Plastic surgery",
-      "Wound healing"
+      "Wound healing",
+      "Regenerative medicine",
+      "Plastic surgery"
     ],
     "highlight_topics": [
       "plastic"
@@ -1498,9 +1493,8 @@ const publications = [
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463",
     "keywords": [
       "Osteomyelitis",
-      "diabetes",
-      "DM",
-      "Orthopedics",
+      "Diabetes",
+      "Orthopaedic surgery",
       "Infectious disease",
       "Diabetic foot"
     ],
@@ -1531,7 +1525,7 @@ const publications = [
     "journal": "Clinical Breast Cancer",
     "url": "https://www.sciencedirect.com/science/article/pii/S1526820925002897",
     "keywords": [
-      "education",
+      "Medical education",
       "Plastic surgery",
       "Surgical oncology",
       "Health systems",
@@ -1559,8 +1553,8 @@ const publications = [
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351",
     "keywords": [
-      "Colorectal",
-      "GI surgery",
+      "Colorectal surgery",
+      "Gastrointestinal surgery",
       "Surgical oncology",
       "Randomized trial"
     ],
@@ -1584,12 +1578,12 @@ const publications = [
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-025-97693-x",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -1640,8 +1634,8 @@ const publications = [
     "url": "https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801",
     "keywords": [
       "Diagnostics",
-      "Radiology",
-      "GI surgery"
+      "Imaging",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -1666,9 +1660,9 @@ const publications = [
     "url": "https://www.sciencedirect.com/science/article/pii/S1056872725000546",
     "keywords": [
       "Diabetes",
-      "DM",
-      "Orthopedics",
-      "Endocrine surgery"
+      "Orthopaedic surgery",
+      "Endocrine surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "ortho",
@@ -1693,7 +1687,7 @@ const publications = [
     "journal": "Cancer Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Lung cancer"
     ],
@@ -1721,7 +1715,7 @@ const publications = [
     "journal": "Health Care Science",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health",
       "Health systems"
@@ -1747,9 +1741,9 @@ const publications = [
     "journal": "Journal of Cosmetic Dermatology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
       "Dermatology",
       "Surgical oncology",
       "Wound healing"
@@ -1776,7 +1770,7 @@ const publications = [
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Aneurysm"
     ],
     "highlight_topics": [
@@ -1802,9 +1796,10 @@ const publications = [
     "url": "https://www.nature.com/articles/s41598-025-85131-x",
     "keywords": [
       "Tissue engineering",
-      "Translational",
-      "laboratory",
-      "Orthopedics"
+      "Translational research",
+      "Orthopaedic surgery",
+      "Animal model",
+      "Regenerative medicine"
     ],
     "highlight_topics": [
       "ortho"
@@ -1827,8 +1822,7 @@ const publications = [
     "url": "https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215",
     "keywords": [
       "Diabetes",
-      "DM",
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Endocrine surgery"
     ],
     "highlight_topics": [
@@ -1853,7 +1847,7 @@ const publications = [
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Hernia"
     ],
     "highlight_topics": [
@@ -1875,7 +1869,7 @@ const publications = [
     "journal": "Immunity, Inflammation and Disease",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034",
     "keywords": [
-      "Cell",
+      "Immunology",
       "Dermatology",
       "Systematic review"
     ],
@@ -1903,7 +1897,7 @@ const publications = [
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Public health",
       "Health systems"
@@ -1959,9 +1953,9 @@ const publications = [
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017",
     "keywords": [
-      "Radiology",
-      "Vascular",
-      "Thoracic"
+      "Imaging",
+      "Vascular surgery",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -1984,11 +1978,11 @@ const publications = [
     "journal": "Irish Journal of Medical Science",
     "url": "https://link.springer.com/article/10.1007/s11845-024-03757-8",
     "keywords": [
-      "QoL",
-      "GI surgery",
+      "Quality of life",
+      "Gastrointestinal surgery",
       "Surgical oncology",
       "Public health",
-      "Colorectal",
+      "Colorectal surgery",
       "Quality"
     ],
     "highlight_topics": [
@@ -2014,12 +2008,12 @@ const publications = [
     "journal": "Journal of Coloproctology",
     "url": "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -2045,10 +2039,10 @@ const publications = [
     "journal": "Journal of Health Sciences & Surveillance System",
     "url": "https://journals.sums.ac.ir/article_49437.html",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Infectious disease",
       "Public health",
-      "Education",
+      "Medical education",
       "COVID-19"
     ],
     "highlight_topics": [
@@ -2071,10 +2065,11 @@ const publications = [
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-024-03390-0",
     "keywords": [
-      "MIS",
+      "Minimally invasive surgery",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -2098,7 +2093,7 @@ const publications = [
     "journal": "Journal of Surgical Research",
     "url": "https://pubmed.ncbi.nlm.nih.gov/38905767/",
     "keywords": [
-      "Thoracic"
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -2173,8 +2168,8 @@ const publications = [
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-024-61620-3",
     "keywords": [
-      "animal",
-      "Transplant"
+      "Animal model",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "transplant"
@@ -2196,8 +2191,8 @@ const publications = [
     "journal": "Archives of Pediatric Neurosurgery",
     "url": "https://www.archpedneurosurg.com.br/sbnped2019/article/view/231",
     "keywords": [
-      "neurosurgery",
-      "pediatric",
+      "Neurosurgery",
+      "Pediatric surgery",
       "Neurology",
       "Plastic surgery"
     ],
@@ -2221,7 +2216,7 @@ const publications = [
     "journal": "The Cleft Palate Craniofacial Journal",
     "url": "https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Plastic surgery"
     ],
     "highlight_topics": [
@@ -2245,7 +2240,7 @@ const publications = [
     "journal": "Annals of Vascular Surgery",
     "url": "https://authors.elsevier.com/a/1idol3AUdjphyC",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -2293,10 +2288,11 @@ const publications = [
     "journal": "Journal of General and Family Medicine",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health",
-      "Systematic review"
+      "Systematic review",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -2318,7 +2314,7 @@ const publications = [
     "journal": "Techniques in Coloproctology",
     "url": "https://link.springer.com/article/10.1007/s10151-023-02898-9",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -2366,8 +2362,8 @@ const publications = [
     "journal": "BJS Open",
     "url": "https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246",
     "keywords": [
-      "GI surgery",
-      "Education"
+      "Gastrointestinal surgery",
+      "Medical education"
     ],
     "highlight_topics": [
       "gi",
@@ -2396,7 +2392,8 @@ const publications = [
       "Infectious disease",
       "Public health",
       "Health systems",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -2424,7 +2421,9 @@ const publications = [
     "keywords": [
       "Surgical oncology",
       "Machine learning",
-      "Breast reconstruction"
+      "Breast reconstruction",
+      "Breast cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "oncology",
@@ -2448,10 +2447,10 @@ const publications = [
     "journal": "BMC Primary Care",
     "url": "https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Dermatology",
       "Public health",
-      "Education"
+      "Medical education"
     ],
     "highlight_topics": [
       "derm",
@@ -2476,8 +2475,9 @@ const publications = [
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w",
     "keywords": [
-      "Thoracic",
-      "Infectious disease"
+      "Thoracic surgery",
+      "Infectious disease",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -2556,12 +2556,12 @@ const publications = [
     "journal": "Annals of Gastroenterology",
     "url": "https://doi.org/10.20524/aog.2023.0836",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery"
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -2583,7 +2583,8 @@ const publications = [
     "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7",
     "keywords": [
       "Plastic surgery",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "plastic"
@@ -2628,7 +2629,7 @@ const publications = [
     "url": "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4",
     "keywords": [
       "Infectious disease",
-      "Education"
+      "Medical education"
     ],
     "highlight_topics": [
       "infectious"
@@ -2652,10 +2653,10 @@ const publications = [
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Lung cancer",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic",
@@ -2680,8 +2681,9 @@ const publications = [
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w",
     "keywords": [
-      "Thoracic",
-      "Surgical oncology"
+      "Thoracic surgery",
+      "Surgical oncology",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -2704,7 +2706,7 @@ const publications = [
     "url": "https://www.hindawi.com/journals/jtm/2023/9998739/",
     "keywords": [
       "Infectious disease",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "infectious"
@@ -2728,7 +2730,8 @@ const publications = [
     "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3",
     "keywords": [
       "Endocrine surgery",
-      "Thyroid"
+      "Thyroid",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -2773,11 +2776,11 @@ const publications = [
     "journal": "Annals of Gastroenterology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/",
     "keywords": [
-      "complementary",
-      "supplementary",
-      "regenerative",
-      "laboratory",
-      "GI surgery",
+      "Complementary medicine",
+      "Supplement",
+      "Regenerative medicine",
+      "Translational research",
+      "Gastrointestinal surgery",
       "Animal model"
     ],
     "highlight_topics": [
@@ -2823,7 +2826,7 @@ const publications = [
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-023-10040-x",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Hernia",
       "Randomized trial"
     ],
@@ -2846,8 +2849,8 @@ const publications = [
     "journal": "PLOS One",
     "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170",
     "keywords": [
-      "QoL",
-      "GI surgery"
+      "Quality of life",
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -2894,8 +2897,9 @@ const publications = [
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0",
     "keywords": [
-      "GI surgery",
-      "Transplant"
+      "Gastrointestinal surgery",
+      "Transplant surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi",
@@ -2920,7 +2924,7 @@ const publications = [
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -2944,7 +2948,7 @@ const publications = [
     "journal": "The Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Plastic surgery",
       "Public health",
       "Burns"
@@ -2970,7 +2974,7 @@ const publications = [
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-023-03522-3",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Urology"
     ],
     "highlight_topics": [
@@ -2995,10 +2999,10 @@ const publications = [
     "journal": "Sports Sciences for Health",
     "url": "https://link.springer.com/article/10.1007/s11332-023-01049-9",
     "keywords": [
-      "Nerve",
-      "rehabilitation",
-      "sport",
-      "Orthopedics",
+      "Peripheral nerve",
+      "Rehabilitation",
+      "Sports medicine",
+      "Orthopaedic surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -3025,7 +3029,7 @@ const publications = [
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x",
     "keywords": [
       "Infectious disease",
-      "Transplant",
+      "Transplant surgery",
       "Health systems",
       "COVID-19"
     ],
@@ -3076,7 +3080,7 @@ const publications = [
     "journal": "Journal of Gastroenterology and Hepatology Open",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867",
     "keywords": [
-      "GI surgery"
+      "Gastrointestinal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -3100,7 +3104,9 @@ const publications = [
     "keywords": [
       "Surgical oncology",
       "Plastic surgery",
-      "Breast reconstruction"
+      "Breast reconstruction",
+      "Breast cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "oncology",
@@ -3122,8 +3128,8 @@ const publications = [
     "journal": "Journal of Surgical Oncology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jso.27185",
     "keywords": [
-      "GI surgery",
-      "Colorectal",
+      "Gastrointestinal surgery",
+      "Colorectal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -3149,7 +3155,6 @@ const publications = [
     "url": "https://link.springer.com/article/10.1007/s40200-022-01167-0",
     "keywords": [
       "Diabetes",
-      "DM",
       "Plastic surgery",
       "Endocrine surgery",
       "Wound healing",
@@ -3201,11 +3206,12 @@ const publications = [
     "journal": "Journal of Endocrinological Investigation",
     "url": "https://link.springer.com/article/10.1007/s40618-022-01963-8",
     "keywords": [
-      "nutrition",
-      "supplement",
+      "Nutrition",
+      "Supplement",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial"
+      "Randomized trial",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -3278,9 +3284,9 @@ const publications = [
     "journal": "General Thoracic and Cardiovascular Surgery",
     "url": "https://link.springer.com/article/10.1007/s11748-022-01880-w",
     "keywords": [
-      "Radiology",
-      "Thoracic",
-      "Vascular"
+      "Imaging",
+      "Thoracic surgery",
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3301,11 +3307,10 @@ const publications = [
     "journal": "World Journal of Clinical Pediatrics",
     "url": "https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm",
     "keywords": [
-      "patent",
-      "technique",
-      "technical",
-      "pediatric",
-      "Thoracic"
+      "Innovation",
+      "Surgical technique",
+      "Pediatric surgery",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3328,10 +3333,10 @@ const publications = [
     "journal": "BMC Complementary Medicine and Therapies",
     "url": "https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Infectious disease",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious"
@@ -3354,8 +3359,8 @@ const publications = [
     "journal": "Cost Effectiveness and Resource Allocation",
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z",
     "keywords": [
-      "Radiology",
-      "Thoracic"
+      "Imaging",
+      "Thoracic surgery"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3404,7 +3409,7 @@ const publications = [
     "journal": "Clinical Rheumatology",
     "url": "https://link.springer.com/article/10.1007/s10067-022-06334-5",
     "keywords": [
-      "rheumatology"
+      "Rheumatology"
     ],
     "highlight_topics": [],
     "featured": ""
@@ -3423,8 +3428,8 @@ const publications = [
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-022-02645-y",
     "keywords": [
-      "MIS",
-      "GI surgery",
+      "Minimally invasive surgery",
+      "Gastrointestinal surgery",
       "Randomized trial"
     ],
     "highlight_topics": [
@@ -3449,9 +3454,9 @@ const publications = [
     "journal": "International Journal of Clinical Practice",
     "url": "https://www.hindawi.com/journals/ijclp/2022/4923277/",
     "keywords": [
-      "complementary",
-      "herbal",
-      "supplementary",
+      "Complementary medicine",
+      "Herbal medicine",
+      "Supplement",
       "Plastic surgery",
       "Burns",
       "Wound healing"
@@ -3477,10 +3482,9 @@ const publications = [
     "journal": "Journal of Experimental Orthopaedics",
     "url": "https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5",
     "keywords": [
-      "animal",
-      "knee",
-      "Orthopedics",
-      "Animal model"
+      "Animal model",
+      "Knee",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -3506,7 +3510,8 @@ const publications = [
     "keywords": [
       "Endocrine surgery",
       "Thyroid",
-      "Transplant"
+      "Transplant surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "endocrine"
@@ -3529,7 +3534,7 @@ const publications = [
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://beat.sums.ac.ir/article_48535.html",
     "keywords": [
-      "Vascular"
+      "Vascular surgery"
     ],
     "highlight_topics": [
       "vascular"
@@ -3551,7 +3556,7 @@ const publications = [
     "journal": "Health Management & Information Science",
     "url": "https://jhmi.sums.ac.ir/article_48840.html",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -3628,9 +3633,9 @@ const publications = [
     "journal": "Archives of Pediatric Infectious Diseases",
     "url": "https://brieflands.com/articles/apid-118809.html",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
-      "Transplant"
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "infectious",
@@ -3652,8 +3657,8 @@ const publications = [
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2022/4665342/",
     "keywords": [
-      "Radiology",
-      "Orthopedics"
+      "Imaging",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -3675,8 +3680,8 @@ const publications = [
     "journal": "International Journal of Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381",
     "keywords": [
-      "nerve",
-      "GI surgery",
+      "Peripheral nerve",
+      "Gastrointestinal surgery",
       "Neurology",
       "Systematic review"
     ],
@@ -3702,8 +3707,9 @@ const publications = [
     "journal": "The Surgeon",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580",
     "keywords": [
-      "Thoracic",
-      "Systematic review"
+      "Thoracic surgery",
+      "Systematic review",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -3727,8 +3733,8 @@ const publications = [
     "journal": "Journal of Surgical Research",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287",
     "keywords": [
-      "GI surgery",
-      "Transplant"
+      "Gastrointestinal surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -3753,7 +3759,7 @@ const publications = [
     "journal": "British Journal of Neurosurgery",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698",
     "keywords": [
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Neurology",
       "Randomized trial"
     ],
@@ -3801,7 +3807,7 @@ const publications = [
     "journal": "BMC Infectious Diseases",
     "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7",
     "keywords": [
-      "patent",
+      "Innovation",
       "Infectious disease",
       "Machine learning",
       "Computer vision"
@@ -3853,7 +3859,7 @@ const publications = [
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/4499086/",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -3877,8 +3883,8 @@ const publications = [
     "journal": "Journal of Orthopaedic Surgery and Research",
     "url": "https://link.springer.com/article/10.1186/s13018-021-02872-x",
     "keywords": [
-      "MIS",
-      "Orthopedics",
+      "Minimally invasive surgery",
+      "Orthopaedic surgery",
       "Systematic review"
     ],
     "highlight_topics": [
@@ -3900,10 +3906,10 @@ const publications = [
     "journal": "Journal of Bioengineering Research",
     "url": "http://www.journalbe.com/article_140812.html",
     "keywords": [
-      "complementary",
-      "supplementary",
-      "nutrition",
-      "Orthopedics"
+      "Complementary medicine",
+      "Supplement",
+      "Nutrition",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -3949,10 +3955,9 @@ const publications = [
     "journal": "Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985",
     "keywords": [
-      "burn",
+      "Burns",
       "Plastic surgery",
-      "Public health",
-      "Burns"
+      "Public health"
     ],
     "highlight_topics": [
       "plastic",
@@ -3978,7 +3983,7 @@ const publications = [
     "url": "https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2",
     "keywords": [
       "Infectious disease",
-      "Transplant",
+      "Transplant surgery",
       "COVID-19"
     ],
     "highlight_topics": [
@@ -4002,8 +4007,7 @@ const publications = [
     "journal": "International Journal of Clinical Practice",
     "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Dermatology",
       "Epidemiology"
     ],
@@ -4027,7 +4031,7 @@ const publications = [
     "journal": "Experimental Parasitology",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4047,10 +4051,9 @@ const publications = [
     "journal": "Bosnian Journal of Basic Medical Sciences",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/",
     "keywords": [
-      "stem",
-      "cell",
-      "Systematic review",
-      "Regenerative medicine"
+      "Regenerative medicine",
+      "Immunology",
+      "Systematic review"
     ],
     "highlight_topics": [],
     "featured": ""
@@ -4070,9 +4073,9 @@ const publications = [
     "journal": "Journal of Parenteral and Enteral Nutrition",
     "url": "https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231",
     "keywords": [
-      "nutrition",
-      "GI surgery",
-      "Transplant"
+      "Nutrition",
+      "Gastrointestinal surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -4095,8 +4098,8 @@ const publications = [
     "journal": "Annals of Bariatric Surgery",
     "url": "https://www.researchgate.net/publication/354862675",
     "keywords": [
-      "GI surgery",
-      "Bariatric"
+      "Gastrointestinal surgery",
+      "Bariatric surgery"
     ],
     "highlight_topics": [
       "gi",
@@ -4123,8 +4126,8 @@ const publications = [
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-021-02897-5",
     "keywords": [
-      "Vascular",
-      "Transplant",
+      "Vascular surgery",
+      "Transplant surgery",
       "Urology"
     ],
     "highlight_topics": [
@@ -4172,9 +4175,10 @@ const publications = [
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/9976548/",
     "keywords": [
-      "KAP",
+      "Knowledge attitudes practice",
       "Infectious disease",
-      "Public health"
+      "Public health",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -4200,7 +4204,7 @@ const publications = [
     "url": "https://www.hindawi.com/journals/emi/2021/3789132/",
     "keywords": [
       "Trauma",
-      "Thoracic",
+      "Thoracic surgery",
       "Pulmonology",
       "Lung cancer"
     ],
@@ -4253,7 +4257,7 @@ const publications = [
     "journal": "Virology Journal",
     "url": "https://link.springer.com/article/10.1186/s12985-021-01532-0",
     "keywords": [
-      "healthcare",
+      "Health systems",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -4280,7 +4284,7 @@ const publications = [
     "journal": "Environmental Health and Preventive Medicine",
     "url": "https://link.springer.com/article/10.1186/s12199-021-00950-4",
     "keywords": [
-      "pediatric",
+      "Pediatric surgery",
       "Infectious disease",
       "Neurology",
       "Public health",
@@ -4306,7 +4310,7 @@ const publications = [
     "journal": "BioMed Research International",
     "url": "https://www.hindawi.com/journals/bmri/2021/5555316/",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Neurology",
       "Burns"
     ],
@@ -4332,7 +4336,7 @@ const publications = [
     "journal": "International Journal of Mental Health Systems",
     "url": "https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Infectious disease",
       "Neurology",
       "COVID-19"
@@ -4358,8 +4362,8 @@ const publications = [
     "journal": "Sadra Medical Journal",
     "url": "https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html",
     "keywords": [
-      "Vascular",
-      "Education"
+      "Vascular surgery",
+      "Medical education"
     ],
     "highlight_topics": [
       "vascular",
@@ -4382,8 +4386,8 @@ const publications = [
     "journal": "BMC Psychology",
     "url": "https://link.springer.com/article/10.1186/s40359-020-00500-7",
     "keywords": [
-      "mental health",
-      "pediatric",
+      "Mental health",
+      "Pediatric surgery",
       "Infectious disease",
       "Public health",
       "COVID-19"
@@ -4408,7 +4412,7 @@ const publications = [
     "journal": "Le Infezioni in Medicina",
     "url": "https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4431,7 +4435,7 @@ const publications = [
     "journal": "BMC Public Health",
     "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z",
     "keywords": [
-      "mental health",
+      "Mental health",
       "Plastic surgery",
       "Public health"
     ],
@@ -4528,7 +4532,6 @@ const publications = [
     "url": "https://www.hindawi.com/journals/jpath/2020/1057167/",
     "keywords": [
       "Diabetes",
-      "DM",
       "Infectious disease",
       "Diabetic foot"
     ],
@@ -4553,7 +4556,7 @@ const publications = [
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4600,10 +4603,9 @@ const publications = [
     "journal": "Epilepsy and Behavior",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929",
     "keywords": [
-      "burn",
+      "Burns",
       "Plastic surgery",
-      "Neurology",
-      "Burns"
+      "Neurology"
     ],
     "highlight_topics": [
       "plastic",
@@ -4627,8 +4629,8 @@ const publications = [
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
     "keywords": [
-      "Radiology",
-      "Orthopedics"
+      "Imaging",
+      "Orthopaedic surgery"
     ],
     "highlight_topics": [
       "ortho"
@@ -4650,7 +4652,7 @@ const publications = [
     "journal": "Clinical Epidemiology and Global Health",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health"
     ],
@@ -4677,11 +4679,10 @@ const publications = [
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928",
     "keywords": [
-      "animal",
-      "technique",
-      "Vascular",
-      "Transplant",
-      "Animal model"
+      "Animal model",
+      "Surgical technique",
+      "Vascular surgery",
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "vascular",
@@ -4703,7 +4704,7 @@ const publications = [
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4725,7 +4726,7 @@ const publications = [
     "journal": "Iranian Journal of Parasitology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4750,7 +4751,7 @@ const publications = [
     "journal": "Annals of Tropical Medicine and Public Health",
     "url": "",
     "keywords": [
-      "laboratory",
+      "Translational research",
       "Infectious disease",
       "Public health"
     ],
@@ -4774,10 +4775,9 @@ const publications = [
     "journal": "International Journal of Applied and Basic Medical Research",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/",
     "keywords": [
-      "animal",
-      "complementary",
-      "alternative",
-      "herbal",
+      "Animal model",
+      "Complementary medicine",
+      "Herbal medicine",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4799,10 +4799,9 @@ const publications = [
     "journal": "Journal of Pharmaceutical Negative Results",
     "url": "http://www.pnrjournal.com/index.php?mno=133709",
     "keywords": [
-      "animal",
-      "complementary",
-      "alternative",
-      "herbal",
+      "Animal model",
+      "Complementary medicine",
+      "Herbal medicine",
       "Infectious disease"
     ],
     "highlight_topics": [
@@ -4852,8 +4851,8 @@ const publications = [
     "journal": "Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-024-04794-8",
     "keywords": [
-      "Vascular",
-      "GI surgery",
+      "Vascular surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -4878,9 +4877,10 @@ const publications = [
     "journal": "International Journal of Emergency Medicine",
     "url": "https://link.springer.com/article/10.1186/s12245-024-00688-0",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
-      "Aneurysm"
+      "Aneurysm",
+      "Animal model"
     ],
     "highlight_topics": [
       "vascular"
@@ -4907,7 +4907,8 @@ const publications = [
       "Infectious disease",
       "Neurology",
       "Case report",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious",
@@ -4931,11 +4932,12 @@ const publications = [
     "journal": "The Clinical Respiratory Journal",
     "url": "http://doi.org/10.1111/crj.13773",
     "keywords": [
-      "Thoracic",
-      "Transplant",
+      "Thoracic surgery",
+      "Transplant surgery",
       "Pulmonology",
       "Case report",
-      "Lung cancer"
+      "Lung cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -4961,7 +4963,7 @@ const publications = [
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "http://dx.doi.org/10.1186/s13019-024-02602-4",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report"
@@ -4986,7 +4988,7 @@ const publications = [
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Urology",
       "Case report"
     ],
@@ -5012,7 +5014,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
       "Aneurysm"
     ],
@@ -5037,7 +5039,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -5062,8 +5064,9 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210",
     "keywords": [
-      "Transplant",
-      "Case report"
+      "Transplant surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "transplant"
@@ -5087,9 +5090,10 @@ const publications = [
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -5114,7 +5118,7 @@ const publications = [
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Case report"
     ],
@@ -5140,9 +5144,9 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "http://doi.org/10.1002/ccr3.7524",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5211,7 +5215,7 @@ const publications = [
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Neurology",
       "Case report"
     ],
@@ -5264,8 +5268,9 @@ const publications = [
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5311,7 +5316,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Infectious disease",
       "Case report",
       "COVID-19"
@@ -5336,7 +5341,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Infectious disease",
       "Case report",
       "COVID-19"
@@ -5363,7 +5368,7 @@ const publications = [
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report",
       "Hernia",
       "Aneurysm"
@@ -5391,9 +5396,9 @@ const publications = [
     "url": "https://www.hindawi.com/journals/cris/2022/8705143/",
     "keywords": [
       "Surgical oncology",
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report",
-      "Colorectal",
+      "Colorectal surgery",
       "Thyroid"
     ],
     "highlight_topics": [
@@ -5420,7 +5425,7 @@ const publications = [
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Dermatology",
       "Case report",
       "Aneurysm"
@@ -5502,7 +5507,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Infectious disease",
       "Case report"
     ],
@@ -5531,7 +5536,7 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report"
@@ -5586,7 +5591,7 @@ const publications = [
     "journal": "Case Reports in Gastrointestinal Medicine",
     "url": "https://www.hindawi.com/journals/crigm/2022/3209658/",
     "keywords": [
-      "GI surgery",
+      "Gastrointestinal surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -5612,11 +5617,12 @@ const publications = [
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Case report",
       "Breast reconstruction",
-      "Colorectal"
+      "Colorectal surgery",
+      "Breast cancer"
     ],
     "highlight_topics": [
       "thoracic",
@@ -5638,8 +5644,9 @@ const publications = [
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5663,8 +5670,8 @@ const publications = [
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03414-7",
     "keywords": [
-      "embolism",
-      "Vascular",
+      "Embolism",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -5688,10 +5695,10 @@ const publications = [
     "journal": "Integrative Medicine Reports",
     "url": "https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006",
     "keywords": [
-      "complementary",
-      "alternative",
-      "GI surgery",
-      "Case report"
+      "Complementary medicine",
+      "Gastrointestinal surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi"
@@ -5712,7 +5719,7 @@ const publications = [
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03256-3",
     "keywords": [
-      "rheumatology",
+      "Rheumatology",
       "Neurology",
       "Case report"
     ],
@@ -5736,10 +5743,11 @@ const publications = [
     "journal": "BMC Gastroenterology",
     "url": "https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x",
     "keywords": [
-      "pediatric",
-      "GI surgery",
+      "Pediatric surgery",
+      "Gastrointestinal surgery",
       "Surgical oncology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi",
@@ -5763,10 +5771,11 @@ const publications = [
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2021/5851967/",
     "keywords": [
-      "MIS",
-      "GI surgery",
+      "Minimally invasive surgery",
+      "Gastrointestinal surgery",
       "Case report",
-      "Colorectal"
+      "Colorectal surgery",
+      "Animal model"
     ],
     "highlight_topics": [
       "gi"
@@ -5789,8 +5798,8 @@ const publications = [
     "journal": "BMC Pediatrics",
     "url": "https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1",
     "keywords": [
-      "pediatric",
-      "Thoracic",
+      "Pediatric surgery",
+      "Thoracic surgery",
       "Infectious disease",
       "Pulmonology",
       "Case report",
@@ -5817,10 +5826,11 @@ const publications = [
     "journal": "Case Reports in Orthopedics",
     "url": "https://www.hindawi.com/journals/crior/2021/1768529/",
     "keywords": [
-      "Vascular",
-      "Orthopedics",
+      "Vascular surgery",
+      "Orthopaedic surgery",
       "Case report",
-      "Aneurysm"
+      "Aneurysm",
+      "Animal model"
     ],
     "highlight_topics": [
       "vascular",
@@ -5894,10 +5904,10 @@ const publications = [
     "journal": "Advances in Integrative Medicine",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458",
     "keywords": [
-      "complementary",
-      "alternative",
+      "Complementary medicine",
       "Pulmonology",
-      "Case report"
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "pulm"
@@ -5920,8 +5930,9 @@ const publications = [
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5945,8 +5956,9 @@ const publications = [
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/",
     "keywords": [
-      "Thoracic",
-      "Case report"
+      "Thoracic surgery",
+      "Case report",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5967,9 +5979,9 @@ const publications = [
     "journal": "Case Reports in Infectious Diseases",
     "url": "https://www.hindawi.com/journals/criid/2020/6650478/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -5992,11 +6004,12 @@ const publications = [
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-020-00864-y",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Surgical oncology",
       "Pulmonology",
       "Case report",
-      "Lung cancer"
+      "Lung cancer",
+      "Animal model"
     ],
     "highlight_topics": [
       "thoracic",
@@ -6018,7 +6031,7 @@ const publications = [
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/crim/2020/9182379/",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -6043,7 +6056,7 @@ const publications = [
     "journal": "The American Surgeon",
     "url": "https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -6070,7 +6083,7 @@ const publications = [
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/",
     "keywords": [
       "Plastic surgery",
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -6093,10 +6106,10 @@ const publications = [
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/9526406/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report",
       "Lung cancer",
-      "Hydatid"
+      "Hydatid disease"
     ],
     "highlight_topics": [
       "thoracic"
@@ -6120,7 +6133,7 @@ const publications = [
     "journal": "The Journal of Vascular Access",
     "url": "https://journals.sagepub.com/doi/full/10.1177/1129729820910304",
     "keywords": [
-      "Vascular",
+      "Vascular surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -6147,7 +6160,7 @@ const publications = [
     "url": "https://www.hindawi.com/journals/cripa/2020/4348629/",
     "keywords": [
       "Plastic surgery",
-      "Orthopedics",
+      "Orthopaedic surgery",
       "Surgical oncology",
       "Case report"
     ],
@@ -6174,7 +6187,7 @@ const publications = [
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/3597901/",
     "keywords": [
-      "Thoracic",
+      "Thoracic surgery",
       "Case report"
     ],
     "highlight_topics": [
@@ -6230,7 +6243,8 @@ const publications = [
     "keywords": [
       "Infectious disease",
       "Letter",
-      "COVID-19"
+      "COVID-19",
+      "Animal model"
     ],
     "highlight_topics": [
       "infectious"
@@ -6318,7 +6332,10 @@ const refs=[
   {name:"Dr. Bizhan Ziaian, MD",role:"Associate Professor of Thoracic Surgery; Director, Thoracic and Vascular Surgery Research Center (TAVS)",inst:"Shiraz University of Medical Sciences, Shiraz, Iran",links:[{label:"LinkedIn",url:"https://www.linkedin.com/in/bizhan-ziaian-57b87479/"}]},
   {name:"Dr. Alireza Rezvani, MD",role:"Assistant Professor of Hematology and Oncology; Vice Chancellor for Research",inst:"Department of Internal Medicine, Shiraz University of Medical Sciences, Shiraz, Iran",links:[{label:"LinkedIn",url:"https://www.linkedin.com/in/alireza-rezvani-56696688/"}]}
 ];
-const openSourceRepos = [];
+const openSourceRepos=[
+  {name:"MOSI System",language:"Python",desc:"Open-source platform for surgical innovation and research workflow support.",url:"https://github.com/SoRRad/MOSI-System",demo:"",paper:"",icon:"github" },
+  {name:"SIRIS",language:"Python",desc:"Open-source research tool supporting surgical innovation and intelligent research systems.",url:"https://github.com/SoRRad/SIRIS",demo:"",paper:"",icon:"github" }
+];
 /* MOBILE MENU */
 function toggleMenu(){
   const menu = document.getElementById('mobile-menu');
@@ -6454,6 +6471,18 @@ function textMatchesSearch(text, query){
   return terms.length === 0 || terms.every(term => normalizedText.includes(term));
 }
 
+function stopFilterEvent(event){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+}
+
+function preserveScroll(callback){
+  const x = window.scrollX;
+  const y = window.scrollY;
+  callback();
+  window.requestAnimationFrame(() => window.scrollTo(x, y));
+}
+
 function dedupeDisplayTags(values, limit=6){
   const out = [];
   const seen = new Set();
@@ -6477,25 +6506,23 @@ function pubDisplayTags(pub, typeMap){
 }
 
 function applyPubSearchTag(event, source){
-  event?.preventDefault?.();
-  event?.stopPropagation?.();
+  stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
   const search = document.getElementById('pub-search');
   if(search) search.value = tag;
   currentSearch = tag;
   showingAll = false;
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 function applyPresSearchTag(event, source){
-  event?.preventDefault?.();
-  event?.stopPropagation?.();
+  stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
   const search = document.getElementById('pres-search');
   if(search) search.value = tag;
   presFilters.search = tag.toLowerCase();
   presShowingAll = false;
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function renderPubs(){
@@ -6601,9 +6628,14 @@ function renderPubs(){
   }).join('');
 }
 
-function showAllPubs(){ showingAll=true; renderPubs(); }
+function showAllPubs(event){
+  stopFilterEvent(event);
+  showingAll=true;
+  preserveScroll(renderPubs);
+}
 
-function resetPubFilters(){
+function resetPubFilters(event){
+  stopFilterEvent(event);
   pubTypeSelections=[]; pubTagSelections=[]; currentCat='all'; currentSearch=''; showingAll=false;
   ['pub-type-panel','pub-auth-panel'].forEach(id=>{
     const panel=document.getElementById(id);
@@ -6633,11 +6665,12 @@ function resetPubFilters(){
   const s=document.getElementById('pub-search');
   if(s) s.value='';
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 /* ── Topic category filter (tree buttons in sidebar) ── */
-function filterPubsMain(btn){
+function filterPubsMain(event, btn){
+  stopFilterEvent(event);
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && currentCat === 'main:'+groupKey;
   showingAll = false;
@@ -6657,10 +6690,11 @@ function filterPubsMain(btn){
     currentCat = 'main:'+groupKey;
   }
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
-function filterPubs(val, btn, dimension){
+function filterPubs(event, val, btn, dimension){
+  stopFilterEvent(event);
   showingAll = false;
   if(dimension === 'cat'){
     currentCat = val;
@@ -6680,7 +6714,7 @@ function filterPubs(val, btn, dimension){
     }
   }
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 /* ── Custom multi-select dropdown ─────────────────────────────────────────── */
@@ -6824,7 +6858,8 @@ let presDropFilters= {type: [], location: []};
 let presShowingAll = false;
 const PRES_INITIAL_SHOW = 8;
 
-function filterPresMain(btn){
+function filterPresMain(event, btn){
+  stopFilterEvent(event);
   presShowingAll = false;
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && presFilters.cat === 'main:'+groupKey;
@@ -6842,10 +6877,11 @@ function filterPresMain(btn){
     presFilters.cat = 'main:'+groupKey;
   }
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
-function filterPres(dim, val, btn){
+function filterPres(event, dim, val, btn){
+  stopFilterEvent(event);
   presShowingAll = false;
   if(presFilters[dim] === val){
     presFilters[dim] = null; btn.classList.remove('active');
@@ -6868,10 +6904,11 @@ function filterPres(dim, val, btn){
     }
   }
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
-function resetPresFilters(btn){
+function resetPresFilters(event){
+  stopFilterEvent(event);
   presFilters = {cat:null, search:''};
   presDropFilters = {type:[], location:[]};
   presShowingAll = false;
@@ -6904,13 +6941,13 @@ function resetPresFilters(btn){
     }
   });
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function filterPresSearch(q){
   presShowingAll = false;
   presFilters.search = q.toLowerCase();
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function applyPresFilters(){
@@ -6963,9 +7000,10 @@ function applyPresFilters(){
   }
 }
 
-function togglePresMore(){
+function togglePresMore(event){
+  stopFilterEvent(event);
   presShowingAll = !presShowingAll;
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 /* ── REFERENCES ── */
@@ -6986,21 +7024,23 @@ function renderRepos(){
   if(!grid) return;
   if(!openSourceRepos.length){ grid.innerHTML=''; return; }
   const langColor={Python:'#3572A5',R:'#198CE7',JavaScript:'#f1e05a',TypeScript:'#2b7489',MATLAB:'#e16737',Shell:'#89e051'};
+  const githubIcon = '<svg aria-hidden="true" viewBox="0 0 16 16" width="18" height="18"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
+  const repoIcon = icon => String(icon || '').trim().toLowerCase() === 'github' ? githubIcon : escapeHtml(icon || '🔬');
   grid.innerHTML = openSourceRepos.map(r=>{
     const lc = langColor[r.language]||'#6b84a0';
-    const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${r.language}</span>` : '';
+    const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${escapeHtml(r.language)}</span>` : '';
     const links = [
-      r.url   ? `<a href="${r.url}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
-      r.demo  ? `<a href="${r.demo}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
-      r.paper ? `<a href="${r.paper}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
+      r.url   ? `<a href="${escapeHtml(r.url)}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
+      r.demo  ? `<a href="${escapeHtml(r.demo)}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
+      r.paper ? `<a href="${escapeHtml(r.paper)}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
     ].filter(Boolean).join('');
     return `<div class="repo-card">
       <div class="repo-card-header">
-        <span class="repo-card-icon">${r.icon||'🔬'}</span>
-        <span class="repo-card-name">${r.url?`<a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.name}</a>`:r.name}</span>
+        <span class="repo-card-icon">${repoIcon(r.icon)}</span>
+        <span class="repo-card-name">${r.url?`<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.name)}</a>`:escapeHtml(r.name)}</span>
         ${langEl}
       </div>
-      ${r.desc?`<p class="repo-desc">${r.desc}</p>`:''}
+      ${r.desc?`<p class="repo-desc">${escapeHtml(r.desc)}</p>`:''}
       ${links?`<div class="repo-links">${links}</div>`:''}
     </div>`;
   }).join('');
