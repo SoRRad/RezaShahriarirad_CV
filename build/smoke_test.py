@@ -194,8 +194,8 @@ def main():
         errors.append("Shahriarirad_Reza_CV.pdf was not generated")
     if 'href="Shahriarirad_Reza_CV.pdf"' not in text:
         errors.append("Website PDF download link is missing")
-    if 'href="Shahriarirad_Reza_CV.docx"' not in text:
-        errors.append("Website Word download link is missing")
+    if 'href="Shahriarirad_Reza_CV.docx"' in text:
+        errors.append("Website Word download link should not be visible on the public page")
 
     if errors:
         print("\n[SMOKE] FAILED:")
@@ -203,7 +203,7 @@ def main():
             print(f"  x {error}")
         return 1
 
-    print("[SMOKE] PASSED: generated site, JSON, DOCX/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
+    print("[SMOKE] PASSED: public page links to PDF only; DOCX remains generated in the repo, and JSON/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
     return 0
 
 

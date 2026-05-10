@@ -1,0 +1,9 @@
+{
+  "generated": true,
+  "method": "libreoffice-docx-to-pdf",
+  "source": "Shahriarirad_Reza_CV.docx",
+  "output": "Shahriarirad_Reza_CV.pdf",
+  "converter": "C:\\Program Files\\LibreOffice\\program\\soffice.exe",
+  "docx_bytes": 65182,
+  "pdf_bytes": 349646
+}

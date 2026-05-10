@@ -1,18 +1,17 @@
-"""Generate Shahriarirad_Reza_CV.pdf from the generated DOCX when possible."""
+"""Convert the generated DOCX CV to PDF with LibreOffice headless."""
 from __future__ import annotations
 
+import json
 import os
 import pathlib
 import shutil
 import subprocess
 import sys
 
-sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import author_tag_counts, get_profile, load_all_data  # noqa: E402
-
 ROOT = pathlib.Path(__file__).parent.parent
 DOCX = ROOT / "Shahriarirad_Reza_CV.docx"
 OUT = ROOT / "Shahriarirad_Reza_CV.pdf"
+META = ROOT / "cv_pdf_build.json"
 
 
 def _find_libreoffice():
@@ -31,6 +30,10 @@ def _find_libreoffice():
 
 
 def _convert_with_libreoffice(soffice):
+    if not DOCX.exists() or DOCX.stat().st_size == 0:
+        raise RuntimeError(
+            "DOCX input is missing or empty. Run python build/build_word.py before PDF conversion."
+        )
     cmd = [
         soffice,
         "--headless",
@@ -40,6 +43,7 @@ def _convert_with_libreoffice(soffice):
         str(ROOT),
         str(DOCX),
     ]
+    before_mtime = OUT.stat().st_mtime if OUT.exists() else None
     result = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, check=False)
     if result.returncode != 0:
         raise RuntimeError(
@@ -49,62 +53,25 @@ def _convert_with_libreoffice(soffice):
         )
     if not OUT.exists() or OUT.stat().st_size == 0:
         raise RuntimeError("LibreOffice finished without creating Shahriarirad_Reza_CV.pdf")
+    if before_mtime is not None and OUT.stat().st_mtime == before_mtime:
+        raise RuntimeError("LibreOffice did not update Shahriarirad_Reza_CV.pdf")
+    META.write_text(
+        json.dumps(
+            {
+                "generated": True,
+                "method": "libreoffice-docx-to-pdf",
+                "source": DOCX.name,
+                "output": OUT.name,
+                "converter": soffice,
+                "docx_bytes": DOCX.stat().st_size,
+                "pdf_bytes": OUT.stat().st_size,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
     print(f"  Generated {OUT.relative_to(ROOT)} from {DOCX.name} ({OUT.stat().st_size:,} bytes)")
-
-
-def _e(value):
-    return str(value or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
-
-
-def _fallback_pdf():
-    """Fallback for local machines without LibreOffice; CI installs LibreOffice."""
-    try:
-        from weasyprint import HTML
-    except Exception as exc:
-        raise RuntimeError(
-            "LibreOffice was not found and WeasyPrint fallback is unavailable. "
-            "Install LibreOffice or run the GitHub Actions build."
-        ) from exc
-
-    data = load_all_data()
-    profile = get_profile(data)
-    pubs = data["publications"].to_dict("records")
-    counts = author_tag_counts(pubs)
-    emails = [
-        profile.get("email_professional", ""),
-        profile.get("email_personal", ""),
-    ]
-    email_line = " | ".join(_e(email) for email in emails if email)
-    style = """
-    @page { size: A4; margin: 18mm; }
-    body { font-family: Arial, sans-serif; font-size: 9.5pt; color: #1a2740; line-height: 1.45; }
-    h1 { color: #1F3864; margin-bottom: 2mm; }
-    h2 { color: #1F3864; border-bottom: 1px solid #1F3864; font-size: 12pt; margin-top: 7mm; }
-    table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; }
-    td, th { border: 1px solid #c8d4e0; padding: 3pt 4pt; vertical-align: top; }
-    th { background: #D9EAF7; color: #1F3864; text-align: left; }
-    .muted { color: #5d6878; }
-    """
-    rows = "".join(
-        f"<tr><td>{_e(r.get('n'))}</td><td>{_e(r.get('year'))}</td><td>{_e(r.get('title'))}</td><td>{_e(r.get('journal'))}</td></tr>"
-        for r in pubs
-    )
-    html = f"""<!doctype html><html><head><meta charset="utf-8"><style>{style}</style></head><body>
-    <h1>Reza Shahriarirad, M.D.</h1>
-    <div class="muted">{_e(profile.get('title'))} | {_e(profile.get('institution'))}</div>
-    <div>{email_line}</div>
-    <div>ORCID: {_e(profile.get('orcid_url') or profile.get('orcid'))}</div>
-    <h2>Publication Metrics</h2>
-    <table><tr><th>Total publications</th><th>First author</th><th>Co-first</th><th>Last/senior</th><th>Corresponding</th><th>H-index</th><th>Citations</th></tr>
-    <tr><td>{len(pubs)}</td><td>{counts['first']}</td><td>{counts['co-first']}</td><td>{counts['last']}</td><td>{counts['corresponding']}</td><td>{_e(profile.get('h_index_cached'))}</td><td>{_e(profile.get('citations_cached'))}</td></tr></table>
-    <h2>Appendix A: Publications</h2>
-    <table><tr><th>#</th><th>Year</th><th>Title</th><th>Journal</th></tr>{rows}</table>
-    </body></html>"""
-    HTML(string=html, base_url=str(ROOT)).write_pdf(str(OUT))
-    print(
-        f"  Generated {OUT.relative_to(ROOT)} with WeasyPrint fallback "
-        f"({OUT.stat().st_size:,} bytes). Install LibreOffice for DOCX-to-PDF conversion."
-    )
 
 
 def main():
@@ -113,11 +80,12 @@ def main():
 
         build_word_main()
     soffice = _find_libreoffice()
-    if soffice:
-        _convert_with_libreoffice(soffice)
-    else:
-        print("[build_pdf] WARNING: LibreOffice not found; using local WeasyPrint fallback.")
-        _fallback_pdf()
+    if not soffice:
+        raise RuntimeError(
+            "LibreOffice/soffice was not found. Install LibreOffice or set LIBREOFFICE_PATH "
+            "so Shahriarirad_Reza_CV.pdf can be converted directly from Shahriarirad_Reza_CV.docx."
+        )
+    _convert_with_libreoffice(soffice)
 
 
 if __name__ == "__main__":

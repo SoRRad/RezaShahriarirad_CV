@@ -133,6 +133,18 @@ function textMatchesSearch(text, query){
   return terms.length === 0 || terms.every(term => normalizedText.includes(term));
 }
 
+function stopFilterEvent(event){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+}
+
+function preserveScroll(callback){
+  const x = window.scrollX;
+  const y = window.scrollY;
+  callback();
+  window.requestAnimationFrame(() => window.scrollTo(x, y));
+}
+
 function dedupeDisplayTags(values, limit=6){
   const out = [];
   const seen = new Set();
@@ -156,25 +168,23 @@ function pubDisplayTags(pub, typeMap){
 }
 
 function applyPubSearchTag(event, source){
-  event?.preventDefault?.();
-  event?.stopPropagation?.();
+  stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
   const search = document.getElementById('pub-search');
   if(search) search.value = tag;
   currentSearch = tag;
   showingAll = false;
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 function applyPresSearchTag(event, source){
-  event?.preventDefault?.();
-  event?.stopPropagation?.();
+  stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
   const search = document.getElementById('pres-search');
   if(search) search.value = tag;
   presFilters.search = tag.toLowerCase();
   presShowingAll = false;
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function renderPubs(){
@@ -280,9 +290,14 @@ function renderPubs(){
   }).join('');
 }
 
-function showAllPubs(){ showingAll=true; renderPubs(); }
+function showAllPubs(event){
+  stopFilterEvent(event);
+  showingAll=true;
+  preserveScroll(renderPubs);
+}
 
-function resetPubFilters(){
+function resetPubFilters(event){
+  stopFilterEvent(event);
   pubTypeSelections=[]; pubTagSelections=[]; currentCat='all'; currentSearch=''; showingAll=false;
   ['pub-type-panel','pub-auth-panel'].forEach(id=>{
     const panel=document.getElementById(id);
@@ -312,11 +327,12 @@ function resetPubFilters(){
   const s=document.getElementById('pub-search');
   if(s) s.value='';
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 /* ── Topic category filter (tree buttons in sidebar) ── */
-function filterPubsMain(btn){
+function filterPubsMain(event, btn){
+  stopFilterEvent(event);
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && currentCat === 'main:'+groupKey;
   showingAll = false;
@@ -336,10 +352,11 @@ function filterPubsMain(btn){
     currentCat = 'main:'+groupKey;
   }
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
-function filterPubs(val, btn, dimension){
+function filterPubs(event, val, btn, dimension){
+  stopFilterEvent(event);
   showingAll = false;
   if(dimension === 'cat'){
     currentCat = val;
@@ -359,7 +376,7 @@ function filterPubs(val, btn, dimension){
     }
   }
   syncPressed('.pub-filter-sidebar');
-  renderPubs();
+  preserveScroll(renderPubs);
 }
 
 /* ── Custom multi-select dropdown ─────────────────────────────────────────── */
@@ -503,7 +520,8 @@ let presDropFilters= {type: [], location: []};
 let presShowingAll = false;
 const PRES_INITIAL_SHOW = 8;
 
-function filterPresMain(btn){
+function filterPresMain(event, btn){
+  stopFilterEvent(event);
   presShowingAll = false;
   const groupKey = btn.dataset.group;
   const isActive = btn.classList.contains('active') && presFilters.cat === 'main:'+groupKey;
@@ -521,10 +539,11 @@ function filterPresMain(btn){
     presFilters.cat = 'main:'+groupKey;
   }
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
-function filterPres(dim, val, btn){
+function filterPres(event, dim, val, btn){
+  stopFilterEvent(event);
   presShowingAll = false;
   if(presFilters[dim] === val){
     presFilters[dim] = null; btn.classList.remove('active');
@@ -547,10 +566,11 @@ function filterPres(dim, val, btn){
     }
   }
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
-function resetPresFilters(btn){
+function resetPresFilters(event){
+  stopFilterEvent(event);
   presFilters = {cat:null, search:''};
   presDropFilters = {type:[], location:[]};
   presShowingAll = false;
@@ -583,13 +603,13 @@ function resetPresFilters(btn){
     }
   });
   syncPressed('.pres-filter-sidebar');
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function filterPresSearch(q){
   presShowingAll = false;
   presFilters.search = q.toLowerCase();
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 function applyPresFilters(){
@@ -642,9 +662,10 @@ function applyPresFilters(){
   }
 }
 
-function togglePresMore(){
+function togglePresMore(event){
+  stopFilterEvent(event);
   presShowingAll = !presShowingAll;
-  applyPresFilters();
+  preserveScroll(applyPresFilters);
 }
 
 /* ── REFERENCES ── */
@@ -665,21 +686,23 @@ function renderRepos(){
   if(!grid) return;
   if(!openSourceRepos.length){ grid.innerHTML=''; return; }
   const langColor={Python:'#3572A5',R:'#198CE7',JavaScript:'#f1e05a',TypeScript:'#2b7489',MATLAB:'#e16737',Shell:'#89e051'};
+  const githubIcon = '<svg aria-hidden="true" viewBox="0 0 16 16" width="18" height="18"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>';
+  const repoIcon = icon => String(icon || '').trim().toLowerCase() === 'github' ? githubIcon : escapeHtml(icon || '🔬');
   grid.innerHTML = openSourceRepos.map(r=>{
     const lc = langColor[r.language]||'#6b84a0';
-    const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${r.language}</span>` : '';
+    const langEl = r.language ? `<span class="repo-lang" style="border-color:${lc}50;color:${lc}">${escapeHtml(r.language)}</span>` : '';
     const links = [
-      r.url   ? `<a href="${r.url}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
-      r.demo  ? `<a href="${r.demo}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
-      r.paper ? `<a href="${r.paper}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
+      r.url   ? `<a href="${escapeHtml(r.url)}"   target="_blank" rel="noopener noreferrer" class="repo-link primary">GitHub ↗</a>` : '',
+      r.demo  ? `<a href="${escapeHtml(r.demo)}"  target="_blank" rel="noopener noreferrer" class="repo-link">Demo ↗</a>` : '',
+      r.paper ? `<a href="${escapeHtml(r.paper)}" target="_blank" rel="noopener noreferrer" class="repo-link">Paper ↗</a>` : '',
     ].filter(Boolean).join('');
     return `<div class="repo-card">
       <div class="repo-card-header">
-        <span class="repo-card-icon">${r.icon||'🔬'}</span>
-        <span class="repo-card-name">${r.url?`<a href="${r.url}" target="_blank" rel="noopener noreferrer">${r.name}</a>`:r.name}</span>
+        <span class="repo-card-icon">${repoIcon(r.icon)}</span>
+        <span class="repo-card-name">${r.url?`<a href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.name)}</a>`:escapeHtml(r.name)}</span>
         ${langEl}
       </div>
-      ${r.desc?`<p class="repo-desc">${r.desc}</p>`:''}
+      ${r.desc?`<p class="repo-desc">${escapeHtml(r.desc)}</p>`:''}
       ${links?`<div class="repo-links">${links}</div>`:''}
     </div>`;
   }).join('');

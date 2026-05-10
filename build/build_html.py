@@ -317,11 +317,6 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
           Download CV (PDF)
         </a>
-        <a href="Shahriarirad_Reza_CV.docx"
-           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV Word document">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1 7V4.5L18.5 9H15zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z" fill="currentColor"/></svg>
-          Download CV (Word)
-        </a>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
@@ -668,12 +663,12 @@ def _publications_section() -> str:
     for grp_key in sorted(TAXONOMY.keys()):
         grp = TAXONOMY[grp_key]
         subs_html = "\n".join(
-            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(\'{sub_key}\',this,\'cat\')" data-cat="{sub_key}" data-main="{grp_key}">{_e(sub_label)}</button>'
+            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPubs(event,\'{sub_key}\',this,\'cat\')" data-cat="{sub_key}" data-main="{grp_key}">{_e(sub_label)}</button>'
             for sub_key, sub_label in sorted(grp["subs"].items(), key=lambda x: x[1])
         )
         topic_tree += f"""
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(this)" data-group="{grp_key}">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPubsMain(event,this)" data-group="{grp_key}">
             <span>{_e(grp['label'])}</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="grp-{grp_key}" style="display:none">
@@ -694,7 +689,7 @@ def _publications_section() -> str:
       <div class="pub-filter-group">
         <button class="filter-btn" type="button"
           style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
-          onclick="resetPubFilters()" aria-label="Reset all publication filters">&#8635; Reset filters</button>
+          onclick="resetPubFilters(event)" aria-label="Reset all publication filters">&#8635; Reset filters</button>
       </div>
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Article Type</span>
@@ -706,7 +701,7 @@ def _publications_section() -> str:
       </div>
       <div class="pub-filter-group">
         <span class="pub-filter-group-label">Topic</span>
-        <button class="filter-btn active" type="button" aria-pressed="true" onclick="filterPubs('all',this,'cat')" id="cat-all-btn">All Topics</button>
+        <button class="filter-btn active" type="button" aria-pressed="true" onclick="filterPubs(event,'all',this,'cat')" id="cat-all-btn">All Topics</button>
 {topic_tree}
       </div>
     </div>
@@ -723,7 +718,7 @@ def _publications_section() -> str:
   </div><!-- /pub-controls -->
   <p class="pub-note" style="font-size:.74rem;color:var(--text-muted);margin-bottom:1.5rem">* denotes corresponding author. My name is highlighted in bold.</p>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
-    <button class="btn-outline" type="button" onclick="showAllPubs()" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
+    <button class="btn-outline" type="button" onclick="showAllPubs(event)" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
   </div>
 </div>
 </div>"""
@@ -883,12 +878,12 @@ def _presentations(pres_df) -> str:
     for grp_key in sorted(TAXONOMY.keys()):
         grp = TAXONOMY[grp_key]
         subs_html = "\n".join(
-            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(\'cat\',\'{sub_key}\',this)" data-cat="{sub_key}" data-main="{grp_key}">{_e(sub_label)}</button>'
+            f'            <button class="filter-btn filter-sub-btn" type="button" aria-pressed="false" onclick="filterPres(event,\'cat\',\'{sub_key}\',this)" data-cat="{sub_key}" data-main="{grp_key}">{_e(sub_label)}</button>'
             for sub_key, sub_label in sorted(grp["subs"].items(), key=lambda x: x[1])
         )
         pres_topic_tree += f"""
         <div class="filter-main-group">
-          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(this)" data-group="{grp_key}">
+          <button class="filter-btn filter-main-btn" type="button" aria-pressed="false" onclick="filterPresMain(event,this)" data-group="{grp_key}">
             <span>{_e(grp['label'])}</span><span class="filter-caret">&#9658;</span>
           </button>
           <div class="filter-sub-group" id="pgrp-{grp_key}" style="display:none">
@@ -908,7 +903,7 @@ def _presentations(pres_df) -> str:
       <div class="pres-filter-group">
         <button class="filter-btn" type="button"
           style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
-          id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(this)">&#8635; Reset filters</button>
+          id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(event)">&#8635; Reset filters</button>
       </div>
       <div class="pres-filter-group">
         <span class="pub-filter-group-label">Type</span>
@@ -935,7 +930,7 @@ def _presentations(pres_df) -> str:
 {''.join(items)}
       </div>
       <div class="pres-more-wrap" id="pres-more">
-        <button class="btn-outline" type="button" onclick="togglePresMore()" style="border-color:var(--navy);color:var(--navy)">Show more presentations</button>
+        <button class="btn-outline" type="button" onclick="togglePresMore(event)" style="border-color:var(--navy);color:var(--navy)">Show more presentations</button>
       </div>
     </div>
   </div></div>
@@ -1025,13 +1020,14 @@ def _footer(profile: dict) -> str:
     for label, email in _public_email_records(profile):
         profile_links.append(_email_link(email, label, keep_content=True))
     footer_links_html = "\n    ".join(profile_links)
+    footer_institution = "Department of Surgery - Surgical Innovation"
 
     return f"""
 <!-- FOOTER -->
 <footer>
   <div class="footer-name">{_e(profile.get('name','Reza Shahriarirad, M.D.'))}</div>
   <!-- EDIT: Footer tagline -->
-  <div class="footer-note">{_e(profile.get('title','Research Fellow'))} · {_e(profile.get('institution','Surgery Innovation Center · Mayo Clinic'))} · {_e(profile.get('city_state','Rochester, MN'))}</div>
+  <div class="footer-note">{_e(profile.get('title','Research Fellow'))} · {_e(footer_institution)} · {_e(profile.get('city_state','Rochester, MN'))}</div>
   <div class="footer-divider"></div>
   <div class="footer-links">
     {footer_links_html}

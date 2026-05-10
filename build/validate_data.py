@@ -72,6 +72,25 @@ VALID_PUB_TYPES = {"original", "review", "case", "letter"}
 VALID_PRESENTATION_TYPES = {"poster", "oral"}
 VALID_YES_NO = {"yes", "no", ""}
 VALID_MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""}
+DISALLOWED_KEYWORD_ALIASES = {
+    "dm": "Diabetes",
+    "robotic": "Robotic surgery",
+    "robitic": "Robotic surgery",
+    "mis": "Minimally invasive surgery",
+}
+KEYWORD_NORMALIZATION_ALIASES = {
+    **DISALLOWED_KEYWORD_ALIASES,
+    "robotics": "Robotic surgery",
+    "robotic surgery": "Robotic surgery",
+    "covid": "COVID-19",
+    "covid-19": "COVID-19",
+    "gi surgery": "Gastrointestinal surgery",
+    "gastrointestinal surgery": "Gastrointestinal surgery",
+    "orthopedics": "Orthopaedic surgery",
+    "orthopaedic surgery": "Orthopaedic surgery",
+    "bariatric": "Bariatric surgery",
+    "bariatric surgery": "Bariatric surgery",
+}
 EXPECTED_PUBLICATION_HEADER = [
     "n",
     "year",
@@ -201,6 +220,25 @@ def _validate_semicolon_field(stem, row, lineno, field, errors, valid_values=Non
     return values
 
 
+def _validate_keyword_field(stem, row, lineno, errors):
+    values = _validate_semicolon_field(stem, row, lineno, "keywords", errors)
+    normalized_seen = {}
+    for value in values:
+        key = value.casefold()
+        if key in DISALLOWED_KEYWORD_ALIASES:
+            errors.append(
+                f"{stem}.csv: row {lineno} keyword '{value}' should be "
+                f"'{DISALLOWED_KEYWORD_ALIASES[key]}'"
+            )
+        normalized_key = KEYWORD_NORMALIZATION_ALIASES.get(key, value).casefold()
+        if normalized_key in normalized_seen:
+            errors.append(
+                f"{stem}.csv: row {lineno} has duplicate/near-duplicate keywords "
+                f"'{normalized_seen[normalized_key]}' and '{value}'"
+            )
+        normalized_seen[normalized_key] = value
+
+
 def _has_control_char(value):
     return any(ord(ch) < 32 and ch not in "\r\n" for ch in str(value))
 
@@ -322,7 +360,7 @@ def _validate_publications(rows, lines, errors):
 
         _validate_semicolon_field("publications", row, lineno, "tags", errors, VALID_AUTHOR_TAGS)
         _validate_semicolon_field("publications", row, lineno, "cat", errors, ALL_VALID_CAT_KEYS)
-        _validate_semicolon_field("publications", row, lineno, "keywords", errors)
+        _validate_keyword_field("publications", row, lineno, errors)
         _validate_semicolon_field("publications", row, lineno, "highlight_topics", errors, ALL_VALID_CAT_KEYS)
 
         if featured not in VALID_YES_NO:
@@ -361,7 +399,7 @@ def _validate_presentations(rows, lines, errors):
             )
 
         _validate_semicolon_field("presentations", row, lineno, "cat", errors, ALL_VALID_CAT_KEYS)
-        _validate_semicolon_field("presentations", row, lineno, "keywords", errors)
+        _validate_keyword_field("presentations", row, lineno, errors)
 
         featured = str(row.get("featured", "")).strip().lower()
         if featured not in VALID_YES_NO:
