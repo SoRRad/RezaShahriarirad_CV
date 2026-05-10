@@ -167,6 +167,74 @@ function pubDisplayTags(pub, typeMap){
   return dedupeDisplayTags([...keywords, ...cats, ...highlights, typeLabel], 6);
 }
 
+const pubTypeFilterLabels = {original:'Original',review:'Review',case:'Case Report',letter:'Letter'};
+const pubAuthFilterLabels = {first:'1st Author','co-first':'Co-first',corresponding:'Corresponding',last:'Last/Senior'};
+const presTypeFilterLabels = {poster:'Poster',oral:'Oral'};
+
+function getDropdownOptionLabel(panelId, value){
+  const panel = document.getElementById(panelId);
+  const key = String(value || '');
+  if(!panel || !key) return '';
+  const opt = [...panel.querySelectorAll('.custom-dropdown-option')]
+    .find(option => option.dataset.value === key);
+  const label = opt?.querySelector('.opt-label');
+  return label ? label.textContent.trim() : '';
+}
+
+function selectedFilterLabels(values, labelsMap, panelId){
+  return (values || [])
+    .map(value => labelsMap[value] || getDropdownOptionLabel(panelId, value) || String(value || '').trim())
+    .filter(Boolean);
+}
+
+function activeTopicLabel(value){
+  if(!value || value === 'all') return '';
+  const key = value.startsWith('main:') ? value.slice(5) : value;
+  return getCategoryLabel(key);
+}
+
+function formatActiveFilterLabel(labels){
+  return labels.filter(Boolean).join(' · ');
+}
+
+function setSearchPrefix(prefixId, inputId, label, defaultPlaceholder){
+  const prefix = document.getElementById(prefixId);
+  const input = document.getElementById(inputId);
+  const hasLabel = Boolean(label);
+  if(prefix){
+    prefix.hidden = !hasLabel;
+    prefix.textContent = hasLabel ? `/${label}:` : '';
+  }
+  if(input){
+    input.placeholder = hasLabel ? 'Search within active filters...' : defaultPlaceholder;
+    input.closest('.search-shell')?.classList.toggle('has-filter-prefix', hasLabel);
+  }
+}
+
+function getPubActiveFilterLabel(){
+  return formatActiveFilterLabel([
+    ...selectedFilterLabels(pubTypeSelections, pubTypeFilterLabels, 'pub-type-panel'),
+    ...selectedFilterLabels(pubTagSelections, pubAuthFilterLabels, 'pub-auth-panel'),
+    activeTopicLabel(currentCat),
+  ]);
+}
+
+function updatePubSearchPrefix(){
+  setSearchPrefix('pub-search-prefix', 'pub-search', getPubActiveFilterLabel(), 'Search title, author, journal, keyword...');
+}
+
+function getPresActiveFilterLabel(){
+  return formatActiveFilterLabel([
+    ...selectedFilterLabels(presDropFilters.type, presTypeFilterLabels, 'pres-type-panel'),
+    ...selectedFilterLabels(presDropFilters.location, {}, 'pres-loc-panel'),
+    activeTopicLabel(presFilters.cat),
+  ]);
+}
+
+function updatePresSearchPrefix(){
+  setSearchPrefix('pres-search-prefix', 'pres-search', getPresActiveFilterLabel(), 'Search title or conference...');
+}
+
 function applyPubSearchTag(event, source){
   stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
@@ -174,12 +242,14 @@ function applyPubSearchTag(event, source){
   if(search) search.value = tag;
   currentSearch = tag;
   showingAll = false;
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
 function handlePubSearchInput(value){
   currentSearch = value;
   showingAll = false;
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -190,6 +260,7 @@ function applyPresSearchTag(event, source){
   if(search) search.value = tag;
   presFilters.search = tag.toLowerCase();
   presShowingAll = false;
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -198,6 +269,7 @@ function renderPubs(){
   const countEl = document.getElementById('pub-count');
   const moreEl  = document.getElementById('pub-more');
   if(!list) return;
+  updatePubSearchPrefix();
 
   const typeMap  = {original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter'};
   const classMap = {original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter'};
@@ -333,6 +405,7 @@ function resetPubFilters(event){
   const s=document.getElementById('pub-search');
   if(s) s.value='';
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -358,6 +431,7 @@ function filterPubsMain(event, btn){
     currentCat = 'main:'+groupKey;
   }
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -382,6 +456,7 @@ function filterPubs(event, val, btn, dimension){
     }
   }
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -472,6 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(sub) sub.style.display = 'block';
       }
       syncPressed('.pub-filter-sidebar');
+      updatePubSearchPrefix();
       renderPubs();
       document.getElementById('publications')?.scrollIntoView({behavior:'smooth'});
     });
@@ -479,24 +555,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Init publication type dropdown ── */
   initCustomDropdown('pub-type-btn','pub-type-panel','All Types', selected => {
-    pubTypeSelections = selected; showingAll=false; renderPubs();
+    pubTypeSelections = selected; showingAll=false; updatePubSearchPrefix(); renderPubs();
   });
 
   /* ── Init authorship dropdown ── */
   initCustomDropdown('pub-auth-btn','pub-auth-panel','All Roles', selected => {
-    pubTagSelections = selected; showingAll=false; renderPubs();
+    pubTagSelections = selected; showingAll=false; updatePubSearchPrefix(); renderPubs();
   });
 
   /* ── Init presentation type dropdown ── */
   initCustomDropdown('pres-type-btn','pres-type-panel','All Types', selected => {
     presShowingAll = false;
-    presDropFilters.type = selected; applyPresFilters();
+    presDropFilters.type = selected; updatePresSearchPrefix(); applyPresFilters();
   });
 
   /* ── Init presentation location dropdown ── */
   initCustomDropdown('pres-loc-btn','pres-loc-panel','All Locations', selected => {
     presShowingAll = false;
-    presDropFilters.location = selected; applyPresFilters();
+    presDropFilters.location = selected; updatePresSearchPrefix(); applyPresFilters();
   });
 
   renderPubs();
@@ -545,6 +621,7 @@ function filterPresMain(event, btn){
     presFilters.cat = 'main:'+groupKey;
   }
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -572,6 +649,7 @@ function filterPres(event, dim, val, btn){
     }
   }
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -609,17 +687,20 @@ function resetPresFilters(event){
     }
   });
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
 function filterPresSearch(q){
   presShowingAll = false;
   presFilters.search = q.toLowerCase();
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
 function applyPresFilters(){
   const items = [...document.querySelectorAll('#pres-list .pres-item')];
+  updatePresSearchPrefix();
   const activeFilters = presDropFilters.type.length > 0
     || presDropFilters.location.length > 0
     || Boolean(presFilters.cat)
@@ -771,6 +852,8 @@ window.cvDiagnostics = function(){
   const publicationTopicFiltersExist = Boolean(document.querySelector('.pub-filter-sidebar [data-cat]'));
   const publicationTagChipsExist = Boolean(document.querySelector('.pub-tag-chip'));
   const presentationTagChipsExist = Boolean(document.querySelector('.pres-tag-chip'));
+  const publicationSearchPrefixExists = Boolean(document.getElementById('pub-search-prefix'));
+  const presentationSearchPrefixExists = Boolean(document.getElementById('pres-search-prefix'));
   const resetButtonsExist = Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset'));
   const tavsLogoElementExists = Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo')));
   const openSourceGithubCardExists = Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]'));
@@ -802,6 +885,8 @@ window.cvDiagnostics = function(){
   if(!resetButtonsExist) errorsFound.push('Missing reset button');
   if(!publicationTagChipsExist) errorsFound.push('Missing publication tag chips');
   if(!presentationTagChipsExist) errorsFound.push('Missing presentation tag chips');
+  if(!publicationSearchPrefixExists) errorsFound.push('Missing publication search prefix');
+  if(!presentationSearchPrefixExists) errorsFound.push('Missing presentation search prefix');
   if(!openSourceGithubCardExists) errorsFound.push('Missing open-source GitHub card');
   if(!tavsLogoElementExists) errorsFound.push('Missing TAVS lab logo element');
   const result = {
@@ -819,6 +904,8 @@ window.cvDiagnostics = function(){
     pubTagClickSearchWorks,
     presentationFilterElementsExist,
     presentationSearchFieldExists: Boolean(presSearch),
+    publicationSearchPrefixExists,
+    presentationSearchPrefixExists,
     presentationTagChipsExist,
     presTagClickSearchWorks,
     resetButtonsExist,

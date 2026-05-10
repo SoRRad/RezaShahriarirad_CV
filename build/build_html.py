@@ -264,7 +264,7 @@ def _nav() -> str:
     <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#references">References</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
@@ -712,6 +712,7 @@ def _publications_section() -> str:
 <div class="section-wrap">
   <div class="section-label">Research Output</div>
   <h2>Publications</h2>
+  <p class="pub-note pub-author-note" id="pub-author-note">* denotes corresponding author. My name is highlighted in bold.</p>
 
   <div class="pub-controls">
     <!-- Left: filter sidebar -->
@@ -737,16 +738,17 @@ def _publications_section() -> str:
     </div>
     <!-- Right: search + list -->
     <div class="pub-list-wrap">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
-        <input type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword…"
-          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
-          oninput="handlePubSearchInput(this.value)">
-        <div id="pub-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">—</div>
+      <div class="search-row">
+        <label class="search-shell" for="pub-search">
+          <span id="pub-search-prefix" class="search-filter-prefix" hidden></span>
+          <input class="pub-search search-input" type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword..."
+            oninput="handlePubSearchInput(this.value)">
+        </label>
+        <div id="pub-count" class="pub-count">—</div>
       </div>
       <div class="pub-list" id="pub-list"></div>
     </div><!-- /pub-list-wrap -->
   </div><!-- /pub-controls -->
-  <p class="pub-note" style="font-size:.74rem;color:var(--text-muted);margin-bottom:1.5rem">* denotes corresponding author. My name is highlighted in bold.</p>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
     <button class="btn-outline" type="button" onclick="showAllPubs(event)" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
   </div>
@@ -950,11 +952,13 @@ def _presentations(pres_df) -> str:
     </div>
     <!-- Right: search + list -->
     <div class="pres-list-wrap">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
-        <input type="search" id="pres-search" aria-label="Search presentations" placeholder="Search title or conference…"
-          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
-          oninput="filterPresSearch(this.value)">
-        <div id="pres-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">{len(pres_df)} presentations</div>
+      <div class="search-row">
+        <label class="search-shell" for="pres-search">
+          <span id="pres-search-prefix" class="search-filter-prefix" hidden></span>
+          <input class="pres-search search-input" type="search" id="pres-search" aria-label="Search presentations" placeholder="Search title or conference..."
+            oninput="filterPresSearch(this.value)">
+        </label>
+        <div id="pres-count" class="pub-count">{len(pres_df)} presentations</div>
       </div>
       <div class="pres-list" id="pres-list">
 {''.join(items)}
@@ -974,13 +978,12 @@ def _open_source(profile: dict) -> str:
     github_icon = ICONS.get("github", "")
     github_card = ""
     if github_url:
-        github_card = f"""  <div class="repos-grid" style="margin-bottom:1.2rem">
-    <div class="repo-card" style="border-color:var(--navy-mid)">
-      <div class="repo-card-header">
-        <span class="repo-card-icon" style="display:inline-flex;align-items:center;width:20px;height:20px">{github_icon}</span>
-        <span class="repo-card-name"><a href="{_e(github_url)}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile: {_e(github_user)}">GitHub Profile</a></span>
+        github_card = f"""  <div class="github-profile-row">
+    <div class="repo-card repo-profile-card">
+      <div class="repo-card-header repo-profile-heading">
+        <span class="repo-card-icon github-profile-icon">{github_icon}</span>
+        <span class="repo-card-name">GitHub Profile</span>
       </div>
-      <p class="repo-desc">Open-source code, models, and academic software projects — all publicly available at github.com/{_e(github_user)}.</p>
       <div class="repo-links">
         <a href="{_e(github_url)}" target="_blank" rel="noopener noreferrer" class="repo-link primary" aria-label="View GitHub profile">View on GitHub &#8599;</a>
       </div>

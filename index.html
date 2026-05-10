@@ -161,11 +161,20 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pub-filter{display:flex;gap:.3rem;flex-wrap:wrap}
 .filter-btn{padding:.35rem .8rem;border:1px solid var(--mist);background:transparent;border-radius:2px;font-size:.68rem;font-weight:400;color:var(--text-mid);cursor:pointer;letter-spacing:.04em;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
 .filter-btn.active,.filter-btn:hover{background:var(--navy);color:var(--gold-light);border-color:var(--navy)}
+.search-row{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap}
+.search-shell{flex:1;min-width:180px;display:flex;align-items:center;gap:.42rem;border:1px solid var(--mist);border-radius:3px;background:var(--white);padding:0 .55rem;transition:border-color .15s,box-shadow .15s;min-height:38px}
+.search-shell:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,149,58,.12)}
+.search-shell.has-filter-prefix{border-color:rgba(184,149,58,.65)}
+.search-filter-prefix{display:inline-flex;align-items:center;max-width:48%;padding:.16rem .48rem;border:1px solid rgba(184,149,58,.38);border-radius:999px;background:rgba(184,149,58,.09);color:var(--navy);font-size:.66rem;line-height:1.35;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.01em}
+.search-filter-prefix[hidden]{display:none}
+.search-input,.search-shell .pub-search,.search-shell .pres-search{flex:1;min-width:90px;padding:.48rem .1rem;border:0;border-radius:0;font-size:.82rem;color:var(--text);background:transparent;font-family:'DM Sans',sans-serif;outline:none}
+.search-input::placeholder{color:var(--text-muted)}
 .pub-search{flex:1;min-width:160px;padding:.35rem .8rem;border:1px solid var(--mist);border-radius:2px;font-size:.8rem;color:var(--text);background:var(--white);font-family:'DM Sans',sans-serif;outline:none}
 .pub-search:focus{border-color:var(--gold)}
 .pub-count{font-size:.72rem;color:var(--text-muted);white-space:nowrap}
 
 .pub-note{font-size:.73rem;color:var(--text-muted);margin-bottom:1rem;font-style:italic}
+.pub-author-note{margin-top:-.35rem;margin-bottom:1.35rem;max-width:680px}
 
 .pub-list{display:flex;flex-direction:column}
 .pub-item{padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.07);display:grid;grid-template-columns:72px 1fr;gap:1rem}
@@ -359,6 +368,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   .hero-stats{grid-template-columns:1fr 1fr}
   .pub-item{grid-template-columns:50px 1fr}
   .pres-item{grid-template-columns:50px 1fr}
+  .search-row{align-items:stretch}
+  .search-shell{flex-basis:100%;min-width:0}
+  .search-filter-prefix{max-width:42%}
+  .repo-profile-card{align-items:flex-start;flex-direction:column}
 }
 
 /* PRINT / PDF */
@@ -398,6 +411,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .repo-link.primary{background:var(--navy);color:var(--gold-light);border-color:var(--navy)}
 .repo-link.primary:hover{background:var(--navy-mid)}
 .repo-empty{grid-column:1/-1;text-align:center;padding:2.5rem;color:var(--text-muted);font-size:.85rem;font-style:italic;border:1px dashed var(--mist);border-radius:4px}
+.github-profile-row{margin:0 0 1.2rem}
+.repo-profile-card{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.05rem 1.2rem;border-color:var(--navy-mid)}
+.repo-profile-card .repo-card-header{margin-bottom:0}
+.repo-profile-heading{min-width:0}
+.github-profile-icon{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;color:var(--navy)}
+.github-profile-icon svg{display:block;width:20px;height:20px}
 
 .filter-main-group{margin-bottom:.15rem}
 .filter-main-btn{display:flex!important;justify-content:space-between;align-items:center;font-weight:500;color:var(--text)!important}
@@ -427,7 +446,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#references">References</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
@@ -701,6 +720,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 <div class="section-wrap">
   <div class="section-label">Research Output</div>
   <h2>Publications</h2>
+  <p class="pub-note pub-author-note" id="pub-author-note">* denotes corresponding author. My name is highlighted in bold.</p>
 
   <div class="pub-controls">
     <!-- Left: filter sidebar -->
@@ -797,16 +817,17 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     </div>
     <!-- Right: search + list -->
     <div class="pub-list-wrap">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
-        <input type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword…"
-          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
-          oninput="handlePubSearchInput(this.value)">
-        <div id="pub-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">—</div>
+      <div class="search-row">
+        <label class="search-shell" for="pub-search">
+          <span id="pub-search-prefix" class="search-filter-prefix" hidden></span>
+          <input class="pub-search search-input" type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword..."
+            oninput="handlePubSearchInput(this.value)">
+        </label>
+        <div id="pub-count" class="pub-count">—</div>
       </div>
       <div class="pub-list" id="pub-list"></div>
     </div><!-- /pub-list-wrap -->
   </div><!-- /pub-controls -->
-  <p class="pub-note" style="font-size:.74rem;color:var(--text-muted);margin-bottom:1.5rem">* denotes corresponding author. My name is highlighted in bold.</p>
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
     <button class="btn-outline" type="button" onclick="showAllPubs(event)" style="border-color:var(--navy);color:var(--navy)">Show all publications</button>
   </div>
@@ -987,11 +1008,13 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     </div>
     <!-- Right: search + list -->
     <div class="pres-list-wrap">
-      <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap">
-        <input type="search" id="pres-search" aria-label="Search presentations" placeholder="Search title or conference…"
-          style="flex:1;min-width:180px;padding:.45rem .8rem;border:1px solid var(--mist);border-radius:3px;font-size:.82rem;font-family:'DM Sans',sans-serif;outline:none;background:var(--white);color:var(--text)"
-          oninput="filterPresSearch(this.value)">
-        <div id="pres-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">21 presentations</div>
+      <div class="search-row">
+        <label class="search-shell" for="pres-search">
+          <span id="pres-search-prefix" class="search-filter-prefix" hidden></span>
+          <input class="pres-search search-input" type="search" id="pres-search" aria-label="Search presentations" placeholder="Search title or conference..."
+            oninput="filterPresSearch(this.value)">
+        </label>
+        <div id="pres-count" class="pub-count">21 presentations</div>
       </div>
       <div class="pres-list" id="pres-list">
     <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Hernia Plastic surgery" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Summit Mayo Clinic AI Summit United States Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Summit United States">
@@ -1241,13 +1264,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <div class="section-label">Open Science</div>
   <h2>Open Source Models &amp; Code</h2>
   <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.8rem;line-height:1.85;max-width:680px">Open-source code, models, and academic software projects — all publicly available at github.com/SoRRad.</p>
-  <div class="repos-grid" style="margin-bottom:1.2rem">
-    <div class="repo-card" style="border-color:var(--navy-mid)">
-      <div class="repo-card-header">
-        <span class="repo-card-icon" style="display:inline-flex;align-items:center;width:20px;height:20px"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
-        <span class="repo-card-name"><a href="https://github.com/SoRRad" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile: SoRRad">GitHub Profile</a></span>
+  <div class="github-profile-row">
+    <div class="repo-card repo-profile-card">
+      <div class="repo-card-header repo-profile-heading">
+        <span class="repo-card-icon github-profile-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+        <span class="repo-card-name">GitHub Profile</span>
       </div>
-      <p class="repo-desc">Open-source code, models, and academic software projects — all publicly available at github.com/SoRRad.</p>
       <div class="repo-links">
         <a href="https://github.com/SoRRad" target="_blank" rel="noopener noreferrer" class="repo-link primary" aria-label="View GitHub profile">View on GitHub &#8599;</a>
       </div>
@@ -6506,6 +6528,74 @@ function pubDisplayTags(pub, typeMap){
   return dedupeDisplayTags([...keywords, ...cats, ...highlights, typeLabel], 6);
 }
 
+const pubTypeFilterLabels = {original:'Original',review:'Review',case:'Case Report',letter:'Letter'};
+const pubAuthFilterLabels = {first:'1st Author','co-first':'Co-first',corresponding:'Corresponding',last:'Last/Senior'};
+const presTypeFilterLabels = {poster:'Poster',oral:'Oral'};
+
+function getDropdownOptionLabel(panelId, value){
+  const panel = document.getElementById(panelId);
+  const key = String(value || '');
+  if(!panel || !key) return '';
+  const opt = [...panel.querySelectorAll('.custom-dropdown-option')]
+    .find(option => option.dataset.value === key);
+  const label = opt?.querySelector('.opt-label');
+  return label ? label.textContent.trim() : '';
+}
+
+function selectedFilterLabels(values, labelsMap, panelId){
+  return (values || [])
+    .map(value => labelsMap[value] || getDropdownOptionLabel(panelId, value) || String(value || '').trim())
+    .filter(Boolean);
+}
+
+function activeTopicLabel(value){
+  if(!value || value === 'all') return '';
+  const key = value.startsWith('main:') ? value.slice(5) : value;
+  return getCategoryLabel(key);
+}
+
+function formatActiveFilterLabel(labels){
+  return labels.filter(Boolean).join(' · ');
+}
+
+function setSearchPrefix(prefixId, inputId, label, defaultPlaceholder){
+  const prefix = document.getElementById(prefixId);
+  const input = document.getElementById(inputId);
+  const hasLabel = Boolean(label);
+  if(prefix){
+    prefix.hidden = !hasLabel;
+    prefix.textContent = hasLabel ? `/${label}:` : '';
+  }
+  if(input){
+    input.placeholder = hasLabel ? 'Search within active filters...' : defaultPlaceholder;
+    input.closest('.search-shell')?.classList.toggle('has-filter-prefix', hasLabel);
+  }
+}
+
+function getPubActiveFilterLabel(){
+  return formatActiveFilterLabel([
+    ...selectedFilterLabels(pubTypeSelections, pubTypeFilterLabels, 'pub-type-panel'),
+    ...selectedFilterLabels(pubTagSelections, pubAuthFilterLabels, 'pub-auth-panel'),
+    activeTopicLabel(currentCat),
+  ]);
+}
+
+function updatePubSearchPrefix(){
+  setSearchPrefix('pub-search-prefix', 'pub-search', getPubActiveFilterLabel(), 'Search title, author, journal, keyword...');
+}
+
+function getPresActiveFilterLabel(){
+  return formatActiveFilterLabel([
+    ...selectedFilterLabels(presDropFilters.type, presTypeFilterLabels, 'pres-type-panel'),
+    ...selectedFilterLabels(presDropFilters.location, {}, 'pres-loc-panel'),
+    activeTopicLabel(presFilters.cat),
+  ]);
+}
+
+function updatePresSearchPrefix(){
+  setSearchPrefix('pres-search-prefix', 'pres-search', getPresActiveFilterLabel(), 'Search title or conference...');
+}
+
 function applyPubSearchTag(event, source){
   stopFilterEvent(event);
   const tag = source?.dataset?.tag || source?.textContent || '';
@@ -6513,12 +6603,14 @@ function applyPubSearchTag(event, source){
   if(search) search.value = tag;
   currentSearch = tag;
   showingAll = false;
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
 function handlePubSearchInput(value){
   currentSearch = value;
   showingAll = false;
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -6529,6 +6621,7 @@ function applyPresSearchTag(event, source){
   if(search) search.value = tag;
   presFilters.search = tag.toLowerCase();
   presShowingAll = false;
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -6537,6 +6630,7 @@ function renderPubs(){
   const countEl = document.getElementById('pub-count');
   const moreEl  = document.getElementById('pub-more');
   if(!list) return;
+  updatePubSearchPrefix();
 
   const typeMap  = {original:'Original Article',review:'Review / Meta-analysis',case:'Case Report',letter:'Letter'};
   const classMap = {original:'badge-original',review:'badge-review',case:'badge-case',letter:'badge-letter'};
@@ -6672,6 +6766,7 @@ function resetPubFilters(event){
   const s=document.getElementById('pub-search');
   if(s) s.value='';
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -6697,6 +6792,7 @@ function filterPubsMain(event, btn){
     currentCat = 'main:'+groupKey;
   }
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -6721,6 +6817,7 @@ function filterPubs(event, val, btn, dimension){
     }
   }
   syncPressed('.pub-filter-sidebar');
+  updatePubSearchPrefix();
   preserveScroll(renderPubs);
 }
 
@@ -6811,6 +6908,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(sub) sub.style.display = 'block';
       }
       syncPressed('.pub-filter-sidebar');
+      updatePubSearchPrefix();
       renderPubs();
       document.getElementById('publications')?.scrollIntoView({behavior:'smooth'});
     });
@@ -6818,24 +6916,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Init publication type dropdown ── */
   initCustomDropdown('pub-type-btn','pub-type-panel','All Types', selected => {
-    pubTypeSelections = selected; showingAll=false; renderPubs();
+    pubTypeSelections = selected; showingAll=false; updatePubSearchPrefix(); renderPubs();
   });
 
   /* ── Init authorship dropdown ── */
   initCustomDropdown('pub-auth-btn','pub-auth-panel','All Roles', selected => {
-    pubTagSelections = selected; showingAll=false; renderPubs();
+    pubTagSelections = selected; showingAll=false; updatePubSearchPrefix(); renderPubs();
   });
 
   /* ── Init presentation type dropdown ── */
   initCustomDropdown('pres-type-btn','pres-type-panel','All Types', selected => {
     presShowingAll = false;
-    presDropFilters.type = selected; applyPresFilters();
+    presDropFilters.type = selected; updatePresSearchPrefix(); applyPresFilters();
   });
 
   /* ── Init presentation location dropdown ── */
   initCustomDropdown('pres-loc-btn','pres-loc-panel','All Locations', selected => {
     presShowingAll = false;
-    presDropFilters.location = selected; applyPresFilters();
+    presDropFilters.location = selected; updatePresSearchPrefix(); applyPresFilters();
   });
 
   renderPubs();
@@ -6884,6 +6982,7 @@ function filterPresMain(event, btn){
     presFilters.cat = 'main:'+groupKey;
   }
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -6911,6 +7010,7 @@ function filterPres(event, dim, val, btn){
     }
   }
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
@@ -6948,17 +7048,20 @@ function resetPresFilters(event){
     }
   });
   syncPressed('.pres-filter-sidebar');
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
 function filterPresSearch(q){
   presShowingAll = false;
   presFilters.search = q.toLowerCase();
+  updatePresSearchPrefix();
   preserveScroll(applyPresFilters);
 }
 
 function applyPresFilters(){
   const items = [...document.querySelectorAll('#pres-list .pres-item')];
+  updatePresSearchPrefix();
   const activeFilters = presDropFilters.type.length > 0
     || presDropFilters.location.length > 0
     || Boolean(presFilters.cat)
@@ -7110,6 +7213,8 @@ window.cvDiagnostics = function(){
   const publicationTopicFiltersExist = Boolean(document.querySelector('.pub-filter-sidebar [data-cat]'));
   const publicationTagChipsExist = Boolean(document.querySelector('.pub-tag-chip'));
   const presentationTagChipsExist = Boolean(document.querySelector('.pres-tag-chip'));
+  const publicationSearchPrefixExists = Boolean(document.getElementById('pub-search-prefix'));
+  const presentationSearchPrefixExists = Boolean(document.getElementById('pres-search-prefix'));
   const resetButtonsExist = Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset'));
   const tavsLogoElementExists = Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo')));
   const openSourceGithubCardExists = Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]'));
@@ -7141,6 +7246,8 @@ window.cvDiagnostics = function(){
   if(!resetButtonsExist) errorsFound.push('Missing reset button');
   if(!publicationTagChipsExist) errorsFound.push('Missing publication tag chips');
   if(!presentationTagChipsExist) errorsFound.push('Missing presentation tag chips');
+  if(!publicationSearchPrefixExists) errorsFound.push('Missing publication search prefix');
+  if(!presentationSearchPrefixExists) errorsFound.push('Missing presentation search prefix');
   if(!openSourceGithubCardExists) errorsFound.push('Missing open-source GitHub card');
   if(!tavsLogoElementExists) errorsFound.push('Missing TAVS lab logo element');
   const result = {
@@ -7158,6 +7265,8 @@ window.cvDiagnostics = function(){
     pubTagClickSearchWorks,
     presentationFilterElementsExist,
     presentationSearchFieldExists: Boolean(presSearch),
+    publicationSearchPrefixExists,
+    presentationSearchPrefixExists,
     presentationTagChipsExist,
     presTagClickSearchWorks,
     resetButtonsExist,

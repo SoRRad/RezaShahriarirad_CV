@@ -98,7 +98,18 @@ def _button_tags_without_type(text):
         attrs = match.group(1)
         if 'type=' in attrs.lower():
             continue
-        if re.search(r'class=["\'][^"\']*(?:filter-btn|custom-dropdown-btn|pub-tag-chip|pres-tag-chip|btn-outline)[^"\']*["\']', attrs, flags=re.I):
+        if re.search(r'class=["\'][^"\']*(?:filter-btn|custom-dropdown-btn|pub-tag-chip|pres-tag-chip|btn-outline|hamburger)[^"\']*["\']', attrs, flags=re.I):
+            offenders.append(match.group(0)[:140])
+    return offenders
+
+
+def _filter_hash_anchors(text):
+    offenders = []
+    for match in re.finditer(r"<a\b([^>]*)>", text, flags=re.I):
+        attrs = match.group(1)
+        if not re.search(r'href=["\']#["\']', attrs, flags=re.I):
+            continue
+        if re.search(r'(?:filter|search|tag|reset|dropdown|pub-|pres-)', attrs, flags=re.I):
             offenders.append(match.group(0)[:140])
     return offenders
 
@@ -171,6 +182,7 @@ def main():
         "pub-list",
         "pub-count",
         "pub-search",
+        "pub-search-prefix",
         "pub-more",
         "pub-type-btn",
         "pub-type-panel",
@@ -180,6 +192,7 @@ def main():
         "pres-list",
         "pres-count",
         "pres-search",
+        "pres-search-prefix",
         "pres-more",
         "pres-type-btn",
         "pres-type-panel",
@@ -230,6 +243,22 @@ def main():
     button_offenders = _button_tags_without_type(text)
     if button_offenders:
         errors.append("Filter/button controls missing type=\"button\": " + "; ".join(button_offenders[:3]))
+    filter_hash_anchors = _filter_hash_anchors(text)
+    if filter_hash_anchors:
+        errors.append("Filter/search controls should not use href=\"#\": " + "; ".join(filter_hash_anchors[:3]))
+
+    author_note = "* denotes corresponding author. My name is highlighted in bold."
+    note_count = text.count(author_note)
+    if note_count != 1:
+        errors.append(f"Publication author note should appear exactly once; found {note_count}")
+    else:
+        note_idx = text.find(author_note)
+        pub_controls_idx = text.find('class="pub-controls"')
+        pub_list_idx = text.find('id="pub-list"')
+        if pub_controls_idx < 0 or pub_list_idx < 0:
+            errors.append("Publication controls/list markers are missing for author-note order check")
+        elif not (note_idx < pub_controls_idx < pub_list_idx):
+            errors.append("Publication author note should appear below the Publications header and before search/list controls")
 
     phone_rows = _read_csv_rows(DATA / "profile.csv")
     profile = {row.get("field", ""): row.get("value", "") for row in phone_rows}
@@ -267,11 +296,13 @@ def main():
         ("https://siris-1029209978489.us-central1.run.app/", "SIRIS webpage/demo link is missing"),
         ("GitHub Profile", "GitHub Profile card is missing"),
         ("https://github.com/SoRRad", "GitHub Profile URL is missing"),
-        ("Open-source code, models, and academic software projects", "Compact GitHub profile statement is missing"),
     ]
     for needle, message in open_source_checks:
         if needle not in text:
             errors.append(message)
+    github_desc = "Open-source code, models, and academic software projects"
+    if text.count(github_desc) > 1:
+        errors.append("Duplicated GitHub Profile Open Source sentence appears more than once")
     if "Open-source computational tools, machine learning models, and research software" in text:
         errors.append("Old Open Source paragraph wording is still present")
     if 'const openSourceRepos=[]' in text or 'const openSourceRepos = []' in text:
