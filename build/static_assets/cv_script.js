@@ -133,6 +133,50 @@ function textMatchesSearch(text, query){
   return terms.length === 0 || terms.every(term => normalizedText.includes(term));
 }
 
+function dedupeDisplayTags(values, limit=6){
+  const out = [];
+  const seen = new Set();
+  (values || []).forEach(value => {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    if(!text) return;
+    const key = text.toLowerCase();
+    if(seen.has(key)) return;
+    seen.add(key);
+    out.push(text);
+  });
+  return out.slice(0, limit);
+}
+
+function pubDisplayTags(pub, typeMap){
+  const cats = normalizedArray(pub.cat).map(getCategoryLabel);
+  const highlights = normalizedArray(pub.highlight_topics).map(getCategoryLabel);
+  const keywords = Array.isArray(pub.keywords) ? pub.keywords : [];
+  const typeLabel = typeMap[String(pub.type || '').toLowerCase()] || '';
+  return dedupeDisplayTags([...keywords, ...cats, ...highlights, typeLabel], 6);
+}
+
+function applyPubSearchTag(event, source){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  const tag = source?.dataset?.tag || source?.textContent || '';
+  const search = document.getElementById('pub-search');
+  if(search) search.value = tag;
+  currentSearch = tag;
+  showingAll = false;
+  renderPubs();
+}
+
+function applyPresSearchTag(event, source){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  const tag = source?.dataset?.tag || source?.textContent || '';
+  const search = document.getElementById('pres-search');
+  if(search) search.value = tag;
+  presFilters.search = tag.toLowerCase();
+  presShowingAll = false;
+  applyPresFilters();
+}
+
 function renderPubs(){
   const list    = document.getElementById('pub-list');
   const countEl = document.getElementById('pub-count');
@@ -220,12 +264,17 @@ function renderPubs(){
     const title = escapeHtml(p.title);
     const titleHtml = href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${title}</a>` : title;
     const authHtml  = boldName(escapeHtml(p.authors));
+    const tagChips = pubDisplayTags(p, typeMap).map(tag =>
+      `<button type="button" class="pub-tag-chip" data-tag="${escapeHtml(tag)}" onclick="applyPubSearchTag(event,this)">${escapeHtml(tag)}</button>`
+    ).join('');
+    const tagRow = tagChips ? `<div class="pub-tags-row">${tagChips}</div>` : '';
     return `<div class="pub-item">
       <div class="pub-year-col">${ym}${badge}${star}</div>
       <div>
         <div class="pub-title">${titleHtml}</div>
         <div class="pub-authors">${authHtml}</div>
         <div class="pub-journal"><em>${escapeHtml(p.journal)}</em></div>
+        ${tagRow}
       </div>
     </div>`;
   }).join('');
@@ -350,9 +399,10 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
       });
     } else {
       if(chk){
-        chk.checked = !chk.checked;
-        opt.classList.toggle('selected', chk.checked);
-        opt.setAttribute('aria-selected', chk.checked ? 'true' : 'false');
+        const nextChecked = !opt.classList.contains('selected');
+        chk.checked = nextChecked;
+        opt.classList.toggle('selected', nextChecked);
+        opt.setAttribute('aria-selected', nextChecked ? 'true' : 'false');
       }
       panel.querySelector('[data-value=all]')?.classList.remove('selected');
     }
@@ -361,6 +411,14 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
     const label = btn.querySelector('.dropdown-label');
     if(label) label.textContent = selected.length === 0 ? defaultLabel : (selected.length === 1 ? panel.querySelector(`[data-value="${selected[0]}"] .opt-label`)?.textContent||defaultLabel : `${selected.length} selected`);
     onChangeCallback(selected);
+  });
+
+  panel.addEventListener('keydown', e => {
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const opt = e.target.closest('.custom-dropdown-option');
+    if(!opt) return;
+    e.preventDefault();
+    opt.click();
   });
 }
 
@@ -673,19 +731,48 @@ function visibleCount(selector){
 
 window.cvDiagnostics = function(){
   const lastPublication = Array.isArray(publications) && publications.length ? publications[publications.length - 1] : null;
+  const pubSearch = document.getElementById('pub-search');
+  const presSearch = document.getElementById('pres-search');
   const publicationFilterElementsExist = [
     'pub-list','pub-count','pub-search','pub-more','pub-type-btn','pub-type-panel','pub-auth-btn','pub-auth-panel','cat-all-btn'
   ].every(id => Boolean(document.getElementById(id)));
   const presentationFilterElementsExist = [
     'pres-list','pres-count','pres-search','pres-more','pres-type-btn','pres-type-panel','pres-loc-btn','pres-loc-panel','pres-reset'
   ].every(id => Boolean(document.getElementById(id)));
+  const publicationTopicFiltersExist = Boolean(document.querySelector('.pub-filter-sidebar [data-cat]'));
+  const publicationTagChipsExist = Boolean(document.querySelector('.pub-tag-chip'));
+  const presentationTagChipsExist = Boolean(document.querySelector('.pres-tag-chip'));
   const resetButtonsExist = Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset'));
   const tavsLogoElementExists = Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo')));
   const openSourceGithubCardExists = Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]'));
+  let pubTagClickSearchWorks = false;
+  let presTagClickSearchWorks = false;
+  const firstPubTag = document.querySelector('.pub-tag-chip');
+  const firstPresTag = document.querySelector('.pres-tag-chip');
+  const oldPubSearch = pubSearch ? pubSearch.value : '';
+  const oldCurrentSearch = currentSearch;
+  if(firstPubTag && pubSearch){
+    applyPubSearchTag({preventDefault(){}, stopPropagation(){}}, firstPubTag);
+    pubTagClickSearchWorks = pubSearch.value === firstPubTag.dataset.tag;
+    pubSearch.value = oldPubSearch;
+    currentSearch = oldCurrentSearch;
+    renderPubs();
+  }
+  const oldPresSearch = presSearch ? presSearch.value : '';
+  const oldPresFilterSearch = presFilters.search;
+  if(firstPresTag && presSearch){
+    applyPresSearchTag({preventDefault(){}, stopPropagation(){}}, firstPresTag);
+    presTagClickSearchWorks = presSearch.value === firstPresTag.dataset.tag;
+    presSearch.value = oldPresSearch;
+    presFilters.search = oldPresFilterSearch;
+    applyPresFilters();
+  }
   const errorsFound = [];
   if(!publicationFilterElementsExist) errorsFound.push('Missing one or more publication filter elements');
   if(!presentationFilterElementsExist) errorsFound.push('Missing one or more presentation filter elements');
   if(!resetButtonsExist) errorsFound.push('Missing reset button');
+  if(!publicationTagChipsExist) errorsFound.push('Missing publication tag chips');
+  if(!presentationTagChipsExist) errorsFound.push('Missing presentation tag chips');
   if(!openSourceGithubCardExists) errorsFound.push('Missing open-source GitHub card');
   if(!tavsLogoElementExists) errorsFound.push('Missing TAVS lab logo element');
   const result = {
@@ -695,7 +782,16 @@ window.cvDiagnostics = function(){
     lastPublicationTitle: lastPublication ? lastPublication.title : '',
     row195Present: Array.isArray(publications) && publications.some(pub => Number(pub.n) === 195),
     publicationFilterElementsExist,
+    publicationSearchFieldExists: Boolean(pubSearch),
+    publicationTypeFilterExists: Boolean(document.getElementById('pub-type-btn')),
+    publicationAuthorshipFilterExists: Boolean(document.getElementById('pub-auth-btn')),
+    publicationTopicFiltersExist,
+    publicationTagChipsExist,
+    pubTagClickSearchWorks,
     presentationFilterElementsExist,
+    presentationSearchFieldExists: Boolean(presSearch),
+    presentationTagChipsExist,
+    presTagClickSearchWorks,
     resetButtonsExist,
     activePublicationFilterState: JSON.stringify(pubFilterStateSnapshot()),
     activePresentationFilterState: JSON.stringify(presFilterStateSnapshot()),
@@ -729,6 +825,13 @@ window.testPubFilters = function(){
   showingAll = true;
   renderPubs();
   const searchTotal = countTextTotal('pub-count');
+  const firstChip = document.querySelector('.pub-tag-chip');
+  const chipLabel = firstChip?.dataset.tag || '';
+  let tagSearchWorks = false;
+  if(firstChip){
+    applyPubSearchTag({preventDefault(){}, stopPropagation(){}}, firstChip);
+    tagSearchWorks = document.getElementById('pub-search')?.value === chipLabel && countTextTotal('pub-count') > 0;
+  }
 
   resetPubFilters();
   const resetVisible = visibleCount('#pub-list .pub-item');
@@ -737,10 +840,11 @@ window.testPubFilters = function(){
     typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
     authorshipFilterChangesCount: authorTotal > 0 && authorTotal < total,
     publicationSearchWorks: searchTotal > 0 && searchTotal <= total,
+    tagChipSearchWorks: tagSearchWorks,
     resetRestoresDefaultCount: resetVisible === Math.min(SHOW, total) && resetVisible === defaultVisible,
     overallPass: false,
   };
-  result.overallPass = result.typeFilterChangesCount && result.authorshipFilterChangesCount && result.publicationSearchWorks && result.resetRestoresDefaultCount;
+  result.overallPass = result.typeFilterChangesCount && result.authorshipFilterChangesCount && result.publicationSearchWorks && result.tagChipSearchWorks && result.resetRestoresDefaultCount;
   console.table(result);
   return result;
 };
@@ -761,6 +865,13 @@ window.testPresFilters = function(){
   presShowingAll = true;
   applyPresFilters();
   const locationTotal = countTextTotal('pres-count');
+  const firstChip = document.querySelector('.pres-tag-chip');
+  const chipLabel = firstChip?.dataset.tag || '';
+  let tagSearchWorks = false;
+  if(firstChip){
+    applyPresSearchTag({preventDefault(){}, stopPropagation(){}}, firstChip);
+    tagSearchWorks = document.getElementById('pres-search')?.value === chipLabel && countTextTotal('pres-count') > 0;
+  }
 
   resetPresFilters();
   const resetVisible = visibleCount('#pres-list .pres-item');
@@ -768,10 +879,11 @@ window.testPresFilters = function(){
     totalPresentations: total,
     typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
     locationFilterChangesCount: locationTotal > 0 && locationTotal < total,
+    tagChipSearchWorks: tagSearchWorks,
     resetRestoresDefaultCount: resetVisible === Math.min(PRES_INITIAL_SHOW, total) && resetVisible === defaultVisible,
     overallPass: false,
   };
-  result.overallPass = result.typeFilterChangesCount && result.locationFilterChangesCount && result.resetRestoresDefaultCount;
+  result.overallPass = result.typeFilterChangesCount && result.locationFilterChangesCount && result.tagChipSearchWorks && result.resetRestoresDefaultCount;
   console.table(result);
   return result;
 };

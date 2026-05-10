@@ -10,6 +10,15 @@ echo "Repository: $REPO_ROOT"
 echo "Checking current status..."
 git status --short
 
+echo "Fetching origin/main before build..."
+git fetch origin main
+
+echo "Rebasing local work on top of origin/main before build..."
+if ! git pull --rebase --autostash origin main; then
+  echo "Conflict during rebase. Resolve in VS Code, then run git rebase --continue and scripts/safe_push.ps1 again if needed." >&2
+  exit 1
+fi
+
 echo "Validating CSV data..."
 if ! python build/validate_data.py; then
   echo "Validation failed. Fix CSV errors before pushing." >&2
@@ -19,6 +28,12 @@ fi
 echo "Building generated CV outputs..."
 if ! python build/build.py; then
   echo "Build failed. Fix build errors before pushing." >&2
+  exit 1
+fi
+
+echo "Running smoke tests..."
+if ! python build/smoke_test.py; then
+  echo "Smoke test failed. Fix generated site or data issues before pushing." >&2
   exit 1
 fi
 
@@ -33,11 +48,10 @@ git add \
   build/static_assets/*.js \
   build/static_assets/*.css \
   assets \
+  scripts \
   .github/workflows/update-cv.yml \
   .gitignore \
   README.md \
-  scripts/safe_push.ps1 \
-  scripts/safe_push.sh \
   push_to_github.bat \
   push_to_github.sh \
   tools/admin-local/cv-admin.html
@@ -54,7 +68,7 @@ git fetch origin main
 
 echo "Rebasing on top of origin/main with autostash..."
 if ! git pull --rebase --autostash origin main; then
-  echo "Remote changes were found and a conflict occurred. Resolve conflicts in VS Code, then run git rebase --continue and git push origin main." >&2
+  echo "Conflict during rebase. Resolve in VS Code, then run git rebase --continue and scripts/safe_push.ps1 again if needed." >&2
   exit 1
 fi
 

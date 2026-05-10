@@ -21,9 +21,10 @@ Do not manually edit generated outputs. Make content changes in `data/*.csv`, th
 pip install -r build/requirements.txt
 python build/validate_data.py
 python build/build.py
+python build/smoke_test.py
 ```
 
-The build validates CSV data, regenerates legacy JSON artifacts, then generates the website, Word CV, and PDF CV.
+The build validates CSV data, regenerates legacy JSON artifacts, then generates the website, Word CV, and PDF CV. The smoke test confirms the newest publication, generated JSON, download links, filter elements, tag chips, and lab-logo markup are present.
 
 ## Editing CSV Files Safely
 
@@ -32,8 +33,10 @@ Excel's warning that "some features might be lost" is normal when saving as CSV.
 - Save from Excel as **CSV UTF-8 (Comma delimited) (*.csv)**.
 - Keep the file extension as `.csv`; do not save the build inputs as `.xlsx`.
 - Preserve the header row exactly.
+- Do not leave trailing commas in header rows or comment guide rows.
 - Quote any field that contains a comma, for example `"Author A, Author B"`.
 - Use semicolons inside multi-value fields such as `tags`, `cat`, `keywords`, and `highlight_topics`.
+- Use only subcategory keys from `build/utils.py` in `cat` and `highlight_topics`; do not use top-level group keys such as `surgery`, `internal_medicine`, `ai`, or `health_sciences`.
 - Run `python build/validate_data.py` before pushing.
 - Then run `scripts/safe_push.ps1` to validate, build, commit, pull/rebase, and push.
 
@@ -47,7 +50,13 @@ From the repository root on Windows PowerShell, use:
 powershell -ExecutionPolicy Bypass -File scripts/safe_push.ps1 -Message "Update publications"
 ```
 
-This script validates the CSV files, rebuilds `index.html`, DOCX, PDF, and JSON outputs, stages the relevant CV files, commits only when there are staged changes, fetches `origin/main`, pulls with `--rebase --autostash`, and then pushes. It does not force-push; if a conflict occurs, resolve it in VS Code, then run `git rebase --continue` and `git push origin main`.
+For general CV data updates, this is the usual command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/safe_push.ps1 -Message "Update CV data"
+```
+
+This script fetches `origin/main`, pulls with `--rebase --autostash`, validates the CSV files, rebuilds `index.html`, DOCX, PDF, and JSON outputs, runs smoke tests, stages the relevant CV files, commits only when there are staged changes, fetches/pulls again, and then pushes. It does not force-push; if a conflict occurs, resolve it in VS Code, then run `git rebase --continue` and rerun the safe push command if needed.
 
 ## Updating Content
 
@@ -92,7 +101,7 @@ Valid presentation types: `poster`, `oral`.
 Edit `data/profile.csv`.
 
 - Public website contact renders email fields marked public-visible, currently the Mayo email and personal Gmail.
-- Phone can remain in the CSV for private generated CV outputs, but it is not rendered publicly unless `phone_public_visible` is set to `yes`.
+- Phone can remain in the CSV for private reference, but it is hidden from both the public website and the generated downloadable DOCX/PDF CV.
 - Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
 - The public site does not fetch live Google Scholar data in the browser.
 
@@ -124,7 +133,7 @@ The deployed public site includes:
 - `Shahriarirad_Reza_CV.docx`
 - `Shahriarirad_Reza_CV.pdf`
 - generated JSON files for compatibility
-- `assets/` when present
+- required static asset folders such as `assets/`, `images/`, `img/`, `public/`, `static/`, and `build/static_assets/logos/` when present
 
 The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build.
 

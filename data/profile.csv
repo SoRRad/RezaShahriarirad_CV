@@ -11,7 +11,7 @@ irb_count,30
 irb_description,"Since joining the Center for Surgery Innovation, I have been involved in more than 30 IRB-approved research projects and several industry collaborations spanning thoracic, bariatric, plastic and reconstructive, and abdominal-wall surgery. This work includes 3D digital pathology, robotic biopsy and intraoperative AI, wearable postoperative monitoring, machine-learning models for surgical risk prediction, novel medical-device development, and AI-driven patient-education tools, building toward a career as a physician-scientist working at the frontier of advanced surgical methods."
 phone,+1-507-218-6077
 phone_public_visible,no
-email_personal,R.shahriari1995@gmail.com
+email_personal,r.shahriari1995@gmail.com
 email_personal_public_visible,yes
 email_professional,Shahriarirad.reza@mayo.edu
 email_professional_public_visible,yes
@@ -32,10 +32,10 @@ peer_reviews,149
 journals_reviewed,67
 manuscripts_reviewed,129
 metrics_last_updated,"May 8, 2026"
-pub_count,194
+pub_count,192
 first_auth,20
-co_first_auth,31
-last_auth,50
+co_first_auth,24
+last_auth,37
 corr_auth,68
 canonical_url,https://sorrad.github.io/RezaShahriarirad_CV/
 meta_description,"Academic CV of Reza Shahriarirad, M.D., Research Fellow at Mayo Clinic Surgery Innovation Center, with work in surgical innovation, minimally invasive surgery, and artificial intelligence in surgery."

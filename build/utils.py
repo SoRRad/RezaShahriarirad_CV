@@ -57,6 +57,8 @@ CAT_LABELS = {
 
 # Flat set of all valid sub-keys
 ALL_VALID_CAT_KEYS = set(CAT_LABELS.keys())
+TOP_LEVEL_CAT_KEYS = set(TAXONOMY.keys())
+VALID_AUTHOR_TAGS = {"first", "co-first", "last", "corresponding"}
 
 
 def load_all_data() -> dict:
@@ -87,6 +89,22 @@ def parse_semicolon(value) -> list:
         return []
     s = str(value).strip()
     return [x.strip() for x in s.split(";") if x.strip()] if s else []
+
+
+def author_tag_counts(rows) -> dict:
+    """Count explicit authorship tags across publication rows."""
+    counts = {tag: 0 for tag in VALID_AUTHOR_TAGS}
+    for row in rows:
+        raw_tags = row.get("tags", "")
+        if isinstance(raw_tags, (list, tuple, set)):
+            tag_values = raw_tags
+        else:
+            tag_values = parse_semicolon(raw_tags)
+        tags = {str(tag).strip().lower() for tag in tag_values}
+        for tag in counts:
+            if tag in tags:
+                counts[tag] += 1
+    return counts
 
 
 def html_escape(text: str) -> str:

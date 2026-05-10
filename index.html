@@ -183,6 +183,9 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pub-journal{font-size:.73rem;font-style:italic;color:var(--steel)}
 .pub-journal a{color:var(--steel);text-decoration:none}
 .pub-journal a:hover{color:var(--gold)}
+.pub-tags-row,.pres-tags-row{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.48rem}
+.pub-tag-chip,.pres-tag-chip{border:1px solid rgba(184,149,58,.42);background:rgba(184,149,58,.08);color:var(--navy);border-radius:999px;padding:.16rem .48rem;font-family:'DM Sans',sans-serif;font-size:.58rem;line-height:1.35;letter-spacing:.01em;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.pub-tag-chip:hover,.pres-tag-chip:hover,.pub-tag-chip:focus-visible,.pres-tag-chip:focus-visible{background:var(--navy);border-color:var(--navy);color:var(--gold-light);outline:none;transform:translateY(-1px)}
 
 /* AWARDS & PATENTS */
 .awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
@@ -311,7 +314,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .custom-dropdown-option{display:flex;align-items:center;gap:.5rem;padding:.35rem .7rem;font-size:.68rem;color:var(--text-mid);cursor:pointer;transition:background .1s}
 .custom-dropdown-option:hover{background:var(--frost)}
 .custom-dropdown-option.selected{color:var(--navy);font-weight:500}
-.custom-dropdown-option input[type="checkbox"]{width:12px;height:12px;accent-color:var(--navy);flex-shrink:0;margin:0}
+.custom-dropdown-option input[type="checkbox"]{width:12px;height:12px;accent-color:var(--navy);flex-shrink:0;margin:0;pointer-events:none}
 
 /* GOLD STAR BADGE */
 .pub-star-badge{display:block;margin-top:.2rem;font-size:.7rem;color:var(--gold);text-align:center;line-height:1}
@@ -462,6 +465,11 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
           Download CV (PDF)
         </a>
+        <a href="Shahriarirad_Reza_CV.docx"
+           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV Word document">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1 7V4.5L18.5 9H15zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z" fill="currentColor"/></svg>
+          Download CV (Word)
+        </a>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
@@ -470,7 +478,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="hero-stats" style="width:100%">
         <div class="stat-box">
-          <div class="stat-num" id="hero-pubs">195</div>
+          <div class="stat-num" id="hero-pubs">192</div>
           <div class="stat-label">Publications</div>
         </div>
         <div class="stat-box">
@@ -523,7 +531,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="contact-block">
         <h3>Contact</h3>
         <div class="contact-item"><span>Mayo Email</span><a href="#" class="cf-email" data-u="Shahriarirad.reza" data-d="mayo.edu">[loading]</a></div>
-        <div class="contact-item"><span>Personal Email</span><a href="#" class="cf-email" data-u="R.shahriari1995" data-d="gmail.com">[loading]</a></div>
+        <div class="contact-item"><span>Personal Email</span><a href="#" class="cf-email" data-u="r.shahriari1995" data-d="gmail.com">[loading]</a></div>
         <div class="contact-item"><span>Location</span><span>Rochester, MN, USA</span></div>
         <div class="contact-item"><span>Research Interests</span><span>Surgery · Minimally Invasive Surgery · Artificial Intelligence</span></div>
         <div class="contact-item"><span>Languages</span><span>English (Fluent) · Farsi (Native)</span></div>
@@ -714,10 +722,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <span class="custom-dropdown-arrow">&#9660;</span>
         </button>
         <div class="custom-dropdown-panel" id="pub-type-panel" role="listbox" aria-multiselectable="true">
-        <div class="custom-dropdown-option" data-value="original" role="option" aria-selected="false"><input type="checkbox" value="original" aria-label="Original Articles"><span class="opt-label">Original Articles</span></div>
-        <div class="custom-dropdown-option" data-value="review" role="option" aria-selected="false"><input type="checkbox" value="review" aria-label="Reviews &amp; Meta-analyses"><span class="opt-label">Reviews &amp; Meta-analyses</span></div>
-        <div class="custom-dropdown-option" data-value="case" role="option" aria-selected="false"><input type="checkbox" value="case" aria-label="Case Reports"><span class="opt-label">Case Reports</span></div>
-        <div class="custom-dropdown-option" data-value="letter" role="option" aria-selected="false"><input type="checkbox" value="letter" aria-label="Letters / Editorials"><span class="opt-label">Letters / Editorials</span></div>
+        <div class="custom-dropdown-option" data-value="original" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="original" aria-label="Original Articles"><span class="opt-label">Original Articles</span></div>
+        <div class="custom-dropdown-option" data-value="review" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="review" aria-label="Reviews &amp; Meta-analyses"><span class="opt-label">Reviews &amp; Meta-analyses</span></div>
+        <div class="custom-dropdown-option" data-value="case" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="case" aria-label="Case Reports"><span class="opt-label">Case Reports</span></div>
+        <div class="custom-dropdown-option" data-value="letter" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="letter" aria-label="Letters / Editorials"><span class="opt-label">Letters / Editorials</span></div>
         </div>
       </div>
       </div>
@@ -729,10 +737,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <span class="custom-dropdown-arrow">&#9660;</span>
         </button>
         <div class="custom-dropdown-panel" id="pub-auth-panel" role="listbox" aria-multiselectable="true">
-        <div class="custom-dropdown-option" data-value="first" role="option" aria-selected="false"><input type="checkbox" value="first" aria-label="1st Author"><span class="opt-label">1st Author</span></div>
-        <div class="custom-dropdown-option" data-value="co-first" role="option" aria-selected="false"><input type="checkbox" value="co-first" aria-label="2nd / Co-first"><span class="opt-label">2nd / Co-first</span></div>
-        <div class="custom-dropdown-option" data-value="corresponding" role="option" aria-selected="false"><input type="checkbox" value="corresponding" aria-label="Corresponding Author"><span class="opt-label">Corresponding Author</span></div>
-        <div class="custom-dropdown-option" data-value="last" role="option" aria-selected="false"><input type="checkbox" value="last" aria-label="Last / Senior Author"><span class="opt-label">Last / Senior Author</span></div>
+        <div class="custom-dropdown-option" data-value="first" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="first" aria-label="1st Author"><span class="opt-label">1st Author</span></div>
+        <div class="custom-dropdown-option" data-value="co-first" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="co-first" aria-label="2nd / Co-first"><span class="opt-label">2nd / Co-first</span></div>
+        <div class="custom-dropdown-option" data-value="corresponding" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="corresponding" aria-label="Corresponding Author"><span class="opt-label">Corresponding Author</span></div>
+        <div class="custom-dropdown-option" data-value="last" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="last" aria-label="Last / Senior Author"><span class="opt-label">Last / Senior Author</span></div>
         </div>
       </div>
       </div>
@@ -907,8 +915,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <span class="custom-dropdown-arrow">&#9660;</span>
         </button>
         <div class="custom-dropdown-panel" id="pres-type-panel" role="listbox" aria-multiselectable="true">
-        <div class="custom-dropdown-option" data-value="poster" role="option" aria-selected="false"><input type="checkbox" value="poster" aria-label="Poster"><span class="opt-label">Poster</span></div>
-        <div class="custom-dropdown-option" data-value="oral" role="option" aria-selected="false"><input type="checkbox" value="oral" aria-label="Oral"><span class="opt-label">Oral</span></div>
+        <div class="custom-dropdown-option" data-value="poster" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="poster" aria-label="Poster"><span class="opt-label">Poster</span></div>
+        <div class="custom-dropdown-option" data-value="oral" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="oral" aria-label="Oral"><span class="opt-label">Oral</span></div>
         </div>
       </div>
       </div>
@@ -920,10 +928,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <span class="custom-dropdown-arrow">&#9660;</span>
         </button>
         <div class="custom-dropdown-panel" id="pres-loc-panel" role="listbox" aria-multiselectable="true">
-        <div class="custom-dropdown-option" data-value="Iran" role="option" aria-selected="false"><input type="checkbox" value="Iran" aria-label="Iran"><span class="opt-label">Iran</span></div>
-        <div class="custom-dropdown-option" data-value="Netherlands" role="option" aria-selected="false"><input type="checkbox" value="Netherlands" aria-label="Netherlands"><span class="opt-label">Netherlands</span></div>
-        <div class="custom-dropdown-option" data-value="Turkey" role="option" aria-selected="false"><input type="checkbox" value="Turkey" aria-label="Turkey"><span class="opt-label">Turkey</span></div>
-        <div class="custom-dropdown-option" data-value="United States" role="option" aria-selected="false"><input type="checkbox" value="United States" aria-label="United States"><span class="opt-label">United States</span></div>
+        <div class="custom-dropdown-option" data-value="Iran" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="Iran" aria-label="Iran"><span class="opt-label">Iran</span></div>
+        <div class="custom-dropdown-option" data-value="Netherlands" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="Netherlands" aria-label="Netherlands"><span class="opt-label">Netherlands</span></div>
+        <div class="custom-dropdown-option" data-value="Turkey" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="Turkey" aria-label="Turkey"><span class="opt-label">Turkey</span></div>
+        <div class="custom-dropdown-option" data-value="United States" role="option" tabindex="0" aria-selected="false"><input type="checkbox" value="United States" aria-label="United States"><span class="opt-label">United States</span></div>
         </div>
       </div>
       </div>
@@ -990,7 +998,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div id="pres-count" style="font-size:.72rem;color:var(--text-muted);white-space:nowrap">21 presentations</div>
       </div>
       <div class="pres-list" id="pres-list">
-    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="hernia" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Summit Mayo Clinic AI Summit United States hernia Plastic, Reconstructive &amp; Burns">
+    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="hernia" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Summit Mayo Clinic AI Summit United States hernia Plastic, Reconstructive &amp; Burns hernia Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -999,8 +1007,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="hernia" onclick="applyPresSearchTag(event,this)">hernia</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="LLM chatbot" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Summit Mayo Clinic AI Summit United States LLM chatbot Plastic, Reconstructive &amp; Burns Machine Learning">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="LLM chatbot" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Summit Mayo Clinic AI Summit United States LLM chatbot Plastic, Reconstructive &amp; Burns Machine Learning LLM chatbot Plastic, Reconstructive &amp; Burns Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1009,8 +1018,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="LLM" onclick="applyPresSearchTag(event,this)">LLM</button><button type="button" class="pres-tag-chip" data-tag="chatbot" onclick="applyPresSearchTag(event,this)">chatbot</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Age" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Summit Mayo Clinic AI Summit United States Age Bariatric &amp; Metabolic Surgery Machine Learning">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Age" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Summit Mayo Clinic AI Summit United States Age Bariatric &amp; Metabolic Surgery Machine Learning Age Bariatric &amp; Metabolic Surgery Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 6 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1019,8 +1029,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Age" onclick="applyPresSearchTag(event,this)">Age</button><button type="button" class="pres-tag-chip" data-tag="Bariatric &amp; Metabolic Surgery" onclick="applyPresSearchTag(event,this)">Bariatric &amp; Metabolic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States  ">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States   Poster  United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1029,8 +1040,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mayo Obesity Staging Index: A Novel Obesity Classification System</div>
         <div class="pres-venue">American Society for Metabolic and Bariatric Surgery (ASMBS)</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States  Plastic, Reconstructive &amp; Burns">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States  Plastic, Reconstructive &amp; Burns Plastic, Reconstructive &amp; Burns Poster PSRC Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1039,8 +1051,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div>
         <div class="pres-venue">Plastic Surgery Research Council (PSRC)</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="PSRC Annual Meeting" onclick="applyPresSearchTag(event,this)">PSRC Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States  Surgical Oncology GI &amp; Colorectal Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States  Surgical Oncology GI &amp; Colorectal Surgery Surgical Oncology GI &amp; Colorectal Surgery Poster SSO Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1049,8 +1062,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div>
         <div class="pres-venue">Society of Surgical Oncology (SSO)</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Surgical Oncology" onclick="applyPresSearchTag(event,this)">Surgical Oncology</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="SSO Annual Meeting" onclick="applyPresSearchTag(event,this)">SSO Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States  Orthopaedic Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States  Orthopaedic Surgery Orthopaedic Surgery Poster AOFAS Annual Meeting United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1059,8 +1073,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div>
         <div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Orthopaedic Surgery" onclick="applyPresSearchTag(event,this)">Orthopaedic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="AOFAS Annual Meeting" onclick="applyPresSearchTag(event,this)">AOFAS Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1069,8 +1084,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States  Plastic, Reconstructive &amp; Burns Machine Learning Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1079,8 +1095,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States  Machine Learning">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States  Machine Learning Machine Learning Poster Mayo Clinic AI Summit United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1089,8 +1106,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States  Thoracic Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States  Thoracic Surgery Thoracic Surgery Poster Advanced Robotic Surgery Conference United States">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1099,8 +1117,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study</div>
         <div class="pres-venue">Advanced Robotic Surgery Conference 2025</div>
         <div class="pres-location">United States</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Thoracic Surgery" onclick="applyPresSearchTag(event,this)">Thoracic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Advanced Robotic Surgery Conference" onclick="applyPresSearchTag(event,this)">Advanced Robotic Surgery Conference</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran  Infectious Disease Transplant Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran  Infectious Disease Transplant Surgery Infectious Disease Transplant Surgery Poster International Transplantation Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1109,8 +1128,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div>
         <div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Transplant Surgery" onclick="applyPresSearchTag(event,this)">Transplant Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey  GI &amp; Colorectal Surgery Surgical Oncology">
+    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey  GI &amp; Colorectal Surgery Surgical Oncology GI &amp; Colorectal Surgery Surgical Oncology Poster ISUCRS Biennial Congress Turkey">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1119,8 +1139,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy</div>
         <div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div>
         <div class="pres-location">Turkey</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Surgical Oncology" onclick="applyPresSearchTag(event,this)">Surgical Oncology</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISUCRS Biennial Congress" onclick="applyPresSearchTag(event,this)">ISUCRS Biennial Congress</button><button type="button" class="pres-tag-chip" data-tag="Turkey" onclick="applyPresSearchTag(event,this)">Turkey</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran  Plastic, Reconstructive &amp; Burns Public Health">
+    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran  Plastic, Reconstructive &amp; Burns Public Health Plastic, Reconstructive &amp; Burns Public Health Oral National Burn Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2021</span>
         <span class="pres-type oral">Oral</span>
@@ -1129,8 +1150,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div>
         <div class="pres-venue">10th National Burn Congress 2021</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Public Health" onclick="applyPresSearchTag(event,this)">Public Health</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="National Burn Congress" onclick="applyPresSearchTag(event,this)">National Burn Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran  GI &amp; Colorectal Surgery Transplant Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran  GI &amp; Colorectal Surgery Transplant Surgery GI &amp; Colorectal Surgery Transplant Surgery Poster International Transplantation Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2021</span>
         <span class="pres-type poster">Poster</span>
@@ -1139,8 +1161,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div>
         <div class="pres-venue">Transplantation (International Congress)</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Transplant Surgery" onclick="applyPresSearchTag(event,this)">Transplant Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands  Infectious Disease">
+    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands  Infectious Disease Infectious Disease Oral PReS European Paediatric Rheumatology Congress Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Sep 2020</span>
         <span class="pres-type oral">Oral</span>
@@ -1149,8 +1172,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div>
         <div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div>
         <div class="pres-location">Netherlands</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="PReS European Paediatric Rheumatology Congress" onclick="applyPresSearchTag(event,this)">PReS European Paediatric Rheumatology Congress</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran  Infectious Disease Public Health">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran  Infectious Disease Public Health Infectious Disease Public Health Poster NICOPA11 Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2019</span>
         <span class="pres-type poster">Poster</span>
@@ -1159,8 +1183,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran</div>
         <div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious Disease" onclick="applyPresSearchTag(event,this)">Infectious Disease</button><button type="button" class="pres-tag-chip" data-tag="Public Health" onclick="applyPresSearchTag(event,this)">Public Health</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="NICOPA11" onclick="applyPresSearchTag(event,this)">NICOPA11</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran  GI &amp; Colorectal Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster National Congress on Animal Models Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1169,8 +1194,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div>
         <div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="National Congress on Animal Models" onclick="applyPresSearchTag(event,this)">National Congress on Animal Models</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran  Pulmonology">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran  Pulmonology Pulmonology Poster Professor Amirhakimi Pediatric Congress Iran">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1179,8 +1205,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough</div>
         <div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div>
         <div class="pres-location">Iran</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Pulmonology" onclick="applyPresSearchTag(event,this)">Pulmonology</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Professor Amirhakimi Pediatric Congress" onclick="applyPresSearchTag(event,this)">Professor Amirhakimi Pediatric Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1189,8 +1216,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands  GI &amp; Colorectal Surgery GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1199,6 +1227,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
       </div>
     </div>
       </div>
@@ -1280,7 +1309,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <a href="https://www.linkedin.com/in/reza-shahriarirad/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
     <a href="https://github.com/SoRRad" target="_blank" rel="noopener noreferrer">GitHub</a>
     <a href="#" class="cf-email" data-u="Shahriarirad.reza" data-d="mayo.edu" data-keep-content="true">Mayo Email</a>
-    <a href="#" class="cf-email" data-u="R.shahriari1995" data-d="gmail.com" data-keep-content="true">Personal Email</a>
+    <a href="#" class="cf-email" data-u="r.shahriari1995" data-d="gmail.com" data-keep-content="true">Personal Email</a>
   </div>
 </footer>
 
@@ -1295,16 +1324,26 @@ const publications = [
     "tags": [],
     "cat": [
       "pubhealth",
-      "bariatric"
+      "bariatric",
+      "education",
+      "health_systems"
     ],
     "title": "Online patient education resources in bariatric surgery: a systematic evaluation of quality, readability, transparency, and representation",
     "authors": "Alomar A*, Shahriarirad R, Ghanem O, Laplante S",
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-026-12845-y?_gl=1*htwbjp*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIhJKXnsiilAMVED6HAx2gSDYMEAAYASAAEgLxKfD_BwE",
     "keywords": [
-      "education"
+      "Education",
+      "Public health",
+      "Bariatric",
+      "Health systems",
+      "Readability",
+      "Quality"
     ],
-    "highlight_topics": [],
+    "highlight_topics": [
+      "pubhealth",
+      "bariatric"
+    ],
     "featured": ""
   },
   {
@@ -1316,17 +1355,25 @@ const publications = [
       "co-first"
     ],
     "cat": [
-      "plastic"
+      "plastic",
+      "health_systems"
     ],
     "title": "Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999–2025)",
     "authors": "Afsar A, Shahriarirad R, Kumar N, Ravi V, Vijayasekaran A*",
     "journal": "Journal of Robotic Surgery",
     "url": "",
     "keywords": [
-      "Robitic",
-      "MIS"
+      "Robotic",
+      "MIS",
+      "Plastic surgery",
+      "Health systems",
+      "Systematic review",
+      "Robotic surgery"
     ],
-    "highlight_topics": [],
+    "highlight_topics": [
+      "plastic",
+      "health_systems"
+    ],
     "featured": ""
   },
   {
@@ -1339,17 +1386,25 @@ const publications = [
     ],
     "cat": [
       "infectious",
-      "oncology"
+      "oncology",
+      "health_systems"
     ],
     "title": "The Impact of the COVID-19 Pandemic on Patients with Breast Cancer, Diagnostic Delays and Disease Progression: A Retrospective Study",
     "authors": "Rezvani A, Heydarzadeh R, Golchin Vafa R, Shahriarirad R*",
-    "journal": "(Published 2026)",
+    "journal": "The Iranian Journal of Medical Sciences",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12858447/",
     "keywords": [
       "Breast",
-      "COVID"
+      "COVID",
+      "Infectious disease",
+      "Surgical oncology",
+      "Health systems",
+      "Breast reconstruction"
     ],
-    "highlight_topics": [],
+    "highlight_topics": [
+      "infectious",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1365,8 +1420,13 @@ const publications = [
     "authors": "Bahrami Y, Pedramfar P*, Shahriarirad R",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Neurology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -1385,8 +1445,15 @@ const publications = [
     "authors": "Hosseinzadeh A, Dalfardi F, Shahriarirad R, Pezeshkian F*, Keikha F",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.70522",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Urology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "urology"
+    ],
     "featured": ""
   },
   {
@@ -1403,9 +1470,14 @@ const publications = [
     "journal": "Journal of Wound Care",
     "url": "https://www.magonlinelibrary.com/doi/full/10.12968/jowc.2023.0210",
     "keywords": [
-      "Wound"
+      "Wound",
+      "regenerative",
+      "Plastic surgery",
+      "Wound healing"
     ],
-    "highlight_topics": [],
+    "highlight_topics": [
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -1417,14 +1489,25 @@ const publications = [
       "corresponding"
     ],
     "cat": [
-      "ortho"
+      "ortho",
+      "infectious"
     ],
     "title": "Osteomyelitis and Its Main Determinants in Patients With Diabetic Foot Ulcer: A Cross-Sectional Study",
     "authors": "Bolandi S, Niyakan MH, Jamali K, Ghodsi Boushehri Y, Tajaddini A, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71463",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Osteomyelitis",
+      "diabetes",
+      "DM",
+      "Orthopedics",
+      "Infectious disease",
+      "Diabetic foot"
+    ],
+    "highlight_topics": [
+      "ortho",
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -1438,14 +1521,27 @@ const publications = [
     ],
     "cat": [
       "plastic",
-      "oncology"
+      "oncology",
+      "health_systems",
+      "pubhealth",
+      "education"
     ],
     "title": "Systemic Evaluation of Quality, Readability, and Integrity of Online Breast Reconstruction Resources",
     "authors": "Shahriarirad R*, Kumar N, Vijayasekaran A",
     "journal": "Clinical Breast Cancer",
     "url": "https://www.sciencedirect.com/science/article/pii/S1526820925002897",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "education",
+      "Plastic surgery",
+      "Surgical oncology",
+      "Health systems",
+      "Public health",
+      "Breast reconstruction"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1462,8 +1558,16 @@ const publications = [
     "authors": "Meshkati Yazd SM, Keramati MR, Ghanbari Ghalerudkhani M, Shahriarirad R, Parsa A, Keshvari A*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.71351",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Colorectal",
+      "GI surgery",
+      "Surgical oncology",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "gi",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1479,8 +1583,17 @@ const publications = [
     "authors": "Koohi-Hosseinabadi O, Koohpeyma F, Safarpour AR, Nematollahy P, Kazemi M, Shahriarirad R, Tanideh R, Mojahedtaghi M, Ghaemmaghami P, Iraji A, Goudarzi K, Tanideh N*",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-025-97693-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "herbal",
+      "supplementary",
+      "regenerative",
+      "laboratory",
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -1493,14 +1606,23 @@ const publications = [
       "corresponding"
     ],
     "cat": [
-      "endocrine"
+      "endocrine",
+      "oncology"
     ],
     "title": "The Diagnostic Role of FNA Based on Clinicopathological Features in Thyroid Malignancy",
     "authors": "Fallahi MM, Koulaian S, Mardani P, Malekhosseini SA, Shahriarirad R*",
     "journal": "BMC Endocrine Disorders",
     "url": "https://link.springer.com/article/10.1186/s12902-025-01945-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diagnostics",
+      "Endocrine surgery",
+      "Surgical oncology",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1516,8 +1638,14 @@ const publications = [
     "authors": "Kiani F, Meshkati Yazd SM, Zarimeidani F, Rahmati R, Shabani Mofrad N, Vafaei Nia M, Shahriarirad R",
     "journal": "Emergency Medicine International",
     "url": "https://onlinelibrary.wiley.com/doi/10.1155/emmi/1681801",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diagnostics",
+      "Radiology",
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -1529,14 +1657,23 @@ const publications = [
       "co-first"
     ],
     "cat": [
-      "ortho"
+      "ortho",
+      "endocrine"
     ],
     "title": "Comparative Analysis of the Therapeutic Effects of Pregabalin, Gabapentin, and Duloxetine in Diabetic Peripheral Neuropathy: A Retrospective Study",
     "authors": "Ahn J*, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz G, Ashkani-Esfahani S",
     "journal": "Journal of Diabetes and Its Complications",
     "url": "https://www.sciencedirect.com/science/article/pii/S1056872725000546",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diabetes",
+      "DM",
+      "Orthopedics",
+      "Endocrine surgery"
+    ],
+    "highlight_topics": [
+      "ortho",
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -1555,8 +1692,15 @@ const publications = [
     "authors": "Dehghani S, Rezvani A, Shahriarirad R*, Rajabian MS, Ziaian B, Fallahi MJ, Mardani P, Amirian A",
     "journal": "Cancer Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/cnr2.70108",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Lung cancer"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1569,14 +1713,23 @@ const publications = [
     ],
     "cat": [
       "infectious",
-      "pubhealth"
+      "pubhealth",
+      "health_systems"
     ],
     "title": "Seroepidemiological Assessment of Bordetella Pertussis in Jahrom, Southern Iran: A Cross-sectional Study",
     "authors": "Raufi R, Zareian-Jahromi F, Zangeneh S, Rajabi J, Shahriarirad R*",
     "journal": "Health Care Science",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hcs2.70000",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease",
+      "Public health",
+      "Health systems"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -1586,14 +1739,25 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "derm"
+      "derm",
+      "oncology"
     ],
     "title": "Investigating the Efficacy and Safety of Oral Cicaglocal on Wound Healing After Mohs Surgery in Patients With Skin Cancer: A Randomized, Double-Blinded, Placebo-Controlled Clinical Trial",
     "authors": "Asilian A, Mohammadian P*, Mahram H, Shahriarirad R, Bigham M",
     "journal": "Journal of Cosmetic Dermatology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1111/jocd.16784",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "herbal",
+      "supplementary",
+      "Dermatology",
+      "Surgical oncology",
+      "Wound healing"
+    ],
+    "highlight_topics": [
+      "derm",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1611,8 +1775,13 @@ const publications = [
     "authors": "Ghoddusi Johari H, Ranjbar K, Kassaee K, Hoseini MA, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70331",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -1631,9 +1800,16 @@ const publications = [
     "authors": "Koohi-Hosseinabadi O, Shahriarirad R*, Dehghanian A, Amini L, Barzegar S, Daneshparvar A, Alavi O, Khazraei SP, Hosseini S, Arabi Monfared A, Khorram R, Tanideh N*, Ashkani-Esfahani S",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-025-85131-x",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Tissue engineering",
+      "Translational",
+      "laboratory",
+      "Orthopedics"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
+    "featured": "yes"
   },
   {
     "n": 19,
@@ -1642,14 +1818,23 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "ortho"
+      "ortho",
+      "endocrine"
     ],
     "title": "Comparisons of the Therapeutics for Diabetic Neuropathic Pain: Prospective Cohort Study, Seoul, Korea",
     "authors": "Ahn J, Shahriarirad R, Kwon K, Bejarano-Pineda L, Waryasz GR, DiGiovanni CW, Ashkani-Esfahani S",
     "journal": "Foot & Ankle Orthopaedics",
     "url": "https://journals.sagepub.com/doi/abs/10.1177/2473011424S00215",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diabetes",
+      "DM",
+      "Orthopedics",
+      "Endocrine surgery"
+    ],
+    "highlight_topics": [
+      "ortho",
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -1667,23 +1852,36 @@ const publications = [
     "authors": "Mardani P, Dalfardi F, Bahmani S, Rahmati R, Zarimeidani F, Ziaian B, Amirian A, Vafabin M, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/epdf/10.1002/hsr2.70248",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Hernia"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
     "n": 21,
     "year": "2024",
     "month": "",
-    "type": "original",
+    "type": "review",
     "tags": [],
-    "cat": [],
+    "cat": [
+      "derm"
+    ],
     "title": "An Overview of the Role of Chemokine CX3CL1 (Fractalkine) and CX3C Chemokine Receptor 1 in Systemic Sclerosis",
     "authors": "Pezeshkian F, Shahriarirad R, Mahram H*",
     "journal": "Immunity, Inflammation and Disease",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/iid3.70034",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Cell",
+      "Dermatology",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -1696,14 +1894,24 @@ const publications = [
     ],
     "cat": [
       "thoracic",
-      "oncology"
+      "oncology",
+      "pubhealth",
+      "health_systems"
     ],
     "title": "The Aftermath of Asbestos Prohibition in Industry and Its Association with Malignant Mesothelioma in the South of Iran: An Enduring Predicament yet to be Resolved",
     "authors": "Rezvani A, Shahriarirad R*, Jahanshahi S, Fouladi D, Tavallali M, Ziaian B, Fallahi MJ",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70117",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Public health",
+      "Health systems"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1715,14 +1923,24 @@ const publications = [
       "corresponding"
     ],
     "cat": [
-      "infectious"
+      "infectious",
+      "health_systems"
     ],
     "title": "Changes in Incidence and Clinical Features of Tuberculosis with Regard to the COVID-19 Outbreak in Southern Iran",
     "authors": "Fallahi MJ, Nazemi M, Zeighami A, Shahriarirad R*",
     "journal": "BMC Infectious Diseases",
     "url": "https://link.springer.com/article/10.1186/s12879-024-09947-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Epidemiology",
+      "Infectious disease",
+      "Health systems",
+      "COVID-19",
+      "Tuberculosis"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "health_systems"
+    ],
     "featured": ""
   },
   {
@@ -1740,8 +1958,14 @@ const publications = [
     "authors": "Hosseinzadeh A, Tajaddini A, Jafari SH, Mohammadi Z, Dalfardi F, Fatemian H, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.70017",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Radiology",
+      "Vascular",
+      "Thoracic"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -1752,14 +1976,25 @@ const publications = [
     "tags": [],
     "cat": [
       "gi",
-      "oncology"
+      "oncology",
+      "pubhealth"
     ],
     "title": "Analyzing Quality of Life After Low Anterior Resection for Rectal Cancer",
     "authors": "Meshkati Yazd SM, Shahriarirad R, Almasi S, Mirmohammadkhani M, Keramati MR*",
     "journal": "Irish Journal of Medical Science",
     "url": "https://link.springer.com/article/10.1007/s11845-024-03757-8",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "QoL",
+      "GI surgery",
+      "Surgical oncology",
+      "Public health",
+      "Colorectal",
+      "Quality"
+    ],
+    "highlight_topics": [
+      "gi",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -1778,8 +2013,17 @@ const publications = [
     "authors": "Shahriarirad R*, Seifbehzad S, Erfani A, Nekouei F, Ashkani-Esfahani S, Hosseinzadeh M, Tanideh N, Koohi-Hosseinabadi O, Sarkari B",
     "journal": "Journal of Coloproctology",
     "url": "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0044-1787141",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "herbal",
+      "supplementary",
+      "regenerative",
+      "laboratory",
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -1788,19 +2032,29 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
+      "co-first",
       "corresponding"
     ],
     "cat": [
       "infectious",
-      "pubhealth"
+      "pubhealth",
+      "education"
     ],
     "title": "Knowledge, Attitude, and Practice toward the Novel Coronavirus (COVID-19) Outbreak: A Population-Based Survey in Iran",
     "authors": "Erfani A, Shahriarirad R*, Ranjbar K, Mirahmadizadeh A, Moghadami M",
     "journal": "Journal of Health Sciences & Surveillance System",
     "url": "https://journals.sums.ac.ir/article_49437.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "KAP",
+      "Infectious disease",
+      "Public health",
+      "Education",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -1816,9 +2070,16 @@ const publications = [
     "authors": "Meshkati Yazd SM, Shahriarirad R, Nayebi S, Dehghan P, Abbasi A, Maghsoodloo F, Hamedani K, Nasiri S*",
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-024-03390-0",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "MIS",
+      "Endocrine surgery",
+      "Thyroid",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
+    "featured": "yes"
   },
   {
     "n": 29,
@@ -1826,7 +2087,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
+      "last",
       "corresponding"
     ],
     "cat": [
@@ -1835,9 +2096,13 @@ const publications = [
     "title": "Single-Stage Bronchoscopy-Guided Protocol for Tracheostomy Decannulation in Adult Patients",
     "authors": "Mardani P, Naseri R*, Mahram H, Alishavandi F, Amirian A, Ziaian B, Shahriarirad R*",
     "journal": "Journal of Surgical Research",
-    "url": "https://authors.elsevier.com/c/1jIJR578Xh~MO",
-    "keywords": [],
-    "highlight_topics": [],
+    "url": "https://pubmed.ncbi.nlm.nih.gov/38905767/",
+    "keywords": [
+      "Thoracic"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -1856,8 +2121,15 @@ const publications = [
     "authors": "Rahimi M, Forouzani F, Mousavizadeh A, Shahriarirad R, Ardekani A, Foolad S, Nikbakht G*",
     "journal": "Epidemiological Review (Przegląd Epidemiologiczny)",
     "url": "https://www.przeglepidemiol.pzh.gov.pl/Prevalence-and-risk-factors-of-latent-tuberculosis-infection-in-hemodialysis-patients,187271,0,2.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Urology",
+      "Tuberculosis"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "urology"
+    ],
     "featured": ""
   },
   {
@@ -1876,8 +2148,15 @@ const publications = [
     "authors": "Fallahi MJ, Pezeshkian F, Ranjbar K, Javaheri R, Shahriarirad R*",
     "journal": "Health Care Science",
     "url": "http://doi.org/10.1002/hcs2.98",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Pulmonology",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -1893,8 +2172,13 @@ const publications = [
     "authors": "Kazemi K, Jamshidi K, Naseri R, Shahriarirad R, Shamsaeefar A, Hosseinzadeh A*",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-024-61620-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "animal",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -1904,14 +2188,23 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "neuro"
+      "neuro",
+      "plastic"
     ],
     "title": "An Overcorrective Modification of Cranial Vault Reconstruction for Non-Syndromic Metopic Suture Synostosis: Shiraz Technique",
     "authors": "Masoudi MS, Zoghi S, Ansari A, Taherpour S, Shahriarirad R, Taheri R*",
     "journal": "Archives of Pediatric Neurosurgery",
     "url": "https://www.archpedneurosurg.com.br/sbnped2019/article/view/231",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "neurosurgery",
+      "pediatric",
+      "Neurology",
+      "Plastic surgery"
+    ],
+    "highlight_topics": [
+      "neuro",
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -1927,8 +2220,13 @@ const publications = [
     "authors": "Hoghooghi MA, Hooman K, Shahriarirad R, Salimi M, Hosseinpour H*",
     "journal": "The Cleft Palate Craniofacial Journal",
     "url": "https://journals.sagepub.com/eprint/HTIUBXYFD4X7J7NHXWPW/full",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Plastic surgery"
+    ],
+    "highlight_topics": [
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -1946,8 +2244,12 @@ const publications = [
     "authors": "Ghoddusi Johari H, Farrokhi A, Shahriarirad R*, Hosseinzadeh A, Hodjati H",
     "journal": "Annals of Vascular Surgery",
     "url": "https://authors.elsevier.com/a/1idol3AUdjphyC",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -1965,8 +2267,13 @@ const publications = [
     "authors": "Mardani P, Koulaian S, Fouladi D, Malekhosseini HR, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.2012",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -1985,8 +2292,16 @@ const publications = [
     "authors": "Mojarad N, Forouzani F, Mohammadi Z*, Shahriarirad R*",
     "journal": "Journal of General and Family Medicine",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgf2.677",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease",
+      "Public health",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2002,8 +2317,13 @@ const publications = [
     "authors": "Meshkati Yazd SM, Shahriarirad R, Keramati MR, Omidi M, Nabavizadeh SS, Keshvari A*",
     "journal": "Techniques in Coloproctology",
     "url": "https://link.springer.com/article/10.1007/s10151-023-02898-9",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2020,8 +2340,15 @@ const publications = [
     "authors": "Shahriarirad S, Asmarian N, Shahriarirad R, Moghadami M, Askarian M, Malekhosseini SA, Sabetian G*",
     "journal": "Iranian Journal of Medical Sciences",
     "url": "https://ijms.sums.ac.ir/article_49872.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2031,14 +2358,21 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "gi"
+      "gi",
+      "education"
     ],
     "title": "Novel Textbook Outcomes following Emergency Laparotomy: Delphi Exercise",
     "authors": "Naumann D*, Bhangu A, Brooks A, BEACON Collaborative (including Shahriarirad R)",
     "journal": "BJS Open",
     "url": "https://academic.oup.com/bjsopen/article/8/1/zrad145/7589246",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Education"
+    ],
+    "highlight_topics": [
+      "gi",
+      "education"
+    ],
     "featured": ""
   },
   {
@@ -2051,14 +2385,23 @@ const publications = [
     ],
     "cat": [
       "infectious",
-      "pubhealth"
+      "pubhealth",
+      "health_systems"
     ],
     "title": "The Trend of Mortality Rates Following Hospitals Downgrading and Closures due to Outbreak of COVID-19 in Fars Province: A Comparative Cohort Study",
     "authors": "Fallahi MJ, Seifbehzad S, Fereidooni M, Farrokhi AM, Ranjbar K, Shahriarirad R*",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/hsr2.1850",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health",
+      "Health systems",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2078,9 +2421,16 @@ const publications = [
     "authors": "Shahriarirad R, Meshkati Yazd SM, Fathian R, Fallahi M, Ghadiani Z, Nafissi N*",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-024-51244-y",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Surgical oncology",
+      "Machine learning",
+      "Breast reconstruction"
+    ],
+    "highlight_topics": [
+      "oncology",
+      "machine_learning"
+    ],
+    "featured": "yes"
   },
   {
     "n": 43,
@@ -2089,14 +2439,24 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "derm"
+      "derm",
+      "pubhealth",
+      "education"
     ],
     "title": "Practice and Attitude of General Practitioners Towards Initiating Isotretinoin for Acne Vulgaris in Fars Province, Iran",
     "authors": "Hosseinpour P*, Gholamabbas G, Pezeshkian F, Erfani A, Shahriarirad R, Parhizkar AR",
     "journal": "BMC Primary Care",
     "url": "https://bmcprimcare.biomedcentral.com/articles/10.1186/s12875-023-02260-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "KAP",
+      "Dermatology",
+      "Public health",
+      "Education"
+    ],
+    "highlight_topics": [
+      "derm",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2104,16 +2464,25 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
-      "thoracic"
+      "thoracic",
+      "infectious"
     ],
     "title": "Demographic and Clinical Features of Patients Operated with the Diagnosis of Acute Descending Necrotizing Mediastinitis: A Retrospective Study in Southern Iran",
     "authors": "Ranjbar K, Shahriarirad R, Ebrahimi K, Amirian A, Karoobi MR, Mardani P, Erfani A, Fallahi MJ, Ketabchi F, Ziaian B*",
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2132,8 +2501,14 @@ const publications = [
     "authors": "Forouzani F, Sharifi A, Mojarad N, Mohammadi Z, Shahriarirad R*",
     "journal": "Journal of Medical Bacteriology",
     "url": "https://jmb.tums.ac.ir/index.php/jmb/article/view/500",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Urology"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "urology"
+    ],
     "featured": ""
   },
   {
@@ -2142,18 +2517,26 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
-      "plastic"
+      "plastic",
+      "health_systems"
     ],
     "title": "Cohort Analysis of 50% Lethal Area (LA50) and Associating Factors in Burn Patients based on Quality Improvements and Health Policies",
     "authors": "Shahriarirad R, Shekouhi R, Nabavizadeh SS, Zardosht M, Tadayon SMK, Ahmadi M, Keshavarzi A*",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-023-45884-9",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Health systems",
+      "Burns",
+      "Quality"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "health_systems"
+    ],
     "featured": ""
   },
   {
@@ -2172,8 +2555,17 @@ const publications = [
     "authors": "Shahriarirad R*, Erfani A, Nekouei F, Seifbehzad S, Hosseinzadeh M, Sarkari B, Tanideh N, Koohi-Hosseinabadi O, Nassour N, Ashkani-Esfahani S",
     "journal": "Annals of Gastroenterology",
     "url": "https://doi.org/10.20524/aog.2023.0836",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "herbal",
+      "supplementary",
+      "regenerative",
+      "laboratory",
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2189,8 +2581,13 @@ const publications = [
     "authors": "Hoghoughi MA, Jouybar R, Alvandi A, Shahriarirad R, Hosseinpour H, Ranjbar K, Kamran H*",
     "journal": "European Journal of Plastic Surgery",
     "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -2199,8 +2596,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -2209,8 +2605,12 @@ const publications = [
     "authors": "Shahriarirad R, Shekouhi R, Erfani A, Rastegarian M, Eskandarisani M, Motamedi M, Sarkari B*",
     "journal": "BMC Infectious Diseases",
     "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-023-08520-5",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2226,8 +2626,13 @@ const publications = [
     "authors": "Forouzani F, Khasti T, Manzouri L, Ravangard S, Shahriarirad R, Jahed S, Gordafarin N*",
     "journal": "BMC Microbiology",
     "url": "https://bmcmicrobiol.biomedcentral.com/articles/10.1186/s12866-023-02952-4",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Education"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2236,8 +2641,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "thoracic",
@@ -2247,8 +2651,16 @@ const publications = [
     "authors": "Shahriarirad R, Erfani A, Ebrahimi K, Rastegarian M, Eskandarisani M, Ziaian B, Sarkari B*",
     "journal": "BMC Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Lung cancer",
+      "Hydatid"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -2257,8 +2669,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "thoracic",
@@ -2268,8 +2679,14 @@ const publications = [
     "authors": "Shahriarirad R, Karoobi MR, Shekouhi R, Ebrahimi K, Ranjbar K, Amirian A, Mardani P, Fallahi MJ, Ziaian B*",
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -2285,8 +2702,13 @@ const publications = [
     "authors": "Erfani A, Shahriarirad R, Eskandarisani M, Rastegarian M, Sarkari B*",
     "journal": "Journal of Tropical Medicine",
     "url": "https://www.hindawi.com/journals/jtm/2023/9998739/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Hydatid"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2304,8 +2726,13 @@ const publications = [
     "authors": "Nasiri S, Meshkati Yazd SM, Heshmati A, Mokhtari Ardekani A, Najafi M, Shahriarirad R*",
     "journal": "BMC Endocrine Disorders",
     "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2321,8 +2748,13 @@ const publications = [
     "authors": "Sadat Sadati M, Yazdanpanah N, Shahriarirad R, Javaheri R, Parvizi MM*",
     "journal": "Journal of Cosmetic Dermatology",
     "url": "http://doi.org/10.1111/jocd.15785",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Dermatology",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -2330,7 +2762,9 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "gi"
     ],
@@ -2338,8 +2772,17 @@ const publications = [
     "authors": "Koohi O, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Ebrahimi A*, Tanideh N, Ashkani-Esfahani S",
     "journal": "Annals of Gastroenterology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10152808/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "supplementary",
+      "regenerative",
+      "laboratory",
+      "GI surgery",
+      "Animal model"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2348,18 +2791,22 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
-      "thoracic",
       "pulm"
     ],
     "title": "Serum Levels of Erythropoietin in Patients with Chronic Obstructive Pulmonary Disease and Anemia",
     "authors": "Rezvani A, Masoompour SM, Azarpira N, Monjazeb R, Akbarzadeh M, Salimi M, Shahriarirad R*",
     "journal": "Scientific Reports",
     "url": "https://www.nature.com/articles/s41598-023-34290-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Pulmonology"
+    ],
+    "highlight_topics": [
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -2375,8 +2822,14 @@ const publications = [
     "authors": "Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR*, Mehri G, Shabani Mofrad N",
     "journal": "Surgical Endoscopy",
     "url": "https://link.springer.com/article/10.1007/s00464-023-10040-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Hernia",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2385,13 +2838,20 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [],
-    "cat": [],
+    "cat": [
+      "gi"
+    ],
     "title": "Translation, Cross-cultural Adaptation, and Psychometric Evaluation of the Persian (Farsi) Version of the QoLAF Questionnaire",
     "authors": "Keramati MR*, Meshkati Yazd SM, Omidi M, Keshvari A, Shahriarirad S, Shahriarirad R, Nabavizadeh SS",
     "journal": "PLOS One",
     "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "QoL",
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2400,7 +2860,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "endocrine"
@@ -2409,8 +2870,13 @@ const publications = [
     "authors": "Nasiri N, Meshkati Yazd SM, Gholami M, Shahriarirad S, Sharghi S, Shahriarirad R*",
     "journal": "BMC Endocrine Disorder",
     "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01322-5",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2427,8 +2893,14 @@ const publications = [
     "authors": "Malekhosseini SA, Alizadeh B, Hosseinzadeh A, Shahriarirad R, Kazemi K, Naseri R*",
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-01981-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "gi",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -2437,7 +2909,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -2446,8 +2919,12 @@ const publications = [
     "authors": "Ghoddusi Johari H, Afshari A, Abolhasani Foroughi A, Khademi B, Shahriarirad S, Erfani A, Hodjati H, Shahriarirad R*",
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509623001474",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -2456,8 +2933,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "plastic",
@@ -2467,8 +2943,16 @@ const publications = [
     "authors": "Shahriarirad R, Ranjbar K, Erfani A, Modarresi M, Koranishiraz A, Kamali M, Zardosht M, Mohammadi AA*",
     "journal": "The Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irad023/7049317",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Plastic surgery",
+      "Public health",
+      "Burns"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2482,11 +2966,17 @@ const publications = [
       "urology"
     ],
     "title": "Evaluation of the Effectiveness of Prophylactic Omentopexy during Laparoscopic Insertion of Peritoneal Dialysis Catheter: A Case-Control Clinical Trial",
-    "authors": "Keshvari A, Meshkati Yazd SM, Keramati MR, Kamran H, Shahriarirad R",
+    "authors": "Keshvari A, Meshkati Yazd SM, Keramati MR, Kamran H, Shahriarirad R, Mivefroshan A, Kiani F*",
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-023-03522-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Urology"
+    ],
+    "highlight_topics": [
+      "gi",
+      "urology"
+    ],
     "featured": ""
   },
   {
@@ -2494,7 +2984,9 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "ortho"
     ],
@@ -2502,8 +2994,16 @@ const publications = [
     "authors": "Pourmokhtari M, Shahriarirad R, Shekouhi R*",
     "journal": "Sports Sciences for Health",
     "url": "https://link.springer.com/article/10.1007/s11332-023-01049-9",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Nerve",
+      "rehabilitation",
+      "sport",
+      "Orthopedics",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -2516,14 +3016,23 @@ const publications = [
     ],
     "cat": [
       "infectious",
-      "transplant"
+      "transplant",
+      "health_systems"
     ],
     "title": "COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran",
     "authors": "Shafiekhani M, Niknam T, Tara SA, Mardani P, Hosseinpour P, Shahriarirad R*, MalekHosseini SA",
     "journal": "Cost Effectiveness and Resource Allocation",
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-023-00427-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Transplant",
+      "Health systems",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -2540,8 +3049,14 @@ const publications = [
     "authors": "Ahmadi Mahmoodabadi R, Golafshan HA, Pezeshkian F, Shahriarirad R, Namazi M*",
     "journal": "Dermatology Practical & Conceptual",
     "url": "https://dpcj.org/index.php/dpc/article/view/2535",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Dermatology"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -2550,7 +3065,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "gi"
@@ -2559,8 +3075,12 @@ const publications = [
     "authors": "Gholamnezhad F, Qeisari A, Shahriarirad R*",
     "journal": "Journal of Gastroenterology and Hepatology Open",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jgh3.12867",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2570,14 +3090,22 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "oncology"
+      "oncology",
+      "plastic"
     ],
     "title": "Postoperative Cosmetic Outcome of Intraoperative Radiotherapy in Comparison to Whole Breast Radiotherapy in Early Stage Breast Cancer: A Retrospective Cohort Study",
     "authors": "Nafisi N, Meshkati Yazd SM, Shahriarirad R, Zangeneh S, Ghorbani S, Farazmand B, Karoobi MR*, Mirzaei HR",
     "journal": "BMC Cancer",
     "url": "https://bmccancer.biomedcentral.com/articles/10.1186/s12885-022-10468-9",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Surgical oncology",
+      "Plastic surgery",
+      "Breast reconstruction"
+    ],
+    "highlight_topics": [
+      "oncology",
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -2593,8 +3121,14 @@ const publications = [
     "authors": "Keramati MR, Meshkati Yazd SM, Shahriarirad R, Omidi M, Nabavizadeh SS, Keshvari A*",
     "journal": "Journal of Surgical Oncology",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/jso.27185",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Colorectal",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2606,14 +3140,25 @@ const publications = [
       "corresponding"
     ],
     "cat": [
-      "plastic"
+      "plastic",
+      "endocrine"
     ],
     "title": "Hypertonic Saline Solution 5% as an Effective Cost-beneficial Alternative to Normal Saline for Wound Healing in Patients with Diabetic Lower-Extremity Ulcers: A Randomized Controlled Trial",
     "authors": "Ziaian B, Khezri S, Amirian A, Ranjbar K, Shahriarirad R*, Eskandari Kohnakia M",
     "journal": "Journal of Diabetes & Metabolic Disorders",
     "url": "https://link.springer.com/article/10.1007/s40200-022-01167-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diabetes",
+      "DM",
+      "Plastic surgery",
+      "Endocrine surgery",
+      "Wound healing",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2622,8 +3167,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "endocrine"
@@ -2632,8 +3176,13 @@ const publications = [
     "authors": "Shahriarirad R, Meshkati Yazd SM, Zahedi R, Mokhtari Ardekani A, Rekabi MM, Nasiri S*",
     "journal": "Updates in Surgery",
     "url": "https://link.springer.com/article/10.1007/s13304-022-01440-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2642,8 +3191,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "endocrine"
@@ -2652,8 +3200,16 @@ const publications = [
     "authors": "Shahriarirad R, Meshkati Yazd SM, Ardekani A, Mokhtari Ardekani A, Moradi N, Nasiri S*",
     "journal": "Journal of Endocrinological Investigation",
     "url": "https://link.springer.com/article/10.1007/s40618-022-01963-8",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "nutrition",
+      "supplement",
+      "Endocrine surgery",
+      "Thyroid",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2670,8 +3226,15 @@ const publications = [
     "authors": "Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",
     "journal": "PLOS One",
     "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2680,7 +3243,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "endocrine"
@@ -2689,8 +3253,13 @@ const publications = [
     "authors": "Nasiri S, Meshkati Yazd SM, Mokhtari Ardekani A, Fazlollahpour-Naghibi A, Shahintaj M, Shahriarirad R*",
     "journal": "Updates in Surgery",
     "url": "https://link.springer.com/article/10.1007/s13304-022-01428-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -2698,7 +3267,9 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "thoracic"
     ],
@@ -2706,8 +3277,14 @@ const publications = [
     "authors": "Mardani P, Shahriarirad R, Khosravi F, Malekhosseini HR, Amirian A, Kamran H*",
     "journal": "General Thoracic and Cardiovascular Surgery",
     "url": "https://link.springer.com/article/10.1007/s11748-022-01880-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Radiology",
+      "Thoracic",
+      "Vascular"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -2723,8 +3300,16 @@ const publications = [
     "authors": "Salimi M, Hosseinpour H, Shahriarirad R, Esfandiari S, Pooresmaeel F, Sarejloo S, Foroutan H*",
     "journal": "World Journal of Clinical Pediatrics",
     "url": "https://www.wjgnet.com/2219-2808/full/v11/i5/419.htm",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "patent",
+      "technique",
+      "technical",
+      "pediatric",
+      "Thoracic"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -2742,8 +3327,15 @@ const publications = [
     "authors": "Parvizi MM*, Sedigheh Forouhari S, Shahriarirad R*, Shahriarirad S, Bradley R, Roosta L, Heydari M",
     "journal": "BMC Complementary Medicine and Therapies",
     "url": "https://bmccomplementmedtherapies.biomedcentral.com/articles/10.1186/s12906-022-03722-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "alternative",
+      "Infectious disease",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2761,8 +3353,13 @@ const publications = [
     "authors": "Ghoddusi Johari H, Saki M, Erfani A, Shahriarirad R*, Ranjbar K",
     "journal": "Cost Effectiveness and Resource Allocation",
     "url": "https://resource-allocation.biomedcentral.com/articles/10.1186/s12962-022-00382-z",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Radiology",
+      "Thoracic"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -2771,17 +3368,26 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
-      "endocrine"
+      "endocrine",
+      "oncology"
     ],
     "title": "The Incidence and Features of Delphian Lymph Node Involvement in Patients with Papillary Thyroid Carcinoma",
     "authors": "Alibakhshi A, Sheikhi S, Meshkati Yazd SM, Ardekani A, Ranjbar K, Shahriarirad R*",
     "journal": "BMC Surgery",
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-022-01742-5",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Surgical oncology",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -2789,13 +3395,17 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [],
     "title": "Determination of the Main Causes, Outcome and Prognostic Factors of Patients with Rheumatologic Diseases Admitted to the Medical Intensive Care Unit in Southern Iran",
     "authors": "Arjmand M, Shahriarirad R, Shenavandeh S, Fallahi MJ*",
     "journal": "Clinical Rheumatology",
     "url": "https://link.springer.com/article/10.1007/s10067-022-06334-5",
-    "keywords": [],
+    "keywords": [
+      "rheumatology"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -2812,8 +3422,14 @@ const publications = [
     "authors": "Kiany F, Meshkati Yazd SM, Shahriarirad R, Kamran H, Karoobi MR, Mehri G",
     "journal": "Langenbeck's Archives of Surgery",
     "url": "https://link.springer.com/article/10.1007/s00423-022-02645-y",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "MIS",
+      "GI surgery",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -2822,7 +3438,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "plastic"
@@ -2831,8 +3448,17 @@ const publications = [
     "authors": "Keshavarzi A, Montaseri H, Akrami R, Hoghoughi MA, Ranjbar K, Shahriarirad R*",
     "journal": "International Journal of Clinical Practice",
     "url": "https://www.hindawi.com/journals/ijclp/2022/4923277/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "herbal",
+      "supplementary",
+      "Plastic surgery",
+      "Burns",
+      "Wound healing"
+    ],
+    "highlight_topics": [
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -2850,8 +3476,15 @@ const publications = [
     "authors": "Hashemi SA, Azad A, Erfani A, Shahriarirad R*, Azarpira N",
     "journal": "Journal of Experimental Orthopaedics",
     "url": "https://jeo-esska.springeropen.com/articles/10.1186/s40634-022-00516-5",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "animal",
+      "knee",
+      "Orthopedics",
+      "Animal model"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -2860,7 +3493,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "endocrine"
@@ -2869,16 +3503,24 @@ const publications = [
     "authors": "Nasiri S, Meshkati Yazd SM, Kamran H, Kahrizi MS, Azhdari M, Shahriarirad R*",
     "journal": "Journal of Endocrinological Investigation",
     "url": "https://link.springer.com/article/10.1007/s40618-022-01864-w",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
+    "featured": "yes"
   },
   {
     "n": 86,
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "vascular"
     ],
@@ -2886,8 +3528,12 @@ const publications = [
     "authors": "Ghoddusi Johari H, Moein SA*, Hosseinzadeh A, Kojuri J, Roshanshad A, Shahriarirad R",
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://beat.sums.ac.ir/article_48535.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -2904,8 +3550,16 @@ const publications = [
     "authors": "Mirahmadizadeh A, Heiran A, Sahebi R, Azadian F, Shahriarirad R, Sharifi MH",
     "journal": "Health Management & Information Science",
     "url": "https://jhmi.sums.ac.ir/article_48840.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -2921,8 +3575,13 @@ const publications = [
     "authors": "Dehghanpisheh L, Eghbal MH, Salari M, Shahriarirad R, Borzou N, Vatankhah P*",
     "journal": "International Journal of Clinical Practice",
     "url": "https://www.hindawi.com/journals/ijclp/2022/1248325/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -2940,8 +3599,16 @@ const publications = [
     "authors": "Sabetian G, Azimi A*, Kazemi A*, Hoseini B, Asmarian N, Khaloo V, Zand F, Masjedi M, Shahriarirad R, Shahriarirad S",
     "journal": "Indian Journal of Critical Care Medicine",
     "url": "https://www.ijccm.org/abstractArticleContentBrowse/IJCCM/64/26/6/28130/abstractArticle/Article",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Machine learning",
+      "Pulmonology",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "machine_learning"
+    ],
     "featured": ""
   },
   {
@@ -2949,17 +3616,26 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "infectious",
       "transplant"
     ],
     "title": "Incidence, Clinicomicrobiological Characteristics, Risk Factors, and Treatment Outcomes of Bacterial Infections Following Liver Transplantation in Pediatrics: A Retrospective Cohort Study",
-    "authors": "Vazin A, Shahriarirad R, Malekhosseini SA, Shafiekhani M, Nikoupour H, Arasteh P",
+    "authors": "Vazin A, Shahriarirad R, Azadeh N, Parandavar N, Kazemi K, Shafiekhani M*",
     "journal": "Archives of Pediatric Infectious Diseases",
     "url": "https://brieflands.com/articles/apid-118809.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Infectious disease",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -2975,8 +3651,13 @@ const publications = [
     "authors": "Salimi A, Mirghaderi SP, Gholamzadeh MJ, Qahremani R, Hadizadeh A, Shahriarirad R, Shekouhi R",
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2022/4665342/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Radiology",
+      "Orthopedics"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -2986,14 +3667,23 @@ const publications = [
     "type": "review",
     "tags": [],
     "cat": [
-      "gi"
+      "gi",
+      "neuro"
     ],
     "title": "Effects of Neuromodulation on Treatment of Recurrent Anal Fissure: A Systematic Review",
     "authors": "Bananzadeh A, Sohooli M, Tahereh Shamsi T, Darabi MH, Shahriarirad R, Shekouhi R*",
     "journal": "International Journal of Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1743919122004381",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "nerve",
+      "GI surgery",
+      "Neurology",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "gi",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3001,7 +3691,9 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "review",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "thoracic"
     ],
@@ -3009,8 +3701,13 @@ const publications = [
     "authors": "Ziaian B, Shahriarirad R, Fouladi D*, Mardani P, Amirian A, Kamran H",
     "journal": "The Surgeon",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -3029,8 +3726,14 @@ const publications = [
     "authors": "Kazemi K, Hosseinzadeh A, Shahriarirad R*, Naseri R, Shamsaeefar A, Malekhosseini SA",
     "journal": "Journal of Surgical Research",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0022480422001287",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "gi",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -3038,7 +3741,9 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "ortho",
       "neuro"
@@ -3047,8 +3752,15 @@ const publications = [
     "authors": "Khoshnazar SS, Farpour HR*, Shahriarirad R",
     "journal": "British Journal of Neurosurgery",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/02688697.2022.2033698",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Orthopedics",
+      "Neurology",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "ortho",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3064,8 +3776,13 @@ const publications = [
     "authors": "Hoghoughi MA, Marzban MR, Shahrbaf MA, Shahriarirad R, Karoobi M, Ranjbar K",
     "journal": "Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irac005/6507346",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Burns"
+    ],
+    "highlight_topics": [
+      "plastic"
+    ],
     "featured": ""
   },
   {
@@ -3076,14 +3793,23 @@ const publications = [
     "tags": [],
     "cat": [
       "infectious",
-      "machine_learning"
+      "machine_learning",
+      "computer_vision"
     ],
     "title": "A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images",
     "authors": "Zare M, Akbarialiabad H, Parsaei H, Asgari Q, Alinejad A, Shahriarirad R, Abdollahifard G*",
     "journal": "BMC Infectious Diseases",
     "url": "https://bmcinfectdis.biomedcentral.com/articles/10.1186/s12879-022-07029-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "patent",
+      "Infectious disease",
+      "Machine learning",
+      "Computer vision"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "machine_learning"
+    ],
     "featured": ""
   },
   {
@@ -3091,18 +3817,26 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "infectious",
-      "neuro",
       "pubhealth"
     ],
     "title": "Prevalence of Anxiety, Depression, Stress, and Perceived Stress and Their Relation with Resilience in the General Population during the COVID-19 Pandemic: A Cross-sectional Study",
     "authors": "Parvar SY, Ghamari N*, Pezeshkian F, Shahriarirad R",
     "journal": "Health Science Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/hsr2.460",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3118,8 +3852,13 @@ const publications = [
     "authors": "Rezaei Z, Zeighami A, Shahriarirad R, Arefkhah N, Sarkari B",
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/4499086/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3127,7 +3866,9 @@ const publications = [
     "year": "2021",
     "month": "",
     "type": "review",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "ortho"
     ],
@@ -3135,9 +3876,15 @@ const publications = [
     "authors": "Bhimani R, Shahriarirad R, Ranjbar K, Erfani A*, Ashkani-Esfahani S",
     "journal": "Journal of Orthopaedic Surgery and Research",
     "url": "https://link.springer.com/article/10.1186/s13018-021-02872-x",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "MIS",
+      "Orthopedics",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
+    "featured": "yes"
   },
   {
     "n": 101,
@@ -3152,8 +3899,15 @@ const publications = [
     "authors": "Moghimi N, Faridfar A, Jelodari Mamaghani H, Nikandish M, Shahriarirad R, Shenavandeh S",
     "journal": "Journal of Bioengineering Research",
     "url": "http://www.journalbe.com/article_140812.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "supplementary",
+      "nutrition",
+      "Orthopedics"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -3169,8 +3923,13 @@ const publications = [
     "authors": "Sheikhesmaeili F, Salimi M, Salimi A, Nikandish M, Shahriarirad R, Falahati A",
     "journal": "Journal of Bioengineering Research",
     "url": "http://www.journalbe.com/article_140814.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Endocrine surgery",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "endocrine"
+    ],
     "featured": ""
   },
   {
@@ -3189,8 +3948,16 @@ const publications = [
     "authors": "Mohammadi AA, Hoghoughi MA, Karoobi M, Ranjbar K, Shahriarirad R*, Erfani A, Modarresi MS, Zardosht M",
     "journal": "Journal of Burn Care & Research",
     "url": "https://academic.oup.com/jbcr/advance-article-abstract/doi/10.1093/jbcr/irab227/6431985",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "burn",
+      "Plastic surgery",
+      "Public health",
+      "Burns"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3209,8 +3976,15 @@ const publications = [
     "authors": "Shafiekhani M, Shahabinezhad F, Niknam T, Tara SA, Hosseinpour P, Shahriarirad R*, Malekhosseini SA",
     "journal": "BMC Clinical Virology",
     "url": "https://virologyj.biomedcentral.com/articles/10.1186/s12985-021-01700-2",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Transplant",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -3220,14 +3994,23 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "derm"
+      "derm",
+      "epidemiology"
     ],
     "title": "Epidemiological Factors in Patients with Dermatologic Conditions Referring to the Clinic of Traditional Persian Medicine: A Cross-sectional Study",
     "authors": "Parvizi MM*, Fatehi N, Jaladat AM, Gholampour Z, Shahriarirad R, Erfani A",
     "journal": "International Journal of Clinical Practice",
     "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ijcp.14788",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "alternative",
+      "Dermatology",
+      "Epidemiology"
+    ],
+    "highlight_topics": [
+      "derm",
+      "epidemiology"
+    ],
     "featured": ""
   },
   {
@@ -3243,8 +4026,13 @@ const publications = [
     "authors": "Modabberi F, Ghadimi SN, Shahriarirad R, Nadimi E, Karbalay-Doust S, Rashidi S, Sarkari B*",
     "journal": "Experimental Parasitology",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0014489421000746",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3258,7 +4046,12 @@ const publications = [
     "authors": "Ebrahimi A, Ahmadi H, Borhaninia M, Tanideh N*, Shahriarirad R, Erfani A, Ranjbar K, Ashkani-Esfahani S",
     "journal": "Bosnian Journal of Basic Medical Sciences",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8554700/",
-    "keywords": [],
+    "keywords": [
+      "stem",
+      "cell",
+      "Systematic review",
+      "Regenerative medicine"
+    ],
     "highlight_topics": [],
     "featured": ""
   },
@@ -3276,8 +4069,15 @@ const publications = [
     "authors": "Nikoupour H, Arasteh P, Shamsaeefar A, Malekhosseini SA, Shafiekhani M*, Shahriarirad R, Kazemi K",
     "journal": "Journal of Parenteral and Enteral Nutrition",
     "url": "https://aspenjournals.onlinelibrary.wiley.com/doi/abs/10.1002/jpen.2231",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "nutrition",
+      "GI surgery",
+      "Transplant"
+    ],
+    "highlight_topics": [
+      "gi",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -3287,14 +4087,21 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "gi"
+      "gi",
+      "bariatric"
     ],
     "title": "Prevalence of Helicobacter Pylori Infection Before and One Year After Classic Gastric Bypass Surgery",
     "authors": "Valiee S, Hosseini B, Amini M, Haghighat N, Hosseinpour H, Moeinvaziri N*, Shahriarirad R, Tanideh N",
     "journal": "Annals of Bariatric Surgery",
     "url": "https://www.researchgate.net/publication/354862675",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Bariatric"
+    ],
+    "highlight_topics": [
+      "gi",
+      "bariatric"
+    ],
     "featured": ""
   },
   {
@@ -3303,7 +4110,8 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular",
@@ -3314,9 +4122,16 @@ const publications = [
     "authors": "Hodjati H, Moosavi SM, Hosseinzadeh A, Anbardar MH, Sherafatmand S, Kazemnia K, Hosseinpour H, Shahriarirad R*",
     "journal": "International Urology and Nephrology",
     "url": "https://link.springer.com/article/10.1007/s11255-021-02897-5",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Vascular",
+      "Transplant",
+      "Urology"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "transplant"
+    ],
+    "featured": "yes"
   },
   {
     "n": 111,
@@ -3331,8 +4146,13 @@ const publications = [
     "authors": "Kasraian L, Imanieh MH*, Tabrizi R, Shahriarirad R, Erfani A, Hosseini S",
     "journal": "Middle East Journal of Digestive Diseases",
     "url": "https://mejdd.org/index.php/mejdd/article/viewFile/2243/2208",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Systematic review"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3340,16 +4160,26 @@ const publications = [
     "year": "2021",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
-      "infectious"
+      "infectious",
+      "pubhealth"
     ],
     "title": "Cystic Echinococcosis: Knowledge, Attitude, and Practices (KAP) among Surgically Operated Cases in Fars Province, Southern Iran",
     "authors": "Hosseini Z, Shahriarirad R, Sarkari B*",
     "journal": "Journal of Parasitology Research",
     "url": "https://www.hindawi.com/journals/jpr/2021/9976548/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "KAP",
+      "Infectious disease",
+      "Public health"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3368,8 +4198,16 @@ const publications = [
     "authors": "Mardani P, Moayedi Rad M, Paydar S, Amirian A, Shahriarirad R*, Erfani A, Ranjbar K",
     "journal": "Emergency Medicine International",
     "url": "https://www.hindawi.com/journals/emi/2021/3789132/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Trauma",
+      "Thoracic",
+      "Pulmonology",
+      "Lung cancer"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -3386,8 +4224,16 @@ const publications = [
     "authors": "Ranjbar K, Moghadami M*, Mirahmadizadeh A, Fallahi MJ, Khaloo V, Shahriarirad R, Hosseinpour H, Honarvar B",
     "journal": "BMC Infectious Diseases",
     "url": "https://link.springer.com/article/10.1186/s12879-021-06045-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Pulmonology",
+      "COVID-19",
+      "Randomized trial"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -3406,8 +4252,16 @@ const publications = [
     "authors": "Sabetian G, Moghadami M, Haghighi LHF, Shahriarirad R*, Fallahi MJ, Asmarian N, Malekhosseini SA",
     "journal": "Virology Journal",
     "url": "https://link.springer.com/article/10.1186/s12985-021-01532-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "healthcare",
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3425,8 +4279,17 @@ const publications = [
     "authors": "Ranjbar K, Hosseinpour H, Shahriarirad R, Ghaem H, Jafari K, Rahimi T, Mirahmadizadeh A*",
     "journal": "Environmental Health and Preventive Medicine",
     "url": "https://link.springer.com/article/10.1186/s12199-021-00950-4",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Infectious disease",
+      "Neurology",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3442,8 +4305,14 @@ const publications = [
     "authors": "Rezazadeh F, Farahmand F, Hosseinpour H, Shahriarirad R, Sabet Eghlidi A*",
     "journal": "BioMed Research International",
     "url": "https://www.hindawi.com/journals/bmri/2021/5555316/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "mental health",
+      "Neurology",
+      "Burns"
+    ],
+    "highlight_topics": [
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3452,8 +4321,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious",
@@ -3463,9 +4331,17 @@ const publications = [
     "authors": "Shahriarirad R, Erfani A*, Ranjbar K, Bazrafshan A, Mirahmadizadeh A",
     "journal": "International Journal of Mental Health Systems",
     "url": "https://ijmhs.biomedcentral.com/articles/10.1186/s13033-021-00445-3",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "mental health",
+      "Infectious disease",
+      "Neurology",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "neuro"
+    ],
+    "featured": "yes"
   },
   {
     "n": 119,
@@ -3474,14 +4350,21 @@ const publications = [
     "type": "original",
     "tags": [],
     "cat": [
-      "vascular"
+      "vascular",
+      "education"
     ],
     "title": "An Investigation of the Knowledge of General Surgeons in Fars Province in Terms of the Complications of Central Venous Stenosis and Thrombosis Following Insertion of a Double-Lumen Subclavian Catheter",
     "authors": "Ghoddusi Johari H, Fatehpoor S, Mardani P, Shahriarirad R, Ranjbar K*",
     "journal": "Sadra Medical Journal",
     "url": "https://smsj.sums.ac.ir/index.php/SMSJ/journal/article_47513.html",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Education"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "education"
+    ],
     "featured": ""
   },
   {
@@ -3492,15 +4375,23 @@ const publications = [
     "tags": [],
     "cat": [
       "infectious",
-      "neuro",
       "pubhealth"
     ],
     "title": "Evaluation of Students' Attitude and Emotions towards the Sudden Closure of Schools during the COVID-19 Pandemic: A Cross-sectional Study",
     "authors": "Mirahmadizadeh A, Ranjbar K, Shahriarirad R, Erfani A, Ghaem H, Jafari K, Ranjbar K*",
     "journal": "BMC Psychology",
     "url": "https://link.springer.com/article/10.1186/s40359-020-00500-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "mental health",
+      "pediatric",
+      "Infectious disease",
+      "Public health",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3516,8 +4407,13 @@ const publications = [
     "authors": "Rastegarian M, Zeighami A, Shahriarirad R, Erfani A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",
     "journal": "Le Infezioni in Medicina",
     "url": "https://www.infezmed.it/media/journal/Vol_28_4_2020_15.pdf",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3525,9 +4421,7 @@ const publications = [
     "year": "2020",
     "month": "",
     "type": "original",
-    "tags": [
-      "corresponding"
-    ],
+    "tags": [],
     "cat": [
       "plastic",
       "pubhealth"
@@ -3536,9 +4430,16 @@ const publications = [
     "authors": "Mohammadi AA, Karoobi M, Erfani A, Shahriarirad R, Ranjbar K*, Zardosht M, Modarresi MS",
     "journal": "BMC Public Health",
     "url": "https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-020-09778-z",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "mental health",
+      "Plastic surgery",
+      "Public health"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "pubhealth"
+    ],
+    "featured": "yes"
   },
   {
     "n": 123,
@@ -3546,8 +4447,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -3556,8 +4456,12 @@ const publications = [
     "authors": "Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Sarkari B*",
     "journal": "Surgery Research and Practice",
     "url": "https://www.hindawi.com/journals/srp/2020/2061045/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3575,9 +4479,13 @@ const publications = [
     "authors": "Shahriarirad R, Erfani A, Rastegarian M, Zeighami A, Arefkhah N, Ghorbani F, Sarkari B, Sarvari J*",
     "journal": "BMC Virology",
     "url": "https://link.springer.com/article/10.1186/s12985-020-01384-0",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
+    "featured": "yes"
   },
   {
     "n": 125,
@@ -3585,8 +4493,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -3595,8 +4502,12 @@ const publications = [
     "authors": "Shahriarirad R, Erfani A, Eskandarisani M, Rastegarian M, Taghizadeh H, Sarkari B*",
     "journal": "Tropical Medicine and Health",
     "url": "https://link.springer.com/article/10.1186/s41182-020-00238-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3605,18 +4516,25 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
-      "infectious",
-      "pubhealth"
+      "infectious"
     ],
     "title": "Frequency and Antimicrobial Susceptibility Patterns of Diabetic Foot Infection of Patients from Bandar Abbas District, Southern Iran",
     "authors": "Ahmadishooli A, Davoodian P, Shoja S, Ahmadishooli B, Dadvand H, Hamadiyan H, Shahriarirad R*",
     "journal": "Journal of Pathogens",
     "url": "https://www.hindawi.com/journals/jpath/2020/1057167/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Diabetes",
+      "DM",
+      "Infectious disease",
+      "Diabetic foot"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3624,7 +4542,9 @@ const publications = [
     "year": "2020",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "infectious"
     ],
@@ -3632,8 +4552,13 @@ const publications = [
     "authors": "Shahabinejad P, Shahriarirad R, Omidian M, Ghorbani F, Barazesh A, Sarkari B*",
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2020.1781653",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3642,8 +4567,7 @@ const publications = [
     "month": "",
     "type": "original",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -3652,8 +4576,13 @@ const publications = [
     "authors": "Shahriarirad R, Khodamoradi Z, Erfani A, Hosseinpour H, Ranjbar K, Emami Y, Mirahmadizadeh A, Honarvar B",
     "journal": "BMC Infectious Diseases",
     "url": "https://link.springer.com/article/10.1186/s12879-020-05128-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3664,14 +4593,22 @@ const publications = [
     "tags": [],
     "cat": [
       "plastic",
-      "pubhealth"
+      "neuro"
     ],
     "title": "Evaluation of Epilepsy and Burn Patterns in a Tertiary Hospital in Southwestern Iran",
     "authors": "Mohammadi AA, Keshavarzi A, Erfani A, Modarresi MS, Shahriarirad R, Ranjbar K*",
     "journal": "Epilepsy and Behavior",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1525505020303929",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "burn",
+      "Plastic surgery",
+      "Neurology",
+      "Burns"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3689,8 +4626,13 @@ const publications = [
     "authors": "Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",
     "journal": "Advances in Orthopedics",
     "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Radiology",
+      "Orthopedics"
+    ],
+    "highlight_topics": [
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -3707,8 +4649,15 @@ const publications = [
     "authors": "Erfani A, Pouryousef A, Arefkhah N, Shahriarirad R, Rastegarian M, Zeighami A, Sarkari B*",
     "journal": "Clinical Epidemiology and Global Health",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2213398420300038",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease",
+      "Public health"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3716,7 +4665,9 @@ const publications = [
     "year": "2020",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "vascular",
       "transplant"
@@ -3725,9 +4676,18 @@ const publications = [
     "authors": "Hodjati H, Hosseinzadeh A, Farzaneh BA*, Ghoddusi Johari H, Ebrahimi N, Anbardar MH, Shahriarirad R",
     "journal": "Annals of Vascular Surgery",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0890509620301928",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "animal",
+      "technique",
+      "Vascular",
+      "Transplant",
+      "Animal model"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "transplant"
+    ],
+    "featured": "yes"
   },
   {
     "n": 133,
@@ -3742,8 +4702,13 @@ const publications = [
     "authors": "Moshfe A, Sarkari B, Arefkhah N, Nikbakht R, Shahriarirad R, Rezaei Z, Hosseini Z",
     "journal": "Journal of Immunoassay and Immunochemistry",
     "url": "https://www.tandfonline.com/doi/abs/10.1080/15321819.2018.1547974",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3759,8 +4724,13 @@ const publications = [
     "authors": "Ghadimi SN, Homayoon L, Shahriarirad R, Fatehpour S, Rastegarian M, Sarkari B*",
     "journal": "Iranian Journal of Parasitology",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6737356/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3768,7 +4738,9 @@ const publications = [
     "year": "2017",
     "month": "",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "infectious",
       "pubhealth"
@@ -3777,8 +4749,15 @@ const publications = [
     "authors": "Taghizadeh H, Shahriarirad R, Erfani A, Nekouei F, Seifbehzad S, Khabisi SA, Sarkari B",
     "journal": "Annals of Tropical Medicine and Public Health",
     "url": "",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "laboratory",
+      "Infectious disease",
+      "Public health"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3794,8 +4773,16 @@ const publications = [
     "authors": "Sarkari B, Mohseni M, Moein MR, Shahriarirad R, Asgari Q*",
     "journal": "International Journal of Applied and Basic Medical Research",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5327608/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "animal",
+      "complementary",
+      "alternative",
+      "herbal",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3811,8 +4798,16 @@ const publications = [
     "authors": "Sarkari B, Sattari H, Moein MR, Tamadon AM, Shahriarirad R, Asgari Q*",
     "journal": "Journal of Pharmaceutical Negative Results",
     "url": "http://www.pnrjournal.com/index.php?mno=133709",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "animal",
+      "complementary",
+      "alternative",
+      "herbal",
+      "Infectious disease"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -3829,8 +4824,14 @@ const publications = [
     "authors": "Hatam GR, Nejati F, Mohammadzadeh T, Shahriarirad R, Sarkari B*",
     "journal": "Malaria Research and Treatment",
     "url": "https://downloads.hindawi.com/archive/2015/174570.pdf",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Public health"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pubhealth"
+    ],
     "featured": ""
   },
   {
@@ -3838,16 +4839,27 @@ const publications = [
     "year": "2024",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "corresponding",
+      "last"
+    ],
     "cat": [
-      "vascular"
+      "vascular",
+      "gi"
     ],
     "title": "Vascular Complications During Appendectomy; Severe Adhesion of the Appendix to the Right Iliac Artery: A Case Report",
     "authors": "Hosseinzadeh A, Rezaeibana H, Khosravi MR, Sourani A, Yazdanshenas H, Shahriarirad R*",
     "journal": "Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-024-04794-8",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "GI surgery",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -3855,7 +4867,9 @@ const publications = [
     "year": "2024",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "vascular"
     ],
@@ -3863,8 +4877,14 @@ const publications = [
     "authors": "Hosseinzadeh A, Shahriarirad R, Dalfardi F, Arianpour H, Zarimeidani F*",
     "journal": "International Journal of Emergency Medicine",
     "url": "https://link.springer.com/article/10.1186/s12245-024-00688-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -3872,7 +4892,9 @@ const publications = [
     "year": "2024",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "infectious",
       "neuro"
@@ -3881,8 +4903,16 @@ const publications = [
     "authors": "Bahramy MA, Hashempour Z*, Shahriarirad R",
     "journal": "BMC Neurology",
     "url": "https://bmcneurol.biomedcentral.com/articles/10.1186/s12883-024-03756-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Neurology",
+      "Case report",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -3893,14 +4923,24 @@ const publications = [
     "tags": [],
     "cat": [
       "thoracic",
-      "transplant"
+      "transplant",
+      "pulm"
     ],
     "title": "Successful Bilateral Lung Transplantation in Pulmonary Alveolar Microlithiasis: A Case Report and Review of Literature",
     "authors": "Mardani P, Naseri R, Shahriarirad R, Mahram H*, Shafi M, Dehghanian A, Ziaian B",
     "journal": "The Clinical Respiratory Journal",
     "url": "http://doi.org/10.1111/crj.13773",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Transplant",
+      "Pulmonology",
+      "Case report",
+      "Lung cancer"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -3908,17 +4948,28 @@ const publications = [
     "year": "2024",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "thoracic",
-      "oncology"
+      "oncology",
+      "pulm"
     ],
     "title": "Pleural Epithelioid Hemangioendothelioma in a 39-Year-Old Female: A Case Report",
     "authors": "Mardani P, Shahriarirad R, Nekooeian M, Anbardar MH, Ziaian B, Kamran H, Ayare N, Vafabin M, Fouladi D*",
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "http://dx.doi.org/10.1186/s13019-024-02602-4",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Pulmonology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -3926,9 +4977,7 @@ const publications = [
     "year": "2024",
     "month": "",
     "type": "case",
-    "tags": [
-      "corresponding"
-    ],
+    "tags": [],
     "cat": [
       "urology"
     ],
@@ -3936,8 +4985,14 @@ const publications = [
     "authors": "Mehdipour Dalivand M, Hadjiabbasi A, Ramezanzadeh E, Habibzadeh SM, Goudarzi K, Shahriarirad R, Zayeni H*",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-04273-6",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "rheumatology",
+      "Urology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "urology"
+    ],
     "featured": ""
   },
   {
@@ -3946,7 +5001,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -3955,8 +5011,14 @@ const publications = [
     "authors": "Hosseinzadeh A, Zehra J, Davarpanah MA, Moeini Farsani M, Ghasemi Gorji M, Shahriarirad R*",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8269",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -3964,7 +5026,9 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "gi"
     ],
@@ -3972,8 +5036,13 @@ const publications = [
     "authors": "Tajaddini A, Fallahi MM*, Haghshenas H, Nourmohammadi SS, Ghahramani L, Shahriarirad R",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8363",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -3982,7 +5051,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "transplant"
@@ -3991,8 +5061,13 @@ const publications = [
     "authors": "Kazemi K, Rasekhi A, Sohrabi Nazari S, Lashkarizadeh MM, Shamsaeefar A, Alikhani M, Akbari A, Shahriarirad R*",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Transplant",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "transplant"
+    ],
     "featured": ""
   },
   {
@@ -4011,8 +5086,15 @@ const publications = [
     "authors": "Mardani P, Kamran H, Ghaderpanah R, Geramizadeh B, Fouladi D, Shahriarirad R*, Amirian A",
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02389-w",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4031,8 +5113,15 @@ const publications = [
     "authors": "Mardani P, Nekooeian M, Zangeneh S, Kamran H, Shahriarirad R*, Anbardar MH, Amirian A, Vafabin M",
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02366-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4050,8 +5139,14 @@ const publications = [
     "authors": "Mardani P, Kamran H, Khosravi F, Shahriarirad R*, Amirian A, Ziaian B",
     "journal": "Clinical Case Reports",
     "url": "http://doi.org/10.1002/ccr3.7524",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report",
+      "Hydatid"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4059,17 +5154,23 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
-      "plastic",
       "derm"
     ],
     "title": "Coexistence of Mucinous Nevus and Multiple Collagenoma with Unilateral, Dermatomal, and Multi Segmental Distribution",
     "authors": "Faghihi G, Moeine R, Mohaghegh F*, Rajabi P, Shahriarirad R",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.7429",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Dermatology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -4077,17 +5178,23 @@ const publications = [
     "year": "2023",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
-      "plastic",
       "derm"
     ],
     "title": "Granuloma Annulare with Alopecia Areata in a 6-Years-Old Girl: A Case Report",
     "authors": "Mohaghegh F*, Moeine R, Saber M, Fatemeh S, Nekooeian M, Shahriarirad R",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03864-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Dermatology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -4096,13 +5203,21 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [],
-    "cat": [],
+    "cat": [
+      "neuro"
+    ],
     "title": "Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",
     "authors": "Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "rheumatology",
+      "Neurology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -4114,14 +5229,22 @@ const publications = [
       "co-first"
     ],
     "cat": [
-      "oncology"
+      "oncology",
+      "pulm"
     ],
     "title": "Extramedullary Relapse of Immunoglobulin A-Kappa Myeloma Manifesting as Plasmacytoma of the Pleura: A Case Report",
     "authors": "Rezvani A, Shahriarirad R, Fallahi MJ, Zeighami A*",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-023-03765-9",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Surgical oncology",
+      "Pulmonology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "oncology",
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -4130,7 +5253,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "thoracic"
@@ -4139,8 +5263,13 @@ const publications = [
     "authors": "Mardani P, Kamran H, Geramizadeh B, Darabi MH, Najafi M, Amirian A, Shahriarirad R*",
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4156,8 +5285,13 @@ const publications = [
     "authors": "Loghman M, Rahmanian E, Alikhani M, Saffar H, Ziaadini B, Shahriarirad R, Faezi ST*",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03680-5",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4176,8 +5310,16 @@ const publications = [
     "authors": "Hosseinzadeh A, Ebrahimi K, Shahriarirad R*, Dalfardi F",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6317",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Infectious disease",
+      "Case report",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4193,8 +5335,15 @@ const publications = [
     "authors": "Rahmanian E, Alikhani M*, Loghman M, Beikmohamadi Hezaveh S, Zangeneh S, Shahriarirad R, Faezi ST, Nejadhosseinian M",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6501",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "rheumatology",
+      "Infectious disease",
+      "Case report",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4203,7 +5352,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -4212,8 +5362,15 @@ const publications = [
     "authors": "Ghoddusi Johari H, Malekhosseini H, Erfani A, Shahriarirad R*",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03655-6",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report",
+      "Hernia",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4221,16 +5378,28 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
-      "oncology"
+      "oncology",
+      "gi"
     ],
     "title": "Adenocarcinoma Metastasis from Colon to the Thyroid: A Case Report",
     "authors": "Mardani P, Ayareh N, Kamran H, Shahriarirad R",
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2022/8705143/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Surgical oncology",
+      "GI surgery",
+      "Case report",
+      "Colorectal",
+      "Thyroid"
+    ],
+    "highlight_topics": [
+      "oncology",
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -4239,17 +5408,27 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "co-first"
     ],
     "cat": [
-      "vascular"
+      "vascular",
+      "derm"
     ],
     "title": "Spontaneous Rupture of a Large Splenic Artery Aneurysm in a 59-year-old Male Patient with Pemphigus Vulgaris: A Case Report",
     "authors": "Hosseinzadeh A, Shahriarirad R*, Asgharzadeh Majdazar V, Moeini Farsani M, Tadayon SMK",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03618-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Dermatology",
+      "Case report",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -4257,17 +5436,23 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
-      "plastic",
       "derm"
     ],
     "title": "Pemphigus Vegetans Misdiagnosed as Condyloma Acuminata: A Case Report",
     "authors": "Siadat AH, Moeine R*, Iraji F, Galehdari H, Shahriarirad R",
     "journal": "Clinical Case Reports",
     "url": "http://dx.doi.org/10.1002/ccr3.6393",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Dermatology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -4275,17 +5460,28 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "plastic",
-      "derm"
+      "derm",
+      "oncology"
     ],
     "title": "Treatment of Vulvar Basal Cell Carcinoma with Slow-Mohs Micrographic Surgery: A Case Report",
     "authors": "Asilian A, Moeine R*, Hafezi H, Shahriarirad R",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6442",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Dermatology",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "derm"
+    ],
     "featured": ""
   },
   {
@@ -4294,17 +5490,26 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
-      "thoracic"
+      "thoracic",
+      "infectious"
     ],
     "title": "Near-Complete Tracheal Obstruction Due to Mucormycosis: Report of Two Cases",
     "authors": "Fallahi MJ, Nikandish R, Ziaian B, Shahriarirad R*",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/full/10.1002/ccr3.6278",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Infectious disease",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4313,19 +5518,29 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "co-first"
     ],
     "cat": [
       "thoracic",
-      "oncology"
+      "oncology",
+      "pulm"
     ],
     "title": "Primary Malignant Epithelioid Hemangioendothelioma of the Pleura: A Review and Report of a Novel Case",
     "authors": "Rezvani A, Shahriarirad R*, Erfani A, Ranjbar K",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.6211",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Pulmonology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
+    "featured": "yes"
   },
   {
     "n": 166,
@@ -4336,14 +5551,22 @@ const publications = [
       "corresponding"
     ],
     "cat": [
-      "plastic"
+      "plastic",
+      "oncology"
     ],
     "title": "Subscapular Elastofibrolipoma Treated with Marginal Resection: A Report of Two Rare Cases",
     "authors": "Mardani P, Kamran H, Ayare N, Shahriarirad R*, Anbardar MH, Amirian A",
     "journal": "Journal of Medical Case Reports",
     "url": "https://jmedicalcasereports.biomedcentral.com/articles/10.1186/s13256-022-03522-4",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4352,7 +5575,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "gi"
@@ -4361,8 +5585,13 @@ const publications = [
     "authors": "Meshkati Yazd SM, Bayati H, Nabavizadeh SS, Shahriarirad R*",
     "journal": "Case Reports in Gastrointestinal Medicine",
     "url": "https://www.hindawi.com/journals/crigm/2022/3209658/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "GI surgery",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -4371,7 +5600,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "thoracic",
@@ -4381,8 +5611,17 @@ const publications = [
     "authors": "Mardani P, Fallahi MM, Kamran H, Shahriarirad R*",
     "journal": "Clinical Case Reports",
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.5987",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Case report",
+      "Breast reconstruction",
+      "Colorectal"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4398,8 +5637,13 @@ const publications = [
     "authors": "Mardani P, Ebrahimi K, Shahriarirad R, Geramizadeh B, Kamran H*, Ziaian B, Amirian A",
     "journal": "Journal of Cardiothoracic Surgery",
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4408,7 +5652,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -4417,8 +5662,14 @@ const publications = [
     "authors": "Hosseinzadeh A, Moeini Farsani M, Mahmoudi MM, Tadayon SMK, Ghoddusi Johari H, Shahriarirad R*",
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03414-7",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "embolism",
+      "Vascular",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4426,7 +5677,9 @@ const publications = [
     "year": "2022",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "gi"
     ],
@@ -4434,8 +5687,15 @@ const publications = [
     "authors": "Jaladat AM, Zareifar S, Daneshfard B*, Shahriarirad R",
     "journal": "Integrative Medicine Reports",
     "url": "https://www.liebertpub.com/doi/full/10.1089/imr.2021.0006",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "alternative",
+      "GI surgery",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -4444,13 +5704,21 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [],
-    "cat": [],
+    "cat": [
+      "neuro"
+    ],
     "title": "Antineutrophil Cytoplasmic Antibody-associated Vasculitis in Presence of Positive Antiphospholipid Antibody: A Case Report",
     "authors": "Akhlaghi Kalahroodi M, Loghman M, Ramezanpoor M, Shahriarirad R, Rahmanian E*",
     "journal": "BMC Journal of Medical Case Reports",
     "url": "https://link.springer.com/article/10.1186/s13256-022-03256-3",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "rheumatology",
+      "Neurology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -4467,8 +5735,16 @@ const publications = [
     "authors": "Bahador A, Forooghi M, Shahriarirad R, Geramizadeh B, Ataollahi M, Kamran H*",
     "journal": "BMC Gastroenterology",
     "url": "https://bmcgastroenterol.biomedcentral.com/articles/10.1186/s12876-021-02076-x",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "GI surgery",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "gi",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4476,7 +5752,9 @@ const publications = [
     "year": "2021",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "gi"
     ],
@@ -4484,8 +5762,15 @@ const publications = [
     "authors": "Forooghi M, Hooman K*, Shahriarirad R",
     "journal": "Case Reports in Medicine",
     "url": "https://www.hindawi.com/journals/crim/2021/5851967/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "MIS",
+      "GI surgery",
+      "Case report",
+      "Colorectal"
+    ],
+    "highlight_topics": [
+      "gi"
+    ],
     "featured": ""
   },
   {
@@ -4503,8 +5788,18 @@ const publications = [
     "authors": "Abbasi R, Javanmardi F*, Mokhtari A, Hosseinpour P, Shahriarirad R, Ebrahimi K",
     "journal": "BMC Pediatrics",
     "url": "https://bmcpediatr.biomedcentral.com/articles/10.1186/s12887-021-03007-1",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "pediatric",
+      "Thoracic",
+      "Infectious disease",
+      "Pulmonology",
+      "Case report",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4521,8 +5816,16 @@ const publications = [
     "authors": "Ghoddusi Johari H, Erfani MA, Erfani A*, Shahriarirad R, Karami MM",
     "journal": "Case Reports in Orthopedics",
     "url": "https://www.hindawi.com/journals/crior/2021/1768529/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Orthopedics",
+      "Case report",
+      "Aneurysm"
+    ],
+    "highlight_topics": [
+      "vascular",
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -4531,8 +5834,7 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -4541,8 +5843,14 @@ const publications = [
     "authors": "Shahriarirad R, Sanaei Dashti A*, Hajiani Ghotbabadi S",
     "journal": "Case Reports in Pediatrics",
     "url": "https://www.hindawi.com/journals/cripe/2021/9950588/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Case report",
+      "COVID-19"
+    ],
+    "highlight_topics": [
+      "infectious"
+    ],
     "featured": ""
   },
   {
@@ -4550,16 +5858,26 @@ const publications = [
     "year": "2021",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
-      "urology"
+      "urology",
+      "neuro"
     ],
     "title": "ROHHAD Syndrome an Inconspicuous Cause of Hypernatremia: A Case Report",
     "authors": "Basiratnia M, Derakhshan D*, Foloudi D, Ranjbar K, Shahriarirad R",
     "journal": "Iranian Journal of Kidney Diseases",
     "url": "",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Urology",
+      "Neurology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "urology",
+      "neuro"
+    ],
     "featured": ""
   },
   {
@@ -4568,13 +5886,22 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [],
-    "cat": [],
+    "cat": [
+      "pulm"
+    ],
     "title": "Successful Use of 'Ma'oljobon', a Persian Medicine Product, in a Patient with Severe Chronic Cough: A Case Report",
     "authors": "Jaladat AM, Ranjbar K*, Shahriarirad R, Salehi Z",
     "journal": "Advances in Integrative Medicine",
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212958821000458",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "complementary",
+      "alternative",
+      "Pulmonology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -4582,7 +5909,9 @@ const publications = [
     "year": "2021",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "co-first"
+    ],
     "cat": [
       "thoracic"
     ],
@@ -4590,8 +5919,13 @@ const publications = [
     "authors": "Amirian A, Shahriarirad R, Mardani P, Salimi M*",
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4600,7 +5934,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "co-first"
     ],
     "cat": [
       "thoracic"
@@ -4609,8 +5944,13 @@ const publications = [
     "authors": "Mardani P, Shahriarirad R*, Erfani A, Ranjbar K, Ziaian B, Amirian A, Kamran H",
     "journal": "Bulletin of Emergency and Trauma",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4626,8 +5966,14 @@ const publications = [
     "authors": "Zareshahrabadi Z, Sarkari B, Shamsolvaezin N, Ziaian B, Tootoonchi A, Shahriarirad R, Erfani A",
     "journal": "Case Reports in Infectious Diseases",
     "url": "https://www.hindawi.com/journals/criid/2020/6650478/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report",
+      "Hydatid"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4637,14 +5983,25 @@ const publications = [
     "type": "case",
     "tags": [],
     "cat": [
-      "thoracic"
+      "thoracic",
+      "oncology",
+      "pulm"
     ],
     "title": "Intrapulmonary Mature Cystic Teratoma of the Lung: Case Report of a Rare Entity",
     "authors": "Mardani P, Naseri R, Amirian A, Shahriarirad R, Anbardar MH, Fouladi D*, Ranjbar K",
     "journal": "BMC Surgery",
     "url": "https://link.springer.com/article/10.1186/s12893-020-00864-y",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Surgical oncology",
+      "Pulmonology",
+      "Case report",
+      "Lung cancer"
+    ],
+    "highlight_topics": [
+      "thoracic",
+      "oncology"
+    ],
     "featured": ""
   },
   {
@@ -4660,8 +6017,13 @@ const publications = [
     "authors": "Amirian A, Ghoddusi Johari H, Karoobi M*, Shahriarirad R, Ranjbar K",
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/crim/2020/9182379/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4670,7 +6032,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -4679,8 +6042,13 @@ const publications = [
     "authors": "Ghoddusi Johari H, Eskandari S, Parvizi H, Farshadi M, Shahriarirad R*",
     "journal": "The American Surgeon",
     "url": "https://www.proquest.com/openview/0ca25f5b658eb95b52ea7b277c643f98/1",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4689,7 +6057,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "co-first"
     ],
     "cat": [
       "plastic",
@@ -4699,8 +6068,15 @@ const publications = [
     "authors": "Ghoddusi Johari H, Shahriarirad R*, Erfani A, Darabi MH",
     "journal": "World Journal of Plastic Surgery",
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7482528/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Vascular",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4716,8 +6092,15 @@ const publications = [
     "authors": "Amirian A, Ziaian B, Erfani A*, Shahriarirad R, Ranjbar K",
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/9526406/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report",
+      "Lung cancer",
+      "Hydatid"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4726,7 +6109,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -4735,8 +6119,13 @@ const publications = [
     "authors": "Ghoddusi Johari H, Lashkarizadeh MM, Mardani P, Shahriarirad R*",
     "journal": "The Journal of Vascular Access",
     "url": "https://journals.sagepub.com/doi/full/10.1177/1129729820910304",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Vascular",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "vascular"
+    ],
     "featured": ""
   },
   {
@@ -4744,17 +6133,28 @@ const publications = [
     "year": "2020",
     "month": "",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "corresponding"
+    ],
     "cat": [
       "plastic",
-      "ortho"
+      "ortho",
+      "oncology"
     ],
     "title": "Masson's Tumor of the Hand: An Uncommon Histopathological Entity",
     "authors": "Mardani P, Askari A, Shahriarirad R*, Ranjbar K, Erfani A, Anbardar MH, Moradmand S",
     "journal": "Case Reports in Pathology",
     "url": "https://www.hindawi.com/journals/cripa/2020/4348629/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Plastic surgery",
+      "Orthopedics",
+      "Surgical oncology",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "plastic",
+      "ortho"
+    ],
     "featured": ""
   },
   {
@@ -4763,7 +6163,8 @@ const publications = [
     "month": "",
     "type": "case",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "co-first"
     ],
     "cat": [
       "thoracic"
@@ -4772,8 +6173,13 @@ const publications = [
     "authors": "Amirian A, Shahriarirad R*, Ziaian B, Mardani P, Erfani A",
     "journal": "Case Reports in Surgery",
     "url": "https://www.hindawi.com/journals/cris/2020/3597901/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Thoracic",
+      "Case report"
+    ],
+    "highlight_topics": [
+      "thoracic"
+    ],
     "featured": ""
   },
   {
@@ -4782,8 +6188,7 @@ const publications = [
     "month": "",
     "type": "letter",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious",
@@ -4793,8 +6198,18 @@ const publications = [
     "authors": "Shahriarirad R, Fallahi MJ*",
     "journal": "The International Journal of Tuberculosis and Lung Disease",
     "url": "https://pubmed.ncbi.nlm.nih.gov/33126954/",
-    "keywords": [],
-    "highlight_topics": [],
+    "keywords": [
+      "Infectious disease",
+      "Pulmonology",
+      "Letter",
+      "Lung cancer",
+      "COVID-19",
+      "Tuberculosis"
+    ],
+    "highlight_topics": [
+      "infectious",
+      "pulm"
+    ],
     "featured": ""
   },
   {
@@ -4803,8 +6218,7 @@ const publications = [
     "month": "",
     "type": "letter",
     "tags": [
-      "first",
-      "corresponding"
+      "first"
     ],
     "cat": [
       "infectious"
@@ -4813,59 +6227,14 @@ const publications = [
     "authors": "Shahriarirad R, Sarkari B*",
     "journal": "Tropical Doctor",
     "url": "https://journals.sagepub.com/doi/full/10.1177/0049475520945446",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
-  },
-  {
-    "n": 193,
-    "year": "2022",
-    "month": "",
-    "type": "case",
-    "tags": [],
-    "cat": [
-      "ortho"
+    "keywords": [
+      "Infectious disease",
+      "Letter",
+      "COVID-19"
     ],
-    "title": "Comparison of Accuracy in Expert Clinical Examination versus MRI and Arthroscopic Exam in Diagnosis of Meniscal Tear",
-    "authors": "Hashemi SA, Ranjbar MR, Tahami M, Shahriarirad R*, Erfani A",
-    "journal": "Advances in Orthopedics",
-    "url": "https://www.hindawi.com/journals/aorth/2020/1895852/",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
-  },
-  {
-    "n": 194,
-    "year": "2023",
-    "month": "",
-    "type": "case",
-    "tags": [],
-    "cat": [],
-    "title": "Atypical Presentation of Amyloidosis in a Female Patient with Muscle Weakness",
-    "authors": "Lashkari R, Loghman M, Aghaghazvini L, Saffar H, Ziaadini B, Shahriarirad R, Rahmanian E, Alikhani M*",
-    "journal": "Case Reports in Medicine",
-    "url": "https://www.hindawi.com/journals/crim/2023/1553163/",
-    "keywords": [],
-    "highlight_topics": [],
-    "featured": ""
-  },
-  {
-    "n": 195,
-    "year": "2024",
-    "month": "",
-    "type": "case",
-    "tags": [
-      "co-first"
+    "highlight_topics": [
+      "infectious"
     ],
-    "cat": [
-      "ortho"
-    ],
-    "title": "test",
-    "authors": "Testing A, Shahriarirad R",
-    "journal": "Journal of testing",
-    "url": "https://www.google.com",
-    "keywords": [],
-    "highlight_topics": [],
     "featured": ""
   }
 ];
@@ -5085,6 +6454,50 @@ function textMatchesSearch(text, query){
   return terms.length === 0 || terms.every(term => normalizedText.includes(term));
 }
 
+function dedupeDisplayTags(values, limit=6){
+  const out = [];
+  const seen = new Set();
+  (values || []).forEach(value => {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    if(!text) return;
+    const key = text.toLowerCase();
+    if(seen.has(key)) return;
+    seen.add(key);
+    out.push(text);
+  });
+  return out.slice(0, limit);
+}
+
+function pubDisplayTags(pub, typeMap){
+  const cats = normalizedArray(pub.cat).map(getCategoryLabel);
+  const highlights = normalizedArray(pub.highlight_topics).map(getCategoryLabel);
+  const keywords = Array.isArray(pub.keywords) ? pub.keywords : [];
+  const typeLabel = typeMap[String(pub.type || '').toLowerCase()] || '';
+  return dedupeDisplayTags([...keywords, ...cats, ...highlights, typeLabel], 6);
+}
+
+function applyPubSearchTag(event, source){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  const tag = source?.dataset?.tag || source?.textContent || '';
+  const search = document.getElementById('pub-search');
+  if(search) search.value = tag;
+  currentSearch = tag;
+  showingAll = false;
+  renderPubs();
+}
+
+function applyPresSearchTag(event, source){
+  event?.preventDefault?.();
+  event?.stopPropagation?.();
+  const tag = source?.dataset?.tag || source?.textContent || '';
+  const search = document.getElementById('pres-search');
+  if(search) search.value = tag;
+  presFilters.search = tag.toLowerCase();
+  presShowingAll = false;
+  applyPresFilters();
+}
+
 function renderPubs(){
   const list    = document.getElementById('pub-list');
   const countEl = document.getElementById('pub-count');
@@ -5172,12 +6585,17 @@ function renderPubs(){
     const title = escapeHtml(p.title);
     const titleHtml = href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${title}</a>` : title;
     const authHtml  = boldName(escapeHtml(p.authors));
+    const tagChips = pubDisplayTags(p, typeMap).map(tag =>
+      `<button type="button" class="pub-tag-chip" data-tag="${escapeHtml(tag)}" onclick="applyPubSearchTag(event,this)">${escapeHtml(tag)}</button>`
+    ).join('');
+    const tagRow = tagChips ? `<div class="pub-tags-row">${tagChips}</div>` : '';
     return `<div class="pub-item">
       <div class="pub-year-col">${ym}${badge}${star}</div>
       <div>
         <div class="pub-title">${titleHtml}</div>
         <div class="pub-authors">${authHtml}</div>
         <div class="pub-journal"><em>${escapeHtml(p.journal)}</em></div>
+        ${tagRow}
       </div>
     </div>`;
   }).join('');
@@ -5302,9 +6720,10 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
       });
     } else {
       if(chk){
-        chk.checked = !chk.checked;
-        opt.classList.toggle('selected', chk.checked);
-        opt.setAttribute('aria-selected', chk.checked ? 'true' : 'false');
+        const nextChecked = !opt.classList.contains('selected');
+        chk.checked = nextChecked;
+        opt.classList.toggle('selected', nextChecked);
+        opt.setAttribute('aria-selected', nextChecked ? 'true' : 'false');
       }
       panel.querySelector('[data-value=all]')?.classList.remove('selected');
     }
@@ -5313,6 +6732,14 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
     const label = btn.querySelector('.dropdown-label');
     if(label) label.textContent = selected.length === 0 ? defaultLabel : (selected.length === 1 ? panel.querySelector(`[data-value="${selected[0]}"] .opt-label`)?.textContent||defaultLabel : `${selected.length} selected`);
     onChangeCallback(selected);
+  });
+
+  panel.addEventListener('keydown', e => {
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    const opt = e.target.closest('.custom-dropdown-option');
+    if(!opt) return;
+    e.preventDefault();
+    opt.click();
   });
 }
 
@@ -5625,19 +7052,48 @@ function visibleCount(selector){
 
 window.cvDiagnostics = function(){
   const lastPublication = Array.isArray(publications) && publications.length ? publications[publications.length - 1] : null;
+  const pubSearch = document.getElementById('pub-search');
+  const presSearch = document.getElementById('pres-search');
   const publicationFilterElementsExist = [
     'pub-list','pub-count','pub-search','pub-more','pub-type-btn','pub-type-panel','pub-auth-btn','pub-auth-panel','cat-all-btn'
   ].every(id => Boolean(document.getElementById(id)));
   const presentationFilterElementsExist = [
     'pres-list','pres-count','pres-search','pres-more','pres-type-btn','pres-type-panel','pres-loc-btn','pres-loc-panel','pres-reset'
   ].every(id => Boolean(document.getElementById(id)));
+  const publicationTopicFiltersExist = Boolean(document.querySelector('.pub-filter-sidebar [data-cat]'));
+  const publicationTagChipsExist = Boolean(document.querySelector('.pub-tag-chip'));
+  const presentationTagChipsExist = Boolean(document.querySelector('.pres-tag-chip'));
   const resetButtonsExist = Boolean(document.querySelector('[onclick^="resetPubFilters"]') && document.getElementById('pres-reset'));
   const tavsLogoElementExists = Boolean([...document.querySelectorAll('.lab-card')].some(card => /Thoracic and Vascular Surgery Research Center/i.test(card.textContent || '') && card.querySelector('.lab-card-logo')));
   const openSourceGithubCardExists = Boolean(document.querySelector('#opensource a[aria-label^="GitHub Profile"], #opensource a[aria-label^="View GitHub profile"]'));
+  let pubTagClickSearchWorks = false;
+  let presTagClickSearchWorks = false;
+  const firstPubTag = document.querySelector('.pub-tag-chip');
+  const firstPresTag = document.querySelector('.pres-tag-chip');
+  const oldPubSearch = pubSearch ? pubSearch.value : '';
+  const oldCurrentSearch = currentSearch;
+  if(firstPubTag && pubSearch){
+    applyPubSearchTag({preventDefault(){}, stopPropagation(){}}, firstPubTag);
+    pubTagClickSearchWorks = pubSearch.value === firstPubTag.dataset.tag;
+    pubSearch.value = oldPubSearch;
+    currentSearch = oldCurrentSearch;
+    renderPubs();
+  }
+  const oldPresSearch = presSearch ? presSearch.value : '';
+  const oldPresFilterSearch = presFilters.search;
+  if(firstPresTag && presSearch){
+    applyPresSearchTag({preventDefault(){}, stopPropagation(){}}, firstPresTag);
+    presTagClickSearchWorks = presSearch.value === firstPresTag.dataset.tag;
+    presSearch.value = oldPresSearch;
+    presFilters.search = oldPresFilterSearch;
+    applyPresFilters();
+  }
   const errorsFound = [];
   if(!publicationFilterElementsExist) errorsFound.push('Missing one or more publication filter elements');
   if(!presentationFilterElementsExist) errorsFound.push('Missing one or more presentation filter elements');
   if(!resetButtonsExist) errorsFound.push('Missing reset button');
+  if(!publicationTagChipsExist) errorsFound.push('Missing publication tag chips');
+  if(!presentationTagChipsExist) errorsFound.push('Missing presentation tag chips');
   if(!openSourceGithubCardExists) errorsFound.push('Missing open-source GitHub card');
   if(!tavsLogoElementExists) errorsFound.push('Missing TAVS lab logo element');
   const result = {
@@ -5647,7 +7103,16 @@ window.cvDiagnostics = function(){
     lastPublicationTitle: lastPublication ? lastPublication.title : '',
     row195Present: Array.isArray(publications) && publications.some(pub => Number(pub.n) === 195),
     publicationFilterElementsExist,
+    publicationSearchFieldExists: Boolean(pubSearch),
+    publicationTypeFilterExists: Boolean(document.getElementById('pub-type-btn')),
+    publicationAuthorshipFilterExists: Boolean(document.getElementById('pub-auth-btn')),
+    publicationTopicFiltersExist,
+    publicationTagChipsExist,
+    pubTagClickSearchWorks,
     presentationFilterElementsExist,
+    presentationSearchFieldExists: Boolean(presSearch),
+    presentationTagChipsExist,
+    presTagClickSearchWorks,
     resetButtonsExist,
     activePublicationFilterState: JSON.stringify(pubFilterStateSnapshot()),
     activePresentationFilterState: JSON.stringify(presFilterStateSnapshot()),
@@ -5681,6 +7146,13 @@ window.testPubFilters = function(){
   showingAll = true;
   renderPubs();
   const searchTotal = countTextTotal('pub-count');
+  const firstChip = document.querySelector('.pub-tag-chip');
+  const chipLabel = firstChip?.dataset.tag || '';
+  let tagSearchWorks = false;
+  if(firstChip){
+    applyPubSearchTag({preventDefault(){}, stopPropagation(){}}, firstChip);
+    tagSearchWorks = document.getElementById('pub-search')?.value === chipLabel && countTextTotal('pub-count') > 0;
+  }
 
   resetPubFilters();
   const resetVisible = visibleCount('#pub-list .pub-item');
@@ -5689,10 +7161,11 @@ window.testPubFilters = function(){
     typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
     authorshipFilterChangesCount: authorTotal > 0 && authorTotal < total,
     publicationSearchWorks: searchTotal > 0 && searchTotal <= total,
+    tagChipSearchWorks: tagSearchWorks,
     resetRestoresDefaultCount: resetVisible === Math.min(SHOW, total) && resetVisible === defaultVisible,
     overallPass: false,
   };
-  result.overallPass = result.typeFilterChangesCount && result.authorshipFilterChangesCount && result.publicationSearchWorks && result.resetRestoresDefaultCount;
+  result.overallPass = result.typeFilterChangesCount && result.authorshipFilterChangesCount && result.publicationSearchWorks && result.tagChipSearchWorks && result.resetRestoresDefaultCount;
   console.table(result);
   return result;
 };
@@ -5713,6 +7186,13 @@ window.testPresFilters = function(){
   presShowingAll = true;
   applyPresFilters();
   const locationTotal = countTextTotal('pres-count');
+  const firstChip = document.querySelector('.pres-tag-chip');
+  const chipLabel = firstChip?.dataset.tag || '';
+  let tagSearchWorks = false;
+  if(firstChip){
+    applyPresSearchTag({preventDefault(){}, stopPropagation(){}}, firstChip);
+    tagSearchWorks = document.getElementById('pres-search')?.value === chipLabel && countTextTotal('pres-count') > 0;
+  }
 
   resetPresFilters();
   const resetVisible = visibleCount('#pres-list .pres-item');
@@ -5720,10 +7200,11 @@ window.testPresFilters = function(){
     totalPresentations: total,
     typeFilterChangesCount: typeTotal > 0 && typeTotal < total,
     locationFilterChangesCount: locationTotal > 0 && locationTotal < total,
+    tagChipSearchWorks: tagSearchWorks,
     resetRestoresDefaultCount: resetVisible === Math.min(PRES_INITIAL_SHOW, total) && resetVisible === defaultVisible,
     overallPass: false,
   };
-  result.overallPass = result.typeFilterChangesCount && result.locationFilterChangesCount && result.resetRestoresDefaultCount;
+  result.overallPass = result.typeFilterChangesCount && result.locationFilterChangesCount && result.tagChipSearchWorks && result.resetRestoresDefaultCount;
   console.table(result);
   return result;
 };

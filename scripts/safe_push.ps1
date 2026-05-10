@@ -22,6 +22,17 @@ Write-Host "Repository: $RepoRoot"
 Write-Host "Checking current status..."
 git status --short
 
+Write-Host "Fetching origin/main before build..."
+Invoke-GitStep "Fetch failed. Check network access and remote configuration." {
+  git fetch origin main
+}
+
+Write-Host "Rebasing local work on top of origin/main before build..."
+git pull --rebase --autostash origin main
+if ($LASTEXITCODE -ne 0) {
+  throw "Conflict during rebase. Resolve in VS Code, then run git rebase --continue and scripts/safe_push.ps1 again if needed."
+}
+
 Write-Host "Validating CSV data..."
 Invoke-GitStep "Validation failed. Fix CSV errors before pushing." {
   python build/validate_data.py
@@ -30,6 +41,11 @@ Invoke-GitStep "Validation failed. Fix CSV errors before pushing." {
 Write-Host "Building generated CV outputs..."
 Invoke-GitStep "Build failed. Fix build errors before pushing." {
   python build/build.py
+}
+
+Write-Host "Running smoke tests..."
+Invoke-GitStep "Smoke test failed. Fix generated site or data issues before pushing." {
+  python build/smoke_test.py
 }
 
 Write-Host "Staging CV data, build source, generated outputs, and workflow files..."
@@ -43,11 +59,10 @@ git add `
   build/static_assets/*.js `
   build/static_assets/*.css `
   assets `
+  scripts `
   .github/workflows/update-cv.yml `
   .gitignore `
   README.md `
-  scripts/safe_push.ps1 `
-  scripts/safe_push.sh `
   push_to_github.bat `
   push_to_github.sh `
   tools/admin-local/cv-admin.html
@@ -75,7 +90,7 @@ Invoke-GitStep "Fetch failed. Check network access and remote configuration." {
 Write-Host "Rebasing on top of origin/main with autostash..."
 git pull --rebase --autostash origin main
 if ($LASTEXITCODE -ne 0) {
-  throw "Remote changes were found and a conflict occurred. Resolve conflicts in VS Code, then run git rebase --continue and git push origin main."
+  throw "Conflict during rebase. Resolve in VS Code, then run git rebase --continue and scripts/safe_push.ps1 again if needed."
 }
 
 Write-Host "Pushing to origin/main..."

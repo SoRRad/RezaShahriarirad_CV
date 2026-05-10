@@ -155,6 +155,33 @@ def _email_icon_btn(email):
     return f'<a href="#" class="social-icon-btn email cf-email" data-u="{_e(email_u)}" data-d="{_e(email_d)}" data-keep-content="true" title="Email" aria-label="Email">{icon}<span class="sr-only">Email</span></a>'
 
 
+def _dedupe_labels(labels, limit=6):
+    out = []
+    seen = set()
+    for label in labels:
+        text = " ".join(str(label or "").strip().split())
+        if not text:
+            continue
+        key = text.casefold()
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(text)
+        if limit and len(out) >= limit:
+            break
+    return out
+
+
+def _tag_chips_html(labels, class_name, handler_name, limit=6):
+    chips = []
+    for label in _dedupe_labels(labels, limit=limit):
+        chips.append(
+            f'<button type="button" class="{_e(class_name)}" data-tag="{_e(label)}" '
+            f'onclick="{handler_name}(event,this)">{_e(label)}</button>'
+        )
+    return "".join(chips)
+
+
 # ── section generators ─────────────────────────────────────────────────────
 
 def _head(css: str, profile: dict) -> str:
@@ -290,6 +317,11 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
           Download CV (PDF)
         </a>
+        <a href="Shahriarirad_Reza_CV.docx"
+           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV Word document">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm1 7V4.5L18.5 9H15zM8 13h8v1.5H8V13zm0 3h8v1.5H8V16zm0-6h4v1.5H8V10z" fill="currentColor"/></svg>
+          Download CV (Word)
+        </a>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
@@ -408,6 +440,20 @@ def _about(profile: dict) -> str:
 
 _LOGO_SIZE_LIMIT = 150_000  # bytes; embed small logos, reference larger local assets
 
+def _logo_img_from_path(p, org_name="", class_name="timeline-logo"):
+    alt = _e(f"{org_name} logo" if org_name else "Institution logo")
+    if p.stat().st_size > _LOGO_SIZE_LIMIT:
+        try:
+            rel = p.relative_to(ROOT).as_posix()
+        except ValueError:
+            print(f"[build_html] WARNING: logo_file '{p.name}' is larger than {_LOGO_SIZE_LIMIT} bytes and cannot be referenced from the site root; using fallback initials.")
+            return ""
+        print(f"[build_html] WARNING: logo_file '{p.name}' is larger than {_LOGO_SIZE_LIMIT} bytes; referencing local asset '{rel}' instead of embedding.")
+        return f'<img class="{_e(class_name)}" src="{_e(rel)}" alt="{alt}" loading="lazy" decoding="async">'
+    mime = mimetypes.guess_type(str(p))[0] or "image/png"
+    data = base64.b64encode(p.read_bytes()).decode("ascii")
+    return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy" decoding="async">'
+
 def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
     """Return a local logo image, embedding small files and referencing larger ones."""
     if not logo_file or not str(logo_file).strip():
@@ -416,18 +462,11 @@ def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
     for directory in LOGO_DIRS:
         p = directory / fname
         if p.exists() and p.is_file():
-            alt = _e(f"{org_name} logo" if org_name else "Institution logo")
-            if p.stat().st_size > _LOGO_SIZE_LIMIT:
-                try:
-                    rel = p.relative_to(ROOT).as_posix()
-                except ValueError:
-                    print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes and cannot be referenced from the site root; using fallback initials.")
-                    return ""
-                print(f"[build_html] WARNING: logo_file '{fname}' is larger than {_LOGO_SIZE_LIMIT} bytes; referencing local asset '{rel}' instead of embedding.")
-                return f'<img class="{_e(class_name)}" src="{_e(rel)}" alt="{alt}" loading="lazy" decoding="async">'
-            mime = mimetypes.guess_type(str(p))[0] or "image/png"
-            data = base64.b64encode(p.read_bytes()).decode("ascii")
-            return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy" decoding="async">'
+            return _logo_img_from_path(p, org_name, class_name)
+    wanted_stem = _norm_name(pathlib.Path(fname).stem)
+    for p in _iter_logo_files():
+        if _norm_name(p.stem) == wanted_stem:
+            return _logo_img_from_path(p, org_name, class_name)
     print(f"[build_html] WARNING: logo_file '{fname}' was not found; using fallback initials.")
     return ""
 
@@ -597,7 +636,7 @@ def _dropdown_html(btn_id, panel_id, default_label, options, option_values=None)
     if option_values is None:
         option_values = [o.lower().replace(" ","_").replace("/","").replace("&","").replace("-","") for o in options]
     opts_html = "\n".join(
-        f'        <div class="custom-dropdown-option" data-value="{_e(val)}" role="option" aria-selected="false">'
+        f'        <div class="custom-dropdown-option" data-value="{_e(val)}" role="option" tabindex="0" aria-selected="false">'
         f'<input type="checkbox" value="{_e(val)}" aria-label="{_e(label)}"><span class="opt-label">{_e(label)}</span></div>'
         for label, val in zip(options, option_values)
     )
@@ -793,6 +832,14 @@ def _presentations(pres_df) -> str:
         keywords = parse_semicolon(r.get("keywords", ""))
         data_keywords = " ".join(keywords)
         cat_labels = " ".join(CAT_LABELS.get(c, c) for c in cats_u)
+        type_cls  = r.get("type","poster").strip().lower()
+        type_lbl  = type_cls.capitalize()
+        tag_labels = (
+            keywords
+            + [CAT_LABELS.get(c, c) for c in cats_u]
+            + [type_lbl, r.get("conference", ""), r.get("location", "")]
+        )
+        tags_html = _tag_chips_html(tag_labels, "pres-tag-chip", "applyPresSearchTag")
         search_text = " ".join([
             str(r.get("title", "")),
             str(r.get("venue", "")),
@@ -800,9 +847,8 @@ def _presentations(pres_df) -> str:
             str(r.get("location", "")),
             data_keywords,
             cat_labels,
+            " ".join(tag_labels),
         ])
-        type_cls  = r.get("type","poster").strip().lower()
-        type_lbl  = type_cls.capitalize()
         items.append(f"""    <div class="pres-item" data-type="{_e(type_cls)}" data-location="{_e(r.get('location',''))}" data-cats="{_e(data_cats)}" data-keywords="{_e(data_keywords)}" data-search="{_e(search_text)}">
       <div class="pres-date-col">
         <span class="pres-year-txt">{_e(r.get('date',''))}</span>
@@ -812,6 +858,7 @@ def _presentations(pres_df) -> str:
         <div class="pres-title">{_e(r.get('title',''))}</div>
         <div class="pres-venue">{_e(r.get('venue',''))}</div>
         <div class="pres-location">{_e(r.get('location',''))}</div>
+        <div class="pres-tags-row">{tags_html}</div>
       </div>
     </div>""")
 

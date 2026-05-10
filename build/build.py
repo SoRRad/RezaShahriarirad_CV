@@ -14,6 +14,7 @@ BUILD_DIR = pathlib.Path(__file__).parent
 ROOT = BUILD_DIR.parent
 DATA_DIR = ROOT / "data"
 sys.path.insert(0, str(BUILD_DIR))
+from utils import author_tag_counts  # noqa: E402
 
 STEPS = [
     ("build_html", "Generating index.html"),
@@ -63,19 +64,20 @@ def generate_legacy_json():
 
     journals = _csv_rows("journals")
     profile = {row["field"]: row["value"] for row in _csv_rows("profile")}
+    tag_counts = author_tag_counts(pubs)
     live_stats = {
         "generated": True,
-        "source": "data/profile.csv",
+        "source": "data/*.csv",
         "citations": profile.get("citations_cached", ""),
         "hindex": profile.get("h_index_cached", ""),
         "peerReviews": profile.get("peer_reviews", ""),
         "journals": profile.get("journals_reviewed", ""),
         "manuscripts": profile.get("manuscripts_reviewed", ""),
         "pubCount": str(len(pubs)),
-        "firstAuth": profile.get("first_auth", ""),
-        "secondAuth": profile.get("co_first_auth", ""),
-        "lastAuth": profile.get("last_auth", ""),
-        "corrAuth": profile.get("corr_auth", ""),
+        "firstAuth": str(tag_counts["first"]),
+        "secondAuth": str(tag_counts["co-first"]),
+        "lastAuth": str(tag_counts["last"]),
+        "corrAuth": str(tag_counts["corresponding"]),
         "date": profile.get("metrics_last_updated", ""),
     }
 

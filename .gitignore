@@ -5,3 +5,4 @@ build/.venv/
 node_modules/
 site_public/
 .tmp-edge-cv-profile/
+.pycache_check/

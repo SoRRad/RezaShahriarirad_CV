@@ -9,7 +9,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import ALL_VALID_CAT_KEYS  # noqa: E402
+from utils import ALL_VALID_CAT_KEYS, TOP_LEVEL_CAT_KEYS, VALID_AUTHOR_TAGS  # noqa: E402
 
 ROOT = pathlib.Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -72,6 +72,20 @@ VALID_PUB_TYPES = {"original", "review", "case", "letter"}
 VALID_PRESENTATION_TYPES = {"poster", "oral"}
 VALID_YES_NO = {"yes", "no", ""}
 VALID_MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""}
+EXPECTED_PUBLICATION_HEADER = [
+    "n",
+    "year",
+    "type",
+    "tags",
+    "cat",
+    "title",
+    "authors",
+    "journal",
+    "url",
+    "keywords",
+    "highlight_topics",
+    "featured",
+]
 KEY_TEXT_FIELDS = {
     "publications": ["title", "authors", "journal"],
     "presentations": ["title", "venue", "location"],
@@ -111,8 +125,80 @@ def _read_csv_with_lines(path):
     return reader.fieldnames or [], rows, row_lines
 
 
+def _raw_csv_shape_checks(path, stem, errors):
+    data_lines = []
+    line_numbers = []
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        for lineno, line in enumerate(handle, start=1):
+            if line.startswith("#"):
+                if stem == "publications" and line.rstrip("\r\n").rstrip().endswith(","):
+                    errors.append(
+                        f"{stem}.csv: line {lineno} comment/header guide ends with a trailing comma"
+                    )
+                continue
+            if line.strip():
+                data_lines.append(line)
+                line_numbers.append(lineno)
+
+    if not data_lines:
+        return
+
+    header_line = data_lines[0].rstrip("\r\n")
+    if header_line.rstrip().endswith(","):
+        errors.append(f"{stem}.csv: header row ends with a trailing comma")
+
+    rows = list(csv.reader(data_lines))
+    if not rows:
+        return
+
+    header = [col.strip().lstrip("\ufeff") for col in rows[0]]
+    expected_count = len(header)
+    if stem == "publications" and header != EXPECTED_PUBLICATION_HEADER:
+        errors.append(
+            "publications.csv: header must be exactly "
+            + ",".join(EXPECTED_PUBLICATION_HEADER)
+        )
+        expected_count = len(EXPECTED_PUBLICATION_HEADER)
+
+    for offset, row in enumerate(rows[1:], start=1):
+        lineno = line_numbers[offset] if offset < len(line_numbers) else offset + 1
+        if len(row) != expected_count:
+            errors.append(
+                f"{stem}.csv: row {lineno} has {len(row)} columns; expected {expected_count}. "
+                "Quote fields that contain commas and remove stray trailing commas."
+            )
+
+
 def _split_semicolon(value):
     return [item.strip() for item in str(value or "").split(";") if item.strip()]
+
+
+def _raw_semicolon_parts(value):
+    return [item.strip() for item in str(value or "").split(";")]
+
+
+def _validate_semicolon_field(stem, row, lineno, field, errors, valid_values=None):
+    raw = str(row.get(field, "") or "")
+    if not raw:
+        return []
+    parts = _raw_semicolon_parts(raw)
+    values = [part for part in parts if part]
+    if raw.strip().endswith(";"):
+        errors.append(f"{stem}.csv: row {lineno} field '{field}' has a trailing semicolon")
+    if any(part == "" for part in parts[1:-1]):
+        errors.append(f"{stem}.csv: row {lineno} field '{field}' has an empty semicolon item")
+    if "," in raw and field in {"tags", "cat", "highlight_topics", "keywords"}:
+        errors.append(f"{stem}.csv: row {lineno} field '{field}' should use semicolons, not commas")
+    if valid_values is not None:
+        for value in values:
+            if value in TOP_LEVEL_CAT_KEYS and field in {"cat", "highlight_topics"}:
+                errors.append(
+                    f"{stem}.csv: row {lineno} field '{field}' uses top-level category '{value}'; "
+                    "use a subcategory key instead"
+                )
+            elif value not in valid_values:
+                errors.append(f"{stem}.csv: row {lineno} unknown {field} key '{value}'")
+    return values
 
 
 def _has_control_char(value):
@@ -197,6 +283,18 @@ def _warn_file_encoding(path, warnings):
 def _validate_publications(rows, lines, errors):
     numbers = []
     for row, lineno in zip(rows, lines):
+        shifted_featured = str(row.get("", "") or "").strip().lower()
+        featured = str(row.get("featured", "") or "").strip().lower()
+        if shifted_featured:
+            if shifted_featured in VALID_YES_NO and not featured:
+                errors.append(
+                    f"publications.csv: row {lineno} featured value appears shifted into an unnamed column"
+                )
+            else:
+                errors.append(
+                    f"publications.csv: row {lineno} has unexpected data in an unnamed column"
+                )
+
         n_raw = str(row.get("n", "")).strip()
         if not n_raw:
             errors.append(f"publications.csv: row {lineno} missing publication number")
@@ -222,12 +320,11 @@ def _validate_publications(rows, lines, errors):
         if type_s and type_s not in VALID_PUB_TYPES:
             errors.append(f"publications.csv: row {lineno} type '{type_s}' is not one of {sorted(VALID_PUB_TYPES)}")
 
-        for field in ("cat", "highlight_topics"):
-            for cat in _split_semicolon(row.get(field, "")):
-                if cat not in ALL_VALID_CAT_KEYS:
-                    errors.append(f"publications.csv: row {lineno} unknown {field} key '{cat}'")
+        _validate_semicolon_field("publications", row, lineno, "tags", errors, VALID_AUTHOR_TAGS)
+        _validate_semicolon_field("publications", row, lineno, "cat", errors, ALL_VALID_CAT_KEYS)
+        _validate_semicolon_field("publications", row, lineno, "keywords", errors)
+        _validate_semicolon_field("publications", row, lineno, "highlight_topics", errors, ALL_VALID_CAT_KEYS)
 
-        featured = str(row.get("featured", "")).strip().lower()
         if featured not in VALID_YES_NO:
             errors.append("publications.csv: row " f"{lineno} featured must be yes, no, or empty")
 
@@ -263,9 +360,8 @@ def _validate_presentations(rows, lines, errors):
                 f"presentations.csv: row {lineno} type '{type_s}' is not one of {sorted(VALID_PRESENTATION_TYPES)}"
             )
 
-        for cat in _split_semicolon(row.get("cat", "")):
-            if cat not in ALL_VALID_CAT_KEYS:
-                errors.append(f"presentations.csv: row {lineno} unknown cat key '{cat}'")
+        _validate_semicolon_field("presentations", row, lineno, "cat", errors, ALL_VALID_CAT_KEYS)
+        _validate_semicolon_field("presentations", row, lineno, "keywords", errors)
 
         featured = str(row.get("featured", "")).strip().lower()
         if featured not in VALID_YES_NO:
@@ -367,6 +463,7 @@ def validate_all():
     for path in sorted(DATA.glob("*.csv")):
         stem = path.stem
         _warn_file_encoding(path, warnings)
+        _raw_csv_shape_checks(path, stem, errors)
         columns, rows, lines = _read_csv_with_lines(path)
         if not _validate_columns(stem, columns, errors):
             continue

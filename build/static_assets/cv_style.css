@@ -138,6 +138,9 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pub-journal{font-size:.73rem;font-style:italic;color:var(--steel)}
 .pub-journal a{color:var(--steel);text-decoration:none}
 .pub-journal a:hover{color:var(--gold)}
+.pub-tags-row,.pres-tags-row{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.48rem}
+.pub-tag-chip,.pres-tag-chip{border:1px solid rgba(184,149,58,.42);background:rgba(184,149,58,.08);color:var(--navy);border-radius:999px;padding:.16rem .48rem;font-family:'DM Sans',sans-serif;font-size:.58rem;line-height:1.35;letter-spacing:.01em;cursor:pointer;transition:background .15s,border-color .15s,color .15s,transform .15s}
+.pub-tag-chip:hover,.pres-tag-chip:hover,.pub-tag-chip:focus-visible,.pres-tag-chip:focus-visible{background:var(--navy);border-color:var(--navy);color:var(--gold-light);outline:none;transform:translateY(-1px)}
 
 /* AWARDS & PATENTS */
 .awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
@@ -266,7 +269,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .custom-dropdown-option{display:flex;align-items:center;gap:.5rem;padding:.35rem .7rem;font-size:.68rem;color:var(--text-mid);cursor:pointer;transition:background .1s}
 .custom-dropdown-option:hover{background:var(--frost)}
 .custom-dropdown-option.selected{color:var(--navy);font-weight:500}
-.custom-dropdown-option input[type="checkbox"]{width:12px;height:12px;accent-color:var(--navy);flex-shrink:0;margin:0}
+.custom-dropdown-option input[type="checkbox"]{width:12px;height:12px;accent-color:var(--navy);flex-shrink:0;margin:0;pointer-events:none}
 
 /* GOLD STAR BADGE */
 .pub-star-badge{display:block;margin-top:.2rem;font-size:.7rem;color:var(--gold);text-align:center;line-height:1}
