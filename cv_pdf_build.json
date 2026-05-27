@@ -8,5 +8,5 @@
   "libreoffice_error": "LibreOffice conversion skipped on Windows unless CV_USE_LIBREOFFICE=1; using DOCX-extracted WeasyPrint conversion.",
   "docx_bytes": 66961,
   "pdf_bytes": 78613,
-  "timestamp": 1779855583
+  "timestamp": 1779857180
 }
