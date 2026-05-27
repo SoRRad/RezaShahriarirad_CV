@@ -80,7 +80,8 @@ def _near_text(text, marker, before=900, after=650):
 
 
 def _has_logo_or_placeholder(text, marker, expected_initials):
-    window = _near_text(text, marker)
+    compact_text = re.sub(r'src=["\'][^"\']{200,}["\']', 'src="[asset]"', text)
+    window = _near_text(compact_text, marker, before=1800, after=650)
     if not window:
         return False
     expected = html.escape(expected_initials, quote=True)
@@ -263,6 +264,22 @@ def main():
     phone_rows = _read_csv_rows(DATA / "profile.csv")
     profile = {row.get("field", ""): row.get("value", "") for row in phone_rows}
     phone = str(profile.get("phone", "")).strip()
+    if str(profile.get("citations_cached", "")).strip().replace(",", "") != "3428":
+        errors.append("profile.csv citations_cached is not 3428")
+    if str(profile.get("h_index_cached", "")).strip() != "24":
+        errors.append("profile.csv h_index_cached is not 24")
+    try:
+        if int(str(profile.get("peer_reviews", "0")).replace(",", "")) < 149:
+            errors.append("profile.csv peer_reviews was downgraded below 149")
+    except ValueError:
+        errors.append("profile.csv peer_reviews is not numeric")
+    try:
+        if int(str(profile.get("journals_reviewed", "0")).replace(",", "")) < 67:
+            errors.append("profile.csv journals_reviewed was downgraded below 67")
+    except ValueError:
+        errors.append("profile.csv journals_reviewed is not numeric")
+    if "3,428" not in text and "3428" not in text:
+        errors.append("Generated index.html does not include the current citation count 3428")
     if phone and phone in text:
         errors.append("Phone number is present in generated index.html")
     for email in ("Shahriarirad.reza@mayo.edu", "r.shahriari1995@gmail.com"):
@@ -337,6 +354,8 @@ def main():
         errors.append("Broken data-cat attributes: " + ", ".join(invalid_data_cats))
 
     for marker, initials, label in [
+        ("A-Star Lab", "ASTAR", "A-Star Lab"),
+        ("Research Trainee", "SUMS", "Research Trainee - Student Research Committee"),
         ("Khatam-al-Anbiya Hospital", "KA", "Khatam-al-Anbiya Hospital"),
         ("National Organization for Development of Exceptional Talents (SAMPAD)", "SAMPAD", "High School Diploma / SAMPAD"),
         ("MStar Lab", "MSTAR", "MStar Lab"),
@@ -352,6 +371,7 @@ def main():
         errors.append("Shahriarirad_Reza_CV.docx was not generated")
     else:
         doc_text = _docx_text(docx_path)
+        doc_text_upper = doc_text.upper()
         if phone and phone in doc_text:
             errors.append("Phone number is present in generated DOCX")
         for email in ("Shahriarirad.reza@mayo.edu", "r.shahriari1995@gmail.com"):
@@ -359,6 +379,12 @@ def main():
                 errors.append(f"Generated DOCX does not include public email {email}")
         if str(len(pub_rows)) not in doc_text:
             errors.append("Generated DOCX does not include the current publication count")
+        if "RESEARCH SUMMARY" not in doc_text_upper:
+            errors.append("Generated DOCX is missing the Research Summary section")
+        if "WORK AT MAYO CLINIC" not in doc_text_upper:
+            errors.append("Generated DOCX is missing the Work at Mayo Clinic section")
+        if "3428" not in doc_text and "3,428" not in doc_text:
+            errors.append("Generated DOCX does not include the current citation count 3428")
     if not pdf_path.exists() or pdf_path.stat().st_size == 0:
         errors.append("Shahriarirad_Reza_CV.pdf was not generated")
     meta_path = ROOT / "cv_pdf_build.json"

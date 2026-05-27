@@ -7,8 +7,12 @@ city_state,"Rochester, MN"
 orcid,0000-0001-5454-495X
 bio_paragraph_1,"I am a physician-researcher and Research Fellow at the Center for Surgery Innovation, Mayo Clinic, in Rochester, Minnesota. My work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care."
 bio_paragraph_2,"I have authored more than 190 peer-reviewed publications spanning surgical innovation, minimally invasive and reconstructive surgery, surgical AI and predictive modeling, and infectious disease. My work also includes two issued patents and recognition among the World's Top 2% Scientists by Stanford/Elsevier. I have completed 149 peer reviews across more than 60 international journals and serve as Guest Editor for PLOS ONE and Associate Editor for Shiraz E-Medical Journal."
+cv_summary,"Physician-scientist and research fellow focused on surgical innovation, artificial intelligence in medicine, digital health, patient-centered outcomes, and surgical education. My work includes developing clinical research tools, leading multidisciplinary projects, evaluating online health information, designing AI- and computer vision-based studies, and translating clinical problems into practical scientific and technological solutions. My long-term goal is to become a surgeon-scientist who advances surgical care through innovative, evidence-based, and patient-centered approaches."
 irb_count,30
 irb_description,"Since joining the Center for Surgery Innovation, I have been involved in more than 30 IRB-approved research projects and several industry collaborations spanning thoracic, bariatric, plastic and reconstructive, and abdominal-wall surgery. This work includes 3D digital pathology, robotic biopsy and intraoperative AI, wearable postoperative monitoring, machine-learning models for surgical risk prediction, novel medical-device development, and AI-driven patient-education tools, building toward a career as a physician-scientist working at the frontier of advanced surgical methods."
+work_mayo_clinic_1,"Dr. Shahriarirad is currently involved in approximately 40 active projects across the Department of Surgery, including around 25 projects in active phases such as patient recruitment, data collection, data analysis, and manuscript preparation, with additional projects pending IRB approval or resource allocation. His work involves collaboration across Mayo Clinic surgical innovation programs with Drs. Cornelius Thiels, Janani Reisenauer, Simon Laplante, Aparna Vijayasekaran, Kitty Wu, Arman Arghami, and John Nathan."
+work_mayo_clinic_2,"His contributions vary by project and include study conceptualization and design, research question development, methodology planning, IRB preparation, data acquisition and curation, statistical analysis, manuscript drafting and editing, project coordination, operating-room device demonstrations, and patient recruitment."
+work_mayo_clinic_3,"His collaborative technology and innovation work at Mayo Clinic spans surgical visualization, artificial intelligence, robotics, digital pathology, wearable monitoring, rehabilitation, and surgical education. These efforts include ApoQlar/Apple Vision Pro for real-time stereoscopic 3D robotic visualization; GoNoGoNET for AI-assisted surgical video analysis and safety-zone identification; ALARM/OmniWatch for wearable-based postoperative monitoring; JelloX for 3D digital pathology; INTERCEPTION and Alpenglow for robotic bronchoscopy, biopsy, and molecular sampling; CTA Perforator for computer vision-based reconstructive planning; ExerAI and Bioness for rehabilitation and gait assessment; bariatric surgery and ECG-based prediction models for precision surgical risk assessment; MOSI System for obesity staging and bariatric decision support; Lexo Drain for surgical device innovation; and robotic surgery curriculum development to improve resident training and educational quality."
 phone,+1-507-218-6077
 phone_public_visible,no
 email_personal,r.shahriari1995@gmail.com
@@ -27,11 +31,11 @@ orcid_url,https://orcid.org/0000-0001-5454-495X
 github_url,https://github.com/SoRRad
 github_username,SoRRad
 h_index_cached,24
-citations_cached,3425
+citations_cached,3428
 peer_reviews,149
 journals_reviewed,67
 manuscripts_reviewed,129
-metrics_last_updated,"May 25, 2026"
+metrics_last_updated,"May 27, 2026"
 pub_count,192
 first_auth,20
 co_first_auth,24

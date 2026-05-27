@@ -256,6 +256,14 @@ def _personal_information(doc, profile):
     _table(doc, rows, widths=[1.85, 4.75])
 
 
+def _research_summary(doc, profile):
+    summary = profile.get("cv_summary") or profile.get("bio_paragraph_1", "")
+    if not _clean(summary):
+        return
+    _section_heading(doc, "Research Summary")
+    _paragraph(doc, summary, size=9.2, after=4)
+
+
 def _timeline_table(doc, title, df, columns):
     _section_heading(doc, title)
     rows = []
@@ -268,6 +276,20 @@ def _timeline_table(doc, title, df, columns):
                 values.append(row.get(key, ""))
         rows.append(values)
     _table(doc, rows, headers=[label for _, label in columns])
+
+
+def _work_mayo_clinic(doc, profile):
+    paragraphs = [
+        profile.get("work_mayo_clinic_1", ""),
+        profile.get("work_mayo_clinic_2", ""),
+        profile.get("work_mayo_clinic_3", ""),
+    ]
+    paragraphs = [_clean(text) for text in paragraphs if _clean(text)]
+    if not paragraphs:
+        return
+    _section_heading(doc, "Work at Mayo Clinic")
+    for text in paragraphs:
+        _paragraph(doc, text, size=8.9, after=3)
 
 
 def _awards(doc, data):
@@ -289,8 +311,15 @@ def _skills(doc, data):
         f"{_clean(r.get('name'))} ({_clean(r.get('level'))})" if _clean(r.get("level")) else _clean(r.get("name"))
         for _, r in data["skills_computing"].iterrows()
     )
+    research = ""
+    if "skills_research" in data:
+        research = "; ".join(_clean(r.get("name")) for _, r in data["skills_research"].iterrows())
     interpersonal = "; ".join(_clean(r.get("name")) for _, r in data["skills_interpersonal"].iterrows())
-    _table(doc, [("Computing", computing), ("Interpersonal", interpersonal)], widths=[1.4, 5.2])
+    rows = [("Technical & Software", computing)]
+    if research:
+        rows.append(("Research & Analytical", research))
+    rows.append(("Interpersonal", interpersonal))
+    _table(doc, rows, widths=[1.7, 4.9])
 
 
 def _patents(doc, data):
@@ -438,14 +467,16 @@ def main():
         section.right_margin = Inches(0.65)
 
     _header(doc, profile)
+    _research_summary(doc, profile)
+    _publication_metrics(doc, profile, data["publications"])
     _personal_information(doc, profile)
     _timeline_table(doc, "Education", data["education"], [("period", "Period"), ("degree", "Degree"), ("org", "Institution"), ("city", "Location")])
     _timeline_table(doc, "Working and Professional Experience", data["experience"], [("period", "Period"), ("_role_org", "Role / organization"), ("city", "Location"), ("desc", "Description")])
+    _work_mayo_clinic(doc, profile)
     _awards(doc, data)
     _leadership(doc, data)
     _skills(doc, data)
     _patents(doc, data)
-    _publication_metrics(doc, profile, data["publications"])
     _editor_reviewer(doc, data, profile)
     _presentation_summary(doc, data["presentations"])
     _languages_hobbies(doc, profile, data["hobbies"])

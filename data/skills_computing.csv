@@ -1,8 +1,8 @@
 # COLUMN GUIDE: name=skill name, level=proficiency level, url=link to tool/project (optional)
 name,level,url
 SPSS,Good,
-MS Office,Good,
-Endnote,Good,
+EndNote,Good,
+Microsoft Office,Good,
 Corel Video Studio,Good,
 Python,Beginner,
 MATLAB,Beginner,

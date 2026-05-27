@@ -1,9 +1,12 @@
 {
   "generated": true,
-  "method": "libreoffice-docx-to-pdf",
+  "converted_from_docx": true,
+  "method": "weasyprint-docx-extracted-to-pdf-fallback",
+  "preferred_method": "libreoffice-docx-to-pdf",
   "source": "Shahriarirad_Reza_CV.docx",
   "output": "Shahriarirad_Reza_CV.pdf",
-  "converter": "C:\\Program Files\\LibreOffice\\program\\soffice.com",
-  "docx_bytes": 65272,
-  "pdf_bytes": 349788
+  "libreoffice_error": "LibreOffice conversion skipped on Windows unless CV_USE_LIBREOFFICE=1; using DOCX-extracted WeasyPrint conversion.",
+  "docx_bytes": 66961,
+  "pdf_bytes": 78613,
+  "timestamp": 1779855583
 }

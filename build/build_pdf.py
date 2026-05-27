@@ -1,4 +1,4 @@
-"""Convert the generated DOCX CV to PDF with LibreOffice headless."""
+"""Convert the generated DOCX CV to PDF."""
 from __future__ import annotations
 
 import json
@@ -39,13 +39,37 @@ def _find_libreoffice():
     return None
 
 
+def _pdf_temp_root():
+    candidates = []
+    env_root = os.environ.get("CV_PDF_TEMP_DIR")
+    if env_root:
+        candidates.append(pathlib.Path(env_root))
+    if os.name == "nt":
+        candidates.append(pathlib.Path(r"C:\tmp"))
+    candidates.append(ROOT / "build" / ".tmp")
+    candidates.append(pathlib.Path(tempfile.gettempdir()))
+
+    for candidate in candidates:
+        try:
+            candidate.mkdir(parents=True, exist_ok=True)
+            probe = pathlib.Path(tempfile.mkdtemp(prefix="cv-pdf-probe-", dir=candidate))
+            shutil.rmtree(probe, ignore_errors=True)
+            return candidate
+        except Exception:
+            continue
+    return None
+
+
 def _convert_with_libreoffice(soffice):
     if not DOCX.exists() or DOCX.stat().st_size == 0:
         raise RuntimeError(
             "DOCX input is missing or empty. Run python build/build_word.py before PDF conversion."
         )
-    with tempfile.TemporaryDirectory(prefix="cv-pdf-", ignore_cleanup_errors=True) as out_dir:
-        out_path = pathlib.Path(out_dir)
+    temp_root = _pdf_temp_root()
+    if temp_root is None:
+        raise RuntimeError("Could not create a writable temporary directory for PDF conversion.")
+    out_path = pathlib.Path(tempfile.mkdtemp(prefix="cv-pdf-", dir=temp_root))
+    try:
         cmd = [
             soffice,
             "--headless",
@@ -77,6 +101,13 @@ def _convert_with_libreoffice(soffice):
                 + (result.stderr or "")
             )
         shutil.copy2(converted, OUT)
+    finally:
+        shutil.rmtree(out_path, ignore_errors=True)
+        if temp_root == ROOT / "build" / ".tmp":
+            try:
+                temp_root.rmdir()
+            except OSError:
+                pass
     if not OUT.exists() or OUT.stat().st_size == 0:
         raise RuntimeError("LibreOffice finished without creating Shahriarirad_Reza_CV.pdf")
     META.write_text(
@@ -203,6 +234,12 @@ def main():
         from build_word import main as build_word_main
 
         build_word_main()
+    if os.name == "nt" and os.environ.get("CV_USE_LIBREOFFICE", "").strip().lower() not in {"1", "true", "yes"}:
+        _convert_with_weasyprint_fallback(
+            "LibreOffice conversion skipped on Windows unless CV_USE_LIBREOFFICE=1; "
+            "using DOCX-extracted WeasyPrint conversion."
+        )
+        return
     soffice = _find_libreoffice()
     if not soffice:
         raise RuntimeError(

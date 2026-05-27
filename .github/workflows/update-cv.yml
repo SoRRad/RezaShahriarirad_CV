@@ -94,12 +94,32 @@ jobs:
           profile = {row['field']: row['value'] for row in rows}
           stats = {}
 
+          def as_int(value):
+              try:
+                  return int(str(value or '').replace(',', '').strip())
+              except ValueError:
+                  return None
+
           try:
               raw = get(profile.get('scholar_url', ''))
               blocks = re.findall(r'<td[^>]*class="gsc_rsb_std"[^>]*>(\d[\d,]*)</td>', raw)
               if len(blocks) >= 3:
-                  stats['citations_cached'] = blocks[0].replace(',', '')
-                  stats['h_index_cached'] = blocks[2]
+                  fetched_citations = as_int(blocks[0])
+                  fetched_h_index = as_int(blocks[2])
+                  current_citations = as_int(profile.get('citations_cached', ''))
+                  current_h_index = as_int(profile.get('h_index_cached', ''))
+                  if fetched_citations is not None and (
+                      current_citations is None or fetched_citations >= current_citations
+                  ):
+                      stats['citations_cached'] = str(fetched_citations)
+                  elif fetched_citations is not None:
+                      print(f'Skipping citation downgrade: fetched {fetched_citations}, cached {current_citations}')
+                  if fetched_h_index is not None and (
+                      current_h_index is None or fetched_h_index >= current_h_index
+                  ):
+                      stats['h_index_cached'] = str(fetched_h_index)
+                  elif fetched_h_index is not None:
+                      print(f'Skipping h-index downgrade: fetched {fetched_h_index}, cached {current_h_index}')
           except Exception as exc:
               print(f'Google Scholar metric refresh skipped: {exc}')
 

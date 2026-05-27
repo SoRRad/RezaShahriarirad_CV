@@ -490,7 +490,7 @@ def _logo_placeholder(initials, org_name="", color="", class_name="timeline-logo
     )
 
 
-def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) -> str:
+def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research_df=None, aff_df=None) -> str:
     def _logo_el(row, org_key="org"):
         logo_file = str(row.get("logo_file", "")).strip()
         org_name = str(row.get(org_key, "")).strip()
@@ -543,6 +543,17 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
         f'          <div class="skill-item">{_e(r["name"])}</div>'
         for _, r in skills_inter_df.iterrows()
     )
+    research_rows = ""
+    if skills_research_df is not None:
+        research_rows = "\n".join(
+            f'          <div class="skill-item">{_e(r["name"])}</div>'
+            for _, r in skills_research_df.iterrows()
+        )
+    research_group = f"""
+        <div class="skill-group">
+          <h3>Research &amp; Analytical</h3>
+{research_rows}
+        </div>""" if research_rows else ""
 
     # Lab affiliations section
     aff_section = ""
@@ -618,11 +629,12 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, aff_df=None) ->
 {edu_items}
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
-      <div class="skills-grid" style="grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:.5rem">
+      <div class="skills-grid" style="gap:1.5rem;margin-top:.5rem">
         <div class="skill-group">
-          <h3>Computing</h3>
+          <h3>Technical &amp; Software</h3>
 {comp_rows}
         </div>
+{research_group}
         <div class="skill-group">
           <h3>Interpersonal</h3>
 {inter_rows}
@@ -1176,7 +1188,7 @@ def main():
         _about(profile),
         _experience(data["experience"], data["education"],
                     data["skills_computing"], data["skills_interpersonal"],
-                    aff_df),
+                    data.get("skills_research", None), aff_df),
         _leadership(data["leadership"]),
         _publications_section(),
         _awards(data["awards"]),

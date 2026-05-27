@@ -78,6 +78,7 @@ Use the CSV files in `data/`:
 | `data/journals.csv` | Journals reviewed |
 | `data/references.csv` | Professional references |
 | `data/skills_computing.csv` | Computing skills |
+| `data/skills_research.csv` | Research and analytical skills |
 | `data/skills_interpersonal.csv` | Interpersonal skills |
 | `data/hobbies.csv` | Hobbies and extracurricular interests |
 | `data/open_source.csv` | Public open-source repositories, if any |

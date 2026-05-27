@@ -29,6 +29,7 @@ REQUIRED_COLS = {
     "journals": ["name"],
     "skills_computing": ["name", "level"],
     "skills_interpersonal": ["name"],
+    "skills_research": ["name"],
     "open_source": ["name", "language", "desc", "url"],
     "affiliations": ["org_key", "name", "role", "institution", "period"],
     "projects": [
@@ -51,6 +52,10 @@ REQUIRED_PROFILE_FIELDS = {
     "city_state",
     "bio_paragraph_1",
     "bio_paragraph_2",
+    "cv_summary",
+    "work_mayo_clinic_1",
+    "work_mayo_clinic_2",
+    "work_mayo_clinic_3",
     "email_professional",
     "scholar_url",
     "pubmed_url",
@@ -111,6 +116,7 @@ KEY_TEXT_FIELDS = {
     "profile": ["field", "value"],
     "affiliations": ["name", "role", "institution"],
     "projects": ["project_name", "short_description", "role", "status"],
+    "skills_research": ["name"],
 }
 HIDDEN_CHARS = {
     "\ufeff": "BOM",
@@ -492,17 +498,158 @@ def _check_logo_file_refs(rows, lines, stem, warnings):
             warnings.append(f"{stem}.csv: row {lineno} logo_file '{logo_file}' not found in any logo directory (will fall back to initials)")
 
 
+def _logo_or_placeholder(row):
+    logo_file = str(row.get("logo_file", "")).strip()
+    if logo_file and any((d / logo_file).exists() for d in LOGO_DIRS if d.exists()):
+        return True
+    return bool(str(row.get("logo_initials", "")).strip())
+
+
+def _int_field(profile, field, errors):
+    value = str(profile.get(field, "")).strip().replace(",", "")
+    try:
+        return int(value)
+    except ValueError:
+        errors.append(f"profile.csv: field '{field}' must be numeric")
+        return None
+
+
+def _require_row(rows, predicate, label, errors):
+    row = next((row for row in rows if predicate(row)), None)
+    if row is None:
+        errors.append(label)
+    return row
+
+
+def _validate_requested_cv_content(rows_by_stem, errors):
+    profile_rows = rows_by_stem.get("profile", [])
+    profile = {row.get("field", ""): row.get("value", "") for row in profile_rows}
+    pub_rows = rows_by_stem.get("publications", [])
+
+    citations = _int_field(profile, "citations_cached", errors)
+    if citations is not None and citations != 3428:
+        errors.append("profile.csv: citations_cached must be 3428 for the current CV update")
+    h_index = _int_field(profile, "h_index_cached", errors)
+    if h_index is not None and h_index != 24:
+        errors.append("profile.csv: h_index_cached must remain 24")
+    peer_reviews = _int_field(profile, "peer_reviews", errors)
+    if peer_reviews is not None and peer_reviews < 149:
+        errors.append("profile.csv: peer_reviews must not be downgraded below 149")
+    journals_reviewed = _int_field(profile, "journals_reviewed", errors)
+    if journals_reviewed is not None and journals_reviewed < 67:
+        errors.append("profile.csv: journals_reviewed must not be downgraded below 67")
+    pub_count = _int_field(profile, "pub_count", errors) if "pub_count" in profile else None
+    if pub_count is not None and pub_count != len(pub_rows):
+        errors.append(f"profile.csv: pub_count is {pub_count}; expected {len(pub_rows)} from publications.csv")
+
+    for field in ("email_professional", "email_personal"):
+        if not str(profile.get(field, "")).strip():
+            errors.append(f"profile.csv: missing public email field '{field}'")
+    for field in ("email_professional_public_visible", "email_personal_public_visible"):
+        if str(profile.get(field, "")).strip().lower() != "yes":
+            errors.append(f"profile.csv: {field} must be yes so both emails appear")
+
+    exp_rows = rows_by_stem.get("experience", [])
+    astar_row = _require_row(
+        exp_rows,
+        lambda row: "a-star lab" in f"{row.get('role','')} {row.get('org','')}".casefold(),
+        "experience.csv: missing Research Fellow - A-Star Lab row",
+        errors,
+    )
+    if astar_row and not _logo_or_placeholder(astar_row):
+        errors.append("experience.csv: A-Star Lab row needs either a logo_file or logo_initials placeholder")
+    trainee_row = _require_row(
+        exp_rows,
+        lambda row: "research trainee" in str(row.get("role", "")).casefold()
+        and "student research committee" in str(row.get("role", "")).casefold(),
+        "experience.csv: missing Research Trainee - Student Research Committee row",
+        errors,
+    )
+    if trainee_row:
+        if not str(trainee_row.get("desc", "")).strip():
+            errors.append("experience.csv: Research Trainee row needs a concise description")
+        if not _logo_or_placeholder(trainee_row):
+            errors.append("experience.csv: Research Trainee row needs either a logo_file or logo_initials placeholder")
+
+    leadership_rows = rows_by_stem.get("leadership", [])
+    required_leadership = {
+        "Mayo Fellow Association Quality Improvement Committee",
+        "Trauma Center Injury Prevention - Bike Rodeo / Bike Safety Program",
+        "MRFA Mentor-Mentee Program",
+        "Oraculi STEM Mentor - John Adams Middle School Science Fair",
+        "Research Project Manager and Mentoring Program",
+    }
+    normalized_titles = {
+        str(row.get("title", "")).replace("–", "-").casefold()
+        for row in leadership_rows
+    }
+    for title in sorted(required_leadership):
+        if title.casefold() not in normalized_titles:
+            errors.append(f"leadership.csv: missing required leadership/service item '{title}'")
+
+    tech_rows = rows_by_stem.get("skills_computing", [])
+    tech_names = {str(row.get("name", "")).casefold(): row for row in tech_rows}
+    for name in ("SPSS", "EndNote", "Microsoft Office", "Corel Video Studio", "Python"):
+        if name.casefold() not in tech_names:
+            errors.append(f"skills_computing.csv: missing skill '{name}'")
+    python_row = tech_names.get("python")
+    if python_row and str(python_row.get("level", "")).strip().casefold() not in {"beginner", "basic proficiency"}:
+        errors.append("skills_computing.csv: Python level must remain Beginner or Basic proficiency")
+
+    research_names = {str(row.get("name", "")).casefold() for row in rows_by_stem.get("skills_research", [])}
+    for name in (
+        "Study design",
+        "RCT coordination",
+        "Data management",
+        "Statistical analysis",
+        "Systematic review and meta-analysis",
+        "Clinical research coordination",
+        "IRB preparation",
+    ):
+        if name.casefold() not in research_names:
+            errors.append(f"skills_research.csv: missing skill '{name}'")
+
+    interpersonal_names = {str(row.get("name", "")).casefold() for row in rows_by_stem.get("skills_interpersonal", [])}
+    for name in (
+        "Scientific editing",
+        "Presentation skills",
+        "Mentoring",
+        "Time management",
+        "Multidisciplinary collaboration",
+        "English and Farsi fluency",
+    ):
+        if name.casefold() not in interpersonal_names:
+            errors.append(f"skills_interpersonal.csv: missing skill '{name}'")
+
+    award_rows = rows_by_stem.get("awards", [])
+    award_titles = {str(row.get("title", "")).casefold() for row in award_rows}
+    for title in ("World's Top 2% Scientists", "National Outstanding Student Researcher"):
+        if title.casefold() not in award_titles:
+            errors.append(f"awards.csv: missing award '{title}'")
+
+    patent_rows = rows_by_stem.get("patents", [])
+    patent_titles = {str(row.get("title", "")).casefold() for row in patent_rows}
+    for title in (
+        "A Machine Learning-Based System for Detecting Leishmaniasis in Microscopic Images",
+        "Utilization of Chest Tube in Pediatric Caustic Injuries: A New Method for Esophageal Stenting",
+    ):
+        if title.casefold() not in patent_titles:
+            errors.append(f"patents.csv: missing patent '{title}'")
+
+
 def validate_all():
     errors = []
     warnings = []
     summaries = []
     last_publication = None
+    rows_by_stem = {}
 
     for path in sorted(DATA.glob("*.csv")):
         stem = path.stem
         _warn_file_encoding(path, warnings)
         _raw_csv_shape_checks(path, stem, errors)
         columns, rows, lines = _read_csv_with_lines(path)
+        rows_by_stem[stem] = rows
         if not _validate_columns(stem, columns, errors):
             continue
 
@@ -534,6 +681,8 @@ def validate_all():
             _check_logo_file_refs(rows, lines, stem, warnings)
 
         summaries.append((stem, len(rows)))
+
+    _validate_requested_cv_content(rows_by_stem, errors)
 
     if warnings:
         print(f"\n[VALIDATE] {len(warnings)} warning(s):")
