@@ -264,22 +264,24 @@ def main():
     phone_rows = _read_csv_rows(DATA / "profile.csv")
     profile = {row.get("field", ""): row.get("value", "") for row in phone_rows}
     phone = str(profile.get("phone", "")).strip()
-    if str(profile.get("citations_cached", "")).strip().replace(",", "") != "3428":
-        errors.append("profile.csv citations_cached is not 3428")
-    if str(profile.get("h_index_cached", "")).strip() != "24":
-        errors.append("profile.csv h_index_cached is not 24")
-    try:
-        if int(str(profile.get("peer_reviews", "0")).replace(",", "")) < 149:
-            errors.append("profile.csv peer_reviews was downgraded below 149")
-    except ValueError:
-        errors.append("profile.csv peer_reviews is not numeric")
-    try:
-        if int(str(profile.get("journals_reviewed", "0")).replace(",", "")) < 67:
-            errors.append("profile.csv journals_reviewed was downgraded below 67")
-    except ValueError:
-        errors.append("profile.csv journals_reviewed is not numeric")
-    if "3,428" not in text and "3428" not in text:
-        errors.append("Generated index.html does not include the current citation count 3428")
+    # Floor checks: cached metrics may only grow (the Actions refresh already
+    # refuses downgrades), so pin known-good minimums rather than exact values.
+    metric_floors = [
+        ("citations_cached", 3428),
+        ("h_index_cached", 24),
+        ("peer_reviews", 149),
+        ("journals_reviewed", 67),
+    ]
+    for field, floor in metric_floors:
+        try:
+            if int(str(profile.get(field, "0")).replace(",", "")) < floor:
+                errors.append(f"profile.csv {field} was downgraded below {floor}")
+        except ValueError:
+            errors.append(f"profile.csv {field} is not numeric")
+    citations_raw = str(profile.get("citations_cached", "")).strip().replace(",", "")
+    citations_fmt = f"{int(citations_raw):,}" if citations_raw.isdigit() else citations_raw
+    if citations_raw and citations_fmt not in text and citations_raw not in text:
+        errors.append(f"Generated index.html does not include the current citation count {citations_raw}")
     if phone and phone in text:
         errors.append("Phone number is present in generated index.html")
     for email in ("Shahriarirad.reza@mayo.edu", "r.shahriari1995@gmail.com"):
@@ -383,8 +385,8 @@ def main():
             errors.append("Generated DOCX is missing the Research Summary section")
         if "WORK AT MAYO CLINIC" not in doc_text_upper:
             errors.append("Generated DOCX is missing the Work at Mayo Clinic section")
-        if "3428" not in doc_text and "3,428" not in doc_text:
-            errors.append("Generated DOCX does not include the current citation count 3428")
+        if citations_raw and citations_raw not in doc_text and citations_fmt not in doc_text:
+            errors.append(f"Generated DOCX does not include the current citation count {citations_raw}")
     if not pdf_path.exists() or pdf_path.stat().st_size == 0:
         errors.append("Shahriarirad_Reza_CV.pdf was not generated")
     meta_path = ROOT / "cv_pdf_build.json"

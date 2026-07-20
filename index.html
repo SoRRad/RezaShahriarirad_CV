@@ -6,7 +6,9 @@
 <title>Reza Shahriarirad, M.D. - Academic CV</title>
 <meta name="description" content="Academic CV of Reza Shahriarirad, M.D., Research Fellow in Department of Surgery - Surgical Innovation at Mayo Clinic, with work in surgical innovation, minimally invasive surgery, and artificial intelligence in surgery.">
 <meta name="author" content="Reza Shahriarirad, M.D.">
+<meta name="theme-color" content="#0a1628">
 <link rel="canonical" href="https://sorrad.github.io/RezaShahriarirad_CV/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a1628'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23d4ae5a'%3ERS%3C/text%3E%3C/svg%3E">
 <meta property="og:title" content="Reza Shahriarirad, M.D. - Academic CV">
 <meta property="og:description" content="Academic CV of Reza Shahriarirad, M.D., Research Fellow in Department of Surgery - Surgical Innovation at Mayo Clinic, with work in surgical innovation, minimally invasive surgery, and artificial intelligence in surgery.">
 <meta property="og:type" content="profile">
@@ -14,7 +16,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reza Shahriarirad, M.D. - Academic CV">
 <meta name="twitter:description" content="Academic CV of Reza Shahriarirad, M.D., Research Fellow in Department of Surgery - Surgical Innovation at Mayo Clinic, with work in surgical innovation, minimally invasive surgery, and artificial intelligence in surgery.">
+<meta property="og:image" content="https://sorrad.github.io/RezaShahriarirad_CV/assets/headshot.jpg">
+<meta name="twitter:image" content="https://sorrad.github.io/RezaShahriarirad_CV/assets/headshot.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
@@ -50,7 +55,7 @@
   --text:#1a2740; --text-mid:#3d526b; --text-muted:#6b84a0;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
 body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);line-height:1.6}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -58,13 +63,14 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(184,149,58,0.25);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px}
 .nav-logo{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:500;color:var(--gold-light);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
-.nav-links{display:flex;gap:1.6rem;list-style:none}
-.nav-links a{color:var(--mist);text-decoration:none;font-size:.72rem;font-weight:400;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links{display:flex;gap:1.15rem;list-style:none}
+.nav-links a{color:var(--mist);text-decoration:none;font-size:.7rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;white-space:nowrap;padding:.2rem 0;border-bottom:1px solid transparent}
 .nav-links a:hover{color:var(--gold-light)}
+.nav-links a.active{color:var(--gold-light);border-bottom-color:var(--gold)}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .hamburger span{display:block;width:22px;height:1.5px;background:var(--mist)}
-@media(max-width:900px){.nav-links{display:none}.hamburger{display:flex}}
-.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(10,22,40,0.99);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.2rem}
+@media(max-width:1180px){.nav-links{display:none}.hamburger{display:flex}}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--navy);border-bottom:1px solid rgba(184,149,58,.25);box-shadow:0 12px 24px rgba(0,0,0,.35);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.2rem;max-height:calc(100vh - 60px);overflow-y:auto}
 .mobile-menu.open{display:flex}
 .mobile-menu a{color:var(--mist);text-decoration:none;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
 
@@ -347,6 +353,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .lab-card-inst{font-size:.72rem;color:var(--text-muted);margin-bottom:.15rem}
 .lab-card-detail{font-size:.72rem;color:var(--text-muted);font-style:italic;margin-bottom:.15rem}
 
+/* BACK TO TOP */
+.back-to-top{position:fixed;right:1.4rem;bottom:1.4rem;z-index:90;width:42px;height:42px;border-radius:4px;border:1px solid rgba(184,149,58,.5);background:rgba(10,22,40,.92);color:var(--gold-light);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s}
+.back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.back-to-top:hover{background:var(--navy-mid);border-color:var(--gold)}
+.back-to-top svg{width:16px;height:16px;fill:currentColor}
+
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .hero-left>*{animation:fadeUp .7s ease both}
@@ -355,6 +367,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .hero-left>*:nth-child(3){animation-delay:.35s}
 .hero-left>*:nth-child(4){animation-delay:.5s}
 .hero-right{animation:fadeUp .7s .4s ease both}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-left>*,.hero-right{animation:none}
+  .live-dot{animation:none}
+  *{transition-duration:.01ms!important}
+}
 
 /* RESPONSIVE */
 @media(max-width:860px){
@@ -1356,6 +1374,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </div>
 </div>
 
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5 4 13h5v6h6v-6h5l-8-8z"/></svg>
+</button>
 <!-- FOOTER -->
 <footer>
   <div class="footer-name">Reza Shahriarirad, M.D.</div>
@@ -6416,6 +6438,37 @@ function closeMenu(){
   document.getElementById('mobile-menu')?.classList.remove('open');
   document.querySelector('.hamburger')?.setAttribute('aria-expanded','false');
 }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+document.addEventListener('click', e => {
+  if(!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) closeMenu();
+});
+
+/* ── NAV SCROLL-SPY + BACK TO TOP ── */
+function initNavScrollSpy(){
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+  if(!links.length || !('IntersectionObserver' in window)) return;
+  const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      links.forEach(a => a.classList.remove('active'));
+      byId.get(entry.target.id)?.classList.add('active');
+    });
+  }, {rootMargin: '-25% 0px -65% 0px'});
+  byId.forEach((_, id) => {
+    const section = document.getElementById(id);
+    if(section) observer.observe(section);
+  });
+}
+
+function initBackToTop(){
+  const btn = document.getElementById('back-to-top');
+  if(!btn) return;
+  const toggle = () => btn.classList.toggle('visible', window.scrollY > 700);
+  window.addEventListener('scroll', toggle, {passive: true});
+  toggle();
+  btn.addEventListener('click', () => window.scrollTo({top: 0, left: 0}));
+}
 
 function syncPressed(container){
   document.querySelectorAll(container + ' .filter-btn').forEach(btn => {
@@ -6484,9 +6537,17 @@ function normalizedArray(values){
     : [];
 }
 
+/* Explicit tags in data/publications.csv are curated against the full author
+   lists; the author strings shown on the page are often truncated, so parsing
+   them mislabels co-first/last authorship. When the dataset carries explicit
+   tags, treat them as authoritative and only fall back to parsing otherwise. */
+const datasetHasExplicitTags = typeof publications !== 'undefined'
+  && publications.some(p => Array.isArray(p.tags) && p.tags.length > 0);
+
 function getPubTags(pub){
   const aliases = {'senior':'last','last/senior':'last','cofirst':'co-first','co_first':'co-first'};
   const explicit = normalizedArray(pub.tags).map(tag => aliases[tag] || tag);
+  if(datasetHasExplicitTags) return uniqueValues(explicit);
   return uniqueValues([...explicit, ...computeTags(pub.authors)]);
 }
 
@@ -6987,6 +7048,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRefs();
   renderJournals();
   initCachedMetrics();
+  initNavScrollSpy();
+  initBackToTop();
   syncPressed('.pub-filter-sidebar');
   syncPressed('.pres-filter-sidebar');
 });

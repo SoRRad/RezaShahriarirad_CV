@@ -63,8 +63,6 @@ git add `
   .github/workflows/update-cv.yml `
   .gitignore `
   README.md `
-  push_to_github.bat `
-  push_to_github.sh `
   tools/admin-local/cv-admin.html
 if ($LASTEXITCODE -ne 0) {
   throw "git add failed. Check the staged file list and repository state."

@@ -9,7 +9,6 @@ on:
       - 'assets/**'
       - 'scripts/**'
       - 'tools/admin-local/**'
-      - 'push_to_github.*'
       - '.github/workflows/update-cv.yml'
       - 'README.md'
   schedule:
@@ -132,6 +131,42 @@ jobs:
               print('Updated cached metrics:', json.dumps(stats))
           else:
               print('No cached metric changes; continuing with existing data/profile.csv values.')
+          PYEOF
+
+      - name: Warn when cached metrics are stale
+        continue-on-error: true
+        run: |
+          python << 'PYEOF'
+          import csv
+          import datetime as dt
+          import os
+          import pathlib
+
+          rows = [
+              line
+              for line in pathlib.Path('data/profile.csv').open(encoding='utf-8-sig')
+              if not line.startswith('#')
+          ]
+          profile = {r['field']: r['value'] for r in csv.DictReader(rows)}
+          raw = profile.get('metrics_last_updated', '').strip()
+          try:
+              updated = dt.datetime.strptime(raw, '%B %d, %Y').date()
+          except ValueError:
+              print(f"::warning::metrics_last_updated ('{raw}') is not parseable; cannot check staleness.")
+              raise SystemExit(0)
+          age = (dt.date.today() - updated).days
+          msg = (
+              f"Cached Scholar metrics (citations {profile.get('citations_cached','?')}, "
+              f"h-index {profile.get('h_index_cached','?')}) were last updated {raw} ({age} days ago)."
+          )
+          print(msg)
+          if age > 45:
+              print(f"::warning::{msg} The automated Google Scholar refresh is usually blocked (HTTP 403); "
+                    "please update citations_cached / h_index_cached / metrics_last_updated in data/profile.csv manually.")
+              summary = os.environ.get('GITHUB_STEP_SUMMARY')
+              if summary:
+                  with open(summary, 'a', encoding='utf-8') as fh:
+                      fh.write(f"### Stale citation metrics\n\n{msg} Update `data/profile.csv` from Google Scholar.\n")
           PYEOF
 
       - name: Validate CSV data
