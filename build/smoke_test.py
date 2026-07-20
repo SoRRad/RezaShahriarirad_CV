@@ -306,6 +306,17 @@ def main():
         else:
             print("[SMOKE] Row 195 appears in index.html.")
 
+    astar_link_checks = [
+        ("https://a-starlab.com/", "A-Star Lab website link is missing from the lab affiliations"),
+        (
+            "https://www.mayo.edu/research/labs/artificial-intelligence-surgical-technologies/overview",
+            "A-Star Lab Mayo lab-page link is missing from the lab affiliations",
+        ),
+    ]
+    for needle, message in astar_link_checks:
+        if needle not in text:
+            errors.append(message)
+
     open_source_checks = [
         ("MOSI System", "MOSI System is missing from the Open Source section"),
         ("https://github.com/SoRRad/MOSI-System", "MOSI GitHub link is missing"),
