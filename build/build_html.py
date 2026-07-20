@@ -607,6 +607,15 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
                 r.get("logo_color", ""),
                 "lab-card-logo-placeholder",
             )
+            link_url_2 = str(r.get("link_url_2", "")).strip()
+            links_html = ""
+            if link_url_2:
+                link_label_2 = str(r.get("link_label_2", "")).strip() or "More"
+                chips = []
+                if url:
+                    chips.append(f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="ref-link">Website &#8599;</a>')
+                chips.append(f'<a href="{_e(link_url_2)}" target="_blank" rel="noopener noreferrer" class="ref-link">{_e(link_label_2)} &#8599;</a>')
+                links_html = f'<div class="lab-card-links">{"".join(chips)}</div>'
             aff_cards.append(f"""      <div class="lab-card">
         {logo_html}
         <div class="lab-card-body">
@@ -614,6 +623,7 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
           {role_html}
           {detail_html}
           {meta_html}
+          {links_html}
         </div>
       </div>""")
         if aff_cards:
