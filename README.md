@@ -106,6 +106,18 @@ Edit `data/profile.csv`.
 - Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
 - The public site does not fetch live Google Scholar data in the browser.
 
+#### Keeping citation metrics current
+
+Google Scholar blocks automated scraping from GitHub Actions (HTTP 403), so the workflow's metric refresh almost never succeeds on its own. The practical routine is:
+
+1. Open your [Google Scholar profile](https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en) roughly once a month.
+2. Update `citations_cached`, `h_index_cached`, and `metrics_last_updated` in `data/profile.csv` (and `peer_reviews` / `journals_reviewed` / `manuscripts_reviewed` when they change).
+3. Push with the safe-push script; the build regenerates everything else.
+
+The weekly build now prints a workflow warning when `metrics_last_updated` is more than 45 days old, so a stale number surfaces in the Actions summary instead of silently aging. The smoke test enforces that cached metrics never go *down* (floor checks) but no longer pins exact values, so a successful refresh cannot break the build.
+
+Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
+
 ### Innovation Project Data
 
 `data/projects.csv` is retained for structured project data, but selected innovation projects are not rendered on the public website.
@@ -136,7 +148,7 @@ The deployed public site includes:
 - generated JSON files for compatibility
 - required static asset folders such as `assets/`, `images/`, `img/`, `public/`, `static/`, and `build/static_assets/logos/` when present
 
-The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build.
+The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build. When cached metrics are more than 45 days old, the workflow emits a warning in the run summary as a reminder to update `data/profile.csv` manually (see "Keeping citation metrics current" above).
 
 Preferred GitHub Pages configuration is **Deploy from a branch -> `gh-pages` / root**. If the repository is instead configured to publish from `main` / root, the workflow still commits the rebuilt generated files back to `main`, so CSV-only pushes can update the live site after validation passes. If a valid build/deploy finishes but the live site is still stale, check **Settings -> Pages** and browser/CDN cache before editing generated files manually.
 

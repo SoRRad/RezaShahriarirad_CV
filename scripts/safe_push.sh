@@ -52,8 +52,6 @@ git add \
   .github/workflows/update-cv.yml \
   .gitignore \
   README.md \
-  push_to_github.bat \
-  push_to_github.sh \
   tools/admin-local/cv-admin.html
 
 if git diff --staged --quiet; then

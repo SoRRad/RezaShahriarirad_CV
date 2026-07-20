@@ -10,6 +10,37 @@ function closeMenu(){
   document.getElementById('mobile-menu')?.classList.remove('open');
   document.querySelector('.hamburger')?.setAttribute('aria-expanded','false');
 }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
+document.addEventListener('click', e => {
+  if(!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) closeMenu();
+});
+
+/* ── NAV SCROLL-SPY + BACK TO TOP ── */
+function initNavScrollSpy(){
+  const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+  if(!links.length || !('IntersectionObserver' in window)) return;
+  const byId = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      links.forEach(a => a.classList.remove('active'));
+      byId.get(entry.target.id)?.classList.add('active');
+    });
+  }, {rootMargin: '-25% 0px -65% 0px'});
+  byId.forEach((_, id) => {
+    const section = document.getElementById(id);
+    if(section) observer.observe(section);
+  });
+}
+
+function initBackToTop(){
+  const btn = document.getElementById('back-to-top');
+  if(!btn) return;
+  const toggle = () => btn.classList.toggle('visible', window.scrollY > 700);
+  window.addEventListener('scroll', toggle, {passive: true});
+  toggle();
+  btn.addEventListener('click', () => window.scrollTo({top: 0, left: 0}));
+}
 
 function syncPressed(container){
   document.querySelectorAll(container + ' .filter-btn').forEach(btn => {
@@ -78,9 +109,17 @@ function normalizedArray(values){
     : [];
 }
 
+/* Explicit tags in data/publications.csv are curated against the full author
+   lists; the author strings shown on the page are often truncated, so parsing
+   them mislabels co-first/last authorship. When the dataset carries explicit
+   tags, treat them as authoritative and only fall back to parsing otherwise. */
+const datasetHasExplicitTags = typeof publications !== 'undefined'
+  && publications.some(p => Array.isArray(p.tags) && p.tags.length > 0);
+
 function getPubTags(pub){
   const aliases = {'senior':'last','last/senior':'last','cofirst':'co-first','co_first':'co-first'};
   const explicit = normalizedArray(pub.tags).map(tag => aliases[tag] || tag);
+  if(datasetHasExplicitTags) return uniqueValues(explicit);
   return uniqueValues([...explicit, ...computeTags(pub.authors)]);
 }
 
@@ -581,6 +620,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRefs();
   renderJournals();
   initCachedMetrics();
+  initNavScrollSpy();
+  initBackToTop();
   syncPressed('.pub-filter-sidebar');
   syncPressed('.pres-filter-sidebar');
 });

@@ -218,6 +218,18 @@ def _head(css: str, profile: dict) -> str:
     public_email = _primary_public_email(profile)
     if public_email:
         person["email"] = public_email
+    og_image = canonical.rstrip("/") + "/assets/headshot.jpg" if (ROOT / "assets" / "headshot.jpg").exists() else ""
+    og_image_tags = (
+        f'\n<meta property="og:image" content="{_e(og_image)}">'
+        f'\n<meta name="twitter:image" content="{_e(og_image)}">'
+    ) if og_image else ""
+    favicon = (
+        "data:image/svg+xml,"
+        "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
+        "%3Crect width='64' height='64' rx='10' fill='%230a1628'/%3E"
+        "%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23d4ae5a'%3ERS%3C/text%3E"
+        "%3C/svg%3E"
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -226,15 +238,18 @@ def _head(css: str, profile: dict) -> str:
 <title>{_e(title)}</title>
 <meta name="description" content="{_e(desc)}">
 <meta name="author" content="Reza Shahriarirad, M.D.">
+<meta name="theme-color" content="#0a1628">
 <link rel="canonical" href="{_e(canonical)}">
+<link rel="icon" href="{favicon}">
 <meta property="og:title" content="{_e(title)}">
 <meta property="og:description" content="{_e(desc)}">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="{_e(canonical)}">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="{_e(title)}">
-<meta name="twitter:description" content="{_e(desc)}">
+<meta name="twitter:description" content="{_e(desc)}">{og_image_tags}
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {json.dumps(person, ensure_ascii=False, indent=2)}
@@ -1068,6 +1083,10 @@ def _footer(profile: dict) -> str:
     footer_institution = "Department of Surgery - Surgical Innovation"
 
     return f"""
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top" title="Back to top">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 5 4 13h5v6h6v-6h5l-8-8z"/></svg>
+</button>
 <!-- FOOTER -->
 <footer>
   <div class="footer-name">{_e(profile.get('name','Reza Shahriarirad, M.D.'))}</div>
