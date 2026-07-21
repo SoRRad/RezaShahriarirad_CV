@@ -172,6 +172,9 @@ jobs:
       - name: Validate CSV data
         run: python build/validate_data.py
 
+      - name: Run build unit tests
+        run: python build/test_utils.py
+
       - name: Run CV build
         run: python build/build.py
 
@@ -229,12 +232,17 @@ jobs:
           rm -rf site_public
           mkdir site_public
           cp index.html site_public/
-          cp Shahriarirad_Reza_CV.docx site_public/
+          # NOTE: the Word CV (.docx) is intentionally NOT copied into the public
+          # payload. The DOCX stays in the repo but the public site links to the
+          # PDF only; keep this in sync with the smoke test's DOCX-exclusion check.
           cp Shahriarirad_Reza_CV.pdf site_public/
           cp cv_pubs.json site_public/
           cp cv_presentations.json site_public/
           cp cv_journals.json site_public/
           cp cv_live_stats.json site_public/
+          for seo in robots.txt sitemap.xml; do
+            if [ -f "$seo" ]; then cp "$seo" site_public/; fi
+          done
           if [ -d assets ]; then
             cp -R assets site_public/assets
           fi
@@ -258,10 +266,14 @@ jobs:
       - name: Verify deployment payload
         run: |
           test -s site_public/index.html
-          test -s site_public/Shahriarirad_Reza_CV.docx
           test -s site_public/Shahriarirad_Reza_CV.pdf
           test -s site_public/cv_pubs.json
           test -s site_public/cv_presentations.json
+          # The Word CV must never be published to GitHub Pages.
+          if [ -e site_public/Shahriarirad_Reza_CV.docx ]; then
+            echo "ERROR: DOCX must not be in the public deployment payload" >&2
+            exit 1
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

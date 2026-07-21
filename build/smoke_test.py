@@ -415,6 +415,19 @@ def main():
             errors.append("PDF build metadata does not retain LibreOffice as the preferred conversion method")
         if pdf_meta.get("source") != "Shahriarirad_Reza_CV.docx" or pdf_meta.get("output") != "Shahriarirad_Reza_CV.pdf":
             errors.append("PDF build metadata source/output do not match the generated DOCX/PDF files")
+    # SEO essentials generated for the public payload.
+    robots_path = ROOT / "robots.txt"
+    sitemap_path = ROOT / "sitemap.xml"
+    if not robots_path.exists() or "Sitemap:" not in robots_path.read_text(encoding="utf-8"):
+        errors.append("robots.txt is missing or does not reference the sitemap")
+    if not sitemap_path.exists() or "<loc>" not in sitemap_path.read_text(encoding="utf-8"):
+        errors.append("sitemap.xml is missing or has no <loc> entry")
+
+    # The old phone number must never reappear in any generated public output.
+    for needle in ("507-218-6077", "5072186077"):
+        if needle in text:
+            errors.append("Phone number literal is present in generated index.html")
+
     if 'href="Shahriarirad_Reza_CV.pdf"' not in text:
         errors.append("Website PDF download link is missing")
     if 'href="Shahriarirad_Reza_CV.docx"' in text or "Shahriarirad_Reza_CV.docx" in re.sub(r"cv_pdf_build\.json.*", "", text):

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sorrad.github.io/RezaShahriarirad_CV/sitemap.xml
