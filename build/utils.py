@@ -28,6 +28,7 @@ TAXONOMY = {
             "derm":       "Dermatology",
             "infectious": "Infectious Disease",
             "neuro":      "Neurology",
+            "psych":      "Psychiatry",
             "pulm":       "Pulmonology",
             "urology":    "Urology",
         },

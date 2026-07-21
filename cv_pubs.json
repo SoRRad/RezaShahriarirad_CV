@@ -4714,5 +4714,29 @@
       "infectious"
     ],
     "featured": ""
+  },
+  {
+    "n": 193,
+    "year": "2026",
+    "type": "review",
+    "tags": [],
+    "cat": [
+      "psych"
+    ],
+    "title": "Current Evidence of Acetyl-L-Carnitine Use in Mood Disorders: A Systematic Review and Meta-Analysis",
+    "authors": "Kumar R*, Hashempour Z, Shahriarirad S, Shahriarirad R, Hassett LC, Singh B, Croarkin PE, Veldic M, Frye MA, Pagali SR",
+    "journal": "Neuropsychiatric Disease and Treatment",
+    "url": "https://doi.org/10.2147/NDT.S586506",
+    "keywords": [
+      "Psychiatry",
+      "Mood disorders",
+      "Acetyl-L-Carnitine",
+      "Systematic review",
+      "Meta-analysis"
+    ],
+    "highlight_topics": [
+      "psych"
+    ],
+    "featured": ""
   }
 ]

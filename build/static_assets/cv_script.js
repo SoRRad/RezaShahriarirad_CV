@@ -68,7 +68,7 @@ function initCachedMetrics(){
 
 const mainGroupSubs = {
   'surgery':          ['bariatric','endocrine','gi','oncology','ortho','plastic','thoracic','transplant','urosurg','vascular'],
-  'internal_medicine':['derm','infectious','neuro','pulm','urology'],
+  'internal_medicine':['derm','infectious','neuro','psych','pulm','urology'],
   'ai':               ['computer_vision','machine_learning'],
   'health_sciences':  ['education','epidemiology','health_systems','pubhealth'],
 };
