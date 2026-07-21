@@ -87,6 +87,48 @@ def format_authors_html(authors: str) -> str:
     return re.sub(r"(Shahriarirad R\*?)", r"<strong>\1</strong>", authors)
 
 
+TRACKING_PARAM_PREFIXES = ("utm_",)
+TRACKING_PARAM_NAMES = {
+    "gclid", "fbclid", "_gl", "mc_cid", "mc_eid", "igshid", "ref_src",
+    "ref", "gclsrc", "dclid", "yclid", "msclkid", "spm",
+}
+
+
+def has_tracking_params(url) -> bool:
+    """True if the URL query string carries a known tracking parameter."""
+    from urllib.parse import urlsplit, parse_qsl
+
+    query = urlsplit(str(url or "")).query
+    for key, _ in parse_qsl(query, keep_blank_values=True):
+        low = key.lower()
+        if low in TRACKING_PARAM_NAMES or low.startswith(TRACKING_PARAM_PREFIXES):
+            return True
+    return False
+
+
+def clean_url(url) -> str:
+    """Strip tracking parameters (utm_*, gclid, _gl, ...) from a URL.
+
+    Preserves meaningful query parameters and never rewrites the host/path, so a
+    working link stays working. Returns the input unchanged when it is empty or
+    not http(s).
+    """
+    from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+
+    raw = str(url or "").strip()
+    if not raw or not raw.lower().startswith(("http://", "https://")):
+        return raw
+    parts = urlsplit(raw)
+    if not parts.query:
+        return raw
+    kept = [
+        (key, value)
+        for key, value in parse_qsl(parts.query, keep_blank_values=True)
+        if not (key.lower() in TRACKING_PARAM_NAMES or key.lower().startswith(TRACKING_PARAM_PREFIXES))
+    ]
+    return urlunsplit((parts.scheme, parts.netloc, parts.path, urlencode(kept), parts.fragment))
+
+
 def parse_semicolon(value) -> list:
     """Split a semicolon-separated string into a list; [] for empty/NaN."""
     if not value or (isinstance(value, float)):

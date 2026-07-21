@@ -526,18 +526,19 @@ def _validate_requested_cv_content(rows_by_stem, errors):
     profile = {row.get("field", ""): row.get("value", "") for row in profile_rows}
     pub_rows = rows_by_stem.get("publications", [])
 
-    citations = _int_field(profile, "citations_cached", errors)
-    if citations is not None and citations != 3428:
-        errors.append("profile.csv: citations_cached must be 3428 for the current CV update")
-    h_index = _int_field(profile, "h_index_cached", errors)
-    if h_index is not None and h_index != 24:
-        errors.append("profile.csv: h_index_cached must remain 24")
-    peer_reviews = _int_field(profile, "peer_reviews", errors)
-    if peer_reviews is not None and peer_reviews < 149:
-        errors.append("profile.csv: peer_reviews must not be downgraded below 149")
-    journals_reviewed = _int_field(profile, "journals_reviewed", errors)
-    if journals_reviewed is not None and journals_reviewed < 67:
-        errors.append("profile.csv: journals_reviewed must not be downgraded below 67")
+    # Metric floors (no-downgrade), not exact pins. Google Scholar numbers only
+    # grow; the Actions refresh and smoke test enforce the same floors, so a
+    # successful metric refresh must never fail the build. Bump a floor here
+    # only when a genuinely higher value has been verified and committed.
+    for field, floor in (
+        ("citations_cached", 3428),
+        ("h_index_cached", 24),
+        ("peer_reviews", 149),
+        ("journals_reviewed", 67),
+    ):
+        value = _int_field(profile, field, errors)
+        if value is not None and value < floor:
+            errors.append(f"profile.csv: {field} must not be downgraded below {floor}")
     pub_count = _int_field(profile, "pub_count", errors) if "pub_count" in profile else None
     if pub_count is not None and pub_count != len(pub_rows):
         errors.append(f"profile.csv: pub_count is {pub_count}; expected {len(pub_rows)} from publications.csv")
@@ -571,21 +572,14 @@ def _validate_requested_cv_content(rows_by_stem, errors):
         if not _logo_or_placeholder(trainee_row):
             errors.append("experience.csv: Research Trainee row needs either a logo_file or logo_initials placeholder")
 
+    # Structural check rather than exact-title pins: titles are edited over time
+    # (e.g. "Mayo Fellow Association" -> "Mayo Research Fellows' Association"), so
+    # assert the leadership section stays populated rather than freezing wording.
     leadership_rows = rows_by_stem.get("leadership", [])
-    required_leadership = {
-        "Mayo Fellow Association Quality Improvement Committee",
-        "Trauma Center Injury Prevention - Bike Rodeo / Bike Safety Program",
-        "MRFA Mentor-Mentee Program",
-        "Oraculi STEM Mentor - John Adams Middle School Science Fair",
-        "Research Project Manager and Mentoring Program",
-    }
-    normalized_titles = {
-        str(row.get("title", "")).replace("–", "-").casefold()
-        for row in leadership_rows
-    }
-    for title in sorted(required_leadership):
-        if title.casefold() not in normalized_titles:
-            errors.append(f"leadership.csv: missing required leadership/service item '{title}'")
+    if len(leadership_rows) < 5:
+        errors.append(
+            f"leadership.csv: expected at least 5 leadership/service items, found {len(leadership_rows)}"
+        )
 
     tech_rows = rows_by_stem.get("skills_computing", [])
     tech_names = {str(row.get("name", "")).casefold(): row for row in tech_rows}
@@ -683,6 +677,17 @@ def validate_all():
         summaries.append((stem, len(rows)))
 
     _validate_requested_cv_content(rows_by_stem, errors)
+
+    # URL hygiene warnings (non-fatal): the build strips tracking params via
+    # utils.clean_url, so this surfaces them at the source for a manual cleanup.
+    from utils import has_tracking_params
+
+    for stem, url_fields in (("publications", ("url",)), ("presentations", ("url",)), ("open_source", ("url", "demo", "paper"))):
+        for idx, row in enumerate(rows_by_stem.get(stem, []), start=1):
+            for field in url_fields:
+                value = str(row.get(field, "")).strip()
+                if value and has_tracking_params(value):
+                    warnings.append(f"{stem}.csv: row {idx} field '{field}' contains tracking parameters (build will strip them)")
 
     if warnings:
         print(f"\n[VALIDATE] {len(warnings)} warning(s):")

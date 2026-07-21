@@ -14,7 +14,7 @@ BUILD_DIR = pathlib.Path(__file__).parent
 ROOT = BUILD_DIR.parent
 DATA_DIR = ROOT / "data"
 sys.path.insert(0, str(BUILD_DIR))
-from utils import author_tag_counts  # noqa: E402
+from utils import author_tag_counts, clean_url  # noqa: E402
 
 STEPS = [
     ("build_html", "Generating index.html"),
@@ -49,6 +49,8 @@ def generate_legacy_json():
         out = dict(row)
         for key in ("tags", "cat", "keywords", "highlight_topics"):
             out[key] = _split_semicolon(out.get(key, ""))
+        if out.get("url"):
+            out["url"] = clean_url(out["url"])
         try:
             out["n"] = int(out.get("n", ""))
         except ValueError:
@@ -85,6 +87,27 @@ def generate_legacy_json():
     _write_json(ROOT / "cv_presentations.json", presentations)
     _write_json(ROOT / "cv_journals.json", journals)
     _write_json(ROOT / "cv_live_stats.json", live_stats)
+
+    _generate_sitemap(profile)
+
+
+def _generate_sitemap(profile):
+    """Regenerate sitemap.xml from the canonical URL with today's lastmod."""
+    import datetime as _dt
+
+    canonical = (profile.get("canonical_url", "") or "https://sorrad.github.io/RezaShahriarirad_CV/").strip()
+    if not canonical.endswith("/"):
+        canonical += "/"
+    today = _dt.date.today().isoformat()
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        f"  <url>\n    <loc>{canonical}</loc>\n    <lastmod>{today}</lastmod>\n"
+        "    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n"
+        "</urlset>\n"
+    )
+    (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    print(f"  Generated {(ROOT / 'sitemap.xml').relative_to(ROOT)}")
 
 
 def main():

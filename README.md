@@ -127,14 +127,20 @@ Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the expl
 These files are generated artifacts and should not be edited manually:
 
 - `index.html`
-- `Shahriarirad_Reza_CV.docx`
+- `Shahriarirad_Reza_CV.docx` (kept in the repo, **not** deployed publicly)
 - `Shahriarirad_Reza_CV.pdf`
 - `cv_pubs.json`
 - `cv_presentations.json`
 - `cv_journals.json`
 - `cv_live_stats.json`
+- `sitemap.xml`
 
 If a generated file needs to change, update the relevant CSV or build source, then run `python build/build.py`.
+
+### Privacy
+
+- The phone number is **not** stored in the repository. `data/profile.csv` keeps `phone` blank and `phone_public_visible,no`. If a private local phone is ever needed, put it in `data/profile_private.csv` (git-ignored) — never commit it.
+- The Word CV (`Shahriarirad_Reza_CV.docx`) is generated and committed but is never copied into the public GitHub Pages payload; the public page links to the PDF only. The workflow fails if a DOCX ends up in the deployment payload.
 
 ## GitHub Actions And Pages
 
@@ -143,9 +149,9 @@ If a generated file needs to change, update the relevant CSV or build source, th
 The deployed public site includes:
 
 - `index.html`
-- `Shahriarirad_Reza_CV.docx`
-- `Shahriarirad_Reza_CV.pdf`
+- `Shahriarirad_Reza_CV.pdf` (the Word `.docx` is intentionally excluded)
 - generated JSON files for compatibility
+- `robots.txt` and `sitemap.xml`
 - required static asset folders such as `assets/`, `images/`, `img/`, `public/`, `static/`, and `build/static_assets/logos/` when present
 
 The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build. When cached metrics are more than 45 days old, the workflow emits a warning in the run summary as a reminder to update `data/profile.csv` manually (see "Keeping citation metrics current" above).

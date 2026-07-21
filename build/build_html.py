@@ -4,7 +4,7 @@ Reads cv_style.css and cv_script.js verbatim; all dynamic content comes from CSV
 """
 import base64, json, mimetypes, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import load_all_data, get_profile, parse_semicolon, TAXONOMY, CAT_LABELS
+from utils import load_all_data, get_profile, parse_semicolon, clean_url, TAXONOMY, CAT_LABELS
 
 ROOT   = pathlib.Path(__file__).parent.parent
 ASSETS = pathlib.Path(__file__).parent / "static_assets"
@@ -819,14 +819,21 @@ def _awards(awards_df) -> str:
 </div>"""
 
 
+_PATENT_ISSUER_LABELS = {"IR": "Iranian Patent", "US": "US Patent", "EP": "European Patent"}
+
 def _patents(patents_df) -> str:
     items = []
     for _, r in patents_df.iterrows():
+        issuer_raw = str(r.get("issuer", "")).strip()
+        issuer_label = _PATENT_ISSUER_LABELS.get(issuer_raw.upper(), issuer_raw or "Patent")
+        status = str(r.get("status", "")).strip() or "Issued"
+        date = str(r.get("date", "")).strip()
+        issued = f"{status} {date}".strip()
         items.append(f"""    <div class="patent-item">
-      <div class="patent-date">{_e(r["date"])}</div>
+      <div class="patent-date">{_e(date)}</div>
       <div>
         <div class="patent-title">{_e(r["title"])}</div>
-        <div class="patent-id">Issuer: {_e(r["issuer"])} &nbsp;·&nbsp; Registration No. {_e(r["number"])}</div>
+        <div class="patent-id">{_e(issuer_label)} No. {_e(r["number"])} &nbsp;·&nbsp; {_e(issued)}</div>
       </div>
     </div>""")
     return f"""
@@ -1134,7 +1141,7 @@ def _pubs_js(pubs_df) -> str:
             "title": str(r.get("title", "")).strip(),
             "authors": str(r.get("authors", "")).strip(),
             "journal": str(r.get("journal", "")).strip(),
-            "url": str(r.get("url", "")).strip(),
+            "url": clean_url(str(r.get("url", "")).strip()),
             "keywords": parse_semicolon(r.get("keywords", "")),
             "highlight_topics": [h.lower() for h in parse_semicolon(r.get("highlight_topics", ""))],
             "featured": "yes" if _yes(r.get("featured", "")) else "",

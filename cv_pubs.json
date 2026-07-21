@@ -13,7 +13,7 @@
     "title": "Online patient education resources in bariatric surgery: a systematic evaluation of quality, readability, transparency, and representation",
     "authors": "Alomar A*, Shahriarirad R, Ghanem O, Laplante S",
     "journal": "Surgical Endoscopy",
-    "url": "https://link.springer.com/article/10.1007/s00464-026-12845-y?_gl=1*htwbjp*_up*MQ..*_gs*MQ..&gclid=EAIaIQobChMIhJKXnsiilAMVED6HAx2gSDYMEAAYASAAEgLxKfD_BwE",
+    "url": "https://doi.org/10.1007/s00464-026-12845-y",
     "keywords": [
       "Medical education",
       "Public health",
@@ -101,8 +101,7 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.71733",
     "keywords": [
       "Neurology",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "neuro"
@@ -336,8 +335,7 @@
     "keywords": [
       "Diabetes",
       "Orthopaedic surgery",
-      "Endocrine surgery",
-      "Animal model"
+      "Endocrine surgery"
     ],
     "highlight_topics": [
       "ortho",
@@ -728,8 +726,7 @@
       "Minimally invasive surgery",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial",
-      "Animal model"
+      "Randomized trial"
     ],
     "highlight_topics": [
       "endocrine"
@@ -942,8 +939,7 @@
       "Translational research",
       "Infectious disease",
       "Public health",
-      "Systematic review",
-      "Animal model"
+      "Systematic review"
     ],
     "highlight_topics": [
       "infectious",
@@ -1039,8 +1035,7 @@
       "Infectious disease",
       "Public health",
       "Health systems",
-      "COVID-19",
-      "Animal model"
+      "COVID-19"
     ],
     "highlight_topics": [
       "infectious",
@@ -1068,8 +1063,7 @@
       "Surgical oncology",
       "Machine learning",
       "Breast reconstruction",
-      "Breast cancer",
-      "Animal model"
+      "Breast cancer"
     ],
     "highlight_topics": [
       "oncology",
@@ -1120,8 +1114,7 @@
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02416-w",
     "keywords": [
       "Thoracic surgery",
-      "Infectious disease",
-      "Animal model"
+      "Infectious disease"
     ],
     "highlight_topics": [
       "thoracic",
@@ -1223,8 +1216,7 @@
     "url": "https://link.springer.com/article/10.1007/s00238-023-02116-7",
     "keywords": [
       "Plastic surgery",
-      "Randomized trial",
-      "Animal model"
+      "Randomized trial"
     ],
     "highlight_topics": [
       "plastic"
@@ -1318,8 +1310,7 @@
     "url": "https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w",
     "keywords": [
       "Thoracic surgery",
-      "Surgical oncology",
-      "Animal model"
+      "Surgical oncology"
     ],
     "highlight_topics": [
       "thoracic",
@@ -1364,8 +1355,7 @@
     "url": "https://bmcendocrdisord.biomedcentral.com/articles/10.1186/s12902-023-01378-3",
     "keywords": [
       "Endocrine surgery",
-      "Thyroid",
-      "Animal model"
+      "Thyroid"
     ],
     "highlight_topics": [
       "endocrine"
@@ -1476,7 +1466,7 @@
     "title": "Translation, Cross-cultural Adaptation, and Psychometric Evaluation of the Persian (Farsi) Version of the QoLAF Questionnaire",
     "authors": "Keramati MR*, Meshkati Yazd SM, Omidi M, Keshvari A, Shahriarirad S, Shahriarirad R, Nabavizadeh SS",
     "journal": "PLOS One",
-    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0277170",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0277170",
     "keywords": [
       "Quality of life",
       "Gastrointestinal surgery"
@@ -1724,8 +1714,7 @@
       "Surgical oncology",
       "Plastic surgery",
       "Breast reconstruction",
-      "Breast cancer",
-      "Animal model"
+      "Breast cancer"
     ],
     "highlight_topics": [
       "oncology",
@@ -1825,8 +1814,7 @@
       "Supplement",
       "Endocrine surgery",
       "Thyroid",
-      "Randomized trial",
-      "Animal model"
+      "Randomized trial"
     ],
     "highlight_topics": [
       "endocrine"
@@ -1845,7 +1833,7 @@
     "title": "Factors Associated with Reluctancy to Acquire COVID-19 Vaccination: A Cross-sectional Study in Shiraz, Iran, 2022",
     "authors": "Maharlouei N, Hosseinpour P, Shahriarirad R, Ranjbar K, Mirahmadizadeh A, Erfani A*",
     "journal": "PLOS One",
-    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0278967",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0278967",
     "keywords": [
       "Infectious disease",
       "Public health",
@@ -1945,8 +1933,7 @@
     "keywords": [
       "Complementary medicine",
       "Infectious disease",
-      "COVID-19",
-      "Animal model"
+      "COVID-19"
     ],
     "highlight_topics": [
       "infectious"
@@ -2113,8 +2100,7 @@
     "keywords": [
       "Endocrine surgery",
       "Thyroid",
-      "Transplant surgery",
-      "Animal model"
+      "Transplant surgery"
     ],
     "highlight_topics": [
       "endocrine"
@@ -2303,8 +2289,7 @@
     "url": "https://www.sciencedirect.com/science/article/abs/pii/S1479666X22000580",
     "keywords": [
       "Thoracic surgery",
-      "Systematic review",
-      "Animal model"
+      "Systematic review"
     ],
     "highlight_topics": [
       "thoracic"
@@ -2753,8 +2738,7 @@
     "keywords": [
       "Knowledge attitudes practice",
       "Infectious disease",
-      "Public health",
-      "Animal model"
+      "Public health"
     ],
     "highlight_topics": [
       "infectious",
@@ -3427,8 +3411,7 @@
     "keywords": [
       "Vascular surgery",
       "Case report",
-      "Aneurysm",
-      "Animal model"
+      "Aneurysm"
     ],
     "highlight_topics": [
       "vascular"
@@ -3454,8 +3437,7 @@
       "Infectious disease",
       "Neurology",
       "Case report",
-      "COVID-19",
-      "Animal model"
+      "COVID-19"
     ],
     "highlight_topics": [
       "infectious",
@@ -3482,8 +3464,7 @@
       "Transplant surgery",
       "Pulmonology",
       "Case report",
-      "Lung cancer",
-      "Animal model"
+      "Lung cancer"
     ],
     "highlight_topics": [
       "thoracic",
@@ -3606,8 +3587,7 @@
     "url": "https://onlinelibrary.wiley.com/doi/10.1002/ccr3.8210",
     "keywords": [
       "Transplant surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "transplant"
@@ -3632,8 +3612,7 @@
     "keywords": [
       "Thoracic surgery",
       "Surgical oncology",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "thoracic",
@@ -3802,8 +3781,7 @@
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02130-7",
     "keywords": [
       "Thoracic surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4164,8 +4142,7 @@
     "url": "https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-022-01880-0",
     "keywords": [
       "Thoracic surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4214,8 +4191,7 @@
     "keywords": [
       "Complementary medicine",
       "Gastrointestinal surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "gi"
@@ -4261,8 +4237,7 @@
       "Pediatric surgery",
       "Gastrointestinal surgery",
       "Surgical oncology",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "gi",
@@ -4288,8 +4263,7 @@
       "Minimally invasive surgery",
       "Gastrointestinal surgery",
       "Case report",
-      "Colorectal surgery",
-      "Animal model"
+      "Colorectal surgery"
     ],
     "highlight_topics": [
       "gi"
@@ -4341,8 +4315,7 @@
       "Vascular surgery",
       "Orthopaedic surgery",
       "Case report",
-      "Aneurysm",
-      "Animal model"
+      "Aneurysm"
     ],
     "highlight_topics": [
       "vascular",
@@ -4415,8 +4388,7 @@
     "keywords": [
       "Complementary medicine",
       "Pulmonology",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "pulm"
@@ -4439,8 +4411,7 @@
     "url": "https://link.springer.com/article/10.1186/s12893-021-01121-6",
     "keywords": [
       "Thoracic surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4464,8 +4435,7 @@
     "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8062891/",
     "keywords": [
       "Thoracic surgery",
-      "Case report",
-      "Animal model"
+      "Case report"
     ],
     "highlight_topics": [
       "thoracic"
@@ -4513,8 +4483,7 @@
       "Surgical oncology",
       "Pulmonology",
       "Case report",
-      "Lung cancer",
-      "Animal model"
+      "Lung cancer"
     ],
     "highlight_topics": [
       "thoracic",
@@ -4739,8 +4708,7 @@
     "keywords": [
       "Infectious disease",
       "Letter",
-      "COVID-19",
-      "Animal model"
+      "COVID-19"
     ],
     "highlight_topics": [
       "infectious"
