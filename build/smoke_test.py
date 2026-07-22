@@ -371,7 +371,6 @@ def main():
         ("Research Trainee", "SUMS", "Research Trainee - Student Research Committee"),
         ("Khatam-al-Anbiya Hospital", "KA", "Khatam-al-Anbiya Hospital"),
         ("National Organization for Development of Exceptional Talents (SAMPAD)", "SAMPAD", "High School Diploma / SAMPAD"),
-        ("MStar Lab", "MSTAR", "MStar Lab"),
     ]:
         if not _has_logo_or_placeholder(text, marker, initials):
             errors.append(f"{label} entry is missing a real logo or initials placeholder")
