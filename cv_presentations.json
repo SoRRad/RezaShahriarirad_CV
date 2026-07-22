@@ -394,5 +394,28 @@
       "Animal model"
     ],
     "featured": ""
+  },
+  {
+    "date": "Jul 22 2026",
+    "month": "Jul",
+    "year": "2026",
+    "type": "poster",
+    "title": "Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study",
+    "venue": "2026 Mayo Clinic Quality Conference",
+    "conference": "Mayo Clinic Quality Conference",
+    "location": "United States",
+    "cat": [
+      "bariatric",
+      "health_systems"
+    ],
+    "keywords": [
+      "Bariatric surgery",
+      "Social determinants of health",
+      "Area Deprivation Index",
+      "Health systems",
+      "Weight loss",
+      "Retrospective study"
+    ],
+    "featured": ""
   }
 ]
