@@ -894,9 +894,38 @@ def _editorial(editorial_df, profile: dict) -> str:
 </div>"""
 
 
+_MONTH_ORD = {
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
+    "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+}
+
+def _month_num(value):
+    return _MONTH_ORD.get(str(value or "").strip()[:3].lower(), 0)
+
+def _pres_month_year(row):
+    """Uniform 'Mon YYYY' display; falls back to year, then raw date."""
+    month = str(row.get("month", "")).strip()
+    year = str(row.get("year", "")).strip()
+    if month and year:
+        return f"{month} {year}"
+    if year:
+        return year
+    return str(row.get("date", "")).strip()
+
+
 def _presentations(pres_df) -> str:
+    # Newest first: sort by year then month, descending. Stable sort keeps the
+    # original CSV order among entries that share the same month and year.
+    rows = list(pres_df.to_dict("records"))
+    rows.sort(
+        key=lambda r: (
+            int(str(r.get("year", "0")).strip() or 0),
+            _month_num(r.get("month", "")),
+        ),
+        reverse=True,
+    )
     items = []
-    for _, r in pres_df.iterrows():
+    for r in rows:
         cats = parse_semicolon(r.get("cat",""))
         seen = set(); cats_u = [c for c in cats if not (c in seen or seen.add(c))]
         data_cats = ",".join(cats_u)
@@ -922,7 +951,7 @@ def _presentations(pres_df) -> str:
         ])
         items.append(f"""    <div class="pres-item" data-type="{_e(type_cls)}" data-location="{_e(r.get('location',''))}" data-cats="{_e(data_cats)}" data-keywords="{_e(data_keywords)}" data-search="{_e(search_text)}">
       <div class="pres-date-col">
-        <span class="pres-year-txt">{_e(r.get('date',''))}</span>
+        <span class="pres-year-txt">{_e(_pres_month_year(r))}</span>
         <span class="pres-type {type_cls}">{type_lbl}</span>
       </div>
       <div>
