@@ -531,5 +531,27 @@
       "Poster of Distinction"
     ],
     "featured": ""
+  },
+  {
+    "date": "Sep 2026",
+    "month": "Sep",
+    "year": "2026",
+    "type": "oral",
+    "title": "Clinical Features and Outcomes of Microvascular Free Flap Reconstruction of the Head and Neck",
+    "venue": "American College of Surgeons (ACS) Clinical Congress",
+    "conference": "ACS Clinical Congress",
+    "location": "United States",
+    "cat": [
+      "plastic"
+    ],
+    "keywords": [
+      "Plastic surgery",
+      "Reconstructive surgery",
+      "Microvascular free flap",
+      "Head and neck reconstruction",
+      "Free flap",
+      "Outcomes"
+    ],
+    "featured": ""
   }
 ]
