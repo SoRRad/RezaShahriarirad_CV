@@ -485,5 +485,51 @@
       "Predictors"
     ],
     "featured": ""
+  },
+  {
+    "date": "Oct 2026",
+    "month": "Oct",
+    "year": "2026",
+    "type": "poster",
+    "title": "The Mayo Obesity Staging Index (MOSI): Development of a Staging Framework for Metabolic Surgery",
+    "venue": "32nd Annual Balfour Surgery Research Symposium · Poster of Distinction",
+    "conference": "Balfour Surgery Research Symposium",
+    "location": "United States",
+    "cat": [
+      "bariatric"
+    ],
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Obesity staging",
+      "MOSI",
+      "Risk stratification",
+      "Poster of Distinction"
+    ],
+    "featured": ""
+  },
+  {
+    "date": "Oct 2026",
+    "month": "Oct",
+    "year": "2026",
+    "type": "poster",
+    "title": "Metabolic Surgery Improves Biological Aging as Assessed by AI-Derived Electrocardiogram Age",
+    "venue": "32nd Annual Balfour Surgery Research Symposium · Poster of Distinction",
+    "conference": "Balfour Surgery Research Symposium",
+    "location": "United States",
+    "cat": [
+      "bariatric",
+      "machine_learning"
+    ],
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Biological aging",
+      "Artificial intelligence",
+      "Electrocardiogram",
+      "ECG age",
+      "Poster of Distinction"
+    ],
+    "featured": ""
   }
 ]
