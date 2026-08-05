@@ -76,6 +76,7 @@ REQUIRED_PROFILE_FIELDS = {
 VALID_PUB_TYPES = {"original", "review", "case", "letter"}
 VALID_PRESENTATION_TYPES = {"poster", "oral"}
 VALID_YES_NO = {"yes", "no", ""}
+_MONTH_ABBRS = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}
 VALID_MONTHS = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""}
 DISALLOWED_KEYWORD_ALIASES = {
     "dm": "Diabetes",
@@ -99,6 +100,7 @@ KEYWORD_NORMALIZATION_ALIASES = {
 EXPECTED_PUBLICATION_HEADER = [
     "n",
     "year",
+    "month",
     "type",
     "tags",
     "cat",
@@ -354,6 +356,13 @@ def _validate_publications(rows, lines, errors):
         ok, msg = _valid_year(row.get("year", ""))
         if not ok:
             errors.append(f"publications.csv: row {lineno} year '{row.get('year', '')}' {msg}")
+
+        month = str(row.get("month", "")).strip()
+        if month and month.lower()[:3] not in _MONTH_ABBRS:
+            errors.append(
+                f"publications.csv: row {lineno} month '{month}' must be a 3-letter abbreviation "
+                "(Jan, Feb, ...) or empty"
+            )
 
         if "month" in row:
             month = str(row.get("month", "")).strip()
