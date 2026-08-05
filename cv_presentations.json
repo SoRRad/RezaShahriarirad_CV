@@ -1,12 +1,12 @@
 [
   {
-    "date": "Jul 6 2026",
-    "month": "Jul",
+    "date": "Jun 2026",
+    "month": "Jun",
     "year": "2026",
     "type": "poster",
     "title": "Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden",
-    "venue": "Mayo Clinic AI Summit",
-    "conference": "Mayo Clinic AI Summit",
+    "venue": "Mayo Clinic AI Research Summit",
+    "conference": "Mayo Clinic AI Research Summit",
     "location": "United States",
     "cat": [
       "plastic"
@@ -18,13 +18,13 @@
     "featured": ""
   },
   {
-    "date": "Jul 6 2026",
-    "month": "Jul",
+    "date": "Jun 2026",
+    "month": "Jun",
     "year": "2026",
     "type": "poster",
     "title": "Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool",
-    "venue": "Mayo Clinic AI Summit",
-    "conference": "Mayo Clinic AI Summit",
+    "venue": "Mayo Clinic AI Research Summit",
+    "conference": "Mayo Clinic AI Research Summit",
     "location": "United States",
     "cat": [
       "plastic",
@@ -40,13 +40,13 @@
     "featured": "yes"
   },
   {
-    "date": "Jul 6 2026",
-    "month": "Jul",
+    "date": "Jun 2026",
+    "month": "Jun",
     "year": "2026",
     "type": "poster",
     "title": "Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age",
-    "venue": "Mayo Clinic AI Summit",
-    "conference": "Mayo Clinic AI Summit",
+    "venue": "Mayo Clinic AI Research Summit",
+    "conference": "Mayo Clinic AI Research Summit",
     "location": "United States",
     "cat": [
       "bariatric",

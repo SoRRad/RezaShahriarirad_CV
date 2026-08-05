@@ -324,6 +324,9 @@ def main():
         ("SIRIS", "SIRIS is missing from the Open Source section"),
         ("https://github.com/SoRRad/SIRIS", "SIRIS GitHub link is missing"),
         ("https://siris-1029209978489.us-central1.run.app/", "SIRIS webpage/demo link is missing"),
+        ("ORION Platform", "ORION Platform is missing from the Open Source section"),
+        ("https://github.com/SoRRad/ORION", "ORION GitHub link is missing"),
+        ("https://orionsurgery.vercel.app/", "ORION webpage/demo link is missing"),
         ("GitHub Profile", "GitHub Profile card is missing"),
         ("https://github.com/SoRRad", "GitHub Profile URL is missing"),
     ]
