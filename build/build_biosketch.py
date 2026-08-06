@@ -4,6 +4,8 @@ Run manually: python build/build_biosketch.py [--project "Project Name"]
 Output: Shahriarirad_NIH_Biosketch_General.docx (repo root)
 """
 import pathlib, sys, argparse, io, re
+
+import pandas as pd
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from utils import load_all_data, get_profile, parse_semicolon
 
@@ -167,12 +169,12 @@ def build_biosketch(project_name=None):
 
     if project_name:
         ps_intro = (
-            f"I am applying for support for the project titled "{project_name}." "
-            f"My research background and clinical training make me well-suited to contribute to this work."
+            f'I am applying for support for the project titled "{project_name}." '
+            "My research background and clinical training make me well-suited to contribute to this work."
         )
     else:
         ps_intro = (
-            "As a physician-researcher and Research Fellow at the Surgery Innovation Center, Mayo Clinic, "
+            "As a physician-researcher and Research Fellow in the Department of Surgery - Surgical Innovation, Mayo Clinic, "
             "I bring a broad background in surgical outcomes research, minimally invasive surgery, "
             "and the application of artificial intelligence to clinical problems."
         )

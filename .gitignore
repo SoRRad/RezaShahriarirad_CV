@@ -16,3 +16,5 @@ site_public/
 .tmp-edge-cv-profile/
 .pycache_check/
 data/profile_private.csv
+# Optional, manually generated artifact (see build/build_biosketch.py)
+Shahriarirad_NIH_Biosketch_General.docx

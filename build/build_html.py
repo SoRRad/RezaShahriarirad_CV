@@ -188,7 +188,7 @@ def _head(css: str, profile: dict) -> str:
     canonical = profile.get("canonical_url", "https://sorrad.github.io/RezaShahriarirad_CV/")
     desc = profile.get(
         "meta_description",
-        "Academic CV of Reza Shahriarirad, M.D., Research Fellow at Mayo Clinic Surgery Innovation Center, with work in surgical innovation, minimally invasive surgery, and artificial intelligence in surgery.",
+        "Academic CV of Reza Shahriarirad, M.D., Research Fellow in the Department of Surgery – Surgical Innovation at Mayo Clinic, with work in surgical innovation, artificial intelligence and computer vision, digital health, and patient-centered surgical outcomes.",
     )
     title = "Reza Shahriarirad, M.D. - Academic CV"
     same_as = [
@@ -209,7 +209,7 @@ def _head(css: str, profile: dict) -> str:
         "jobTitle": profile.get("title", "Research Fellow"),
         "affiliation": {
             "@type": "Organization",
-            "name": profile.get("institution", "Surgery Innovation Center, Mayo Clinic"),
+            "name": profile.get("institution", "Department of Surgery – Surgical Innovation, Mayo Clinic"),
         },
         "url": canonical,
         "description": desc,
@@ -428,7 +428,7 @@ def _about(profile: dict) -> str:
       <div style="margin:1.8rem 0 0">
         <div class="section-label" style="margin-bottom:.8rem">Ongoing Research at Mayo Clinic</div>
         <!-- EDIT: Mayo Clinic / IRB research description paragraph -->
-        <p>{_e(profile.get("irb_description", f"Since joining the Center for Surgery Innovation, I have been involved in more than {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
+        <p>{_e(profile.get("irb_description", f"Since joining the Department of Surgery – Surgical Innovation, I have been involved in more than {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
         <!-- EDIT: Research specialty tags list -->
         <div class="research-grid">
 {tags_html}

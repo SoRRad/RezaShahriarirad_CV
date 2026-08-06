@@ -9,7 +9,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import ALL_VALID_CAT_KEYS, TOP_LEVEL_CAT_KEYS, VALID_AUTHOR_TAGS  # noqa: E402
+from utils import ALL_VALID_CAT_KEYS, TOP_LEVEL_CAT_KEYS, VALID_AUTHOR_TAGS, author_tag_counts  # noqa: E402
 
 ROOT = pathlib.Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -551,6 +551,32 @@ def _validate_requested_cv_content(rows_by_stem, errors):
     pub_count = _int_field(profile, "pub_count", errors) if "pub_count" in profile else None
     if pub_count is not None and pub_count != len(pub_rows):
         errors.append(f"profile.csv: pub_count is {pub_count}; expected {len(pub_rows)} from publications.csv")
+
+    # Authorship counts must match the curated tags in publications.csv, and the
+    # reviewed-journal count must match journals.csv. These are displayed on the
+    # site and in the CV, so drift here silently publishes wrong numbers.
+    actual_tags = author_tag_counts(pub_rows)
+    for field, tag in (
+        ("first_auth", "first"),
+        ("co_first_auth", "co-first"),
+        ("last_auth", "last"),
+        ("corr_auth", "corresponding"),
+    ):
+        if field not in profile:
+            continue
+        claimed = _int_field(profile, field, errors)
+        if claimed is not None and claimed != actual_tags[tag]:
+            errors.append(
+                f"profile.csv: {field} is {claimed}; expected {actual_tags[tag]} "
+                f"from '{tag}' tags in publications.csv"
+            )
+
+    journal_rows = rows_by_stem.get("journals", [])
+    claimed_journals = _int_field(profile, "journals_reviewed", errors) if "journals_reviewed" in profile else None
+    if claimed_journals is not None and journal_rows and claimed_journals != len(journal_rows):
+        errors.append(
+            f"profile.csv: journals_reviewed is {claimed_journals}; expected {len(journal_rows)} from journals.csv"
+        )
 
     for field in ("email_professional", "email_personal"):
         if not str(profile.get(field, "")).strip():
