@@ -26,6 +26,17 @@ python build/smoke_test.py
 
 The build validates CSV data, regenerates legacy JSON artifacts, then generates the website, Word CV, and PDF CV. The smoke test confirms the newest publication, generated JSON, download links, filter elements, tag chips, and lab-logo markup are present.
 
+## Optional: NIH Biosketch
+
+`build/build_biosketch.py` generates an NIH Non-Fellowship Biographical Sketch from the same CSV data. It is a manual, optional tool — it is not part of `build/build.py` and is not deployed:
+
+```bash
+python build/build_biosketch.py                      # general biosketch
+python build/build_biosketch.py --project "Project Name"
+```
+
+The output, `Shahriarirad_NIH_Biosketch_General.docx`, is git-ignored; regenerate it whenever you need a current copy.
+
 ## Editing CSV Files Safely
 
 Excel's warning that "some features might be lost" is normal when saving as CSV. CSV files cannot store workbook formatting, formulas, filters, colors, or multiple sheets, but that does not affect the website as long as the plain CSV data is preserved.
@@ -160,4 +171,6 @@ Preferred GitHub Pages configuration is **Deploy from a branch -> `gh-pages` / r
 
 ## Legacy Local Admin
 
-The browser admin panel has been moved to `tools/admin-local/cv-admin.html` and is legacy/local-only. It is not linked from the public website and should not be served publicly because it asks for a GitHub token. It cannot perform a local `git pull --rebase`; browser GitHub API writes re-check the latest remote file SHA and stop if the remote changed. Prefer editing CSV files directly and publishing with `scripts/safe_push.ps1`.
+The browser admin panel has been moved to `tools/admin-local/cv-admin.html` and is legacy/local-only. It is not linked from the public website and should not be served publicly because it asks for a GitHub token. It cannot perform a local `git pull --rebase`; browser GitHub API writes re-check the latest remote file SHA and stop if the remote changed.
+
+> **Do not use it to write CV content.** The file still contains hard-coded copies of an older bio, institution name, and experience list. Saving from it would overwrite the current `data/*.csv` values and regress the CV. It is retained only for reference. Edit the CSV files directly and publish with `scripts/safe_push.ps1`.
