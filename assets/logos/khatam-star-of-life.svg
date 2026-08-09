@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Emergency Department (Star of Life)">
+  <g fill="#0e76bc">
+    <!-- three bars crossing the centre at 0/60/120 degrees make the six-barred Star of Life -->
+    <g>
+      <rect x="8" y="41.5" width="84" height="17" rx="8.5"/>
+    </g>
+    <g transform="rotate(60 50 50)">
+      <rect x="8" y="41.5" width="84" height="17" rx="8.5"/>
+    </g>
+    <g transform="rotate(120 50 50)">
+      <rect x="8" y="41.5" width="84" height="17" rx="8.5"/>
+    </g>
+  </g>
+  <!-- Rod of Asclepius: white staff with a single serpent -->
+  <g stroke="#ffffff" fill="none" stroke-width="3.4" stroke-linecap="round">
+    <line x1="50" y1="24" x2="50" y2="77"/>
+    <path d="M50 30 C40 33 40 41 50 44 C60 47 60 55 50 58 C41 61 41 68 50 71" stroke-width="3"/>
+  </g>
+  <circle cx="50" cy="26" r="2.4" fill="#ffffff"/>
+</svg>
