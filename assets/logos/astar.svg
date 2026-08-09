@@ -1,22 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="A-Star Lab">
-  <defs>
-    <linearGradient id="astarGrad" x1="30" y1="92" x2="80" y2="12" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#00e5ff"/>
-      <stop offset="0.6" stop-color="#00b0ff"/>
-      <stop offset="1" stop-color="#1e7bff"/>
-    </linearGradient>
-  </defs>
-  <g fill="none" stroke="url(#astarGrad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-    <!-- open ring hugging the right, like the source mark -->
-    <path d="M34 88 A41 41 0 1 0 46 12" stroke-width="5.5"/>
-    <!-- branching circuit tree growing up the centre -->
-    <path d="M50 86 L50 40"/>
-    <path d="M50 74 L38 64 M50 66 L63 57 M50 56 L40 47 M50 48 L62 41 M50 40 L44 31 M50 40 L57 30"/>
+<defs><linearGradient id="g" x1="20" y1="88" x2="82" y2="14" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#25e6ff"/><stop offset="0.6" stop-color="#00b6ff"/><stop offset="1" stop-color="#2b83ff"/></linearGradient></defs>
+<g fill="none" stroke="url(#g)" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M24.0 70.5 L23.3 69.3 L22.7 68.1 L22.1 66.9 L21.5 65.6 L21.0 64.4 L20.6 63.1 L20.2 61.8 L19.9 60.5 L19.6 59.1 L19.3 57.8 L19.2 56.4 L19.1 55.1 L19.0 53.7 L19.0 52.3 L19.1 51.0 L19.2 49.6 L19.3 48.3 L19.6 46.9 L19.8 45.6 L20.2 44.3 L20.6 43.0 L21.0 41.7 L21.5 40.4 L22.0 39.2 L22.6 37.9 L23.3 36.7 L24.0 35.6 L24.7 34.4 L25.5 33.3 L26.4 32.2 L27.2 31.2 L28.2 30.2 L29.1 29.2 L30.1 28.3 L31.2 27.4 L32.2 26.6 L33.3 25.8 L34.5 25.0 L35.6 24.3 L36.8 23.7 L38.1 23.1 L39.3 22.5 L40.6 22.0 L41.9 21.6 L43.2 21.2 L44.5 20.9 L45.8 20.6 L47.2 20.4 L48.5 20.2 L49.9 20.1 L51.3 20.0 L52.6 20.0 L54.0 20.1 L55.3 20.2 L56.7 20.3 L58.0 20.6 L59.4 20.8 L60.7 21.2 L62.0 21.6 L63.3 22.0" stroke-width="4.6"/>
+  <g stroke-width="2.3">
+    <path d="M20.6 63.1 Q28.5 68.3 34.2 65.7"/>
+    <path d="M19.1 55.1 Q25.1 61.8 31.0 60.7"/>
+    <path d="M19.6 46.9 Q23.6 54.5 29.3 54.9"/>
+    <path d="M22.0 39.2 Q24.0 47.1 29.1 48.8"/>
+    <path d="M26.4 32.2 Q26.3 40.0 30.6 42.7"/>
+    <path d="M32.2 26.6 Q30.4 33.6 33.7 37.1"/>
+    <path d="M39.3 22.5 Q36.0 28.5 38.2 32.5"/>
+    <path d="M47.2 20.4 Q42.8 25.0 43.9 29.1"/>
+    <path d="M55.3 20.2 Q50.3 23.4 50.4 27.3"/>
   </g>
-  <g fill="#00e5ff">
-    <circle cx="50" cy="34" r="4.4"/>
-    <circle cx="38" cy="64" r="2.7"/><circle cx="63" cy="57" r="2.7"/>
-    <circle cx="40" cy="47" r="2.7"/><circle cx="62" cy="41" r="2.7"/>
-    <circle cx="44" cy="31" r="2.7"/><circle cx="57" cy="30" r="2.7"/>
-  </g>
+</g>
+<g fill="#25e6ff">
+  <circle cx="63.3" cy="22.0" r="4.3"/>
+  <circle cx="34.2" cy="65.7" r="2.3"/>
+  <circle cx="31.0" cy="60.7" r="2.2"/>
+  <circle cx="29.3" cy="54.9" r="2.2"/>
+  <circle cx="29.1" cy="48.8" r="2.1"/>
+  <circle cx="30.6" cy="42.7" r="2.0"/>
+  <circle cx="33.7" cy="37.1" r="1.9"/>
+  <circle cx="38.2" cy="32.5" r="1.9"/>
+  <circle cx="43.9" cy="29.1" r="1.8"/>
+  <circle cx="50.4" cy="27.3" r="1.7"/>
+</g>
 </svg>

@@ -115,17 +115,22 @@ Edit `data/profile.csv`.
 - Public website contact renders email fields marked public-visible, currently the Mayo email and personal Gmail.
 - Phone can remain in the CSV for private reference, but it is hidden from both the public website and the generated downloadable DOCX/PDF CV.
 - Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
+- `citations_cached` and `h_index_cached` can be refreshed automatically from Google Scholar via SerpApi — see "Keeping citation metrics current" below.
 - The public site does not fetch live Google Scholar data in the browser.
 
 #### Keeping citation metrics current
 
-Google Scholar blocks automated scraping from GitHub Actions (HTTP 403), so the workflow's metric refresh almost never succeeds on its own. The practical routine is:
+Google Scholar has no public API and blocks automated HTML scraping from GitHub Actions / datacenter IPs (HTTP 403/429), so a plain scrape almost never succeeds on its own. `build/refresh_metrics.py` handles the refresh with two paths:
 
-1. Open your [Google Scholar profile](https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en) roughly once a month.
-2. Update `citations_cached`, `h_index_cached`, and `metrics_last_updated` in `data/profile.csv` (and `peer_reviews` / `journals_reviewed` / `manuscripts_reviewed` when they change).
-3. Push with the safe-push script; the build regenerates everything else.
+**Automatic (recommended) — SerpApi Google Scholar Author API.** SerpApi returns real Google Scholar numbers and works from CI. Its free tier (100 searches/month) is far more than the weekly build needs.
 
-The weekly build now prints a workflow warning when `metrics_last_updated` is more than 45 days old, so a stale number surfaces in the Actions summary instead of silently aging. The smoke test enforces that cached metrics never go *down* (floor checks) but no longer pins exact values, so a successful refresh cannot break the build.
+1. Create a free account at [serpapi.com](https://serpapi.com/) and copy your API key.
+2. In the repo, add it as a secret: **Settings → Secrets and variables → Actions → New repository secret**, name `SERPAPI_KEY`.
+3. Done. The weekly build calls `build/refresh_metrics.py`, pulls citations and h-index from your Scholar profile, updates `data/profile.csv`, and commits the change. Runs locally too: `SERPAPI_KEY=... python build/refresh_metrics.py`.
+
+**Manual fallback.** Without `SERPAPI_KEY` the script attempts a best-effort direct scrape (usually blocked from CI) and otherwise leaves the values untouched. You can always update `citations_cached`, `h_index_cached`, and `metrics_last_updated` in `data/profile.csv` by hand and push.
+
+Either way the refresh **never downgrades** a metric (a lower fetched value is treated as a transient error and ignored), and it is **non-fatal** — a scraping failure prints a warning but never blocks the build or deploy. The weekly build also warns when `metrics_last_updated` is more than 45 days old. `peer_reviews` / `journals_reviewed` / `manuscripts_reviewed` are not on Scholar, so update those by hand when they change. The smoke test enforces that cached metrics never go *down* (floor checks) but no longer pins exact values, so a successful refresh cannot break the build.
 
 Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
 
