@@ -8,6 +8,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from utils import clean_url, has_tracking_params, parse_semicolon, author_tag_counts
+import refresh_metrics as rm
 
 
 def test_clean_url_strips_tracking():
@@ -52,6 +53,37 @@ def test_author_tag_counts():
     assert counts["corresponding"] == 1
     assert counts["co-first"] == 1
     assert counts["last"] == 0
+
+
+def test_scholar_author_id():
+    url = "https://scholar.google.com/citations?user=mOE1KmEAAAAJ&hl=en&inst=123&oi=ao"
+    assert rm.author_id_from_url(url) == "mOE1KmEAAAAJ"
+    assert rm.author_id_from_url("") == ""
+
+
+def test_parse_serpapi():
+    payload = {"cited_by": {"table": [
+        {"citations": {"all": 3600, "since_2021": 3000}},
+        {"h_index": {"all": 26, "since_2021": 24}},
+        {"i10_index": {"all": 60}},
+    ]}}
+    assert rm.parse_serpapi(payload) == {"citations": 3600, "h_index": 26}
+    assert rm.parse_serpapi({}) == {}
+
+
+def test_parse_scholar_html():
+    html = ('<td class="gsc_rsb_std">3,600</td><td class="gsc_rsb_std">3000</td>'
+            '<td class="gsc_rsb_std">26</td><td class="gsc_rsb_std">24</td>')
+    assert rm.parse_scholar_html(html) == {"citations": 3600, "h_index": 26}
+    assert rm.parse_scholar_html("") == {}
+
+
+def test_metrics_no_downgrade():
+    prof = {"citations_cached": "3496", "h_index_cached": "24"}
+    assert rm.apply_no_downgrade([], prof, {"citations": 3600, "h_index": 26}) == \
+        {"citations_cached": "3600", "h_index_cached": "26"}
+    assert rm.apply_no_downgrade([], prof, {"citations": 3400, "h_index": 23}) == {}
+    assert rm.apply_no_downgrade([], prof, {"citations": 3496, "h_index": 24}) == {}
 
 
 def main():
