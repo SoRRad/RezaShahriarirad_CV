@@ -91,7 +91,7 @@ def format_authors_html(authors: str) -> str:
 TRACKING_PARAM_PREFIXES = ("utm_",)
 TRACKING_PARAM_NAMES = {
     "gclid", "fbclid", "_gl", "mc_cid", "mc_eid", "igshid", "ref_src",
-    "ref", "gclsrc", "dclid", "yclid", "msclkid", "spm",
+    "ref", "gclsrc", "dclid", "yclid", "msclkid", "spm", "dgcid",
 }
 
 
