@@ -5010,5 +5010,33 @@
     ],
     "highlight_topics": [],
     "featured": ""
+  },
+  {
+    "n": 197,
+    "year": "2026",
+    "month": "",
+    "type": "original",
+    "tags": [
+      "first"
+    ],
+    "cat": [
+      "bariatric",
+      "machine_learning"
+    ],
+    "title": "Metabolic and Bariatric Surgery and Change in the AI-ECG–Derived Biological-Age Gap: A Longitudinal Cohort Study",
+    "authors": "Shahriarirad R, Kalhor P, Aslahishahri M, Ghusn W, Attia ZI, El Ghazal N, Ghanem OM, Laplante S*",
+    "journal": "Obesity Surgery",
+    "url": "",
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Artificial intelligence",
+      "Electrocardiogram",
+      "Biological age",
+      "AI-ECG",
+      "Longitudinal cohort"
+    ],
+    "highlight_topics": [],
+    "featured": ""
   }
 ]

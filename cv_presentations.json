@@ -553,5 +553,28 @@
       "Outcomes"
     ],
     "featured": ""
+  },
+  {
+    "date": "Jan 2027",
+    "month": "Jan",
+    "year": "2027",
+    "type": "oral",
+    "title": "Femoral Nerve Procedures for the Spastic Knee: A Clinical and Anatomic Study",
+    "venue": "American Society for Peripheral Nerve (ASPN) Annual Meeting",
+    "conference": "ASPN Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "plastic",
+      "ortho"
+    ],
+    "keywords": [
+      "Plastic surgery",
+      "Peripheral nerve",
+      "Nerve surgery",
+      "Spasticity",
+      "Femoral nerve",
+      "Anatomical study"
+    ],
+    "featured": ""
   }
 ]
