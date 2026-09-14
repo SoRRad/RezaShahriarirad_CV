@@ -576,5 +576,49 @@
       "Anatomical study"
     ],
     "featured": ""
+  },
+  {
+    "date": "2026",
+    "month": "",
+    "year": "2026",
+    "type": "oral",
+    "title": "Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study",
+    "venue": "Minnesota Surgical Society Annual Meeting 2026",
+    "conference": "Minnesota Surgical Society",
+    "location": "United States",
+    "cat": [
+      "bariatric",
+      "health_systems"
+    ],
+    "keywords": [
+      "Bariatric surgery",
+      "Social determinants of health",
+      "Area Deprivation Index",
+      "Health systems",
+      "Weight loss",
+      "Retrospective study"
+    ],
+    "featured": ""
+  },
+  {
+    "date": "2026",
+    "month": "",
+    "year": "2026",
+    "type": "oral",
+    "title": "The Mayo Obesity Staging Index (MOSI): A Novel Staging Framework for Metabolic Surgery",
+    "venue": "Minnesota Surgical Society Annual Meeting 2026",
+    "conference": "Minnesota Surgical Society",
+    "location": "United States",
+    "cat": [
+      "bariatric"
+    ],
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Obesity staging",
+      "MOSI",
+      "Risk stratification"
+    ],
+    "featured": ""
   }
 ]
