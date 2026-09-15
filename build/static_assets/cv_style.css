@@ -25,7 +25,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.9
 .mobile-menu a{color:var(--mist);text-decoration:none;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
 
 /* HERO */
-.hero{min-height:100vh;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding:80px 2rem 4rem}
+.hero{min-height:auto;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding:clamp(7rem,13vh,9rem) 2rem clamp(4.5rem,9vh,6.5rem)}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(184,149,58,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 80% at 15% 80%,rgba(100,130,180,.08) 0%,transparent 60%)}
 .hero-grid{position:absolute;inset:0;opacity:.04;background-image:linear-gradient(rgba(200,212,224,1) 1px,transparent 1px),linear-gradient(90deg,rgba(200,212,224,1) 1px,transparent 1px);background-size:60px 60px}
 .hero-content{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 320px;gap:4rem;align-items:center}
@@ -328,7 +328,8 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 
 /* RESPONSIVE */
 @media(max-width:860px){
-  .hero-content{grid-template-columns:1fr;gap:3rem}
+  .hero{padding:6.5rem 1.2rem 4rem}
+  .hero-content{grid-template-columns:1fr;gap:2.5rem}
   .about-grid{grid-template-columns:1fr;gap:2.5rem}
   .timeline-grid{grid-template-columns:1fr;gap:3rem}
   .section-wrap{padding:4rem 1.2rem}
