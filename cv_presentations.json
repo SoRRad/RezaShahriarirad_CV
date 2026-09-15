@@ -15,7 +15,8 @@
       "Hernia",
       "Plastic surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jun 2026",
@@ -37,7 +38,8 @@
       "Machine learning",
       "Breast reconstruction"
     ],
-    "featured": "yes"
+    "featured": "yes",
+    "presenter": ""
   },
   {
     "date": "Jun 2026",
@@ -57,7 +59,8 @@
       "Bariatric surgery",
       "Machine learning"
     ],
-    "featured": "yes"
+    "featured": "yes",
+    "presenter": ""
   },
   {
     "date": "Apr 2026",
@@ -72,7 +75,8 @@
     "keywords": [
       "Bariatric surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jun 2026",
@@ -89,7 +93,8 @@
     "keywords": [
       "Plastic surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Mar 2026",
@@ -109,7 +114,8 @@
       "Gastrointestinal surgery",
       "GIST"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Dec 2025",
@@ -128,7 +134,8 @@
       "Animal model",
       "Regenerative medicine"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2025",
@@ -149,7 +156,8 @@
       "Robotic surgery",
       "Bibliometric analysis"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2025",
@@ -167,7 +175,8 @@
     "keywords": [
       "Plastic surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jul 2025",
@@ -184,7 +193,8 @@
     "keywords": [
       "Machine learning"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Apr 2025",
@@ -203,7 +213,8 @@
       "Robotic surgery",
       "Lung cancer"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Dec 2022",
@@ -223,7 +234,8 @@
       "Transplant surgery",
       "COVID-19"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2022",
@@ -243,7 +255,8 @@
       "Surgical oncology",
       "Colorectal surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2021",
@@ -263,7 +276,8 @@
       "Public health",
       "Burns"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jul 2021",
@@ -282,7 +296,8 @@
       "Gastrointestinal surgery",
       "Transplant surgery"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Sep 2020",
@@ -301,7 +316,8 @@
       "COVID-19",
       "Case report"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2019",
@@ -320,7 +336,8 @@
       "Infectious disease",
       "Public health"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Apr 2016",
@@ -338,7 +355,8 @@
       "Gastrointestinal surgery",
       "Animal model"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Mar 2016",
@@ -355,7 +373,8 @@
     "keywords": [
       "Pulmonology"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jun 2015",
@@ -374,7 +393,8 @@
       "Colorectal surgery",
       "Animal model"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jun 2015",
@@ -393,7 +413,8 @@
       "Colorectal surgery",
       "Animal model"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jul 22 2026",
@@ -416,7 +437,8 @@
       "Weight loss",
       "Retrospective study"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2026",
@@ -439,7 +461,8 @@
       "CT imaging",
       "Surgical decision support"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2026",
@@ -462,7 +485,8 @@
       "Decision aid",
       "BRIDGE AI"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2026",
@@ -484,7 +508,8 @@
       "Weight loss",
       "Predictors"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2026",
@@ -506,7 +531,8 @@
       "Risk stratification",
       "Poster of Distinction"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Oct 2026",
@@ -530,7 +556,8 @@
       "ECG age",
       "Poster of Distinction"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Sep 2026",
@@ -552,7 +579,8 @@
       "Free flap",
       "Outcomes"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "Jan 2027",
@@ -575,7 +603,8 @@
       "Femoral nerve",
       "Anatomical study"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "2026",
@@ -598,7 +627,8 @@
       "Weight loss",
       "Retrospective study"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": ""
   },
   {
     "date": "2026",
@@ -619,6 +649,7 @@
       "MOSI",
       "Risk stratification"
     ],
-    "featured": ""
+    "featured": "",
+    "presenter": "Abdulrahman Alomar, DO"
   }
 ]

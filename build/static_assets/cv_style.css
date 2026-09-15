@@ -186,6 +186,7 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pres-list-wrap{min-width:0}
 .pres-location{font-size:.68rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;margin-top:.2rem}
 .pres-location::before{content:"📍";font-size:.62rem}
+.pres-presenter{font-size:.68rem;color:var(--text-muted);font-style:italic;margin-top:.2rem}
 .pres-item{display:grid;grid-template-columns:88px 1fr;gap:1rem;padding:.95rem 0;border-bottom:1px solid rgba(0,0,0,.07);align-items:start}
 .pres-date-col{text-align:right}
 .pres-year-txt{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);display:block;line-height:1.6}
