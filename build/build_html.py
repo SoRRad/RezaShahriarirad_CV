@@ -948,7 +948,12 @@ def _presentations(pres_df) -> str:
             data_keywords,
             cat_labels,
             " ".join(tag_labels),
+            str(r.get("presenter", "")),
         ])
+        presenter = str(r.get("presenter", "") or "").strip()
+        presenter_html = (
+            f'<div class="pres-presenter">Presented by {_e(presenter)}</div>' if presenter else ""
+        )
         items.append(f"""    <div class="pres-item" data-type="{_e(type_cls)}" data-location="{_e(r.get('location',''))}" data-cats="{_e(data_cats)}" data-keywords="{_e(data_keywords)}" data-search="{_e(search_text)}">
       <div class="pres-date-col">
         <span class="pres-year-txt">{_e(_pres_month_year(r))}</span>
@@ -958,6 +963,7 @@ def _presentations(pres_df) -> str:
         <div class="pres-title">{_e(r.get('title',''))}</div>
         <div class="pres-venue">{_e(r.get('venue',''))}</div>
         <div class="pres-location">{_e(r.get('location',''))}</div>
+        {presenter_html}
         <div class="pres-tags-row">{tags_html}</div>
       </div>
     </div>""")

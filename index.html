@@ -236,6 +236,7 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .pres-list-wrap{min-width:0}
 .pres-location{font-size:.68rem;color:var(--text-muted);display:flex;align-items:center;gap:.3rem;margin-top:.2rem}
 .pres-location::before{content:"📍";font-size:.62rem}
+.pres-presenter{font-size:.68rem;color:var(--text-muted);font-style:italic;margin-top:.2rem}
 .pres-item{display:grid;grid-template-columns:88px 1fr;gap:1rem;padding:.95rem 0;border-bottom:1px solid rgba(0,0,0,.07);align-items:start}
 .pres-date-col{text-align:right}
 .pres-year-txt{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-muted);display:block;line-height:1.6}
@@ -513,7 +514,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       </div>
       <div class="hero-stats" style="width:100%">
         <div class="stat-box">
-          <div class="stat-num" id="hero-pubs">196</div>
+          <div class="stat-num" id="hero-pubs">197</div>
           <div class="stat-label">Publications</div>
         </div>
         <div class="stat-box">
@@ -1083,10 +1084,22 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <input class="pres-search search-input" type="search" id="pres-search" aria-label="Search presentations" placeholder="Search title or conference..."
             oninput="filterPresSearch(this.value)">
         </label>
-        <div id="pres-count" class="pub-count">28 presentations</div>
+        <div id="pres-count" class="pub-count">31 presentations</div>
       </div>
       <div class="pres-list" id="pres-list">
-    <div class="pres-item" data-type="poster" data-location="United States" data-cats="computer_vision,plastic" data-keywords="Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support" data-search="An AI-Based Computer Vision System for Surgical Decision Support in Abdominal Wall Reconstruction Using CT Imaging 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support Computer Vision Plastic, Reconstructive &amp; Burns Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support Computer Vision Plastic, Reconstructive &amp; Burns Poster Balfour Surgery Research Symposium United States">
+    <div class="pres-item" data-type="oral" data-location="United States" data-cats="plastic,ortho" data-keywords="Plastic surgery Peripheral nerve Nerve surgery Spasticity Femoral nerve Anatomical study" data-search="Femoral Nerve Procedures for the Spastic Knee: A Clinical and Anatomic Study American Society for Peripheral Nerve (ASPN) Annual Meeting ASPN Annual Meeting United States Plastic surgery Peripheral nerve Nerve surgery Spasticity Femoral nerve Anatomical study Plastic, Reconstructive &amp; Burns Orthopaedic Surgery Plastic surgery Peripheral nerve Nerve surgery Spasticity Femoral nerve Anatomical study Plastic, Reconstructive &amp; Burns Orthopaedic Surgery Oral ASPN Annual Meeting United States ">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">Jan 2027</span>
+        <span class="pres-type oral">Oral</span>
+      </div>
+      <div>
+        <div class="pres-title">Femoral Nerve Procedures for the Spastic Knee: A Clinical and Anatomic Study</div>
+        <div class="pres-venue">American Society for Peripheral Nerve (ASPN) Annual Meeting</div>
+        <div class="pres-location">United States</div>
+        
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Peripheral nerve" onclick="applyPresSearchTag(event,this)">Peripheral nerve</button><button type="button" class="pres-tag-chip" data-tag="Nerve surgery" onclick="applyPresSearchTag(event,this)">Nerve surgery</button><button type="button" class="pres-tag-chip" data-tag="Spasticity" onclick="applyPresSearchTag(event,this)">Spasticity</button><button type="button" class="pres-tag-chip" data-tag="Femoral nerve" onclick="applyPresSearchTag(event,this)">Femoral nerve</button><button type="button" class="pres-tag-chip" data-tag="Anatomical study" onclick="applyPresSearchTag(event,this)">Anatomical study</button></div>
+      </div>
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="computer_vision,plastic" data-keywords="Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support" data-search="An AI-Based Computer Vision System for Surgical Decision Support in Abdominal Wall Reconstruction Using CT Imaging 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support Computer Vision Plastic, Reconstructive &amp; Burns Artificial intelligence Computer vision Abdominal wall reconstruction Hernia CT imaging Surgical decision support Computer Vision Plastic, Reconstructive &amp; Burns Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1095,9 +1108,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">An AI-Based Computer Vision System for Surgical Decision Support in Abdominal Wall Reconstruction Using CT Imaging</div>
         <div class="pres-venue">32nd Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Artificial intelligence" onclick="applyPresSearchTag(event,this)">Artificial intelligence</button><button type="button" class="pres-tag-chip" data-tag="Computer vision" onclick="applyPresSearchTag(event,this)">Computer vision</button><button type="button" class="pres-tag-chip" data-tag="Abdominal wall reconstruction" onclick="applyPresSearchTag(event,this)">Abdominal wall reconstruction</button><button type="button" class="pres-tag-chip" data-tag="Hernia" onclick="applyPresSearchTag(event,this)">Hernia</button><button type="button" class="pres-tag-chip" data-tag="CT imaging" onclick="applyPresSearchTag(event,this)">CT imaging</button><button type="button" class="pres-tag-chip" data-tag="Surgical decision support" onclick="applyPresSearchTag(event,this)">Surgical decision support</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning,plastic" data-keywords="Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI Machine Learning Plastic, Reconstructive &amp; Burns Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI Machine Learning Plastic, Reconstructive &amp; Burns Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning,plastic" data-keywords="Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI Machine Learning Plastic, Reconstructive &amp; Burns Artificial intelligence Machine learning Breast reconstruction Plastic surgery Decision aid BRIDGE AI Machine Learning Plastic, Reconstructive &amp; Burns Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1106,9 +1120,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool</div>
         <div class="pres-venue">32nd Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Artificial intelligence" onclick="applyPresSearchTag(event,this)">Artificial intelligence</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Breast reconstruction" onclick="applyPresSearchTag(event,this)">Breast reconstruction</button><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Decision aid" onclick="applyPresSearchTag(event,this)">Decision aid</button><button type="button" class="pres-tag-chip" data-tag="BRIDGE AI" onclick="applyPresSearchTag(event,this)">BRIDGE AI</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,bariatric" data-keywords="Plastic surgery Bariatric surgery Body contouring Weight loss Predictors" data-search="Five-Year Utilization, Predictors, and Weight-Loss Thresholds for Plastic Surgery After Bariatric Surgery 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Bariatric surgery Body contouring Weight loss Predictors Plastic, Reconstructive &amp; Burns Bariatric &amp; Metabolic Surgery Plastic surgery Bariatric surgery Body contouring Weight loss Predictors Plastic, Reconstructive &amp; Burns Bariatric &amp; Metabolic Surgery Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,bariatric" data-keywords="Plastic surgery Bariatric surgery Body contouring Weight loss Predictors" data-search="Five-Year Utilization, Predictors, and Weight-Loss Thresholds for Plastic Surgery After Bariatric Surgery 32nd Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Bariatric surgery Body contouring Weight loss Predictors Plastic, Reconstructive &amp; Burns Bariatric &amp; Metabolic Surgery Plastic surgery Bariatric surgery Body contouring Weight loss Predictors Plastic, Reconstructive &amp; Burns Bariatric &amp; Metabolic Surgery Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1117,9 +1132,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Five-Year Utilization, Predictors, and Weight-Loss Thresholds for Plastic Surgery After Bariatric Surgery</div>
         <div class="pres-venue">32nd Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Body contouring" onclick="applyPresSearchTag(event,this)">Body contouring</button><button type="button" class="pres-tag-chip" data-tag="Weight loss" onclick="applyPresSearchTag(event,this)">Weight loss</button><button type="button" class="pres-tag-chip" data-tag="Predictors" onclick="applyPresSearchTag(event,this)">Predictors</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric" data-keywords="Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction" data-search="The Mayo Obesity Staging Index (MOSI): Development of a Staging Framework for Metabolic Surgery 32nd Annual Balfour Surgery Research Symposium · Poster of Distinction Balfour Surgery Research Symposium United States Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction Bariatric &amp; Metabolic Surgery Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction Bariatric &amp; Metabolic Surgery Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric" data-keywords="Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction" data-search="The Mayo Obesity Staging Index (MOSI): Development of a Staging Framework for Metabolic Surgery 32nd Annual Balfour Surgery Research Symposium · Poster of Distinction Balfour Surgery Research Symposium United States Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction Bariatric &amp; Metabolic Surgery Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Poster of Distinction Bariatric &amp; Metabolic Surgery Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1128,9 +1144,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">The Mayo Obesity Staging Index (MOSI): Development of a Staging Framework for Metabolic Surgery</div>
         <div class="pres-venue">32nd Annual Balfour Surgery Research Symposium · Poster of Distinction</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Metabolic surgery" onclick="applyPresSearchTag(event,this)">Metabolic surgery</button><button type="button" class="pres-tag-chip" data-tag="Obesity staging" onclick="applyPresSearchTag(event,this)">Obesity staging</button><button type="button" class="pres-tag-chip" data-tag="MOSI" onclick="applyPresSearchTag(event,this)">MOSI</button><button type="button" class="pres-tag-chip" data-tag="Risk stratification" onclick="applyPresSearchTag(event,this)">Risk stratification</button><button type="button" class="pres-tag-chip" data-tag="Poster of Distinction" onclick="applyPresSearchTag(event,this)">Poster of Distinction</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction" data-search="Metabolic Surgery Improves Biological Aging as Assessed by AI-Derived Electrocardiogram Age 32nd Annual Balfour Surgery Research Symposium · Poster of Distinction Balfour Surgery Research Symposium United States Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction Bariatric &amp; Metabolic Surgery Machine Learning Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction Bariatric &amp; Metabolic Surgery Machine Learning Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction" data-search="Metabolic Surgery Improves Biological Aging as Assessed by AI-Derived Electrocardiogram Age 32nd Annual Balfour Surgery Research Symposium · Poster of Distinction Balfour Surgery Research Symposium United States Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction Bariatric &amp; Metabolic Surgery Machine Learning Bariatric surgery Metabolic surgery Biological aging Artificial intelligence Electrocardiogram ECG age Poster of Distinction Bariatric &amp; Metabolic Surgery Machine Learning Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1139,9 +1156,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Metabolic Surgery Improves Biological Aging as Assessed by AI-Derived Electrocardiogram Age</div>
         <div class="pres-venue">32nd Annual Balfour Surgery Research Symposium · Poster of Distinction</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Metabolic surgery" onclick="applyPresSearchTag(event,this)">Metabolic surgery</button><button type="button" class="pres-tag-chip" data-tag="Biological aging" onclick="applyPresSearchTag(event,this)">Biological aging</button><button type="button" class="pres-tag-chip" data-tag="Artificial intelligence" onclick="applyPresSearchTag(event,this)">Artificial intelligence</button><button type="button" class="pres-tag-chip" data-tag="Electrocardiogram" onclick="applyPresSearchTag(event,this)">Electrocardiogram</button><button type="button" class="pres-tag-chip" data-tag="ECG age" onclick="applyPresSearchTag(event,this)">ECG age</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="United States" data-cats="plastic" data-keywords="Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes" data-search="Clinical Features and Outcomes of Microvascular Free Flap Reconstruction of the Head and Neck American College of Surgeons (ACS) Clinical Congress ACS Clinical Congress United States Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes Plastic, Reconstructive &amp; Burns Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes Plastic, Reconstructive &amp; Burns Oral ACS Clinical Congress United States">
+    </div>    <div class="pres-item" data-type="oral" data-location="United States" data-cats="plastic" data-keywords="Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes" data-search="Clinical Features and Outcomes of Microvascular Free Flap Reconstruction of the Head and Neck American College of Surgeons (ACS) Clinical Congress ACS Clinical Congress United States Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes Plastic, Reconstructive &amp; Burns Plastic surgery Reconstructive surgery Microvascular free flap Head and neck reconstruction Free flap Outcomes Plastic, Reconstructive &amp; Burns Oral ACS Clinical Congress United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Sep 2026</span>
         <span class="pres-type oral">Oral</span>
@@ -1150,9 +1168,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Clinical Features and Outcomes of Microvascular Free Flap Reconstruction of the Head and Neck</div>
         <div class="pres-venue">American College of Surgeons (ACS) Clinical Congress</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Reconstructive surgery" onclick="applyPresSearchTag(event,this)">Reconstructive surgery</button><button type="button" class="pres-tag-chip" data-tag="Microvascular free flap" onclick="applyPresSearchTag(event,this)">Microvascular free flap</button><button type="button" class="pres-tag-chip" data-tag="Head and neck reconstruction" onclick="applyPresSearchTag(event,this)">Head and neck reconstruction</button><button type="button" class="pres-tag-chip" data-tag="Free flap" onclick="applyPresSearchTag(event,this)">Free flap</button><button type="button" class="pres-tag-chip" data-tag="Outcomes" onclick="applyPresSearchTag(event,this)">Outcomes</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,health_systems" data-keywords="Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study" data-search="Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study 2026 Mayo Clinic Quality Conference Mayo Clinic Quality Conference United States Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Poster Mayo Clinic Quality Conference United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,health_systems" data-keywords="Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study" data-search="Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study 2026 Mayo Clinic Quality Conference Mayo Clinic Quality Conference United States Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Poster Mayo Clinic Quality Conference United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1161,9 +1180,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study</div>
         <div class="pres-venue">2026 Mayo Clinic Quality Conference</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Social determinants of health" onclick="applyPresSearchTag(event,this)">Social determinants of health</button><button type="button" class="pres-tag-chip" data-tag="Area Deprivation Index" onclick="applyPresSearchTag(event,this)">Area Deprivation Index</button><button type="button" class="pres-tag-chip" data-tag="Health systems" onclick="applyPresSearchTag(event,this)">Health systems</button><button type="button" class="pres-tag-chip" data-tag="Weight loss" onclick="applyPresSearchTag(event,this)">Weight loss</button><button type="button" class="pres-tag-chip" data-tag="Retrospective study" onclick="applyPresSearchTag(event,this)">Retrospective study</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Hernia Plastic surgery" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Research Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Hernia Plastic surgery" data-search="Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Hernia Plastic surgery Plastic, Reconstructive &amp; Burns Poster Mayo Clinic AI Research Summit United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1172,9 +1192,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Automating Abdominal Wall Reconstruction Consultation Triage: A Rules-Based Scheduling Algorithm to Reduce Clinical Review Burden</div>
         <div class="pres-venue">Mayo Clinic AI Research Summit</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Hernia" onclick="applyPresSearchTag(event,this)">Hernia</button><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Research Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Research Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Poster Mayo Clinic AI Research Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction" data-search="Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Large language models Patient decision aid Plastic surgery Machine learning Breast reconstruction Plastic, Reconstructive &amp; Burns Machine Learning Poster Mayo Clinic AI Research Summit United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1183,9 +1204,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Establishment of a Personalized AI-Based Decision Aid for Breast Reconstruction Surgery Candidates: Pilot Study of the BRIDGE AI Tool</div>
         <div class="pres-venue">Mayo Clinic AI Research Summit</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Large language models" onclick="applyPresSearchTag(event,this)">Large language models</button><button type="button" class="pres-tag-chip" data-tag="Patient decision aid" onclick="applyPresSearchTag(event,this)">Patient decision aid</button><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Breast reconstruction" onclick="applyPresSearchTag(event,this)">Breast reconstruction</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Biological age Bariatric surgery Machine learning" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Poster Mayo Clinic AI Research Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="bariatric,machine_learning" data-keywords="Biological age Bariatric surgery Machine learning" data-search="Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age Mayo Clinic AI Research Summit Mayo Clinic AI Research Summit United States Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Biological age Bariatric surgery Machine learning Bariatric &amp; Metabolic Surgery Machine Learning Poster Mayo Clinic AI Research Summit United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1194,9 +1216,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Biological Age Reversal Following Bariatric Surgery: A Longitudinal Cohort Study Using AI-Derived ECG Age</div>
         <div class="pres-venue">Mayo Clinic AI Research Summit</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Biological age" onclick="applyPresSearchTag(event,this)">Biological age</button><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Bariatric &amp; Metabolic Surgery" onclick="applyPresSearchTag(event,this)">Bariatric &amp; Metabolic Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Research Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Research Summit</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Plastic surgery" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States Plastic surgery Plastic, Reconstructive &amp; Burns Plastic surgery Plastic, Reconstructive &amp; Burns Poster PSRC Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic" data-keywords="Plastic surgery" data-search="Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility Plastic Surgery Research Council (PSRC) PSRC Annual Meeting United States Plastic surgery Plastic, Reconstructive &amp; Burns Plastic surgery Plastic, Reconstructive &amp; Burns Poster PSRC Annual Meeting United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1205,9 +1228,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Peripheral Nerve Fellowship Programs In The U.S.: A Cross-sectional Study of Online Information Accessibility</div>
         <div class="pres-venue">Plastic Surgery Research Council (PSRC)</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="PSRC Annual Meeting" onclick="applyPresSearchTag(event,this)">PSRC Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="Bariatric surgery" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States Bariatric surgery  Bariatric surgery Poster  United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="" data-keywords="Bariatric surgery" data-search="Mayo Obesity Staging Index: A Novel Obesity Classification System American Society for Metabolic and Bariatric Surgery (ASMBS)  United States Bariatric surgery  Bariatric surgery Poster  United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1216,9 +1240,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mayo Obesity Staging Index: A Novel Obesity Classification System</div>
         <div class="pres-venue">American Society for Metabolic and Bariatric Surgery (ASMBS)</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="Surgical oncology Gastrointestinal surgery GIST" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Poster SSO Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="oncology,gi" data-keywords="Surgical oncology Gastrointestinal surgery GIST" data-search="Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors Society of Surgical Oncology (SSO) SSO Annual Meeting United States Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Surgical oncology Gastrointestinal surgery GIST Surgical Oncology GI &amp; Colorectal Surgery Poster SSO Annual Meeting United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2026</span>
         <span class="pres-type poster">Poster</span>
@@ -1227,9 +1252,34 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Short and Long Term Oncologic Outcomes of Minimally Invasive Surgery for Gastric Gastrointestinal Stromal Tumors</div>
         <div class="pres-venue">Society of Surgical Oncology (SSO)</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Surgical oncology" onclick="applyPresSearchTag(event,this)">Surgical oncology</button><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="GIST" onclick="applyPresSearchTag(event,this)">GIST</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="SSO Annual Meeting" onclick="applyPresSearchTag(event,this)">SSO Annual Meeting</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="Orthopaedic surgery Animal model Regenerative medicine" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Poster AOFAS Annual Meeting United States">
+    </div>    <div class="pres-item" data-type="oral" data-location="United States" data-cats="bariatric,health_systems" data-keywords="Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study" data-search="Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study Minnesota Surgical Society Annual Meeting 2026 Minnesota Surgical Society United States Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Bariatric surgery Social determinants of health Area Deprivation Index Health systems Weight loss Retrospective study Bariatric &amp; Metabolic Surgery Health Systems &amp; Policy Oral Minnesota Surgical Society United States ">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">2026</span>
+        <span class="pres-type oral">Oral</span>
+      </div>
+      <div>
+        <div class="pres-title">Area Deprivation Index, Social Determinants of Health, and Weight-Loss Outcomes After Bariatric Surgery: A Retrospective Referral-Center Cohort Study</div>
+        <div class="pres-venue">Minnesota Surgical Society Annual Meeting 2026</div>
+        <div class="pres-location">United States</div>
+        
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Social determinants of health" onclick="applyPresSearchTag(event,this)">Social determinants of health</button><button type="button" class="pres-tag-chip" data-tag="Area Deprivation Index" onclick="applyPresSearchTag(event,this)">Area Deprivation Index</button><button type="button" class="pres-tag-chip" data-tag="Health systems" onclick="applyPresSearchTag(event,this)">Health systems</button><button type="button" class="pres-tag-chip" data-tag="Weight loss" onclick="applyPresSearchTag(event,this)">Weight loss</button><button type="button" class="pres-tag-chip" data-tag="Retrospective study" onclick="applyPresSearchTag(event,this)">Retrospective study</button></div>
+      </div>
+    </div>    <div class="pres-item" data-type="oral" data-location="United States" data-cats="bariatric" data-keywords="Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification" data-search="The Mayo Obesity Staging Index (MOSI): A Novel Staging Framework for Metabolic Surgery Minnesota Surgical Society Annual Meeting 2026 Minnesota Surgical Society United States Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Bariatric &amp; Metabolic Surgery Bariatric surgery Metabolic surgery Obesity staging MOSI Risk stratification Bariatric &amp; Metabolic Surgery Oral Minnesota Surgical Society United States Abdulrahman Alomar, DO">
+      <div class="pres-date-col">
+        <span class="pres-year-txt">2026</span>
+        <span class="pres-type oral">Oral</span>
+      </div>
+      <div>
+        <div class="pres-title">The Mayo Obesity Staging Index (MOSI): A Novel Staging Framework for Metabolic Surgery</div>
+        <div class="pres-venue">Minnesota Surgical Society Annual Meeting 2026</div>
+        <div class="pres-location">United States</div>
+        <div class="pres-presenter">Presented by Abdulrahman Alomar, DO</div>
+        <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Bariatric surgery" onclick="applyPresSearchTag(event,this)">Bariatric surgery</button><button type="button" class="pres-tag-chip" data-tag="Metabolic surgery" onclick="applyPresSearchTag(event,this)">Metabolic surgery</button><button type="button" class="pres-tag-chip" data-tag="Obesity staging" onclick="applyPresSearchTag(event,this)">Obesity staging</button><button type="button" class="pres-tag-chip" data-tag="MOSI" onclick="applyPresSearchTag(event,this)">MOSI</button><button type="button" class="pres-tag-chip" data-tag="Risk stratification" onclick="applyPresSearchTag(event,this)">Risk stratification</button><button type="button" class="pres-tag-chip" data-tag="Bariatric &amp; Metabolic Surgery" onclick="applyPresSearchTag(event,this)">Bariatric &amp; Metabolic Surgery</button></div>
+      </div>
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="ortho" data-keywords="Orthopaedic surgery Animal model Regenerative medicine" data-search="An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025 AOFAS Annual Meeting United States Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Orthopaedic surgery Animal model Regenerative medicine Orthopaedic Surgery Poster AOFAS Annual Meeting United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1238,9 +1288,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">An Experimental In Vitro and In Vivo Study on Achilles Tendon Regeneration Using Ostrich Eggshell Membrane Combined with Platelet-Rich Plasma</div>
         <div class="pres-venue">American Orthopaedic Foot &amp; Ankle Society (AOFAS) Annual Meeting 2025</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Orthopaedic surgery" onclick="applyPresSearchTag(event,this)">Orthopaedic surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="Regenerative medicine" onclick="applyPresSearchTag(event,this)">Regenerative medicine</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="AOFAS Annual Meeting" onclick="applyPresSearchTag(event,this)">AOFAS Annual Meeting</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery Machine learning Robotic surgery Bibliometric analysis" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery Machine learning Robotic surgery Bibliometric analysis" data-search="Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Machine learning Robotic surgery Bibliometric analysis Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1249,9 +1300,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Mapping Global Trends in Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Robotic surgery" onclick="applyPresSearchTag(event,this)">Robotic surgery</button><button type="button" class="pres-tag-chip" data-tag="Bibliometric analysis" onclick="applyPresSearchTag(event,this)">Bibliometric analysis</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="plastic,machine_learning" data-keywords="Plastic surgery" data-search="Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan Annual Balfour Surgery Research Symposium Balfour Surgery Research Symposium United States Plastic surgery Plastic, Reconstructive &amp; Burns Machine Learning Plastic surgery Plastic, Reconstructive &amp; Burns Machine Learning Poster Balfour Surgery Research Symposium United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1260,9 +1312,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of the Operational Effectiveness of the Mayo Clinic Mastectomy Interactive Care Plan</div>
         <div class="pres-venue">Annual Balfour Surgery Research Symposium</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Machine Learning" onclick="applyPresSearchTag(event,this)">Machine Learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Balfour Surgery Research Symposium" onclick="applyPresSearchTag(event,this)">Balfour Surgery Research Symposium</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="Machine learning" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States Machine learning Machine Learning Machine learning Machine Learning Poster Mayo Clinic AI Summit United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="machine_learning" data-keywords="Machine learning" data-search="Trend and Changes in AI based on Patient Perspectives Mayo Clinic AI Summit Mayo Clinic AI Summit United States Machine learning Machine Learning Machine learning Machine Learning Poster Mayo Clinic AI Summit United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1271,9 +1324,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Trend and Changes in AI based on Patient Perspectives</div>
         <div class="pres-venue">Mayo Clinic AI Summit</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Machine learning" onclick="applyPresSearchTag(event,this)">Machine learning</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Mayo Clinic AI Summit" onclick="applyPresSearchTag(event,this)">Mayo Clinic AI Summit</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="Thoracic surgery Robotic surgery Lung cancer" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Poster Advanced Robotic Surgery Conference United States">
+    </div>    <div class="pres-item" data-type="poster" data-location="United States" data-cats="thoracic" data-keywords="Thoracic surgery Robotic surgery Lung cancer" data-search="Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study Advanced Robotic Surgery Conference 2025 Advanced Robotic Surgery Conference United States Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Thoracic surgery Robotic surgery Lung cancer Thoracic Surgery Poster Advanced Robotic Surgery Conference United States ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2025</span>
         <span class="pres-type poster">Poster</span>
@@ -1282,9 +1336,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Molecular Analysis of Suspected or High-Risk Lung Cancer to Drive Individualized Care (INTERCEPTioN): A Pilot Study</div>
         <div class="pres-venue">Advanced Robotic Surgery Conference 2025</div>
         <div class="pres-location">United States</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Thoracic surgery" onclick="applyPresSearchTag(event,this)">Thoracic surgery</button><button type="button" class="pres-tag-chip" data-tag="Robotic surgery" onclick="applyPresSearchTag(event,this)">Robotic surgery</button><button type="button" class="pres-tag-chip" data-tag="Lung cancer" onclick="applyPresSearchTag(event,this)">Lung cancer</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Advanced Robotic Surgery Conference" onclick="applyPresSearchTag(event,this)">Advanced Robotic Surgery Conference</button><button type="button" class="pres-tag-chip" data-tag="United States" onclick="applyPresSearchTag(event,this)">United States</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="Infectious disease Transplant surgery COVID-19" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Poster International Transplantation Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,transplant" data-keywords="Infectious disease Transplant surgery COVID-19" data-search="COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran Organ Transplantation before and during the COVID-19 era International Transplantation Congress Iran Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Infectious disease Transplant surgery COVID-19 Infectious Disease Transplant Surgery Poster International Transplantation Congress Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Dec 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1293,9 +1348,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">COVID-19 Versus Applied Infection Control Policies in a Major Transplant Center in Iran</div>
         <div class="pres-venue">Organ Transplantation before and during the COVID-19 era</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="Transplant surgery" onclick="applyPresSearchTag(event,this)">Transplant surgery</button><button type="button" class="pres-tag-chip" data-tag="COVID-19" onclick="applyPresSearchTag(event,this)">COVID-19</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="Gastrointestinal surgery Surgical oncology Colorectal surgery" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Poster ISUCRS Biennial Congress Turkey">
+    </div>    <div class="pres-item" data-type="poster" data-location="Turkey" data-cats="gi,oncology" data-keywords="Gastrointestinal surgery Surgical oncology Colorectal surgery" data-search="Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy 31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS) ISUCRS Biennial Congress Turkey Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Gastrointestinal surgery Surgical oncology Colorectal surgery GI &amp; Colorectal Surgery Surgical Oncology Poster ISUCRS Biennial Congress Turkey ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2022</span>
         <span class="pres-type poster">Poster</span>
@@ -1304,9 +1360,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Comparison of Ghost Ileostomy and Protective Ileostomy in Rectal Cancer Patients Undergoing Neoadjuvant Chemoradiotherapy</div>
         <div class="pres-venue">31st Biennial Congress of International Society of University Colon and Rectal Surgeons (ISUCRS)</div>
         <div class="pres-location">Turkey</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Surgical oncology" onclick="applyPresSearchTag(event,this)">Surgical oncology</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISUCRS Biennial Congress" onclick="applyPresSearchTag(event,this)">ISUCRS Biennial Congress</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="Plastic surgery Public health Burns" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Oral National Burn Congress Iran">
+    </div>    <div class="pres-item" data-type="oral" data-location="Iran" data-cats="plastic,pubhealth" data-keywords="Plastic surgery Public health Burns" data-search="Suicide by Self-immolation in Southern Iran: An Epidemiological Study 10th National Burn Congress 2021 National Burn Congress Iran Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Plastic surgery Public health Burns Plastic, Reconstructive &amp; Burns Public Health Oral National Burn Congress Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2021</span>
         <span class="pres-type oral">Oral</span>
@@ -1315,9 +1372,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Suicide by Self-immolation in Southern Iran: An Epidemiological Study</div>
         <div class="pres-venue">10th National Burn Congress 2021</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Plastic surgery" onclick="applyPresSearchTag(event,this)">Plastic surgery</button><button type="button" class="pres-tag-chip" data-tag="Public health" onclick="applyPresSearchTag(event,this)">Public health</button><button type="button" class="pres-tag-chip" data-tag="Burns" onclick="applyPresSearchTag(event,this)">Burns</button><button type="button" class="pres-tag-chip" data-tag="Plastic, Reconstructive &amp; Burns" onclick="applyPresSearchTag(event,this)">Plastic, Reconstructive &amp; Burns</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="National Burn Congress" onclick="applyPresSearchTag(event,this)">National Burn Congress</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="Gastrointestinal surgery Transplant surgery" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Poster International Transplantation Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi,transplant" data-keywords="Gastrointestinal surgery Transplant surgery" data-search="Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East Transplantation (International Congress) International Transplantation Congress Iran Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Gastrointestinal surgery Transplant surgery GI &amp; Colorectal Surgery Transplant Surgery Poster International Transplantation Congress Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jul 2021</span>
         <span class="pres-type poster">Poster</span>
@@ -1326,9 +1384,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Management of Intestinal Failure from an Intestinal Rehabilitation Unit in the Middle East</div>
         <div class="pres-venue">Transplantation (International Congress)</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Transplant surgery" onclick="applyPresSearchTag(event,this)">Transplant surgery</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="International Transplantation Congress" onclick="applyPresSearchTag(event,this)">International Transplantation Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="Infectious disease COVID-19 Case report" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands Infectious disease COVID-19 Case report Infectious Disease Infectious disease COVID-19 Case report Infectious Disease Oral PReS European Paediatric Rheumatology Congress Netherlands">
+    </div>    <div class="pres-item" data-type="oral" data-location="Netherlands" data-cats="infectious" data-keywords="Infectious disease COVID-19 Case report" data-search="Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic 26th European Paediatric Rheumatology e-Congress (PReS) PReS European Paediatric Rheumatology Congress Netherlands Infectious disease COVID-19 Case report Infectious Disease Infectious disease COVID-19 Case report Infectious Disease Oral PReS European Paediatric Rheumatology Congress Netherlands ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Sep 2020</span>
         <span class="pres-type oral">Oral</span>
@@ -1337,9 +1396,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Multisystem Inflammatory Syndrome with Features of Atypical Kawasaki Disease: A Case Report from Iran during the COVID-19 Pandemic</div>
         <div class="pres-venue">26th European Paediatric Rheumatology e-Congress (PReS)</div>
         <div class="pres-location">Netherlands</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="COVID-19" onclick="applyPresSearchTag(event,this)">COVID-19</button><button type="button" class="pres-tag-chip" data-tag="Case report" onclick="applyPresSearchTag(event,this)">Case report</button><button type="button" class="pres-tag-chip" data-tag="Oral" onclick="applyPresSearchTag(event,this)">Oral</button><button type="button" class="pres-tag-chip" data-tag="PReS European Paediatric Rheumatology Congress" onclick="applyPresSearchTag(event,this)">PReS European Paediatric Rheumatology Congress</button><button type="button" class="pres-tag-chip" data-tag="Netherlands" onclick="applyPresSearchTag(event,this)">Netherlands</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="Infectious disease Public health" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran Infectious disease Public health Infectious Disease Public Health Infectious disease Public health Infectious Disease Public Health Poster NICOPA11 Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="infectious,pubhealth" data-keywords="Infectious disease Public health" data-search="Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran 4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11) NICOPA11 Iran Infectious disease Public health Infectious Disease Public Health Infectious disease Public health Infectious Disease Public Health Poster NICOPA11 Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Oct 2019</span>
         <span class="pres-type poster">Poster</span>
@@ -1348,9 +1408,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Seroprevalence of Toxocariasis and Its Related Risk Factors among Municipal Street Sweepers in Shiraz, Southern Iran</div>
         <div class="pres-venue">4th International &amp; 11th National Congress of Parasitology &amp; Parasitic Diseases of Iran (NICOPA11)</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Infectious disease" onclick="applyPresSearchTag(event,this)">Infectious disease</button><button type="button" class="pres-tag-chip" data-tag="Public health" onclick="applyPresSearchTag(event,this)">Public health</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="NICOPA11" onclick="applyPresSearchTag(event,this)">NICOPA11</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="Gastrointestinal surgery Animal model" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Poster National Congress on Animal Models Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="gi" data-keywords="Gastrointestinal surgery Animal model" data-search="The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats First National Congress on Animal Models in Experimental Medical Researches National Congress on Animal Models Iran Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Animal model GI &amp; Colorectal Surgery Poster National Congress on Animal Models Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Apr 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1359,9 +1420,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">The Effect of Aqueous Alcoholic Extract of Melissa Officinalis in the Treatment of Acetic Acid Induced Ulcerative Colitis in Rats</div>
         <div class="pres-venue">First National Congress on Animal Models in Experimental Medical Researches</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="National Congress on Animal Models" onclick="applyPresSearchTag(event,this)">National Congress on Animal Models</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="Pulmonology" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran Pulmonology Pulmonology Pulmonology Pulmonology Poster Professor Amirhakimi Pediatric Congress Iran">
+    </div>    <div class="pres-item" data-type="poster" data-location="Iran" data-cats="pulm" data-keywords="Pulmonology" data-search="Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough 3rd Professor Amirhakimi Pediatric Congress Professor Amirhakimi Pediatric Congress Iran Pulmonology Pulmonology Pulmonology Pulmonology Poster Professor Amirhakimi Pediatric Congress Iran ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Mar 2016</span>
         <span class="pres-type poster">Poster</span>
@@ -1370,9 +1432,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Successful Use of Persian Medicine Preparation Ma'aljobon in a Patient with Chronic Cough</div>
         <div class="pres-venue">3rd Professor Amirhakimi Pediatric Congress</div>
         <div class="pres-location">Iran</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Pulmonology" onclick="applyPresSearchTag(event,this)">Pulmonology</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="Professor Amirhakimi Pediatric Congress" onclick="applyPresSearchTag(event,this)">Professor Amirhakimi Pediatric Congress</button><button type="button" class="pres-tag-chip" data-tag="Iran" onclick="applyPresSearchTag(event,this)">Iran</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1381,9 +1444,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Evaluation of Rectally Administered Salvia Officinalis in the Treatment of Ulcerative Colitis</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button></div>
       </div>
-    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands">
+    </div>    <div class="pres-item" data-type="poster" data-location="Netherlands" data-cats="gi" data-keywords="Gastrointestinal surgery Colorectal surgery Animal model" data-search="Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats International Student Congress of (bio)Medical Sciences 2015 (ISCOMS) ISCOMS Netherlands Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Gastrointestinal surgery Colorectal surgery Animal model GI &amp; Colorectal Surgery Poster ISCOMS Netherlands ">
       <div class="pres-date-col">
         <span class="pres-year-txt">Jun 2015</span>
         <span class="pres-type poster">Poster</span>
@@ -1392,6 +1456,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         <div class="pres-title">Ulcerative Colitis Treatment with Rectal Administration of Colostrum in Rats</div>
         <div class="pres-venue">International Student Congress of (bio)Medical Sciences 2015 (ISCOMS)</div>
         <div class="pres-location">Netherlands</div>
+        
         <div class="pres-tags-row"><button type="button" class="pres-tag-chip" data-tag="Gastrointestinal surgery" onclick="applyPresSearchTag(event,this)">Gastrointestinal surgery</button><button type="button" class="pres-tag-chip" data-tag="Colorectal surgery" onclick="applyPresSearchTag(event,this)">Colorectal surgery</button><button type="button" class="pres-tag-chip" data-tag="Animal model" onclick="applyPresSearchTag(event,this)">Animal model</button><button type="button" class="pres-tag-chip" data-tag="GI &amp; Colorectal Surgery" onclick="applyPresSearchTag(event,this)">GI &amp; Colorectal Surgery</button><button type="button" class="pres-tag-chip" data-tag="Poster" onclick="applyPresSearchTag(event,this)">Poster</button><button type="button" class="pres-tag-chip" data-tag="ISCOMS" onclick="applyPresSearchTag(event,this)">ISCOMS</button></div>
       </div>
     </div>
@@ -6492,6 +6557,34 @@ const publications = [
       "Neonatal",
       "Radiography",
       "Multicenter study"
+    ],
+    "highlight_topics": [],
+    "featured": ""
+  },
+  {
+    "n": 197,
+    "year": "2026",
+    "month": "",
+    "type": "original",
+    "tags": [
+      "first"
+    ],
+    "cat": [
+      "bariatric",
+      "machine_learning"
+    ],
+    "title": "Metabolic and Bariatric Surgery and Change in the AI-ECG–Derived Biological-Age Gap: A Longitudinal Cohort Study",
+    "authors": "Shahriarirad R, Kalhor P, Aslahishahri M, Ghusn W, Attia ZI, El Ghazal N, Ghanem OM, Laplante S*",
+    "journal": "Obesity Surgery",
+    "url": "",
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Artificial intelligence",
+      "Electrocardiogram",
+      "Biological age",
+      "AI-ECG",
+      "Longitudinal cohort"
     ],
     "highlight_topics": [],
     "featured": ""

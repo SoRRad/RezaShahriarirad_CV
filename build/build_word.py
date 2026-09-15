@@ -437,18 +437,44 @@ def _appendix_journals(doc, journals_df):
     _table(doc, rows, widths=[3.3, 3.3])
 
 
+_MONTH_ORD = {m: i for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], start=1)}
+
+
+def _pres_month_year(r):
+    """Uniform 'Mon YYYY' date, matching the website (drops any day)."""
+    month = str(r.get("month", "") or "").strip()
+    year = str(r.get("year", "") or "").strip()
+    if month and year:
+        return f"{month} {year}"
+    return year or str(r.get("date", "") or "").strip()
+
+
 def _appendix_presentations(doc, pres_df):
     doc.add_section(WD_SECTION.NEW_PAGE)
     _section_heading(doc, "Appendix C: Presentations")
+    # Newest first, matching the website ordering (by year then month, descending).
+    records = list(pres_df.to_dict("records"))
+    records.sort(
+        key=lambda r: (
+            int(str(r.get("year", "0") or "0").strip() or 0),
+            _MONTH_ORD.get(str(r.get("month", "") or "").strip()[:3].lower(), 0),
+        ),
+        reverse=True,
+    )
     rows = []
-    for idx, (_, r) in enumerate(pres_df.iterrows(), start=1):
+    for idx, r in enumerate(records, start=1):
+        presenter = _clean(r.get("presenter", ""))
+        venue_cell = f"{_clean(r.get('venue',''))}; {_clean(r.get('location',''))}"
+        if presenter:
+            venue_cell += f" (presented by {presenter})"
         rows.append(
             (
                 str(idx),
-                r.get("date", ""),
-                r.get("type", "").capitalize(),
+                _pres_month_year(r),
+                str(r.get("type", "") or "").capitalize(),
                 r.get("title", ""),
-                f"{_clean(r.get('venue',''))}; {_clean(r.get('location',''))}",
+                venue_cell,
             )
         )
     _table(doc, rows, headers=["#", "Date", "Type", "Title", "Venue / location"], widths=[0.35, 0.8, 0.7, 3.1, 2.0])
