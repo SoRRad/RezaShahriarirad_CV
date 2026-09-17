@@ -651,5 +651,55 @@
     ],
     "featured": "",
     "presenter": ""
+  },
+  {
+    "date": "Jan 2027",
+    "month": "Jan",
+    "year": "2027",
+    "type": "poster",
+    "title": "Nerve- and Tendon-Based Procedures for Spastic Calcaneal, Planovalgus, and Striatal Toe Deformities: An Anatomic Study",
+    "venue": "American Society for Peripheral Nerve (ASPN) Annual Meeting",
+    "conference": "ASPN Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "plastic",
+      "ortho"
+    ],
+    "keywords": [
+      "Plastic surgery",
+      "Peripheral nerve",
+      "Nerve surgery",
+      "Tendon transfer",
+      "Spasticity",
+      "Foot deformity",
+      "Anatomical study"
+    ],
+    "featured": "",
+    "presenter": ""
+  },
+  {
+    "date": "Jan 2027",
+    "month": "Jan",
+    "year": "2027",
+    "type": "poster",
+    "title": "Sciatic Nerve Procedures for the Spastic Knee in Ambulatory Patients: An Anatomic Study and Case Report",
+    "venue": "American Society for Peripheral Nerve (ASPN) Annual Meeting",
+    "conference": "ASPN Annual Meeting",
+    "location": "United States",
+    "cat": [
+      "plastic",
+      "ortho"
+    ],
+    "keywords": [
+      "Plastic surgery",
+      "Peripheral nerve",
+      "Nerve surgery",
+      "Spasticity",
+      "Sciatic nerve",
+      "Anatomical study",
+      "Case report"
+    ],
+    "featured": "",
+    "presenter": ""
   }
 ]
