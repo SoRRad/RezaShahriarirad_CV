@@ -20,6 +20,7 @@ STEPS = [
     ("build_html", "Generating index.html"),
     ("build_word", "Generating Shahriarirad_Reza_CV.docx"),
     ("build_pdf", "Generating Shahriarirad_Reza_CV.pdf"),
+    ("build_resume", "Generating Shahriarirad_Reza_Resume.pdf"),
 ]
 
 

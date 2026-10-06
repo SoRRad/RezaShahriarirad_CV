@@ -15,6 +15,20 @@ document.addEventListener('click', e => {
   if(!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) closeMenu();
 });
 
+/* DOWNLOAD MENU (<details>): close on outside click, Escape, or after choosing a file */
+document.addEventListener('click', e => {
+  document.querySelectorAll('.dl-menu[open]').forEach(menu => {
+    if(!menu.contains(e.target) || e.target.closest('.dl-list a')) menu.removeAttribute('open');
+  });
+});
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  document.querySelectorAll('.dl-menu[open]').forEach(menu => {
+    menu.removeAttribute('open');
+    menu.querySelector('summary')?.focus();
+  });
+});
+
 /* ── NAV SCROLL-SPY + BACK TO TOP ── */
 function initNavScrollSpy(){
   const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];

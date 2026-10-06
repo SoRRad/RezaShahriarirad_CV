@@ -11,6 +11,7 @@ The canonical CV content lives in structured CSV files under `data/`. The build 
 - `index.html`
 - `Shahriarirad_Reza_CV.docx`
 - `Shahriarirad_Reza_CV.pdf`
+- `Shahriarirad_Reza_Resume.pdf` (one-page compact resume)
 - legacy generated JSON files: `cv_pubs.json`, `cv_presentations.json`, `cv_journals.json`, and `cv_live_stats.json`
 
 Do not manually edit generated outputs. Make content changes in `data/*.csv`, then run the build or push to `main` and let GitHub Actions rebuild the site.
@@ -93,6 +94,7 @@ Use the CSV files in `data/`:
 | `data/skills_interpersonal.csv` | Interpersonal skills |
 | `data/hobbies.csv` | Hobbies and extracurricular interests |
 | `data/open_source.csv` | Public open-source repositories, if any |
+| `data/resume.csv` | What goes on the one-page compact resume (see below) |
 
 ### Publications
 
@@ -134,6 +136,14 @@ Either way the refresh **never downgrades** a metric (a lower fetched value is t
 
 Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
 
+### Compact Resume
+
+The site's **Download CV** button offers two PDFs: the full CV and a one-page compact resume (`Shahriarirad_Reza_Resume.pdf`), built by `build/build_resume.py` in the style of the Google Docs "Serif" resume template (bundled Merriweather and Open Sans fonts, SIL Open Font License, in `build/static_assets/fonts/`).
+
+`data/resume.csv` chooses what appears: the tagline, which education and experience rows to include, the bullets under each role, the innovation projects, the selected publications, and extra skills and tools. Metrics, patents, honors, editorial roles, and languages are pulled automatically from the other CSVs, so they stay current. The validator rejects resume rows that don't match an existing degree, role, publication number, or tool name.
+
+The resume is a text PDF (PDF/UA-tagged, ligatures off) so applicant-tracking systems and AI screeners read it in the right order. The build warns if it runs past one page; trim bullets in `data/resume.csv` to bring it back.
+
 ### Innovation Project Data
 
 `data/projects.csv` is retained for structured project data, but selected innovation projects are not rendered on the public website.
@@ -145,6 +155,7 @@ These files are generated artifacts and should not be edited manually:
 - `index.html`
 - `Shahriarirad_Reza_CV.docx` (kept in the repo, **not** deployed publicly)
 - `Shahriarirad_Reza_CV.pdf`
+- `Shahriarirad_Reza_Resume.pdf`
 - `cv_pubs.json`
 - `cv_presentations.json`
 - `cv_journals.json`
@@ -166,6 +177,7 @@ The deployed public site includes:
 
 - `index.html`
 - `Shahriarirad_Reza_CV.pdf` (the Word `.docx` is intentionally excluded)
+- `Shahriarirad_Reza_Resume.pdf`
 - generated JSON files for compatibility
 - `robots.txt` and `sitemap.xml`
 - required static asset folders such as `assets/`, `images/`, `img/`, `public/`, `static/`, and `build/static_assets/logos/` when present

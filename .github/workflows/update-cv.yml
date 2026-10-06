@@ -133,6 +133,7 @@ jobs:
           git add index.html \
                   Shahriarirad_Reza_CV.docx \
                   Shahriarirad_Reza_CV.pdf \
+                  Shahriarirad_Reza_Resume.pdf \
                   cv_pubs.json \
                   cv_presentations.json \
                   cv_journals.json \
@@ -154,6 +155,7 @@ jobs:
           # payload. The DOCX stays in the repo but the public site links to the
           # PDF only; keep this in sync with the smoke test's DOCX-exclusion check.
           cp Shahriarirad_Reza_CV.pdf site_public/
+          cp Shahriarirad_Reza_Resume.pdf site_public/
           cp cv_pubs.json site_public/
           cp cv_presentations.json site_public/
           cp cv_journals.json site_public/
@@ -185,6 +187,7 @@ jobs:
         run: |
           test -s site_public/index.html
           test -s site_public/Shahriarirad_Reza_CV.pdf
+          test -s site_public/Shahriarirad_Reza_Resume.pdf
           test -s site_public/cv_pubs.json
           test -s site_public/cv_presentations.json
           # The Word CV must never be published to GitHub Pages.

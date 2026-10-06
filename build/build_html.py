@@ -329,11 +329,23 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
         {email_cta}
-        <a href="Shahriarirad_Reza_CV.pdf"
-           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV PDF">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
-          Download CV (PDF)
-        </a>
+        <details class="dl-menu" id="cv-download">
+          <summary class="btn-pdf" aria-label="Download CV: choose full CV or compact resume">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
+            Download CV
+            <svg class="dl-caret" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+          </summary>
+          <div class="dl-list">
+            <a href="Shahriarirad_Reza_CV.pdf" target="_blank" rel="noopener noreferrer">
+              <span class="dl-title">Full CV</span>
+              <span class="dl-sub">Complete academic record · PDF</span>
+            </a>
+            <a href="Shahriarirad_Reza_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <span class="dl-title">Compact Resume</span>
+              <span class="dl-sub">One-page summary · PDF</span>
+            </a>
+          </div>
+        </details>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">

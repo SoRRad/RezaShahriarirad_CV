@@ -25,6 +25,7 @@ REQUIRED_COLS = {
     "editorial": ["role", "journal", "period"],
     "references": ["name", "role", "inst"],
     "leadership": ["period", "title", "org", "desc"],
+    "resume": ["section", "item", "detail"],
     "hobbies": ["name", "icon", "desc"],
     "journals": ["name"],
     "skills_computing": ["name", "level"],
@@ -530,6 +531,44 @@ def _require_row(rows, predicate, label, errors):
     return row
 
 
+RESUME_SECTIONS = {"tagline", "education", "experience", "project", "publication", "skill", "tool"}
+
+
+def _validate_resume(rows_by_stem, errors):
+    """Cross-check data/resume.csv against the CSVs it references.
+
+    The compact resume silently skips rows it cannot match, so a typo in a role
+    name or publication number would quietly drop content; fail loudly instead.
+    """
+    rows = rows_by_stem.get("resume")
+    if rows is None:
+        return
+    lookups = {
+        "education": ({str(r.get("degree", "")).strip() for r in rows_by_stem.get("education", [])}, "education.csv degree"),
+        "experience": ({str(r.get("role", "")).strip() for r in rows_by_stem.get("experience", [])}, "experience.csv role"),
+        "publication": ({str(r.get("n", "")).strip() for r in rows_by_stem.get("publications", [])}, "publications.csv n"),
+        "tool": ({str(r.get("name", "")).strip() for r in rows_by_stem.get("skills_computing", [])}, "skills_computing.csv name"),
+    }
+    seen = set()
+    for lineno, row in enumerate(rows, start=3):
+        section = str(row.get("section", "")).strip().lower()
+        item = str(row.get("item", "")).strip()
+        seen.add(section)
+        if section not in RESUME_SECTIONS:
+            errors.append(f"resume.csv: row {lineno} has unknown section '{section}' (use one of {sorted(RESUME_SECTIONS)})")
+            continue
+        if not item:
+            errors.append(f"resume.csv: row {lineno} ({section}) has an empty item")
+            continue
+        if section in lookups:
+            valid, label = lookups[section]
+            if item not in valid:
+                errors.append(f"resume.csv: row {lineno} {section} '{item}' does not match any {label}")
+    for required in ("experience", "education"):
+        if required not in seen:
+            errors.append(f"resume.csv: needs at least one '{required}' row")
+
+
 def _validate_requested_cv_content(rows_by_stem, errors):
     profile_rows = rows_by_stem.get("profile", [])
     profile = {row.get("field", ""): row.get("value", "") for row in profile_rows}
@@ -712,6 +751,7 @@ def validate_all():
         summaries.append((stem, len(rows)))
 
     _validate_requested_cv_content(rows_by_stem, errors)
+    _validate_resume(rows_by_stem, errors)
 
     # URL hygiene warnings (non-fatal): the build strips tracking params via
     # utils.clean_url, so this surfaces them at the source for a manual cleanup.
