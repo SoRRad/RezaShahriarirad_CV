@@ -1,0 +1,29 @@
+# COLUMN GUIDE: Content for the one-page compact resume (Shahriarirad_Reza_Resume.pdf). section=[tagline|education|experience|project|publication|skill|tool], item=see below, detail=see below. Rows render in file order within each section. tagline: item=line under the name. education: item=degree exactly as in education.csv. experience: item=role exactly as in experience.csv, detail=one bullet (leave detail blank to list the role with no bullets; repeat the row for more bullets). project: item=project name, detail=one-line description. publication: item=publication number n from publications.csv. skill: item=skill shown in the sidebar after the skills_research.csv list. tool: item=tool name exactly as in skills_computing.csv. Metrics, patents, honors, editorial roles and languages are pulled automatically from the other CSVs.
+section,item,detail
+tagline,"Physician-scientist in surgical innovation, artificial intelligence, and computer vision",
+education,Doctor of Medicine (M.D.),
+experience,Research Fellow,"Involved in about 40 surgical research projects, including 30+ IRB-approved studies and several industry collaborations across thoracic, bariatric, plastic and reconstructive, and abdominal-wall surgery."
+experience,Research Fellow,"Works across the study lifecycle: design, IRB preparation, data curation, statistical analysis, manuscript writing, and patient recruitment."
+experience,Research Fellow,"Builds AI-ECG and machine-learning models for surgical risk prediction and the Mayo Obesity Staging Index (MOSI) for bariatric decision support."
+experience,Research Affiliation – A-Star Lab,"Surgical AI and computer vision research; teaching assistant for the computer vision session of the ACS Clinical Congress 2026 hands-on AI course."
+experience,Senior Researcher & Project Manager,"Managed clinical and translational research projects at the Thoracic and Vascular Surgery Research Center."
+experience,Senior Researcher & Project Manager,"Founded and directed a research mentoring program; mentored 15 medical students who contributed to 50+ peer-reviewed publications."
+experience,General Practitioner — Emergency Department,
+project,ApoQlar × Apple Vision Pro,Real-time stereoscopic 3D visualization for robotic surgery
+project,GoNoGoNET,AI-assisted surgical video analysis and safety-zone identification
+project,ALARM / OmniWatch,Wearable-based postoperative monitoring
+project,INTERCEPTION & Alpenglow,"Robotic bronchoscopy, biopsy, and molecular sampling"
+project,CTA Perforator,Computer vision-based reconstructive surgical planning
+project,JelloX,3D digital pathology
+project,Robotic surgery curriculum,Curriculum development to improve resident training
+publication,197,
+publication,42,
+publication,2,
+skill,Machine learning and predictive modeling,
+skill,Scientific writing and editing,
+skill,Research mentoring,
+tool,SPSS,
+tool,Python,
+tool,MATLAB,
+tool,NCSS,
+tool,EndNote,

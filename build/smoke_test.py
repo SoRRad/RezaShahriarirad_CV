@@ -432,6 +432,13 @@ def main():
 
     if 'href="Shahriarirad_Reza_CV.pdf"' not in text:
         errors.append("Website PDF download link is missing")
+    if 'href="Shahriarirad_Reza_Resume.pdf"' not in text:
+        errors.append("Website compact resume download link is missing")
+    resume_path = ROOT / "Shahriarirad_Reza_Resume.pdf"
+    if not resume_path.exists() or resume_path.stat().st_size < 10_000:
+        errors.append("Shahriarirad_Reza_Resume.pdf was not generated")
+    elif not resume_path.read_bytes().startswith(b"%PDF"):
+        errors.append("Shahriarirad_Reza_Resume.pdf is not a valid PDF")
     if 'href="Shahriarirad_Reza_CV.docx"' in text or "Shahriarirad_Reza_CV.docx" in re.sub(r"cv_pdf_build\.json.*", "", text):
         errors.append("Website Word download link should not be visible on the public page")
 
@@ -441,7 +448,7 @@ def main():
             print(f"  x {error}")
         return 1
 
-    print("[SMOKE] PASSED: public page links to PDF only; DOCX remains generated in the repo, and JSON/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
+    print("[SMOKE] PASSED: public page links to the CV and compact resume PDFs only; DOCX remains generated in the repo, and JSON/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
     return 0
 
 
