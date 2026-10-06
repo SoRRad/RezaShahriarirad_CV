@@ -85,7 +85,7 @@ h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,5vw,4rem);font-
 .hero-title-accent{color:var(--gold-light);font-style:italic}
 .hero-credentials{font-size:.85rem;font-weight:300;color:var(--silver);margin:1.2rem 0 2rem;letter-spacing:.02em;line-height:1.8}
 .hero-credentials strong{color:var(--mist);font-weight:400}
-.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;position:relative;z-index:2}
 .btn-primary{background:var(--gold);color:var(--navy);padding:.7rem 1.6rem;border-radius:2px;text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
 .btn-primary:hover{background:var(--gold-light)}
 .btn-outline{border:1px solid rgba(200,212,224,.3);color:var(--mist);padding:.7rem 1.6rem;border-radius:2px;text-decoration:none;font-size:.78rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;display:inline-block}
@@ -302,6 +302,24 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 .btn-pdf{display:inline-flex;align-items:center;gap:.5rem;background:transparent;border:1px solid rgba(200,212,224,.3);color:var(--mist);padding:.7rem 1.6rem;border-radius:2px;text-decoration:none;font-size:.78rem;font-weight:400;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
 .btn-pdf:hover{border-color:var(--gold);color:var(--gold-light)}
 .btn-pdf svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+/* Download menu: Full CV / Compact Resume */
+/* Let the open menu extend below the hero: clip only horizontally where supported
+   (older browsers keep overflow:hidden from the .hero rule). The .hero-cta z-index
+   above keeps the menu over the photo/stats block, whose fade-in animation gives it
+   its own stacking layer. */
+@supports (overflow-x:clip){.hero{overflow:visible;overflow-x:clip}}
+.dl-menu{position:relative;display:inline-block}
+.dl-menu>summary{list-style:none;cursor:pointer;user-select:none}
+.dl-menu>summary::-webkit-details-marker{display:none}
+.dl-menu>summary::marker{content:""}
+.dl-caret{transition:transform .2s}
+.dl-menu[open] .dl-caret{transform:rotate(180deg)}
+.dl-menu[open]>summary{border-color:var(--gold);color:var(--gold-light)}
+.dl-list{position:absolute;top:calc(100% + 6px);left:0;z-index:60;min-width:15.5rem;background:var(--navy-mid);border:1px solid rgba(184,149,58,.35);border-radius:3px;box-shadow:0 12px 28px rgba(0,0,0,.4);padding:.35rem;display:flex;flex-direction:column}
+.dl-list a{display:flex;flex-direction:column;gap:.1rem;padding:.6rem .8rem;border-radius:2px;text-decoration:none;color:var(--mist)}
+.dl-list a:hover,.dl-list a:focus-visible{background:rgba(184,149,58,.12);color:var(--gold-light)}
+.dl-title{font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.dl-sub{font-size:.72rem;color:var(--silver);letter-spacing:.01em}
 
 /* SOCIAL ICON BUTTONS */
 .social-icons{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.8rem;align-items:center}
@@ -502,11 +520,23 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
       <div class="hero-cta">
         <a href="#publications" class="btn-primary">View Publications</a>
         <a href="#" class="cf-email btn-outline" data-u="Shahriarirad.reza" data-d="mayo.edu" data-keep-content="true">Get in Touch</a>
-        <a href="Shahriarirad_Reza_CV.pdf"
-           target="_blank" rel="noopener noreferrer" class="btn-pdf" aria-label="Download CV PDF">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
-          Download CV (PDF)
-        </a>
+        <details class="dl-menu" id="cv-download">
+          <summary class="btn-pdf" aria-label="Download CV: choose full CV or compact resume">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
+            Download CV
+            <svg class="dl-caret" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
+          </summary>
+          <div class="dl-list">
+            <a href="Shahriarirad_Reza_CV.pdf" target="_blank" rel="noopener noreferrer">
+              <span class="dl-title">Full CV</span>
+              <span class="dl-sub">Complete academic record · PDF</span>
+            </a>
+            <a href="Shahriarirad_Reza_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <span class="dl-title">Compact Resume</span>
+              <span class="dl-sub">One-page summary · PDF</span>
+            </a>
+          </div>
+        </details>
       </div>
     </div>
     <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
@@ -6721,6 +6751,20 @@ function closeMenu(){
 document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
 document.addEventListener('click', e => {
   if(!e.target.closest('.hamburger') && !e.target.closest('.mobile-menu')) closeMenu();
+});
+
+/* DOWNLOAD MENU (<details>): close on outside click, Escape, or after choosing a file */
+document.addEventListener('click', e => {
+  document.querySelectorAll('.dl-menu[open]').forEach(menu => {
+    if(!menu.contains(e.target) || e.target.closest('.dl-list a')) menu.removeAttribute('open');
+  });
+});
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  document.querySelectorAll('.dl-menu[open]').forEach(menu => {
+    menu.removeAttribute('open');
+    menu.querySelector('summary')?.focus();
+  });
 });
 
 /* ── NAV SCROLL-SPY + BACK TO TOP ── */
