@@ -1,7 +1,7 @@
 {
   "generated": true,
   "source": "data/*.csv",
-  "citations": "3575",
+  "citations": "3582",
   "hindex": "25",
   "peerReviews": "149",
   "journals": "67",
@@ -11,5 +11,5 @@
   "secondAuth": "24",
   "lastAuth": "38",
   "corrAuth": "68",
-  "date": "October 6, 2026"
+  "date": "October 12, 2026"
 }
