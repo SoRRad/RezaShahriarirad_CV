@@ -17,7 +17,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Pinned rather than ubuntu-latest: a runner-image upgrade renamed system
+    # packages and broke every build until the install list was updated.
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: write
@@ -39,7 +41,6 @@ jobs:
             libpango-1.0-0 \
             libpangocairo-1.0-0 \
             libcairo2 \
-            libgdk-pixbuf2.0-0 \
             libffi-dev
 
       - name: Install Python requirements
