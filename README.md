@@ -89,12 +89,13 @@ Use the CSV files in `data/`:
 | `data/editorial.csv` | Editorial roles |
 | `data/journals.csv` | Journals reviewed |
 | `data/references.csv` | Professional references |
-| `data/skills_computing.csv` | Computing skills |
+| `data/skills_computing.csv` | Computing skills; `tier` = `core` (shown by default) or `more` (only under "All skills & proficiency levels") |
 | `data/skills_research.csv` | Research and analytical skills |
 | `data/skills_interpersonal.csv` | Interpersonal skills |
 | `data/hobbies.csv` | Hobbies and extracurricular interests |
 | `data/open_source.csv` | Public open-source repositories, if any |
 | `data/resume.csv` | What goes on the one-page compact resume (see below) |
+| `data/research_themes.csv` | Research Themes cards on the website (see below) |
 
 ### Publications
 
@@ -135,6 +136,10 @@ Google Scholar has no public API and blocks automated HTML scraping from GitHub 
 Either way the refresh **never downgrades** a metric (a lower fetched value is treated as a transient error and ignored), and it is **non-fatal** — a scraping failure prints a warning but never blocks the build or deploy. The weekly build also warns when `metrics_last_updated` is more than 45 days old. `peer_reviews` / `journals_reviewed` / `manuscripts_reviewed` are not on Scholar, so update those by hand when they change. The smoke test enforces that cached metrics never go *down* (floor checks) but no longer pins exact values, so a successful refresh cannot break the build.
 
 Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
+
+### Research Themes
+
+The **Research Themes** section (after About) shows one card per row of `data/research_themes.csv`: a title, a one- or two-sentence summary, up to three highlighted papers (by publication number), and optional project chips. Each card's paper and talk counts are computed from its `filter`, a topic key such as `bariatric` or a whole group such as `group:ai`, and its **View papers** button applies that same filter to the Publications list. Topics not covered by a theme appear as "Broader and earlier work" chips. The validator rejects unknown filters and paper numbers that don't exist.
 
 ### Compact Resume
 

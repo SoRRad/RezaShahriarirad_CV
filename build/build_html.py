@@ -301,6 +301,7 @@ def _nav() -> str:
   <div class="nav-logo">Reza Shahriarirad, M.D.</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#leadership">Leadership</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -316,6 +317,7 @@ def _nav() -> str:
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
   <a href="#experience" onclick="closeMenu()">Experience</a>
   <a href="#leadership" onclick="closeMenu()">Leadership</a>
   <a href="#publications" onclick="closeMenu()">Publications</a>
@@ -599,21 +601,17 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
         f'          <div class="skill-item"><span>{_skill_name(r)}</span><span class="skill-level">{_e(r["level"])}</span></div>'
         for _, r in skills_comp_df.iterrows()
     )
+    # Core tools show by default as chips; tier=more items (and all proficiency
+    # levels) live under the "All skills" disclosure.
+    core_tools = [r for _, r in skills_comp_df.iterrows() if str(r.get("tier", "core")).strip().lower() != "more"]
+    core_chips = "".join(f'<span class="skill-chip">{_skill_name(r)}</span>' for r in core_tools)
     inter_rows = "\n".join(
         f'          <div class="skill-item">{_e(r["name"])}</div>'
         for _, r in skills_inter_df.iterrows()
     )
-    research_rows = ""
+    research_chips = ""
     if skills_research_df is not None:
-        research_rows = "\n".join(
-            f'          <div class="skill-item">{_e(r["name"])}</div>'
-            for _, r in skills_research_df.iterrows()
-        )
-    research_group = f"""
-        <div class="skill-group">
-          <h3>Research &amp; Analytical</h3>
-{research_rows}
-        </div>""" if research_rows else ""
+        research_chips = "".join(f'<span class="skill-chip">{_e(r["name"])}</span>' for _, r in skills_research_df.iterrows())
 
     # Lab affiliations section
     aff_section = ""
@@ -699,17 +697,23 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
 {edu_items}
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
-      <div class="skills-grid" style="gap:1.5rem;margin-top:.5rem">
-        <div class="skill-group">
-          <h3>Technical &amp; Software</h3>
-{comp_rows}
-        </div>
-{research_group}
-        <div class="skill-group">
-          <h3>Interpersonal</h3>
-{inter_rows}
-        </div>
+      <div class="skills-compact">
+        {f'<div class="skill-group"><h3>Research &amp; Analytical</h3><div class="skill-chips">{research_chips}</div></div>' if research_chips else ''}
+        <div class="skill-group"><h3>Tools</h3><div class="skill-chips">{core_chips}</div></div>
       </div>
+      <details class="skills-more">
+        <summary>All skills &amp; proficiency levels</summary>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Technical &amp; Software</h3>
+{comp_rows}
+          </div>
+          <div class="skill-group">
+            <h3>Interpersonal</h3>
+{inter_rows}
+          </div>
+        </div>
+      </details>
     </div>
   </div>{aff_section}
 </div>
@@ -733,7 +737,9 @@ def _leadership(leadership_df) -> str:
 <div class="section-wrap">
   <div class="section-label">Leadership &amp; Service</div>
   <h2>Leadership &amp; Community Service</h2>
+  <div class="leadership-grid">
 {''.join(cards)}
+  </div>
 </div>
 </div>"""
 
@@ -756,6 +762,98 @@ def _dropdown_html(btn_id, panel_id, default_label, options, option_values=None)
 {opts_html}
         </div>
       </div>"""
+
+
+def _theme_filter_keys(filter_value: str) -> set:
+    """Topic keys a theme filter covers: 'group:ai' -> every sub-key in that group."""
+    value = str(filter_value or "").strip()
+    if value.startswith("group:"):
+        return set(TAXONOMY.get(value.split(":", 1)[1], {}).get("subs", {}))
+    return {value} if value else set()
+
+
+def _count_matching(df, keys: set) -> int:
+    if df is None or not keys:
+        return 0
+    return sum(1 for cats in df.get("cat", []) if keys & set(parse_semicolon(cats)))
+
+
+def _author_role_label(tags: str) -> str:
+    tag_set = set(parse_semicolon(tags))
+    for tag, label in (("first", "First author"), ("co-first", "Co-first author"), ("last", "Senior author")):
+        if tag in tag_set:
+            return label
+    return ""
+
+
+def _research(data) -> str:
+    """Research themes: what the work is about, with counts, flagship papers and projects."""
+    themes = data.get("research_themes")
+    if themes is None or len(themes) == 0:
+        return ""
+    pubs, pres = data["publications"], data.get("presentations")
+    by_n = {str(r["n"]).strip(): r for r in pubs.to_dict("records")}
+
+    cards, venues, covered = [], [], set()
+    for t in themes.to_dict("records"):
+        keys = _theme_filter_keys(t.get("filter", ""))
+        covered |= keys
+        n_papers, n_talks = _count_matching(pubs, keys), _count_matching(pres, keys)
+        items = []
+        for n in parse_semicolon(t.get("papers", ""))[:3]:
+            p = by_n.get(str(n).strip())
+            if not p:
+                continue
+            title = _e(p["title"])
+            url = clean_url(p.get("url", ""))
+            title_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer">{title}</a>' if url else title
+            meta = " · ".join(x for x in (_e(p.get("journal", "")), _e(p.get("year", "")), _author_role_label(p.get("tags", ""))) if x)
+            items.append(f'<li><span class="theme-paper-title">{title_html}</span><span class="theme-paper-meta">{meta}</span></li>')
+            journal = str(p.get("journal", "")).strip()
+            if journal and journal not in venues:
+                venues.append(journal)
+        projects = "".join(f'<span class="theme-chip">{_e(x)}</span>' for x in parse_semicolon(t.get("projects", "")))
+        stats = f'<span><b>{n_papers}</b> paper{"s" if n_papers != 1 else ""}</span>'
+        if n_talks:
+            stats += f'<span><b>{n_talks}</b> talk{"s" if n_talks != 1 else ""}</span>'
+        link = (
+            f'<button type="button" class="theme-link" data-filter="{_e(t.get("filter", ""))}">'
+            f'View {"all " if n_papers > 1 else ""}{n_papers} paper{"s" if n_papers != 1 else ""} &rarr;</button>'
+        ) if n_papers else ""
+        cards.append(f"""    <article class="theme-card">
+      <h3 class="theme-title">{_e(t.get("title", ""))}</h3>
+      <div class="theme-stats">{stats}</div>
+      <p class="theme-summary">{_e(t.get("summary", ""))}</p>
+      <ul class="theme-papers">{''.join(items)}</ul>
+      {f'<div class="theme-projects">{projects}</div>' if projects else ''}
+      {link}
+    </article>""")
+
+    # Topics outside the themes, so the larger earlier bodies of work stay one click away.
+    counts = {}
+    for cats in pubs.get("cat", []):
+        for key in parse_semicolon(cats):
+            if key not in covered and key in CAT_LABELS:
+                counts[key] = counts.get(key, 0) + 1
+    broader = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:7]
+    broader_html = "".join(
+        f'<button type="button" class="research-tag theme-broader-tag" data-cat="{_e(k)}">{_e(CAT_LABELS[k])} <span>{v}</span></button>'
+        for k, v in broader
+    )
+    venues_html = " <span aria-hidden=\"true\">·</span> ".join(f"<span>{_e(v)}</span>" for v in venues[:6])
+    return f"""
+<!-- RESEARCH THEMES -->
+<div class="research-band" id="research">
+<div class="section-wrap">
+  <div class="section-label">Research</div>
+  <h2>Research Themes</h2>
+  <p class="research-venues"><span class="research-venues-label">Recent work in</span> {venues_html}</p>
+  <div class="theme-grid">
+{chr(10).join(cards)}
+  </div>
+  <div class="theme-broader"><span class="theme-broader-label">Broader and earlier work</span>{broader_html}</div>
+</div>
+</div>"""
 
 
 def _publications_section() -> str:
@@ -1303,6 +1401,7 @@ def main():
         '<main id="main" tabindex="-1">',
         _hero(profile, pub_count, photo_b64),
         _about(profile),
+        _research(data),
         _experience(data["experience"], data["education"],
                     data["skills_computing"], data["skills_interpersonal"],
                     data.get("skills_research", None), aff_df),

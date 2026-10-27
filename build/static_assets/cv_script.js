@@ -578,6 +578,29 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>{b.classList.remove('open'); b.setAttribute('aria-expanded','false');});
 });
 
+/* ── Research theme "View papers" → apply the matching sidebar filter ──
+   Clicks the real sidebar button so filtering behaves exactly as if the
+   visitor had used the sidebar ("group:ai" = a whole topic group). */
+document.addEventListener('click', e => {
+  const link = e.target.closest('.theme-link[data-filter]');
+  if(!link) return;
+  const filter = link.dataset.filter || '';
+  let btn;
+  if(filter.startsWith('group:')){
+    const group = filter.slice(6);
+    btn = document.querySelector(`.pub-filter-sidebar .filter-main-btn[data-group="${group}"]`);
+    // filterPubsMain toggles off when re-clicked; only click when not already applied.
+    if(btn && currentCat === 'main:' + group) btn = null;
+  } else {
+    btn = document.querySelector(`.pub-filter-sidebar .filter-sub-btn[data-cat="${filter}"]`);
+  }
+  btn?.click();
+  // The sidebar handlers restore the old scroll position on the next frame
+  // (preserveScroll); scroll one frame later so the jump to Publications sticks.
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    document.getElementById('publications')?.scrollIntoView({behavior:'smooth'})));
+});
+
 /* ── Research topic tag click → scroll to publications + apply filter ── */
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.research-tag[data-cat]').forEach(tag => {

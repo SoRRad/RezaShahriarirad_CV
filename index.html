@@ -94,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.9
 .nav-links a.active{color:var(--gold-light);border-bottom-color:var(--gold)}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .hamburger span{display:block;width:22px;height:1.5px;background:var(--mist)}
-@media(max-width:1180px){.nav-links{display:none}.hamburger{display:flex}}
+@media(max-width:1240px){.nav-links{display:none}.hamburger{display:flex}}
 .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--navy);border-bottom:1px solid rgba(184,149,58,.25);box-shadow:0 12px 24px rgba(0,0,0,.35);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.2rem;max-height:calc(100vh - 60px);overflow-y:auto}
 .mobile-menu.open{display:flex}
 .mobile-menu a{color:var(--mist);text-decoration:none;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase}
@@ -169,12 +169,13 @@ h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.6rem);fon
 .timeline-desc{font-size:.83rem;font-weight:300;color:var(--text-muted);line-height:1.7}
 
 /* LEADERSHIP */
-.leadership-card{border:1px solid var(--mist);border-radius:4px;padding:1.8rem;position:relative;overflow:hidden;margin-bottom:1rem}
+.leadership-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:1rem;align-items:start}
+.leadership-card{border:1px solid var(--mist);border-radius:4px;padding:1.15rem 1.3rem 1.2rem 1.45rem;position:relative;overflow:hidden}
 .leadership-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--gold)}
 .leadership-period{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
-.leadership-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--text);margin-bottom:.3rem}
-.leadership-org{font-size:.85rem;color:var(--steel);margin-bottom:.7rem}
-.leadership-desc{font-size:.88rem;color:var(--text-muted);line-height:1.7}
+.leadership-title{font-family:'Cormorant Garamond',serif;font-size:1.12rem;font-weight:500;color:var(--text);margin-bottom:.3rem}
+.leadership-org{font-size:.8rem;color:var(--steel);margin-bottom:.5rem}
+.leadership-desc{font-size:.82rem;color:var(--text-muted);line-height:1.6}
 
 /* PUBLICATIONS */
 .pub-metrics-bar{display:flex;flex-wrap:wrap;gap:1px;background:rgba(10,22,40,.08);border:1px solid var(--mist);border-radius:4px;overflow:hidden;margin-bottom:2rem}
@@ -419,6 +420,48 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   *{transition-duration:.01ms!important}
 }
 
+/* RESEARCH THEMES */
+.research-band{background:var(--navy);color:var(--mist);position:relative}
+.research-band .section-label{color:var(--gold-light)}
+.research-band h2{color:var(--white)}
+.research-venues{font-size:.8rem;color:var(--silver);margin:-.6rem 0 2rem;line-height:1.9}
+.research-venues span{white-space:nowrap}
+.research-venues-label{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-right:.6rem}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:1.1rem}
+.theme-card{background:rgba(255,255,255,.035);border:1px solid rgba(200,212,224,.14);border-radius:4px;padding:1.4rem 1.5rem 1.3rem;display:flex;flex-direction:column;gap:.75rem}
+.theme-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:500;color:var(--white);line-height:1.2}
+.theme-stats{display:flex;gap:1.1rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--silver)}
+.theme-stats b{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;color:var(--gold-light);letter-spacing:0;margin-right:.25rem}
+.theme-summary{font-size:.86rem;line-height:1.65;color:var(--mist)}
+.theme-papers{list-style:none;display:flex;flex-direction:column;gap:.55rem;border-top:1px solid rgba(200,212,224,.12);padding-top:.8rem}
+.theme-papers li{display:flex;flex-direction:column;gap:.1rem}
+.theme-paper-title{font-size:.84rem;line-height:1.45;color:var(--white)}
+.theme-paper-title a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(212,174,90,.35)}
+.theme-paper-title a:hover{color:var(--gold-light);border-bottom-color:var(--gold)}
+.theme-paper-meta{font-size:.72rem;color:var(--silver);font-style:italic}
+.theme-projects{display:flex;flex-wrap:wrap;gap:.35rem}
+.theme-chip{font-size:.7rem;color:var(--mist);border:1px solid rgba(200,212,224,.22);border-radius:2px;padding:.18rem .55rem}
+.theme-link{align-self:flex-start;margin-top:auto;background:none;border:none;padding:.2rem 0;font:inherit;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-light);cursor:pointer;border-bottom:1px solid transparent}
+.theme-link:hover{border-bottom-color:var(--gold)}
+.theme-broader{margin-top:1.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:.3rem}
+.theme-broader-label{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-right:.6rem}
+.research-band .theme-broader-tag{background:rgba(255,255,255,.06);color:var(--mist);font:inherit;font-size:.74rem}
+.research-band .theme-broader-tag:hover{background:rgba(184,149,58,.22);color:var(--white)}
+.theme-broader-tag span{color:var(--gold-light);margin-left:.25rem}
+
+/* SKILLS (compact) */
+.skills-compact{display:flex;flex-direction:column;gap:1.1rem;margin-top:.5rem}
+.skill-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.skill-chip{font-size:.78rem;color:var(--text-mid);background:var(--white);border:1px solid var(--mist);border-radius:2px;padding:.22rem .6rem}
+.skill-chip a{color:inherit}
+.skills-more{margin-top:1.1rem;border-top:1px solid var(--mist);padding-top:.8rem}
+.skills-more>summary{cursor:pointer;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);list-style:none;display:inline-flex;align-items:center;gap:.4rem}
+.skills-more>summary::-webkit-details-marker{display:none}
+.skills-more>summary::before{content:'+';font-size:.95rem;color:var(--gold);width:.8rem}
+.skills-more[open]>summary::before{content:'\2212'}
+.skills-more>summary:hover{color:var(--gold)}
+.skills-more .skills-grid{margin-top:1rem;gap:1.5rem}
+
 /* RESPONSIVE */
 @media(max-width:860px){
   .hero{padding:6.5rem 1.2rem 4rem}
@@ -500,6 +543,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
   <div class="nav-logo">Reza Shahriarirad, M.D.</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#leadership">Leadership</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -515,6 +559,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
   <a href="#experience" onclick="closeMenu()">Experience</a>
   <a href="#leadership" onclick="closeMenu()">Leadership</a>
   <a href="#publications" onclick="closeMenu()">Publications</a>
@@ -645,6 +690,50 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 </div>
 </div>
 
+<!-- RESEARCH THEMES -->
+<div class="research-band" id="research">
+<div class="section-wrap">
+  <div class="section-label">Research</div>
+  <h2>Research Themes</h2>
+  <p class="research-venues"><span class="research-venues-label">Recent work in</span> <span>Nature Biomedical Engineering</span> <span aria-hidden="true">·</span> <span>Scientific Reports</span> <span aria-hidden="true">·</span> <span>Obesity Surgery</span> <span aria-hidden="true">·</span> <span>Surgical Endoscopy</span> <span aria-hidden="true">·</span> <span>Journal of Hand Surgery</span> <span aria-hidden="true">·</span> <span>Journal of Robotic Surgery</span></p>
+  <div class="theme-grid">
+    <article class="theme-card">
+      <h3 class="theme-title">Surgical AI &amp; Computer Vision</h3>
+      <div class="theme-stats"><span><b>5</b> papers</span><span><b>8</b> talks</span></div>
+      <p class="theme-summary">Machine-learning and computer-vision methods for surgical care, from AI-assisted surgical video analysis and image-guided reconstructive planning to adapting radiograph models across 30 international neonatal intensive care units.</p>
+      <ul class="theme-papers"><li><span class="theme-paper-title"><a href="https://www.nature.com/articles/s41551-026-01812-6" target="_blank" rel="noopener noreferrer">Repurposing Adult AI Radiograph Models for Neonatal Care Through Continual Learning: An International Multicenter Study</a></span><span class="theme-paper-meta">Nature Biomedical Engineering · 2026</span></li><li><span class="theme-paper-title"><a href="https://www.nature.com/articles/s41598-024-51244-y" target="_blank" rel="noopener noreferrer">Prediction of Sentinel Lymph Node Metastasis in Breast Cancer Patients Based on Preoperative Features: A Deep Machine Learning Approach</a></span><span class="theme-paper-meta">Scientific Reports · 2024 · First author</span></li><li><span class="theme-paper-title"><a href="https://rdcu.be/asYAGbkzr8da" target="_blank" rel="noopener noreferrer">Metabolic and Bariatric Surgery and Change in the AI-ECG–Derived Biological-Age Gap: A Longitudinal Cohort Study</a></span><span class="theme-paper-meta">Obesity Surgery · 2026 · First author</span></li></ul>
+      <div class="theme-projects"><span class="theme-chip">GoNoGoNET</span><span class="theme-chip">CTA Perforator</span><span class="theme-chip">ApoQlar × Apple Vision Pro</span><span class="theme-chip">INTERCEPTION &amp; Alpenglow</span></div>
+      <button type="button" class="theme-link" data-filter="group:ai">View all 5 papers &rarr;</button>
+    </article>
+    <article class="theme-card">
+      <h3 class="theme-title">Metabolic &amp; Bariatric Surgery</h3>
+      <div class="theme-stats"><span><b>3</b> papers</span><span><b>7</b> talks</span></div>
+      <p class="theme-summary">Precision risk assessment in metabolic surgery: AI-ECG-derived biological age after bariatric surgery, the Mayo Obesity Staging Index (MOSI), and the quality of online patient education.</p>
+      <ul class="theme-papers"><li><span class="theme-paper-title"><a href="https://rdcu.be/asYAGbkzr8da" target="_blank" rel="noopener noreferrer">Metabolic and Bariatric Surgery and Change in the AI-ECG–Derived Biological-Age Gap: A Longitudinal Cohort Study</a></span><span class="theme-paper-meta">Obesity Surgery · 2026 · First author</span></li><li><span class="theme-paper-title"><a href="https://doi.org/10.1007/s00464-026-12845-y" target="_blank" rel="noopener noreferrer">Online patient education resources in bariatric surgery: a systematic evaluation of quality, readability, transparency, and representation</a></span><span class="theme-paper-meta">Surgical Endoscopy · 2026</span></li></ul>
+      <div class="theme-projects"><span class="theme-chip">MOSI staging system</span><span class="theme-chip">AI-ECG risk models</span></div>
+      <button type="button" class="theme-link" data-filter="bariatric">View all 3 papers &rarr;</button>
+    </article>
+    <article class="theme-card">
+      <h3 class="theme-title">Plastic, Reconstructive &amp; Peripheral Nerve Surgery</h3>
+      <div class="theme-stats"><span><b>21</b> papers</span><span><b>13</b> talks</span></div>
+      <p class="theme-summary">Nerve- and tendon-based procedures for spasticity, robotic surgery in reconstruction, burn outcomes, and patient-facing breast reconstruction resources.</p>
+      <ul class="theme-papers"><li><span class="theme-paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S0363502326005149" target="_blank" rel="noopener noreferrer">Nerve Transfers to Rebalance the Spastic Wrist: An Anatomical Feasibility Study</a></span><span class="theme-paper-meta">Journal of Hand Surgery · 2026</span></li><li><span class="theme-paper-title"><a href="https://doi.org/10.1007/s11701-026-03294-9" target="_blank" rel="noopener noreferrer">Global Trends and Research Landscape of Robotic Surgery in Plastic and Reconstructive Surgery: A Bibliometric Analysis (1999–2025)</a></span><span class="theme-paper-meta">Journal of Robotic Surgery · 2026 · Co-first author</span></li><li><span class="theme-paper-title"><a href="https://www.sciencedirect.com/science/article/pii/S1526820925002897" target="_blank" rel="noopener noreferrer">Systemic Evaluation of Quality, Readability, and Integrity of Online Breast Reconstruction Resources</a></span><span class="theme-paper-meta">Clinical Breast Cancer · 2025 · First author</span></li></ul>
+      <div class="theme-projects"><span class="theme-chip">ASPN 2027 nerve-procedure studies</span></div>
+      <button type="button" class="theme-link" data-filter="plastic">View all 21 papers &rarr;</button>
+    </article>
+    <article class="theme-card">
+      <h3 class="theme-title">Thoracic Surgery</h3>
+      <div class="theme-stats"><span><b>29</b> papers</span><span><b>1</b> talk</span></div>
+      <p class="theme-summary">Six years of clinical research at the Thoracic and Vascular Surgery Research Center, Shiraz University of Medical Sciences, including esophageal perforation and pulmonary hydatid disease case series.</p>
+      <ul class="theme-papers"><li><span class="theme-paper-title"><a href="https://bmcsurg.biomedcentral.com/articles/10.1186/s12893-023-02080-w" target="_blank" rel="noopener noreferrer">Esophageal Perforation Etiology, Outcome, and the Role of Surgical Management — An 18-Year Experience of Surgical Cases in A Referral Center</a></span><span class="theme-paper-meta">BMC Surgery · 2023 · First author</span></li><li><span class="theme-paper-title"><a href="https://cardiothoracicsurgery.biomedcentral.com/articles/10.1186/s13019-023-02327-w" target="_blank" rel="noopener noreferrer">Hospital-based Retrospective Analysis of 224 Surgical Cases of Lung Hydatid Cyst from Southern Iran</a></span><span class="theme-paper-meta">BMC Cardiothoracic Surgery · 2023 · First author</span></li></ul>
+      <div class="theme-projects"><span class="theme-chip">Research mentoring program</span></div>
+      <button type="button" class="theme-link" data-filter="thoracic">View all 29 papers &rarr;</button>
+    </article>
+  </div>
+  <div class="theme-broader"><span class="theme-broader-label">Broader and earlier work</span><button type="button" class="research-tag theme-broader-tag" data-cat="infectious">Infectious Disease <span>57</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="gi">GI &amp; Colorectal Surgery <span>28</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="oncology">Surgical Oncology <span>26</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="pubhealth">Public Health <span>23</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="vascular">Vascular Surgery <span>21</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="endocrine">Endocrine Surgery <span>14</span></button><button type="button" class="research-tag theme-broader-tag" data-cat="ortho">Orthopaedic Surgery <span>14</span></button></div>
+</div>
+</div>
+
 <!-- EXPERIENCE -->
 <div class="section-alt" id="experience">
 <div class="section-wrap">
@@ -739,9 +828,15 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
         </div>
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
-      <div class="skills-grid" style="gap:1.5rem;margin-top:.5rem">
-        <div class="skill-group">
-          <h3>Technical &amp; Software</h3>
+      <div class="skills-compact">
+        <div class="skill-group"><h3>Research &amp; Analytical</h3><div class="skill-chips"><span class="skill-chip">Study design</span><span class="skill-chip">RCT coordination</span><span class="skill-chip">Data management</span><span class="skill-chip">Statistical analysis</span><span class="skill-chip">Systematic review and meta-analysis</span><span class="skill-chip">Clinical research coordination</span><span class="skill-chip">IRB preparation</span></div></div>
+        <div class="skill-group"><h3>Tools</h3><div class="skill-chips"><span class="skill-chip">SPSS</span><span class="skill-chip">EndNote</span><span class="skill-chip">Python</span><span class="skill-chip">MATLAB</span><span class="skill-chip">NCSS</span></div></div>
+      </div>
+      <details class="skills-more">
+        <summary>All skills &amp; proficiency levels</summary>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Technical &amp; Software</h3>
           <div class="skill-item"><span>SPSS</span><span class="skill-level">Good</span></div>
           <div class="skill-item"><span>EndNote</span><span class="skill-level">Good</span></div>
           <div class="skill-item"><span>Microsoft Office</span><span class="skill-level">Good</span></div>
@@ -751,28 +846,18 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
           <div class="skill-item"><span>NCSS</span><span class="skill-level">Beginner</span></div>
           <div class="skill-item"><span><a href="https://coursera.org/share/26e562c4c5d9ed3ceb8b3552298c1567" target="_blank">Azure DevOps</a></span><span class="skill-level">Beginner</span></div>
           <div class="skill-item"><span>Typing</span><span class="skill-level">90 wpm</span></div>
-        </div>
-
-        <div class="skill-group">
-          <h3>Research &amp; Analytical</h3>
-          <div class="skill-item">Study design</div>
-          <div class="skill-item">RCT coordination</div>
-          <div class="skill-item">Data management</div>
-          <div class="skill-item">Statistical analysis</div>
-          <div class="skill-item">Systematic review and meta-analysis</div>
-          <div class="skill-item">Clinical research coordination</div>
-          <div class="skill-item">IRB preparation</div>
-        </div>
-        <div class="skill-group">
-          <h3>Interpersonal</h3>
+          </div>
+          <div class="skill-group">
+            <h3>Interpersonal</h3>
           <div class="skill-item">Scientific editing</div>
           <div class="skill-item">Presentation skills</div>
           <div class="skill-item">Mentoring</div>
           <div class="skill-item">Time management</div>
           <div class="skill-item">Multidisciplinary collaboration</div>
           <div class="skill-item">English and Farsi fluency</div>
+          </div>
         </div>
-      </div>
+      </details>
     </div>
   </div>
   <div>
@@ -807,6 +892,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
 <div class="section-wrap">
   <div class="section-label">Leadership &amp; Service</div>
   <h2>Leadership &amp; Community Service</h2>
+  <div class="leadership-grid">
   <!-- EDIT: Leadership card description -->
   <div class="leadership-card">
     <div class="leadership-period">Sep 2026</div>
@@ -843,6 +929,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center}
     <div class="leadership-title">Research Project Manager and Mentoring Program</div>
     <div class="leadership-org">Thoracic and Vascular Surgery Research Center, Shiraz University of Medical Sciences, Shiraz, Iran</div>
     <div class="leadership-desc">Founded and directed a research mentoring program at the Thoracic and Vascular Surgery Research Center, mentoring 15 medical students in research methodology, scientific writing, and publication strategy, with participating students contributing to more than 50 peer-reviewed publications.</div>
+  </div>
   </div>
 </div>
 </div>
@@ -7357,6 +7444,29 @@ function initCustomDropdown(btnId, panelId, defaultLabel, onChangeCallback){
 document.addEventListener('click', () => {
   document.querySelectorAll('.custom-dropdown-panel.open').forEach(p=>p.classList.remove('open'));
   document.querySelectorAll('.custom-dropdown-btn.open').forEach(b=>{b.classList.remove('open'); b.setAttribute('aria-expanded','false');});
+});
+
+/* ── Research theme "View papers" → apply the matching sidebar filter ──
+   Clicks the real sidebar button so filtering behaves exactly as if the
+   visitor had used the sidebar ("group:ai" = a whole topic group). */
+document.addEventListener('click', e => {
+  const link = e.target.closest('.theme-link[data-filter]');
+  if(!link) return;
+  const filter = link.dataset.filter || '';
+  let btn;
+  if(filter.startsWith('group:')){
+    const group = filter.slice(6);
+    btn = document.querySelector(`.pub-filter-sidebar .filter-main-btn[data-group="${group}"]`);
+    // filterPubsMain toggles off when re-clicked; only click when not already applied.
+    if(btn && currentCat === 'main:' + group) btn = null;
+  } else {
+    btn = document.querySelector(`.pub-filter-sidebar .filter-sub-btn[data-cat="${filter}"]`);
+  }
+  btn?.click();
+  // The sidebar handlers restore the old scroll position on the next frame
+  // (preserveScroll); scroll one frame later so the jump to Publications sticks.
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    document.getElementById('publications')?.scrollIntoView({behavior:'smooth'})));
 });
 
 /* ── Research topic tag click → scroll to publications + apply filter ── */
