@@ -184,7 +184,7 @@ def _tag_chips_html(labels, class_name, handler_name, limit=6):
 
 # ── section generators ─────────────────────────────────────────────────────
 
-def _head(css: str, profile: dict) -> str:
+def _head(css: str, profile: dict, education_df=None) -> str:
     canonical = profile.get("canonical_url", "https://sorrad.github.io/RezaShahriarirad_CV/")
     desc = profile.get(
         "meta_description",
@@ -211,18 +211,50 @@ def _head(css: str, profile: dict) -> str:
             "@type": "Organization",
             "name": profile.get("institution", "Department of Surgery – Surgical Innovation, Mayo Clinic"),
         },
+        "worksFor": {"@type": "Organization", "name": "Mayo Clinic", "url": "https://www.mayoclinic.org/"},
         "url": canonical,
         "description": desc,
         "sameAs": [url for url in same_as if url],
     }
+    # Degree-granting institutions (not secondary school) for search engines.
+    alumni = []
+    if education_df is not None:
+        for row in education_df.to_dict("records"):
+            degree = str(row.get("degree", ""))
+            if "diploma" in degree.lower():
+                continue
+            org = str(row.get("org", "")).split("·")[0].strip()
+            if org and org not in alumni:
+                alumni.append(org)
+    if alumni:
+        person["alumniOf"] = [{"@type": "CollegeOrUniversity", "name": org} for org in alumni]
+    topics = [t.strip() for t in str(profile.get("research_interests", "")).split("·") if t.strip()]
+    if topics:
+        person["knowsAbout"] = topics
+    if (ROOT / "assets" / "headshot.jpg").exists():
+        person["image"] = canonical.rstrip("/") + "/assets/headshot.jpg"
     public_email = _primary_public_email(profile)
     if public_email:
         person["email"] = public_email
-    og_image = canonical.rstrip("/") + "/assets/headshot.jpg" if (ROOT / "assets" / "headshot.jpg").exists() else ""
-    og_image_tags = (
-        f'\n<meta property="og:image" content="{_e(og_image)}">'
-        f'\n<meta name="twitter:image" content="{_e(og_image)}">'
-    ) if og_image else ""
+    # Link previews: prefer the generated 1200x630 card, fall back to the headshot.
+    card = ROOT / "assets" / "social-card.png"
+    if card.exists():
+        og_image = canonical.rstrip("/") + "/assets/social-card.png"
+        twitter_card = "summary_large_image"
+        og_image_tags = (
+            f'\n<meta property="og:image" content="{_e(og_image)}">'
+            '\n<meta property="og:image:width" content="1200">'
+            '\n<meta property="og:image:height" content="630">'
+            '\n<meta property="og:image:alt" content="Reza Shahriarirad, M.D. — Research Fellow, Surgical Innovation, Mayo Clinic">'
+            f'\n<meta name="twitter:image" content="{_e(og_image)}">'
+        )
+    else:
+        og_image = canonical.rstrip("/") + "/assets/headshot.jpg" if (ROOT / "assets" / "headshot.jpg").exists() else ""
+        twitter_card = "summary"
+        og_image_tags = (
+            f'\n<meta property="og:image" content="{_e(og_image)}">'
+            f'\n<meta name="twitter:image" content="{_e(og_image)}">'
+        ) if og_image else ""
     favicon = (
         "data:image/svg+xml,"
         "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
@@ -245,7 +277,7 @@ def _head(css: str, profile: dict) -> str:
 <meta property="og:description" content="{_e(desc)}">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="{_e(canonical)}">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="{twitter_card}">
 <meta name="twitter:title" content="{_e(title)}">
 <meta name="twitter:description" content="{_e(desc)}">{og_image_tags}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -258,7 +290,8 @@ def _head(css: str, profile: dict) -> str:
 {css}
 </style>
 </head>
-<body>"""
+<body>
+<a class="skip-link" href="#main">Skip to content</a>"""
 
 
 def _nav() -> str:
@@ -268,6 +301,7 @@ def _nav() -> str:
   <div class="nav-logo">Reza Shahriarirad, M.D.</div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#leadership">Leadership</a></li>
     <li><a href="#publications">Publications</a></li>
@@ -283,6 +317,7 @@ def _nav() -> str:
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
   <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#research" onclick="closeMenu()">Research</a>
   <a href="#experience" onclick="closeMenu()">Experience</a>
   <a href="#leadership" onclick="closeMenu()">Leadership</a>
   <a href="#publications" onclick="closeMenu()">Publications</a>
@@ -461,7 +496,7 @@ def _about(profile: dict) -> str:
 </div>"""
 
 
-_LOGO_SIZE_LIMIT = 150_000  # bytes; embed small logos, reference larger local assets
+_LOGO_SIZE_LIMIT = 40_000  # bytes; embed small logos, reference larger local assets (keeps index.html lean)
 
 def _logo_img_from_path(p, org_name="", class_name="timeline-logo"):
     alt = _e(f"{org_name} logo" if org_name else "Institution logo")
@@ -566,21 +601,17 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
         f'          <div class="skill-item"><span>{_skill_name(r)}</span><span class="skill-level">{_e(r["level"])}</span></div>'
         for _, r in skills_comp_df.iterrows()
     )
+    # Core tools show by default as chips; tier=more items (and all proficiency
+    # levels) live under the "All skills" disclosure.
+    core_tools = [r for _, r in skills_comp_df.iterrows() if str(r.get("tier", "core")).strip().lower() != "more"]
+    core_chips = "".join(f'<span class="skill-chip">{_skill_name(r)}</span>' for r in core_tools)
     inter_rows = "\n".join(
         f'          <div class="skill-item">{_e(r["name"])}</div>'
         for _, r in skills_inter_df.iterrows()
     )
-    research_rows = ""
+    research_chips = ""
     if skills_research_df is not None:
-        research_rows = "\n".join(
-            f'          <div class="skill-item">{_e(r["name"])}</div>'
-            for _, r in skills_research_df.iterrows()
-        )
-    research_group = f"""
-        <div class="skill-group">
-          <h3>Research &amp; Analytical</h3>
-{research_rows}
-        </div>""" if research_rows else ""
+        research_chips = "".join(f'<span class="skill-chip">{_e(r["name"])}</span>' for _, r in skills_research_df.iterrows())
 
     # Lab affiliations section
     aff_section = ""
@@ -666,17 +697,23 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
 {edu_items}
       </div>
       <div class="timeline-col" style="margin-top:2.5rem"><h3>Skills</h3></div>
-      <div class="skills-grid" style="gap:1.5rem;margin-top:.5rem">
-        <div class="skill-group">
-          <h3>Technical &amp; Software</h3>
-{comp_rows}
-        </div>
-{research_group}
-        <div class="skill-group">
-          <h3>Interpersonal</h3>
-{inter_rows}
-        </div>
+      <div class="skills-compact">
+        {f'<div class="skill-group"><h3>Research &amp; Analytical</h3><div class="skill-chips">{research_chips}</div></div>' if research_chips else ''}
+        <div class="skill-group"><h3>Tools</h3><div class="skill-chips">{core_chips}</div></div>
       </div>
+      <details class="skills-more">
+        <summary>All skills &amp; proficiency levels</summary>
+        <div class="skills-grid">
+          <div class="skill-group">
+            <h3>Technical &amp; Software</h3>
+{comp_rows}
+          </div>
+          <div class="skill-group">
+            <h3>Interpersonal</h3>
+{inter_rows}
+          </div>
+        </div>
+      </details>
     </div>
   </div>{aff_section}
 </div>
@@ -700,7 +737,9 @@ def _leadership(leadership_df) -> str:
 <div class="section-wrap">
   <div class="section-label">Leadership &amp; Service</div>
   <h2>Leadership &amp; Community Service</h2>
+  <div class="leadership-grid">
 {''.join(cards)}
+  </div>
 </div>
 </div>"""
 
@@ -723,6 +762,98 @@ def _dropdown_html(btn_id, panel_id, default_label, options, option_values=None)
 {opts_html}
         </div>
       </div>"""
+
+
+def _theme_filter_keys(filter_value: str) -> set:
+    """Topic keys a theme filter covers: 'group:ai' -> every sub-key in that group."""
+    value = str(filter_value or "").strip()
+    if value.startswith("group:"):
+        return set(TAXONOMY.get(value.split(":", 1)[1], {}).get("subs", {}))
+    return {value} if value else set()
+
+
+def _count_matching(df, keys: set) -> int:
+    if df is None or not keys:
+        return 0
+    return sum(1 for cats in df.get("cat", []) if keys & set(parse_semicolon(cats)))
+
+
+def _author_role_label(tags: str) -> str:
+    tag_set = set(parse_semicolon(tags))
+    for tag, label in (("first", "First author"), ("co-first", "Co-first author"), ("last", "Senior author")):
+        if tag in tag_set:
+            return label
+    return ""
+
+
+def _research(data) -> str:
+    """Research themes: what the work is about, with counts, flagship papers and projects."""
+    themes = data.get("research_themes")
+    if themes is None or len(themes) == 0:
+        return ""
+    pubs, pres = data["publications"], data.get("presentations")
+    by_n = {str(r["n"]).strip(): r for r in pubs.to_dict("records")}
+
+    cards, venues, covered = [], [], set()
+    for t in themes.to_dict("records"):
+        keys = _theme_filter_keys(t.get("filter", ""))
+        covered |= keys
+        n_papers, n_talks = _count_matching(pubs, keys), _count_matching(pres, keys)
+        items = []
+        for n in parse_semicolon(t.get("papers", ""))[:3]:
+            p = by_n.get(str(n).strip())
+            if not p:
+                continue
+            title = _e(p["title"])
+            url = clean_url(p.get("url", ""))
+            title_html = f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer">{title}</a>' if url else title
+            meta = " · ".join(x for x in (_e(p.get("journal", "")), _e(p.get("year", "")), _author_role_label(p.get("tags", ""))) if x)
+            items.append(f'<li><span class="theme-paper-title">{title_html}</span><span class="theme-paper-meta">{meta}</span></li>')
+            journal = str(p.get("journal", "")).strip()
+            if journal and journal not in venues:
+                venues.append(journal)
+        projects = "".join(f'<span class="theme-chip">{_e(x)}</span>' for x in parse_semicolon(t.get("projects", "")))
+        stats = f'<span><b>{n_papers}</b> paper{"s" if n_papers != 1 else ""}</span>'
+        if n_talks:
+            stats += f'<span><b>{n_talks}</b> talk{"s" if n_talks != 1 else ""}</span>'
+        link = (
+            f'<button type="button" class="theme-link" data-filter="{_e(t.get("filter", ""))}">'
+            f'View {"all " if n_papers > 1 else ""}{n_papers} paper{"s" if n_papers != 1 else ""} &rarr;</button>'
+        ) if n_papers else ""
+        cards.append(f"""    <article class="theme-card">
+      <h3 class="theme-title">{_e(t.get("title", ""))}</h3>
+      <div class="theme-stats">{stats}</div>
+      <p class="theme-summary">{_e(t.get("summary", ""))}</p>
+      <ul class="theme-papers">{''.join(items)}</ul>
+      {f'<div class="theme-projects">{projects}</div>' if projects else ''}
+      {link}
+    </article>""")
+
+    # Topics outside the themes, so the larger earlier bodies of work stay one click away.
+    counts = {}
+    for cats in pubs.get("cat", []):
+        for key in parse_semicolon(cats):
+            if key not in covered and key in CAT_LABELS:
+                counts[key] = counts.get(key, 0) + 1
+    broader = sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))[:7]
+    broader_html = "".join(
+        f'<button type="button" class="research-tag theme-broader-tag" data-cat="{_e(k)}">{_e(CAT_LABELS[k])} <span>{v}</span></button>'
+        for k, v in broader
+    )
+    venues_html = " <span aria-hidden=\"true\">·</span> ".join(f"<span>{_e(v)}</span>" for v in venues[:6])
+    return f"""
+<!-- RESEARCH THEMES -->
+<div class="research-band" id="research">
+<div class="section-wrap">
+  <div class="section-label">Research</div>
+  <h2>Research Themes</h2>
+  <p class="research-venues"><span class="research-venues-label">Recent work in</span> {venues_html}</p>
+  <div class="theme-grid">
+{chr(10).join(cards)}
+  </div>
+  <div class="theme-broader"><span class="theme-broader-label">Broader and earlier work</span>{broader_html}</div>
+</div>
+</div>"""
 
 
 def _publications_section() -> str:
@@ -1127,6 +1258,24 @@ def _references_section() -> str:
 </div>"""
 
 
+def _analytics(profile: dict) -> str:
+    """Privacy-friendly visit counts (GoatCounter: no cookies, no consent banner).
+
+    Off unless profile.csv sets analytics_goatcounter to your GoatCounter site
+    code, e.g. 'rezashahriarirad' for https://rezashahriarirad.goatcounter.com.
+    """
+    code = str(profile.get("analytics_goatcounter", "") or "").strip().lower()
+    if not code:
+        return ""
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", code):
+        print(f"[build_html] WARNING: analytics_goatcounter '{code}' is not a valid GoatCounter code; analytics left off.")
+        return ""
+    return (
+        f'<script data-goatcounter="https://{code}.goatcounter.com/count" '
+        'async src="https://gc.zgo.at/count.js"></script>'
+    )
+
+
 def _footer(profile: dict) -> str:
     profile_links = []
     for label, href in [
@@ -1265,10 +1414,12 @@ def main():
     aff_df = data.get("affiliations", None)
 
     parts = [
-        _head(css, profile),
+        _head(css, profile, data["education"]),
         _nav(),
+        '<main id="main" tabindex="-1">',
         _hero(profile, pub_count, photo_b64),
         _about(profile),
+        _research(data),
         _experience(data["experience"], data["education"],
                     data["skills_computing"], data["skills_interpersonal"],
                     data.get("skills_research", None), aff_df),
@@ -1281,6 +1432,7 @@ def main():
         _open_source(profile),
         _hobbies(data["hobbies"]),
         _references_section(),
+        "</main>",
         _footer(profile),
         '\n<script>',
         _category_labels_js(),
@@ -1290,6 +1442,7 @@ def main():
         _repos_js(data["open_source"]),
         js,
         "</script>",
+        _analytics(profile),
         "\n</body>\n</html>",
     ]
 

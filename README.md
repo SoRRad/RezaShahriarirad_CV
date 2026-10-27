@@ -89,12 +89,13 @@ Use the CSV files in `data/`:
 | `data/editorial.csv` | Editorial roles |
 | `data/journals.csv` | Journals reviewed |
 | `data/references.csv` | Professional references |
-| `data/skills_computing.csv` | Computing skills |
+| `data/skills_computing.csv` | Computing skills; `tier` = `core` (shown by default) or `more` (only under "All skills & proficiency levels") |
 | `data/skills_research.csv` | Research and analytical skills |
 | `data/skills_interpersonal.csv` | Interpersonal skills |
 | `data/hobbies.csv` | Hobbies and extracurricular interests |
 | `data/open_source.csv` | Public open-source repositories, if any |
 | `data/resume.csv` | What goes on the one-page compact resume (see below) |
+| `data/research_themes.csv` | Research Themes cards on the website (see below) |
 
 ### Publications
 
@@ -136,6 +137,10 @@ Either way the refresh **never downgrades** a metric (a lower fetched value is t
 
 Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
 
+### Research Themes
+
+The **Research Themes** section (after About) shows one card per row of `data/research_themes.csv`: a title, a one- or two-sentence summary, up to three highlighted papers (by publication number), and optional project chips. Each card's paper and talk counts are computed from its `filter`, a topic key such as `bariatric` or a whole group such as `group:ai`, and its **View papers** button applies that same filter to the Publications list. Topics not covered by a theme appear as "Broader and earlier work" chips. The validator rejects unknown filters and paper numbers that don't exist.
+
 ### Compact Resume
 
 The site's **Download CV** button offers two PDFs: the full CV and a one-page compact resume (`Shahriarirad_Reza_Resume.pdf`), built by `build/build_resume.py` in the style of the Google Docs "Serif" resume template (bundled Merriweather and Open Sans fonts, SIL Open Font License, in `build/static_assets/fonts/`).
@@ -167,6 +172,7 @@ If a generated file needs to change, update the relevant CSV or build source, th
 ### Privacy
 
 - The phone number is **not** stored in the repository. `data/profile.csv` keeps `phone` blank and `phone_public_visible,no`. If a private local phone is ever needed, put it in `data/profile_private.csv` (git-ignored) — never commit it.
+- Visitor statistics are **off** by default. To turn them on, create a free account at goatcounter.com (no cookies, no consent banner needed), then put your site code in `data/profile.csv` as `analytics_goatcounter` (e.g. `rezashahriarirad` for `rezashahriarirad.goatcounter.com`). Leave it blank to keep analytics off.
 - The Word CV (`Shahriarirad_Reza_CV.docx`) is generated and committed but is never copied into the public GitHub Pages payload; the public page links to the PDF only. The workflow fails if a DOCX ends up in the deployment payload.
 
 ## GitHub Actions And Pages

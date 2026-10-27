@@ -1,11 +1,11 @@
-# COLUMN GUIDE: name=skill name, level=proficiency level, url=link to tool/project (optional)
-name,level,url
-SPSS,Good,
-EndNote,Good,
-Microsoft Office,Good,
-Corel Video Studio,Good,
-Python,Beginner,
-MATLAB,Beginner,
-NCSS,Beginner,
-Azure DevOps,Beginner,https://coursera.org/share/26e562c4c5d9ed3ceb8b3552298c1567
-Typing,90 wpm,
+# COLUMN GUIDE: name=skill name, level=proficiency level, url=link to tool/project (optional), tier=[core|more] core tools show by default on the website; more appear only under "All skills & proficiency levels"
+name,level,url,tier
+SPSS,Good,,core
+EndNote,Good,,core
+Microsoft Office,Good,,more
+Corel Video Studio,Good,,more
+Python,Beginner,,core
+MATLAB,Beginner,,core
+NCSS,Beginner,,core
+Azure DevOps,Beginner,https://coursera.org/share/26e562c4c5d9ed3ceb8b3552298c1567,more
+Typing,90 wpm,,more

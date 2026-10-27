@@ -26,6 +26,7 @@ REQUIRED_COLS = {
     "references": ["name", "role", "inst"],
     "leadership": ["period", "title", "org", "desc"],
     "resume": ["section", "item", "detail"],
+    "research_themes": ["title", "summary", "filter", "papers"],
     "hobbies": ["name", "icon", "desc"],
     "journals": ["name"],
     "skills_computing": ["name", "level"],
@@ -569,6 +570,37 @@ def _validate_resume(rows_by_stem, errors):
             errors.append(f"resume.csv: needs at least one '{required}' row")
 
 
+def _validate_research_themes(rows_by_stem, errors):
+    """Each theme's filter must be a real topic key or group, and its papers must exist."""
+    rows = rows_by_stem.get("research_themes")
+    if rows is None:
+        return
+    from utils import ALL_VALID_CAT_KEYS, TOP_LEVEL_CAT_KEYS
+
+    pub_ns = {str(r.get("n", "")).strip() for r in rows_by_stem.get("publications", [])}
+    for lineno, row in enumerate(rows, start=3):
+        title = str(row.get("title", "")).strip() or f"row {lineno}"
+        flt = str(row.get("filter", "")).strip()
+        if flt.startswith("group:"):
+            if flt.split(":", 1)[1] not in TOP_LEVEL_CAT_KEYS:
+                errors.append(f"research_themes.csv: row {lineno} ({title}) filter '{flt}' is not a topic group (use one of {sorted('group:' + k for k in TOP_LEVEL_CAT_KEYS)})")
+        elif flt not in ALL_VALID_CAT_KEYS:
+            errors.append(f"research_themes.csv: row {lineno} ({title}) filter '{flt}' is not a valid topic key")
+        papers = [x.strip() for x in str(row.get("papers", "")).split(";") if x.strip()]
+        if len(papers) > 3:
+            errors.append(f"research_themes.csv: row {lineno} ({title}) lists {len(papers)} papers; the card shows at most 3")
+        for n in papers:
+            if n not in pub_ns:
+                errors.append(f"research_themes.csv: row {lineno} ({title}) paper '{n}' does not match any publications.csv n")
+
+
+def _validate_skill_tiers(rows_by_stem, errors):
+    for lineno, row in enumerate(rows_by_stem.get("skills_computing", []), start=3):
+        tier = str(row.get("tier", "") or "").strip().lower()
+        if tier and tier not in {"core", "more"}:
+            errors.append(f"skills_computing.csv: row {lineno} tier '{tier}' must be 'core' or 'more'")
+
+
 def _validate_requested_cv_content(rows_by_stem, errors):
     profile_rows = rows_by_stem.get("profile", [])
     profile = {row.get("field", ""): row.get("value", "") for row in profile_rows}
@@ -752,6 +784,8 @@ def validate_all():
 
     _validate_requested_cv_content(rows_by_stem, errors)
     _validate_resume(rows_by_stem, errors)
+    _validate_research_themes(rows_by_stem, errors)
+    _validate_skill_tiers(rows_by_stem, errors)
 
     # URL hygiene warnings (non-fatal): the build strips tracking params via
     # utils.clean_url, so this surfaces them at the source for a manual cleanup.
