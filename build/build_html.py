@@ -184,7 +184,7 @@ def _tag_chips_html(labels, class_name, handler_name, limit=6):
 
 # ── section generators ─────────────────────────────────────────────────────
 
-def _head(css: str, profile: dict) -> str:
+def _head(css: str, profile: dict, education_df=None) -> str:
     canonical = profile.get("canonical_url", "https://sorrad.github.io/RezaShahriarirad_CV/")
     desc = profile.get(
         "meta_description",
@@ -211,18 +211,50 @@ def _head(css: str, profile: dict) -> str:
             "@type": "Organization",
             "name": profile.get("institution", "Department of Surgery – Surgical Innovation, Mayo Clinic"),
         },
+        "worksFor": {"@type": "Organization", "name": "Mayo Clinic", "url": "https://www.mayoclinic.org/"},
         "url": canonical,
         "description": desc,
         "sameAs": [url for url in same_as if url],
     }
+    # Degree-granting institutions (not secondary school) for search engines.
+    alumni = []
+    if education_df is not None:
+        for row in education_df.to_dict("records"):
+            degree = str(row.get("degree", ""))
+            if "diploma" in degree.lower():
+                continue
+            org = str(row.get("org", "")).split("·")[0].strip()
+            if org and org not in alumni:
+                alumni.append(org)
+    if alumni:
+        person["alumniOf"] = [{"@type": "CollegeOrUniversity", "name": org} for org in alumni]
+    topics = [t.strip() for t in str(profile.get("research_interests", "")).split("·") if t.strip()]
+    if topics:
+        person["knowsAbout"] = topics
+    if (ROOT / "assets" / "headshot.jpg").exists():
+        person["image"] = canonical.rstrip("/") + "/assets/headshot.jpg"
     public_email = _primary_public_email(profile)
     if public_email:
         person["email"] = public_email
-    og_image = canonical.rstrip("/") + "/assets/headshot.jpg" if (ROOT / "assets" / "headshot.jpg").exists() else ""
-    og_image_tags = (
-        f'\n<meta property="og:image" content="{_e(og_image)}">'
-        f'\n<meta name="twitter:image" content="{_e(og_image)}">'
-    ) if og_image else ""
+    # Link previews: prefer the generated 1200x630 card, fall back to the headshot.
+    card = ROOT / "assets" / "social-card.png"
+    if card.exists():
+        og_image = canonical.rstrip("/") + "/assets/social-card.png"
+        twitter_card = "summary_large_image"
+        og_image_tags = (
+            f'\n<meta property="og:image" content="{_e(og_image)}">'
+            '\n<meta property="og:image:width" content="1200">'
+            '\n<meta property="og:image:height" content="630">'
+            '\n<meta property="og:image:alt" content="Reza Shahriarirad, M.D. — Research Fellow, Surgical Innovation, Mayo Clinic">'
+            f'\n<meta name="twitter:image" content="{_e(og_image)}">'
+        )
+    else:
+        og_image = canonical.rstrip("/") + "/assets/headshot.jpg" if (ROOT / "assets" / "headshot.jpg").exists() else ""
+        twitter_card = "summary"
+        og_image_tags = (
+            f'\n<meta property="og:image" content="{_e(og_image)}">'
+            f'\n<meta name="twitter:image" content="{_e(og_image)}">'
+        ) if og_image else ""
     favicon = (
         "data:image/svg+xml,"
         "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
@@ -245,7 +277,7 @@ def _head(css: str, profile: dict) -> str:
 <meta property="og:description" content="{_e(desc)}">
 <meta property="og:type" content="profile">
 <meta property="og:url" content="{_e(canonical)}">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="{twitter_card}">
 <meta name="twitter:title" content="{_e(title)}">
 <meta name="twitter:description" content="{_e(desc)}">{og_image_tags}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -258,7 +290,8 @@ def _head(css: str, profile: dict) -> str:
 {css}
 </style>
 </head>
-<body>"""
+<body>
+<a class="skip-link" href="#main">Skip to content</a>"""
 
 
 def _nav() -> str:
@@ -461,7 +494,7 @@ def _about(profile: dict) -> str:
 </div>"""
 
 
-_LOGO_SIZE_LIMIT = 150_000  # bytes; embed small logos, reference larger local assets
+_LOGO_SIZE_LIMIT = 40_000  # bytes; embed small logos, reference larger local assets (keeps index.html lean)
 
 def _logo_img_from_path(p, org_name="", class_name="timeline-logo"):
     alt = _e(f"{org_name} logo" if org_name else "Institution logo")
@@ -1265,8 +1298,9 @@ def main():
     aff_df = data.get("affiliations", None)
 
     parts = [
-        _head(css, profile),
+        _head(css, profile, data["education"]),
         _nav(),
+        '<main id="main" tabindex="-1">',
         _hero(profile, pub_count, photo_b64),
         _about(profile),
         _experience(data["experience"], data["education"],
@@ -1281,6 +1315,7 @@ def main():
         _open_source(profile),
         _hobbies(data["hobbies"]),
         _references_section(),
+        "</main>",
         _footer(profile),
         '\n<script>',
         _category_labels_js(),

@@ -17,6 +17,7 @@ sys.path.insert(0, str(BUILD_DIR))
 from utils import author_tag_counts, clean_url  # noqa: E402
 
 STEPS = [
+    ("build_social_card", "Generating assets/social-card.png"),
     ("build_html", "Generating index.html"),
     ("build_word", "Generating Shahriarirad_Reza_CV.docx"),
     ("build_pdf", "Generating Shahriarirad_Reza_CV.pdf"),
