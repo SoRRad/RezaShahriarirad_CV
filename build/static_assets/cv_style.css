@@ -547,7 +547,19 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
 }
 
 /* PRINT / PDF */
+/* ── Expandable text: long descriptions are clamped by cv_script.js, which adds a
+   show_more toggle only where the text overflows. Without JS everything shows. */
+.clamp:not(.is-open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:var(--clamp-lines,3);line-clamp:var(--clamp-lines,3);overflow:hidden}
+.about-ongoing.clamp{--clamp-lines:4}
+.clamp-toggle{display:inline-flex;align-items:center;gap:.3rem;margin-top:.35rem;padding:.15rem 0;background:none;border:0;font-family:var(--mono);font-size:.72rem;color:var(--gold);cursor:pointer;letter-spacing:.02em}
+.clamp-toggle:hover{color:var(--text)}
+.clamp-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.clamp-toggle .clamp-caret{transition:transform .2s}
+.clamp-toggle[aria-expanded="true"] .clamp-caret{transform:rotate(180deg)}
+
 @media print {
+  .clamp{display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;overflow:visible!important}
+  .clamp-toggle{display:none!important}
   nav,.hamburger,.mobile-menu,.hero-cta,.btn-pdf,.pub-controls,.pub-more,footer{display:none!important}
   .hero{min-height:auto;padding:2rem;background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .hero-content{grid-template-columns:1fr!important;gap:1rem}

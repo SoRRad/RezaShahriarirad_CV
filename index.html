@@ -619,7 +619,19 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
 }
 
 /* PRINT / PDF */
+/* ── Expandable text: long descriptions are clamped by cv_script.js, which adds a
+   show_more toggle only where the text overflows. Without JS everything shows. */
+.clamp:not(.is-open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:var(--clamp-lines,3);line-clamp:var(--clamp-lines,3);overflow:hidden}
+.about-ongoing.clamp{--clamp-lines:4}
+.clamp-toggle{display:inline-flex;align-items:center;gap:.3rem;margin-top:.35rem;padding:.15rem 0;background:none;border:0;font-family:var(--mono);font-size:.72rem;color:var(--gold);cursor:pointer;letter-spacing:.02em}
+.clamp-toggle:hover{color:var(--text)}
+.clamp-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.clamp-toggle .clamp-caret{transition:transform .2s}
+.clamp-toggle[aria-expanded="true"] .clamp-caret{transform:rotate(180deg)}
+
 @media print {
+  .clamp{display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;overflow:visible!important}
+  .clamp-toggle{display:none!important}
   nav,.hamburger,.mobile-menu,.hero-cta,.btn-pdf,.pub-controls,.pub-more,footer{display:none!important}
   .hero{min-height:auto;padding:2rem;background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .hero-content{grid-template-columns:1fr!important;gap:1rem}
@@ -775,7 +787,7 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
       <div style="margin:1.8rem 0 0">
         <div class="section-label" style="margin-bottom:.8rem">Ongoing Research at Mayo Clinic</div>
         <!-- EDIT: Mayo Clinic / IRB research description paragraph -->
-        <p>Since joining the Department of Surgery – Surgical Innovation, I have been involved in approximately 40 projects across the Department of Surgery, including more than 30 IRB-approved studies and several industry collaborations spanning thoracic, bariatric, plastic and reconstructive, and abdominal-wall surgery. This work includes 3D digital pathology, robotic biopsy and intraoperative AI, wearable postoperative monitoring, machine-learning models for surgical risk prediction, novel medical-device development, and AI-driven patient-education tools, building toward a career as a physician-scientist working at the frontier of advanced surgical methods.</p>
+        <p class="about-ongoing">Since joining the Department of Surgery – Surgical Innovation, I have been involved in approximately 40 projects across the Department of Surgery, including more than 30 IRB-approved studies and several industry collaborations spanning thoracic, bariatric, plastic and reconstructive, and abdominal-wall surgery. This work includes 3D digital pathology, robotic biopsy and intraoperative AI, wearable postoperative monitoring, machine-learning models for surgical risk prediction, novel medical-device development, and AI-driven patient-education tools, building toward a career as a physician-scientist working at the frontier of advanced surgical methods.</p>
         <!-- EDIT: Research specialty tags list -->
         <div class="research-grid">
           <span class="research-tag" data-cat="plastic">Plastic & Reconstructive Surgery</span>
@@ -8072,6 +8084,38 @@ window.testPresFilters = function(){
   console.table(result);
   return result;
 };
+
+
+/* ── Expandable text: clamp long descriptions and add a show_more toggle ── */
+(function(){
+  const SELECTOR = '.leadership-desc, .timeline-desc, .about-ongoing';
+  let uid = 0;
+  function setup(el){
+    if (el.dataset.clampReady) return;
+    el.classList.add('clamp');
+    if (el.scrollHeight <= el.clientHeight + 2) { el.classList.remove('clamp'); return; }
+    el.dataset.clampReady = '1';
+    if (!el.id) el.id = 'clamp-' + (++uid);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'clamp-toggle';
+    btn.setAttribute('aria-controls', el.id);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span class="clamp-label">show_more</span><span class="clamp-caret" aria-hidden="true">↓</span>';
+    btn.addEventListener('click', () => {
+      const open = el.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('.clamp-label').textContent = open ? 'show_less' : 'show_more';
+    });
+    el.after(btn);
+  }
+  function init(){ document.querySelectorAll(SELECTOR).forEach(setup); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  // Text that fit on a wide screen can overflow after a resize or once web fonts load.
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(init, 200); });
+  document.fonts?.ready.then(init);
+})();
 
 </script>
 

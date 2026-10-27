@@ -1081,3 +1081,35 @@ window.testPresFilters = function(){
   console.table(result);
   return result;
 };
+
+
+/* ── Expandable text: clamp long descriptions and add a show_more toggle ── */
+(function(){
+  const SELECTOR = '.leadership-desc, .timeline-desc, .about-ongoing';
+  let uid = 0;
+  function setup(el){
+    if (el.dataset.clampReady) return;
+    el.classList.add('clamp');
+    if (el.scrollHeight <= el.clientHeight + 2) { el.classList.remove('clamp'); return; }
+    el.dataset.clampReady = '1';
+    if (!el.id) el.id = 'clamp-' + (++uid);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'clamp-toggle';
+    btn.setAttribute('aria-controls', el.id);
+    btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<span class="clamp-label">show_more</span><span class="clamp-caret" aria-hidden="true">↓</span>';
+    btn.addEventListener('click', () => {
+      const open = el.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('.clamp-label').textContent = open ? 'show_less' : 'show_more';
+    });
+    el.after(btn);
+  }
+  function init(){ document.querySelectorAll(SELECTOR).forEach(setup); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  // Text that fit on a wide screen can overflow after a resize or once web fonts load.
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(init, 200); });
+  document.fonts?.ready.then(init);
+})();
