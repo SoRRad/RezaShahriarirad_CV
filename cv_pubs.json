@@ -65,7 +65,8 @@
     "month": "Jan",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -95,7 +96,9 @@
     "year": "2026",
     "month": "Jan",
     "type": "case",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "neuro"
     ],
@@ -168,7 +171,8 @@
     "month": "Nov",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "ortho",
@@ -311,7 +315,9 @@
     "year": "2025",
     "month": "Jun",
     "type": "original",
-    "tags": [],
+    "tags": [
+      "last"
+    ],
     "cat": [
       "gi"
     ],
@@ -389,7 +395,8 @@
     "month": "Feb",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -446,7 +453,8 @@
     "month": "Jan",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -523,7 +531,8 @@
     "month": "Dec",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "gi"
@@ -600,7 +609,8 @@
     "month": "Sep",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -629,7 +639,8 @@
     "month": "Aug",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "vascular"
@@ -818,7 +829,8 @@
     "month": "Jun",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -962,7 +974,8 @@
     "month": "Feb",
     "type": "review",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -1061,7 +1074,8 @@
     "month": "Jan",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "infectious",
@@ -1398,7 +1412,8 @@
     "month": "May",
     "type": "original",
     "tags": [
-      "corresponding"
+      "corresponding",
+      "last"
     ],
     "cat": [
       "endocrine"
