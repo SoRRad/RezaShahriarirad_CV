@@ -667,11 +667,34 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderJournals(){
   const el = document.getElementById('journal-grid');
   if(!el) return;
-  el.innerHTML = journals.map(j =>
-    j.url
-      ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer" class="journal-pill">${j.name} ↗</a>`
-      : `<span class="journal-pill">${j.name}</span>`
-  ).join('');
+  // Featured journals first (CSV order), then the rest behind a "show all" toggle.
+  const featured = journals.filter(j => j.featured);
+  const ordered = featured.length ? featured.concat(journals.filter(j => !j.featured)) : journals;
+  el.innerHTML = ordered.map((j, i) => {
+    const more = featured.length && i >= featured.length ? ' more-item' : '';
+    return j.url
+      ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer" class="journal-pill${more}">${j.name} ↗</a>`
+      : `<span class="journal-pill${more}">${j.name}</span>`;
+  }).join('');
+  if (featured.length) addShowAll(el, `show_all_${journals.length}_journals`, 'show_fewer');
+}
+
+/* Collapse a grid's .more-item children behind a show_all / show_fewer button. */
+function addShowAll(container, moreLabel, lessLabel){
+  if (!container.querySelector('.more-item')) return;
+  container.classList.add('is-collapsed');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'show-all';
+  btn.setAttribute('aria-controls', container.id);
+  btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = `<span class="clamp-label">${moreLabel}</span><span class="clamp-caret" aria-hidden="true">↓</span>`;
+  btn.addEventListener('click', () => {
+    const open = container.classList.toggle('is-collapsed') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.querySelector('.clamp-label').textContent = open ? lessLabel : moreLabel;
+  });
+  container.after(btn);
 }
 
 /* ── PRESENTATIONS FILTER ─────────────────────────────────────────────────── */
@@ -837,12 +860,14 @@ function togglePresMore(event){
 function renderRefs(){
   const el = document.getElementById('refs-grid');
   if(!el) return;
-  el.innerHTML = refs.map(r=>`
-  <div class="ref-card">
+  const REFS_INITIAL_SHOW = 3;
+  el.innerHTML = refs.map((r, i)=>`
+  <div class="ref-card${i >= REFS_INITIAL_SHOW ? ' more-item' : ''}">
     <div class="ref-name">${r.name}</div>
     <div class="ref-role">${r.role}<br><em style="font-size:.73rem">${r.inst}</em></div>
     <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="ref-link">${l.label} ↗</a>`).join('')}</div>
   </div>`).join('');
+  addShowAll(el, `show_all_${refs.length}_references`, 'show_fewer');
 }
 
 /* ── OPEN SOURCE REPOS ── */

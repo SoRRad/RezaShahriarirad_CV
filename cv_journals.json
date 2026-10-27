@@ -1,270 +1,337 @@
 [
   {
     "name": "American Journal of Tropical Medicine & Hygiene",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Annals of Medicine and Surgery",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Asian Journal of Research and Reports in Neurology",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "BMJ Case Reports",
-    "url": "https://casereports.bmj.com/pages/thank-you-to-our-reviewers/"
+    "url": "https://casereports.bmj.com/pages/thank-you-to-our-reviewers/",
+    "featured": ""
   },
   {
     "name": "BMJ Open",
-    "url": "https://bmjopen.bmj.com/pages/thank-you-to-our-reviewers/"
+    "url": "https://bmjopen.bmj.com/pages/thank-you-to-our-reviewers/",
+    "featured": "yes"
   },
   {
     "name": "BMC Research Notes",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Bulletin of Emergency and Trauma",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Cancer Management and Research",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Case Reports in Infectious Diseases",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Clinical Case Reports",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Clinical Medicine Insights",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Community Health Equity Research and Policy",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Critical Care Research and Practice",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Cureus",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Current Research in Psychiatry",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Ear, Nose & Throat Journal",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Educational Research Journal",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Emergency Medicine International",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "European Journal of Dermatology",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Expert Review of Endocrinology & Metabolism",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Frontiers in Medicine",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Frontiers in Oncology",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Frontiers in Neurology",
-    "url": "https://www.frontiersin.org/articles/10.3389/fneur.2022.945961/full"
+    "url": "https://www.frontiersin.org/articles/10.3389/fneur.2022.945961/full",
+    "featured": ""
   },
   {
     "name": "Frontiers in Public Health",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Frontiers in Psychiatry",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Frontiers in Surgery",
-    "url": "https://www.frontiersin.org/articles/10.3389/fsurg.2022.907234/full"
+    "url": "https://www.frontiersin.org/articles/10.3389/fsurg.2022.907234/full",
+    "featured": "yes"
   },
   {
     "name": "Future Cardiology",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "GERMS",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Gland Surgery",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Global Pediatric Health",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Heliyon",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Health Science Reports",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "International Journal of Advanced and Applied Sciences",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "International Journal of Journalism and Mass Communication",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "International Journal of Surgery",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "International Journal of Tropical Disease and Health",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Infection and Drug Resistance",
-    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=28&year=2022"
+    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=28&year=2022",
+    "featured": ""
   },
   {
     "name": "Intensive Care Research",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "International Quarterly of Community Health Education",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "International Research Journal of Gastroenterology and Hepatology",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "JMIR Formative Research",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "JMIR Public Health and Surveillance",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "JMIR Research Protocols",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "JMIRx Med",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Journal of Clinical Medicine",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Journal of Medical Internet Research",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Journal of Multidisciplinary Healthcare",
-    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=7&year=2021"
+    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=7&year=2021",
+    "featured": ""
   },
   {
     "name": "Journal of Nursing and Healthcare Management",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Journal of Personalized Medicine",
-    "url": "https://www.mdpi.com/2075-4426/12/4/541/review_report"
+    "url": "https://www.mdpi.com/2075-4426/12/4/541/review_report",
+    "featured": ""
   },
   {
     "name": "Journal of Pain Research",
-    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=41&year=2022"
+    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=41&year=2022",
+    "featured": ""
   },
   {
     "name": "Journal of Pharmaceutical Research International",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Journal of Radiology Case Reports",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Langenbeck's Archives of Surgery",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Libyan Journal of Medicine",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "PeerJ Journal",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Mediastinum",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "PLOS Global Public Health",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "PLOS One",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Postgraduate Medicine",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Risk Management and Healthcare Policy",
-    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=56&year=2021"
+    "url": "https://www.dovepress.com/peer_reviewer_acknowledgement.php?pa=pdf&journal_id=56&year=2021",
+    "featured": ""
   },
   {
     "name": "Shiraz E Medical Journal",
-    "url": "https://semj.brieflands.com/en/people/certificate/24156995f52b22cd8"
+    "url": "https://semj.brieflands.com/en/people/certificate/24156995f52b22cd8",
+    "featured": ""
   },
   {
     "name": "Scientific Reports",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "Therapeutic Advances in Respiratory Disease",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "The Breast",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   },
   {
     "name": "The International Research Journal of Public and Environmental Health",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "Trauma",
-    "url": ""
+    "url": "",
+    "featured": ""
   },
   {
     "name": "World Journal of Surgical Oncology",
-    "url": ""
+    "url": "",
+    "featured": "yes"
   }
 ]
