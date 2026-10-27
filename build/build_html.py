@@ -258,8 +258,9 @@ def _head(css: str, profile: dict, education_df=None) -> str:
     favicon = (
         "data:image/svg+xml,"
         "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
-        "%3Crect width='64' height='64' rx='10' fill='%230a1628'/%3E"
-        "%3Ctext x='32' y='43' text-anchor='middle' font-family='Georgia,serif' font-size='30' fill='%23d4ae5a'%3ERS%3C/text%3E"
+        "%3Crect width='64' height='64' fill='%230A0F1A'/%3E"
+        "%3Cpath d='M10 22V10h12M42 10h12v12M54 42v12H42M22 54H10V42' fill='none' stroke='%2322D3EE' stroke-width='4'/%3E"
+        "%3Ctext x='32' y='41' text-anchor='middle' font-family='Menlo,Consolas,monospace' font-size='22' font-weight='700' fill='%23E6EDF5'%3ERS%3C/text%3E"
         "%3C/svg%3E"
     )
     return f"""<!DOCTYPE html>
@@ -270,7 +271,7 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <title>{_e(title)}</title>
 <meta name="description" content="{_e(desc)}">
 <meta name="author" content="Reza Shahriarirad, M.D.">
-<meta name="theme-color" content="#0a1628">
+<meta name="theme-color" content="#0A0F1A">
 <link rel="canonical" href="{_e(canonical)}">
 <link rel="icon" href="{favicon}">
 <meta property="og:title" content="{_e(title)}">
@@ -282,7 +283,7 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <meta name="twitter:description" content="{_e(desc)}">{og_image_tags}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {json.dumps(person, ensure_ascii=False, indent=2)}
 </script>
@@ -298,7 +299,7 @@ def _nav() -> str:
     return """
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Reza Shahriarirad, M.D.</div>
+  <a class="nav-logo" href="#main" aria-label="Reza Shahriarirad, M.D. — back to top">reza_shahriarirad</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#research">Research</a></li>
@@ -331,43 +332,92 @@ def _nav() -> str:
 </div>"""
 
 
-def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
+def _output_curve_svg(pubs_df) -> str:
+    """Cumulative publications by year as a small inline SVG (Direction A hero).
+
+    Cumulative rather than per-year: it is equally true, always rises, and
+    doesn't read as a decline when yearly volume shifts toward fewer,
+    larger studies.
+    """
+    years = []
+    for value in pubs_df.get("year", []):
+        try:
+            years.append(int(str(value).strip()))
+        except ValueError:
+            continue
+    if not years:
+        return ""
+    first, last = min(years), max(years)
+    span = list(range(first, last + 1))
+    counts = {y: years.count(y) for y in span}
+    cum, total = [], 0
+    for y in span:
+        total += counts[y]
+        cum.append(total)
+    w, h = 520, 150
+    step = (w - 16) / max(1, len(span) - 1)
+    px = lambda i: 8 + i * step
+    py = lambda v: h - 14 - (v / cum[-1]) * (h - 34)
+    pts = " ".join(f"{px(i):.1f},{py(v):.1f}" for i, v in enumerate(cum))
+    area = f"8,{h - 14} {pts} {px(len(span) - 1):.1f},{h - 14}"
+    tick_years = sorted({first, last} | {y for y in span if (y - first) % 3 == 0})
+    ticks = "".join(
+        f'<text x="{px(span.index(y)):.1f}" y="{h}" class="tick">\u2019{str(y)[2:]}</text>' for y in tick_years
+    )
+    lx, ly = px(len(span) - 1), py(cum[-1])
+    return (
+        f'<svg viewBox="-22 -26 564 186" class="spark" role="img" '
+        f'aria-label="Cumulative publications {first} to {last}, reaching {cum[-1]}">'
+        '<defs><linearGradient id="spark-fill" x1="0" y1="0" x2="0" y2="1">'
+        '<stop offset="0" stop-color="#22D3EE" stop-opacity=".28"/>'
+        '<stop offset="1" stop-color="#22D3EE" stop-opacity="0"/></linearGradient></defs>'
+        f'<line x1="8" y1="{h - 14}" x2="{w - 8}" y2="{h - 14}" class="axis"/>'
+        f'<polygon points="{area}" fill="url(#spark-fill)"/>'
+        f'<polyline points="{pts}" class="line"/>'
+        f'<rect x="{lx - 5:.1f}" y="{ly - 5:.1f}" width="10" height="10" class="marker"/>'
+        f'<text x="{lx - 12:.1f}" y="{ly - 10:.1f}" text-anchor="end" class="ann">n={cum[-1]}</text>'
+        f"{ticks}</svg>"
+    )
+
+
+def _hero(profile: dict, pub_count: int, photo_b64: str, pubs_df=None) -> str:
     cites   = profile.get("citations_cached", "3248")
     hindex  = profile.get("h_index_cached",   "24")
-    reviews = profile.get("peer_reviews",      "149")
-    metrics_date = profile.get("metrics_last_updated", "")
-    hero_institution = profile.get("institution", "Department of Surgery - Surgical Innovation · Mayo Clinic")
-    hero_institution = hero_institution.replace(" · Mayo Clinic", "")
+    senior  = profile.get("last_auth", "")
     public_email = _primary_public_email(profile)
-    email_cta = _email_link(public_email, "Get in Touch", "btn-outline", keep_content=True) if public_email else ""
+    email_cta = _email_link(public_email, "get_in_touch", "btn-outline", keep_content=True) if public_email else ""
     try:
         cites_fmt = f"{int(cites):,}"
     except Exception:
         cites_fmt = cites
+    lede = profile.get("hero_lede", "").strip() or (
+        f"{profile.get('title', 'Research Fellow')}, {profile.get('institution', 'Mayo Clinic')}."
+    )
+    orcid = profile.get("orcid", "").strip()
+    curve = _output_curve_svg(pubs_df) if pubs_df is not None else ""
+    senior_cell = (
+        f'<div class="hm"><div class="hm-v" id="hero-senior">{_e(senior)}</div><div class="hm-k">senior-author papers</div></div>'
+        if str(senior).strip() else ""
+    )
+    curve_cell = f'<div class="hm hm-curve"><div class="hm-k">cumulative output</div>{curve}</div>' if curve else ""
     return f"""
-<!-- HERO -->
+<!-- HERO (Direction A: computer-vision signature) -->
 <div class="hero">
-  <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
     <div class="hero-left">
-      <!-- EDIT: Hero eyebrow text (e.g. "Physician · Researcher") -->
-      <div class="hero-eyebrow">Physician · Researcher</div>
-      <!-- EDIT: Hero name display -->
-      <h1>Reza<br><span class="hero-title-accent">Shahriarirad,</span><br>M.D.</h1>
-      <!-- EDIT: Hero credentials line (title, institution, ORCID) -->
-      <div class="hero-credentials">
-        <strong>{_e(profile.get('title','Research Fellow'))}, {_e(hero_institution)}</strong><br>
-        Mayo Clinic · Rochester, Minnesota<br>
-        ORCID: {_e(profile.get('orcid',''))}
-      </div>
+      <!-- EDIT: Hero eyebrow text -->
+      <div class="hero-eyebrow">physician-scientist / surgical innovation / mayo clinic</div>
+      <h1>Reza<br>Shahriarirad, <span class="hero-title-accent">M.D.</span></h1>
+      <!-- EDIT: hero_lede in data/profile.csv -->
+      <p class="hero-lede">{_e(lede)}</p>
+      <div class="hero-meta">orcid {_e(orcid)} · rochester, mn</div>
       <div class="hero-cta">
-        <a href="#publications" class="btn-primary">View Publications</a>
-        {email_cta}
+        <a href="#research" class="btn-primary">view_research &rarr;</a>
         <details class="dl-menu" id="cv-download">
           <summary class="btn-pdf" aria-label="Download CV: choose full CV or compact resume">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" fill="currentColor"/></svg>
-            Download CV
+            download_cv
             <svg class="dl-caret" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 10l5 5 5-5z" fill="currentColor"/></svg>
           </summary>
           <div class="dl-list">
@@ -381,32 +431,24 @@ def _hero(profile: dict, pub_count: int, photo_b64: str) -> str:
             </a>
           </div>
         </details>
+        {email_cta}
       </div>
     </div>
-    <div class="hero-right" style="display:flex;flex-direction:column;align-items:center">
-      <div class="hero-photo-wrap">
+    <div class="hero-right">
+      <figure class="det">
         <img id="cv-headshot" class="hero-photo" src="data:image/jpeg;base64,{photo_b64}" alt="Dr. Reza Shahriarirad">
-      </div>
-      <div class="hero-stats" style="width:100%">
-        <div class="stat-box">
-          <div class="stat-num" id="hero-pubs">{pub_count}</div>
-          <div class="stat-label">Publications</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="hero-cites">{cites_fmt}</div>
-          <div class="stat-label">Citations</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="hero-hindex">{hindex}</div>
-          <div class="stat-label">H-index</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num" id="hero-reviews">{reviews}</div>
-          <div class="stat-label">Peer Reviews</div>
-        </div>
-      </div>
-      <!-- metrics-last-updated: {_e(metrics_date or '')} — hidden from public page; tracked in data/profile.csv -->
+        <span class="det-box" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="det-tag" aria-hidden="true">physician_scientist 0.99</span>
+        <span class="det-tag2" aria-hidden="true">mayo_clinic</span>
+      </figure>
     </div>
+  </div>
+  <div class="hero-metrics">
+    <div class="hm"><div class="hm-v" id="hero-pubs">{pub_count}</div><div class="hm-k">publications</div></div>
+    <div class="hm"><div class="hm-v" id="hero-cites">{cites_fmt}</div><div class="hm-k">citations</div></div>
+    <div class="hm"><div class="hm-v" id="hero-hindex">{hindex}</div><div class="hm-k">h-index</div></div>
+    {senior_cell}
+    {curve_cell}
   </div>
 </div>"""
 
@@ -813,16 +855,17 @@ def _research(data) -> str:
             if journal and journal not in venues:
                 venues.append(journal)
         projects = "".join(f'<span class="theme-chip">{_e(x)}</span>' for x in parse_semicolon(t.get("projects", "")))
-        stats = f'<span><b>{n_papers}</b> paper{"s" if n_papers != 1 else ""}</span>'
+        label = str(t.get("label", "") or "").strip() or "_".join(str(t.get("title", "")).lower().split()[:2]).replace("&", "and")
+        stats = f'{n_papers} paper{"s" if n_papers != 1 else ""}'
         if n_talks:
-            stats += f'<span><b>{n_talks}</b> talk{"s" if n_talks != 1 else ""}</span>'
+            stats += f' · {n_talks} talk{"s" if n_talks != 1 else ""}'
         link = (
             f'<button type="button" class="theme-link" data-filter="{_e(t.get("filter", ""))}">'
-            f'View {"all " if n_papers > 1 else ""}{n_papers} paper{"s" if n_papers != 1 else ""} &rarr;</button>'
+            f'view_{"all_" if n_papers > 1 else ""}{n_papers}_paper{"s" if n_papers != 1 else ""} &rarr;</button>'
         ) if n_papers else ""
         cards.append(f"""    <article class="theme-card">
+      <span class="theme-cls">{_e(label)} · {stats}</span>
       <h3 class="theme-title">{_e(t.get("title", ""))}</h3>
-      <div class="theme-stats">{stats}</div>
       <p class="theme-summary">{_e(t.get("summary", ""))}</p>
       <ul class="theme-papers">{''.join(items)}</ul>
       {f'<div class="theme-projects">{projects}</div>' if projects else ''}
@@ -1016,14 +1059,14 @@ def _editorial(editorial_df, profile: dict) -> str:
   <h2>Editor &amp; Reviewer Experience</h2>
 
   <div style="margin-bottom:2.5rem">
-    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text-mid);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Editorial Roles</h3>
+    <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Editorial Roles</h3>
     <div class="editor-list">
 {''.join(editor_items)}
     </div>
   </div>
 
   <div style="margin-bottom:2rem">
-    <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text-mid);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Reviewer Role</h3>
+    <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Reviewer Role</h3>
     <div class="reviewer-stats">
     <div><div class="reviewer-stat-num">{_e(peer_reviews)}</div><div class="reviewer-stat-label">Peer Reviews</div></div>
     <div><div class="reviewer-stat-num">{_e(manuscripts)}</div><div class="reviewer-stat-label">Manuscripts</div></div>
@@ -1031,7 +1074,7 @@ def _editorial(editorial_df, profile: dict) -> str:
   </div>
   </div>
 
-  <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;color:var(--text-mid);margin-bottom:1.2rem">Journals Reviewed</h3>
+  <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1.2rem">Journals Reviewed</h3>
   <div class="journal-grid" id="journal-grid"></div>
 </div>
 </div>"""
@@ -1417,7 +1460,7 @@ def main():
         _head(css, profile, data["education"]),
         _nav(),
         '<main id="main" tabindex="-1">',
-        _hero(profile, pub_count, photo_b64),
+        _hero(profile, pub_count, photo_b64, data["publications"]),
         _about(profile),
         _research(data),
         _experience(data["experience"], data["education"],
