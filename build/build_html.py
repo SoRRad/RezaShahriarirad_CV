@@ -765,11 +765,16 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
 def _leadership(leadership_df) -> str:
     cards = []
     for _, r in leadership_df.iterrows():
+        url = str(r.get("url", "") or "").strip()
+        title_html = (
+            f'<a href="{_e(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">{_e(r["title"])} ↗</a>'
+            if url else _e(r["title"])
+        )
         # EDIT: Leadership card description
         cards.append(f"""  <!-- EDIT: Leadership card description -->
   <div class="leadership-card">
     <div class="leadership-period">{_e(r["period"])}</div>
-    <div class="leadership-title">{_e(r["title"])}</div>
+    <div class="leadership-title">{title_html}</div>
     <div class="leadership-org">{_e(r["org"])}</div>
     <div class="leadership-desc">{_e(r["desc"])}</div>
   </div>""")
