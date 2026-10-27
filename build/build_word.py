@@ -115,7 +115,16 @@ def _table(doc, rows, headers=None, widths=None):
     table = doc.add_table(rows=1 if headers else 0, cols=n_cols)
     table.style = "Table Grid"
     table.alignment = WD_TABLE_ALIGNMENT.LEFT
-    table.autofit = True
+    # Fixed column widths: LibreOffice (which renders the PDF) ignores per-cell
+    # widths on an autofit table, so the long text columns came out narrow.
+    table.autofit = not widths
+    if widths:
+        tbl_pr = table._tbl.tblPr
+        layout = OxmlElement("w:tblLayout")
+        layout.set(qn("w:type"), "fixed")
+        tbl_pr.append(layout)
+        for col, width in zip(table._tbl.tblGrid.findall(qn("w:gridCol")), widths):
+            col.set(qn("w:w"), str(int(width * 1440)))
     if headers:
         for idx, header in enumerate(headers):
             _cell_text(table.rows[0].cells[idx], header, size=8.5, bold=True, color=NAVY, shade=LIGHT_BLUE)
@@ -264,7 +273,7 @@ def _research_summary(doc, profile):
     _paragraph(doc, summary, size=9.2, after=4)
 
 
-def _timeline_table(doc, title, df, columns):
+def _timeline_table(doc, title, df, columns, widths=None):
     _section_heading(doc, title)
     rows = []
     for _, row in df.iterrows():
@@ -275,7 +284,7 @@ def _timeline_table(doc, title, df, columns):
             else:
                 values.append(row.get(key, ""))
         rows.append(values)
-    _table(doc, rows, headers=[label for _, label in columns])
+    _table(doc, rows, headers=[label for _, label in columns], widths=widths)
 
 
 def _work_mayo_clinic(doc, profile):
@@ -293,7 +302,7 @@ def _work_mayo_clinic(doc, profile):
 
 
 def _awards(doc, data):
-    _timeline_table(doc, "Awards", data["awards"], [("year", "Year"), ("title", "Award"), ("org", "Organization")])
+    _timeline_table(doc, "Awards", data["awards"], [("year", "Year"), ("title", "Award"), ("org", "Organization")], widths=[0.9, 3.5, 2.8])
 
 
 def _leadership(doc, data):
@@ -302,6 +311,7 @@ def _leadership(doc, data):
         "Leadership & Community Service",
         data["leadership"],
         [("period", "Period"), ("title", "Role"), ("org", "Organization"), ("desc", "Description")],
+        widths=[0.9, 2.0, 1.55, 2.75],
     )
 
 
@@ -323,7 +333,7 @@ def _skills(doc, data):
 
 
 def _patents(doc, data):
-    _timeline_table(doc, "Patents and Innovations", data["patents"], [("date", "Date"), ("title", "Title"), ("issuer", "Issuer"), ("number", "Number")])
+    _timeline_table(doc, "Patents and Innovations", data["patents"], [("date", "Date"), ("title", "Title"), ("issuer", "Issuer"), ("number", "Number")], widths=[0.9, 3.6, 0.8, 1.9])
 
 
 def _publication_metrics(doc, profile, pubs_df):
@@ -343,7 +353,7 @@ def _publication_metrics(doc, profile, pubs_df):
 
 
 def _editor_reviewer(doc, data, profile):
-    _section_heading(doc, "Editor & Reviewer Experience")
+    _section_heading(doc, "Editorial & Peer Review")
     editorial_rows = [
         (r.get("role", ""), r.get("journal", ""), r.get("period", "")) for _, r in data["editorial"].iterrows()
     ]
@@ -384,7 +394,7 @@ def _references(doc, refs_df):
             if label and url:
                 links.append(f"{label}: {url}")
         rows.append((r.get("name", ""), r.get("role", ""), r.get("inst", ""), "; ".join(links)))
-    _table(doc, rows, headers=["Name", "Role", "Institution", "Public links"], widths=[1.55, 2.0, 2.15, 1.25])
+    _table(doc, rows, headers=["Name", "Role", "Institution", "Public links"], widths=[1.45, 2.15, 1.9, 1.7])
 
 
 def _bold_author_name(paragraph, authors):
@@ -477,7 +487,7 @@ def _appendix_presentations(doc, pres_df):
                 venue_cell,
             )
         )
-    _table(doc, rows, headers=["#", "Date", "Type", "Title", "Venue / location"], widths=[0.35, 0.8, 0.7, 3.1, 2.0])
+    _table(doc, rows, headers=["#", "Date", "Type", "Title", "Venue / location"], widths=[0.35, 0.75, 0.6, 3.45, 2.05])
 
 
 def main():
@@ -492,12 +502,18 @@ def main():
         section.left_margin = Inches(0.65)
         section.right_margin = Inches(0.65)
 
+    props = doc.core_properties
+    props.title = f"{profile.get('name', 'Reza Shahriarirad, M.D.')} — Curriculum Vitae"
+    props.author = profile.get("name", "Reza Shahriarirad, M.D.")
+    props.subject = "Curriculum vitae"
+    props.keywords = "surgical innovation; surgical AI; computer vision; Mayo Clinic"
+
     _header(doc, profile)
     _research_summary(doc, profile)
     _publication_metrics(doc, profile, data["publications"])
     _personal_information(doc, profile)
-    _timeline_table(doc, "Education", data["education"], [("period", "Period"), ("degree", "Degree"), ("org", "Institution"), ("city", "Location")])
-    _timeline_table(doc, "Working and Professional Experience", data["experience"], [("period", "Period"), ("_role_org", "Role / organization"), ("city", "Location"), ("desc", "Description")])
+    _timeline_table(doc, "Education", data["education"], [("period", "Period"), ("degree", "Degree"), ("org", "Institution"), ("city", "Location")], widths=[1.0, 1.9, 2.9, 1.4])
+    _timeline_table(doc, "Working and Professional Experience", data["experience"], [("period", "Period"), ("_role_org", "Role / organization"), ("city", "Location"), ("desc", "Description")], widths=[1.0, 2.3, 1.15, 2.75])
     _work_mayo_clinic(doc, profile)
     _awards(doc, data)
     _leadership(doc, data)

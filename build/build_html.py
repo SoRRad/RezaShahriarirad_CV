@@ -380,7 +380,60 @@ def _output_curve_svg(pubs_df) -> str:
     )
 
 
-def _hero(profile: dict, pub_count: int, photo_b64: str, pubs_df=None) -> str:
+_LATEST_AWARD_WORDS = re.compile(r"award|distinction|best|prize|winner", re.I)
+
+
+def _latest(data) -> str:
+    """Three newest highlights for the hero, computed from the CSVs on every build:
+    the newest award (first row of awards.csv), the newest publication, and the
+    newest recognised talk (venue mentions an award), else the newest talk."""
+    def ym(r):
+        try:
+            year = int(str(r.get("year", "")).strip()[:4])
+        except ValueError:
+            year = 0
+        return (year, _month_num(r.get("month", "")))
+
+    items = []
+    awards = data.get("awards")
+    if awards is not None and len(awards):
+        a = awards.iloc[0]
+        items.append(("award", str(a.get("year", "")).strip(), a.get("title", ""), a.get("org", ""), str(a.get("url", "")).strip()))
+    pubs = data.get("publications")
+    if pubs is not None and len(pubs):
+        p = max(pubs.to_dict("records"), key=ym)
+        date = " ".join(x for x in (str(p.get("month", "")).strip(), str(p.get("year", "")).strip()) if x)
+        items.append(("paper", date, p.get("title", ""), p.get("journal", ""), str(p.get("url", "")).strip()))
+    pres = data.get("presentations")
+    if pres is not None and len(pres):
+        rows = pres.to_dict("records")
+        honoured = [r for r in rows if _LATEST_AWARD_WORDS.search(str(r.get("venue", "")))]
+        t = max(honoured or rows, key=ym)
+        venue = str(t.get("venue", ""))
+        meeting, _, honour = venue.partition(" · ")
+        # Lead with the honour so it survives the one-line truncation.
+        sub = f'{honour} · {str(t.get("conference", "")).strip() or meeting}' if honour else venue
+        items.append(("talk", _pres_month_year(t), t.get("title", ""), sub, "#presentations"))
+    if not items:
+        return ""
+    cells = []
+    for kind, date, title, sub, url in items:
+        ext = url.startswith("http")
+        attrs = f' href="{_e(url)}"' + (' target="_blank" rel="noopener noreferrer"' if ext else '') if url else ''
+        tag = "a" if url else "div"
+        cells.append(
+            f'<{tag} class="hl hl-{kind}"{attrs}>'
+            f'<span class="hl-k">{kind} · {_e(date)}</span>'
+            f'<span class="hl-t">{_e(title)}</span>'
+            f'<span class="hl-s">{_e(sub)}</span></{tag}>'
+        )
+    return (
+        '\n  <div class="hero-latest" aria-label="Latest highlights">'
+        '<span class="hl-label">latest</span>' + "".join(cells) + '</div>'
+    )
+
+
+def _hero(profile: dict, pub_count: int, photo_b64: str, pubs_df=None, latest_html: str = "") -> str:
     cites   = profile.get("citations_cached", "3248")
     hindex  = profile.get("h_index_cached",   "24")
     senior  = profile.get("last_auth", "")
@@ -449,7 +502,7 @@ def _hero(profile: dict, pub_count: int, photo_b64: str, pubs_df=None) -> str:
     <div class="hm"><div class="hm-v" id="hero-hindex">{hindex}</div><div class="hm-k">h-index</div></div>
     {senior_cell}
     {curve_cell}
-  </div>
+  </div>{latest_html}
 </div>"""
 
 
@@ -1057,30 +1110,31 @@ def _editorial(editorial_df, profile: dict) -> str:
     manuscripts   = profile.get("manuscripts_reviewed","129")
     journals_cnt  = profile.get("journals_reviewed",   "67")
     return f"""
-<!-- EDITORIAL / REVIEWER -->
+<!-- EDITORIAL & PEER REVIEW: one section, two distinct panels -->
 <div id="reviewer">
 <div class="section-wrap">
   <div class="section-label">Editorial Activity</div>
-  <h2>Editor &amp; Reviewer Experience</h2>
-
-  <div style="margin-bottom:2.5rem">
-    <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Editorial Roles</h3>
-    <div class="editor-list">
+  <h2>Editorial &amp; Peer Review</h2>
+  <div class="ed-grid">
+    <section class="ed-panel ed-panel-editor" aria-labelledby="ed-editor-h">
+      <span class="ed-kicker">editor</span>
+      <h3 id="ed-editor-h" class="ed-h">Editorial Roles</h3>
+      <div class="editor-list">
 {''.join(editor_items)}
-    </div>
+      </div>
+    </section>
+    <section class="ed-panel ed-panel-reviewer" aria-labelledby="ed-reviewer-h">
+      <span class="ed-kicker">reviewer</span>
+      <h3 id="ed-reviewer-h" class="ed-h">Peer Review</h3>
+      <div class="reviewer-stats">
+        <div><div class="reviewer-stat-num">{_e(peer_reviews)}</div><div class="reviewer-stat-label">Peer Reviews</div></div>
+        <div><div class="reviewer-stat-num">{_e(manuscripts)}</div><div class="reviewer-stat-label">Manuscripts</div></div>
+        <div><div class="reviewer-stat-num">{_e(journals_cnt)}</div><div class="reviewer-stat-label">Journals</div></div>
+      </div>
+      <h4 class="ed-sub">Journals reviewed for</h4>
+      <div class="journal-grid" id="journal-grid"></div>
+    </section>
   </div>
-
-  <div style="margin-bottom:2rem">
-    <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--mist)">Reviewer Role</h3>
-    <div class="reviewer-stats">
-    <div><div class="reviewer-stat-num">{_e(peer_reviews)}</div><div class="reviewer-stat-label">Peer Reviews</div></div>
-    <div><div class="reviewer-stat-num">{_e(manuscripts)}</div><div class="reviewer-stat-label">Manuscripts</div></div>
-    <div><div class="reviewer-stat-num">{_e(journals_cnt)}</div><div class="reviewer-stat-label">Journals</div></div>
-  </div>
-  </div>
-
-  <h3 style="font-family:var(--display);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:1.2rem">Journals Reviewed</h3>
-  <div class="journal-grid" id="journal-grid"></div>
 </div>
 </div>"""
 
@@ -1397,10 +1451,11 @@ def _journals_js(journals_df) -> str:
     entries = []
     for _, r in journals_df.iterrows():
         url = r.get("url","").strip()
+        feat = ',featured:true' if str(r.get("featured", "")).strip().lower() == "yes" else ''
         if url:
-            entries.append(f'{{name:"{_q(r["name"])}",url:"{_q(url)}"}}\n')
+            entries.append(f'{{name:"{_q(r["name"])}",url:"{_q(url)}"{feat}}}\n')
         else:
-            entries.append(f'{{name:"{_q(r["name"])}"}}\n')
+            entries.append(f'{{name:"{_q(r["name"])}"{feat}}}\n')
     return "const journals=[\n  " + "  ,".join(entries) + "];"
 
 
@@ -1465,7 +1520,7 @@ def main():
         _head(css, profile, data["education"]),
         _nav(),
         '<main id="main" tabindex="-1">',
-        _hero(profile, pub_count, photo_b64, data["publications"]),
+        _hero(profile, pub_count, photo_b64, data["publications"], _latest(data)),
         _about(profile),
         _research(data),
         _experience(data["experience"], data["education"],

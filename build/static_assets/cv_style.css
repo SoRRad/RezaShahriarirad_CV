@@ -547,6 +547,49 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
 }
 
 /* PRINT / PDF */
+/* ── Hero "latest" strip: newest award, paper and recognised talk ── */
+.hero-latest{position:relative;z-index:1;max-width:1036px;width:100%;margin:0 auto;display:grid;grid-template-columns:auto repeat(3,1fr);border:1px solid var(--line-dark);border-top:0;animation:fadeUp .7s .7s ease both}
+.hl-label{padding:.9rem 1rem;font-family:var(--mono);font-size:.68rem;color:var(--gold-light);border-right:1px solid var(--line-dark);letter-spacing:.04em}
+.hl-label::before{content:'> '}
+.hl{display:flex;flex-direction:column;gap:.3rem;padding:.9rem 1.1rem;border-right:1px solid var(--line-dark);text-decoration:none;color:inherit;transition:background .2s;min-width:0}
+.hl:last-child{border-right:0}
+a.hl:hover,a.hl:focus-visible{background:rgba(34,211,238,.06)}
+.hl-k{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em}
+.hl-award .hl-k{color:var(--amber)}.hl-paper .hl-k{color:var(--gold-light)}.hl-talk .hl-k{color:var(--pink)}
+.hl-t{font-size:.84rem;font-weight:500;color:var(--ink-text);line-height:1.4;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
+.hl-s{font-size:.74rem;color:var(--dim-dark);line-height:1.4;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-clamp:1;overflow:hidden}
+@media(prefers-reduced-motion:reduce){.hero-latest{animation:none}}
+
+/* ── Editorial & Peer Review: one section, two distinct panels ── */
+.ed-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:1.25rem;align-items:start}
+.ed-panel{position:relative;border:1px solid var(--mist);background:var(--white);padding:1.4rem 1.5rem}
+.ed-panel-editor{border-top:3px solid var(--amber)}
+.ed-panel-reviewer{border-top:3px solid var(--gold)}
+.ed-kicker{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;padding:.1rem .45rem;margin-bottom:.6rem;color:var(--navy)}
+.ed-panel-editor .ed-kicker{background:var(--amber)}
+.ed-panel-reviewer .ed-kicker{background:var(--gold-light)}
+.ed-h{font-family:var(--display);font-size:1.1rem;font-weight:600;letter-spacing:-.01em;color:var(--text);margin-bottom:.9rem}
+.ed-sub{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.04em;color:var(--text-muted);margin:0 0 .6rem;text-transform:lowercase}
+.ed-panel .editor-list{margin-bottom:0}
+.ed-panel .editor-item{flex-wrap:wrap}
+.ed-panel .reviewer-stats{margin-bottom:1.2rem;padding:1rem 1.2rem;gap:1.6rem}
+
+/* ── "show all" toggles for long grids (journals, references) ── */
+.is-collapsed>.more-item{display:none}
+.show-all{display:inline-flex;align-items:center;gap:.35rem;margin-top:.8rem;padding:.35rem .7rem;background:none;border:1px solid var(--mist);font-family:var(--mono);font-size:.72rem;color:var(--gold);cursor:pointer}
+.show-all:hover{border-color:var(--gold);color:var(--text)}
+.show-all:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.show-all .clamp-caret{transition:transform .2s}
+.show-all[aria-expanded="true"] .clamp-caret{transform:rotate(180deg)}
+
+@media(max-width:860px){
+  .ed-grid{grid-template-columns:1fr}
+  .hero-latest{grid-template-columns:1fr;margin-top:0}
+  .hl-label{border-right:0;border-bottom:1px solid var(--line-dark);padding:.5rem 1rem}
+  .hl{border-right:0;border-bottom:1px solid var(--line-dark)}
+  .hl:last-child{border-bottom:0}
+}
+
 /* ── Expandable text: long descriptions are clamped by cv_script.js, which adds a
    show_more toggle only where the text overflows. Without JS everything shows. */
 .clamp:not(.is-open){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:var(--clamp-lines,3);line-clamp:var(--clamp-lines,3);overflow:hidden}
@@ -559,7 +602,8 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
 
 @media print {
   .clamp{display:block!important;-webkit-line-clamp:unset!important;line-clamp:unset!important;overflow:visible!important}
-  .clamp-toggle{display:none!important}
+  .clamp-toggle,.show-all,.hero-latest{display:none!important}
+  .is-collapsed>.more-item{display:revert!important}
   nav,.hamburger,.mobile-menu,.hero-cta,.btn-pdf,.pub-controls,.pub-more,footer{display:none!important}
   .hero{min-height:auto;padding:2rem;background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .hero-content{grid-template-columns:1fr!important;gap:1rem}
