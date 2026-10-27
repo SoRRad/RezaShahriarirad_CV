@@ -139,7 +139,11 @@ Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the expl
 
 ### Research Themes
 
-The **Research Themes** section (after About) shows one card per row of `data/research_themes.csv`: a title, a one- or two-sentence summary, up to three highlighted papers (by publication number), and optional project chips. Each card's paper and talk counts are computed from its `filter`, a topic key such as `bariatric` or a whole group such as `group:ai`, and its **View papers** button applies that same filter to the Publications list. Topics not covered by a theme appear as "Broader and earlier work" chips. The validator rejects unknown filters and paper numbers that don't exist.
+The **Research Themes** section (after About) shows one card per row of `data/research_themes.csv`: a title, a one- or two-sentence summary, up to three highlighted papers (by publication number), and optional project chips. Each card's paper and talk counts are computed from its `filter`, a topic key such as `bariatric` or a whole group such as `group:ai`, and its **View papers** button applies that same filter to the Publications list. Topics not covered by a theme appear as "Broader and earlier work" chips. The optional `label` column sets the short mono tag on each card (for example `surgical_ai`). The validator rejects unknown filters and paper numbers that don't exist.
+
+### Hero and Link Preview
+
+The hero's one-line introduction comes from `hero_lede` in `data/profile.csv`; its metrics and the cumulative-output chart are computed from the CSVs on every build. `build/build_social_card.py` draws the link-preview image (`assets/social-card.png`, 1200×630) from the same profile values, using the bundled Space Grotesk, Inter, and JetBrains Mono fonts (SIL Open Font License, in `build/static_assets/fonts/`), so it matches the site's look.
 
 ### Compact Resume
 
