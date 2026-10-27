@@ -1258,6 +1258,24 @@ def _references_section() -> str:
 </div>"""
 
 
+def _analytics(profile: dict) -> str:
+    """Privacy-friendly visit counts (GoatCounter: no cookies, no consent banner).
+
+    Off unless profile.csv sets analytics_goatcounter to your GoatCounter site
+    code, e.g. 'rezashahriarirad' for https://rezashahriarirad.goatcounter.com.
+    """
+    code = str(profile.get("analytics_goatcounter", "") or "").strip().lower()
+    if not code:
+        return ""
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", code):
+        print(f"[build_html] WARNING: analytics_goatcounter '{code}' is not a valid GoatCounter code; analytics left off.")
+        return ""
+    return (
+        f'<script data-goatcounter="https://{code}.goatcounter.com/count" '
+        'async src="https://gc.zgo.at/count.js"></script>'
+    )
+
+
 def _footer(profile: dict) -> str:
     profile_links = []
     for label, href in [
@@ -1424,6 +1442,7 @@ def main():
         _repos_js(data["open_source"]),
         js,
         "</script>",
+        _analytics(profile),
         "\n</body>\n</html>",
     ]
 

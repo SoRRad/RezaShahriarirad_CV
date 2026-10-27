@@ -172,6 +172,7 @@ If a generated file needs to change, update the relevant CSV or build source, th
 ### Privacy
 
 - The phone number is **not** stored in the repository. `data/profile.csv` keeps `phone` blank and `phone_public_visible,no`. If a private local phone is ever needed, put it in `data/profile_private.csv` (git-ignored) — never commit it.
+- Visitor statistics are **off** by default. To turn them on, create a free account at goatcounter.com (no cookies, no consent banner needed), then put your site code in `data/profile.csv` as `analytics_goatcounter` (e.g. `rezashahriarirad` for `rezashahriarirad.goatcounter.com`). Leave it blank to keep analytics off.
 - The Word CV (`Shahriarirad_Reza_CV.docx`) is generated and committed but is never copied into the public GitHub Pages payload; the public page links to the PDF only. The workflow fails if a DOCX ends up in the deployment payload.
 
 ## GitHub Actions And Pages
