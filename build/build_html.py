@@ -517,7 +517,7 @@ def _about(profile: dict) -> str:
       <div style="margin:1.8rem 0 0">
         <div class="section-label" style="margin-bottom:.8rem">Ongoing Research at Mayo Clinic</div>
         <!-- EDIT: Mayo Clinic / IRB research description paragraph -->
-        <p>{_e(profile.get("irb_description", f"Since joining the Department of Surgery – Surgical Innovation, I have been involved in more than {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
+        <p class="about-ongoing">{_e(profile.get("irb_description", f"Since joining the Department of Surgery – Surgical Innovation, I have been involved in more than {irb_count} IRB-approved research projects spanning a broad range of surgical specialties."))}</p>
         <!-- EDIT: Research specialty tags list -->
         <div class="research-grid">
 {tags_html}
