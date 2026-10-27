@@ -478,7 +478,6 @@
     "month": "Jan",
     "type": "original",
     "tags": [
-      "first",
       "corresponding"
     ],
     "cat": [
@@ -4065,7 +4064,7 @@
     "month": "Nov",
     "type": "case",
     "tags": [
-      "last"
+      "corresponding"
     ],
     "cat": [
       "oncology",
@@ -4286,8 +4285,7 @@
     "month": "Jun",
     "type": "case",
     "tags": [
-      "corresponding",
-      "last"
+      "corresponding"
     ],
     "cat": [
       "thoracic",
@@ -4979,9 +4977,7 @@
     "year": "2024",
     "month": "Dec",
     "type": "case",
-    "tags": [
-      "last"
-    ],
+    "tags": [],
     "cat": [
       "thoracic",
       "oncology"
