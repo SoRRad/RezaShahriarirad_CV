@@ -5049,5 +5049,61 @@
     ],
     "highlight_topics": [],
     "featured": ""
+  },
+  {
+    "n": 198,
+    "year": "2026",
+    "month": "Nov",
+    "type": "original",
+    "tags": [
+      "first"
+    ],
+    "cat": [
+      "gi",
+      "oncology"
+    ],
+    "title": "Primary Gastric Gastrointestinal Stromal Tumors in the Robotic Era: A 15-Year Single-center Experience with Minimally Invasive Surgery",
+    "authors": "Shahriarirad R, Dong Y, Bisht R, Daniel S, Kendrick ML, Grotz TE, Thiels CA*",
+    "journal": "Annals of Surgical Oncology",
+    "url": "https://doi.org/10.1245/s10434-026-20791-1",
+    "keywords": [
+      "Gastrointestinal stromal tumor",
+      "GIST",
+      "Gastric surgery",
+      "Robotic surgery",
+      "Minimally invasive surgery",
+      "Surgical oncology"
+    ],
+    "highlight_topics": [],
+    "featured": ""
+  },
+  {
+    "n": 199,
+    "year": "2026",
+    "month": "Nov",
+    "type": "review",
+    "tags": [
+      "first",
+      "corresponding"
+    ],
+    "cat": [
+      "machine_learning",
+      "health_systems"
+    ],
+    "title": "Patients' Attitudes on Artificial Intelligence in Medicine: A Scoping Review of Influencing Domains, Trends, and Clinical Specialties",
+    "authors": "Shahriarirad R*, Banivaheb B, Lee F, Thiels CA, Arghami A",
+    "journal": "Journal of Patient-Centered Research and Reviews",
+    "url": "",
+    "keywords": [
+      "Artificial intelligence",
+      "Patient-centered care",
+      "Patient perception",
+      "Trust",
+      "Empathy",
+      "Scoping review",
+      "PRISMA-ScR"
+    ],
+    "highlight_topics": [],
+    "featured": ""
   }
 ]

@@ -1,11 +1,11 @@
 # COLUMN GUIDE: field=field name, value=field value. Edit the value column only.
 field,value
 name,"Reza Shahriarirad, M.D."
-title,Research Fellow
+title,Instructor of Regenerative Medicine
 institution,"Department of Surgery – Surgical Innovation, Mayo Clinic"
 city_state,"Rochester, MN"
 orcid,0000-0001-5454-495X
-bio_paragraph_1,"I am a physician-researcher and Research Fellow in the Department of Surgery – Surgical Innovation at Mayo Clinic in Rochester, Minnesota. My work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care."
+bio_paragraph_1,"I am a physician-researcher and Instructor of Regenerative Medicine at Mayo Clinic in Rochester, Minnesota, working in the Department of Surgery – Surgical Innovation. My work sits at the intersection of surgery, data science, and emerging technology, with a focus on how artificial intelligence, computer vision, and wearable sensing can advance surgical decision-making, intraoperative precision, and patient-centered care."
 bio_paragraph_2,"I have authored more than 190 peer-reviewed publications spanning surgical innovation, minimally invasive and reconstructive surgery, surgical AI and predictive modeling, and infectious disease. My work also includes two issued patents and recognition among the World's Top 2% Scientists by Stanford/Elsevier. I have completed 149 peer reviews across more than 60 international journals and serve as Guest Editor for PLOS ONE and Associate Editor for Shiraz E-Medical Journal."
 cv_summary,"Physician-scientist and research fellow focused on surgical innovation, artificial intelligence in medicine, digital health, patient-centered outcomes, and surgical education. My work includes developing clinical research tools, leading multidisciplinary projects, evaluating online health information, designing AI- and computer vision-based studies, and translating clinical problems into practical scientific and technological solutions. My long-term goal is to become a surgeon-scientist who advances surgical care through innovative, evidence-based, and patient-centered approaches."
 irb_count,30
@@ -36,12 +36,12 @@ peer_reviews,149
 journals_reviewed,67
 manuscripts_reviewed,129
 metrics_last_updated,"November 9, 2026"
-pub_count,197
-first_auth,20
+pub_count,199
+first_auth,22
 co_first_auth,24
 last_auth,48
-corr_auth,69
+corr_auth,70
 canonical_url,https://sorrad.github.io/RezaShahriarirad_CV/
-meta_description,"Academic CV of Reza Shahriarirad, M.D., Research Fellow in the Department of Surgery – Surgical Innovation at Mayo Clinic, with work in surgical innovation, artificial intelligence and computer vision, digital health, and patient-centered surgical outcomes."
+meta_description,"Academic CV of Reza Shahriarirad, M.D., Instructor of Regenerative Medicine at Mayo Clinic, working in the Department of Surgery – Surgical Innovation, with work in surgical innovation, artificial intelligence and computer vision, digital health, and patient-centered surgical outcomes."
 analytics_goatcounter,
-hero_lede,"Research Fellow in Surgical Innovation at Mayo Clinic, building and evaluating AI and computer-vision tools for surgery, from operating-room video to postoperative monitoring."
+hero_lede,"Instructor of Regenerative Medicine at Mayo Clinic, building and evaluating AI and computer-vision tools for surgery in Surgical Innovation, from operating-room video to postoperative monitoring."
