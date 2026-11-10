@@ -245,7 +245,7 @@ def _head(css: str, profile: dict, education_df=None) -> str:
             f'\n<meta property="og:image" content="{_e(og_image)}">'
             '\n<meta property="og:image:width" content="1200">'
             '\n<meta property="og:image:height" content="630">'
-            '\n<meta property="og:image:alt" content="Reza Shahriarirad, M.D. — Research Fellow, Surgical Innovation, Mayo Clinic">'
+            f'\n<meta property="og:image:alt" content="Reza Shahriarirad, M.D. — {_e(profile.get("title", "Research Fellow"))}, Mayo Clinic">'
             f'\n<meta name="twitter:image" content="{_e(og_image)}">'
         )
     else:

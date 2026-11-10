@@ -105,7 +105,7 @@ def render(profile: dict) -> Image.Image:
         draw.text((left + draw.textlength(line2 + " ", font=f2), 214), suffix, font=f2, fill=CYAN)
 
     # Title and focus
-    title = f"{profile.get('title', 'Research Fellow').strip()} in Surgical Innovation"
+    title = f"{profile.get('title', 'Research Fellow').strip()} · Mayo Clinic"
     draw.text((left, 328), title, font=_fit(draw, title, "Inter-Regular.ttf", 26, text_w), fill=INK_TEXT)
     focus = "surgical_ai · computer_vision · digital_health"
     draw.text((left, 370), focus, font=_fit(draw, focus, "JetBrainsMono-Regular.ttf", 19, text_w), fill=DIM)
