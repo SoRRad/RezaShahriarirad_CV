@@ -1,15 +1,15 @@
 {
   "generated": true,
   "source": "data/*.csv",
-  "citations": "3619",
+  "citations": "3625",
   "hindex": "25",
   "peerReviews": "149",
   "journals": "67",
   "manuscripts": "129",
-  "pubCount": "199",
-  "firstAuth": "22",
+  "pubCount": "200",
+  "firstAuth": "23",
   "secondAuth": "24",
   "lastAuth": "48",
-  "corrAuth": "70",
-  "date": "November 9, 2026"
+  "corrAuth": "71",
+  "date": "November 12, 2026"
 }
