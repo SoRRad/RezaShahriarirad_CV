@@ -538,8 +538,6 @@ footer{background:var(--navy);border-top:1px solid var(--line-dark)}
 @media(max-width:768px){.pub-controls{grid-template-columns:1fr}.pub-filter-sidebar{flex-direction:column;position:static;max-height:none;overflow-y:visible;padding-right:0}.pres-filter-sidebar{position:static;max-height:none;overflow-y:visible;padding-right:0}}
 @media(max-width:480px){
   .hero-stats{grid-template-columns:1fr 1fr}
-  .pub-item{grid-template-columns:50px 1fr}
-  .pres-item{grid-template-columns:50px 1fr}
   .search-row{align-items:stretch}
   .search-shell{flex-basis:100%;min-width:0}
   .search-filter-prefix{max-width:42%}
@@ -575,7 +573,9 @@ a.hl:hover,a.hl:focus-visible{background:rgba(34,211,238,.06)}
 .ed-panel .reviewer-stats{margin-bottom:1.2rem;padding:1rem 1.2rem;gap:1.6rem}
 
 /* ── "show all" toggles for long grids (journals, references) ── */
-.is-collapsed>.more-item{display:none}
+.js .is-collapsed>.more-item{display:none}
+.js .pub-hidden{display:none}
+html:not(.js) #pub-more{display:none}
 .show-all{display:inline-flex;align-items:center;gap:.35rem;margin-top:.8rem;padding:.35rem .7rem;background:none;border:1px solid var(--mist);font-family:var(--mono);font-size:.72rem;color:var(--gold);cursor:pointer}
 .show-all:hover{border-color:var(--gold);color:var(--text)}
 .show-all:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
@@ -653,3 +653,28 @@ a.hl:hover,a.hl:focus-visible{background:rgba(34,211,238,.06)}
 .filter-main-btn.open .filter-caret{transform:rotate(90deg)}
 .filter-sub-group{padding-left:.5rem;border-left:1px solid var(--mist);margin:.2rem 0 .2rem .35rem}
 .filter-sub-btn{font-size:.65rem!important;padding:.3rem .65rem!important}
+
+/* ── Legibility floor ─────────────────────────────────────────────────────────
+   Nothing a visitor has to read is set below 11px (.69rem). Keyword chips and
+   type badges used to be 9px. The date column is wider so the larger badge fits. */
+.pub-tag-chip,.pres-tag-chip{font-size:.69rem;padding:.2rem .55rem}
+.pub-type-badge,.pres-type{font-size:.69rem;letter-spacing:.02em}
+.pub-year-col,.pres-year-txt{font-size:.72rem}
+.pub-item{grid-template-columns:104px 1fr}
+.pres-item{grid-template-columns:104px 1fr}
+.journal-pill,.skill-level,.ref-link,.theme-paper-meta,.theme-chip,.hm-k,.hl-k,.hl-label,.ed-kicker,.section-label,.filter-btn,.reviewer-stat-label,.editor-role,.pres-presenter,.repo-link,.repo-lang,.pub-filter-group-label,.award-year,.skill-group h3,.pres-location,.research-venues-label,.theme-broader-label,.dropdown-label,.det-tag2,.timeline-period,.leadership-period{font-size:.69rem}
+.pres-location::before{font-size:.69rem}
+.contact-item span:first-child{font-size:.69rem}
+.pub-tag-chip,.pres-tag-chip,.ref-link,.repo-link,.journal-pill{min-height:24px;display:inline-flex;align-items:center}
+/* Touch screens: chips and small links get a comfortable tap height */
+@media(pointer:coarse){
+  .pub-tag-chip,.pres-tag-chip,.journal-pill,.ref-link,.repo-link,.research-tag,.theme-broader-tag{min-height:28px;display:inline-flex;align-items:center}
+  .clamp-toggle,.show-all,.theme-link{min-height:32px}
+}
+/* Phones: date and type sit on one line above the title instead of a cramped side column */
+@media(max-width:640px){
+  .pub-item,.pres-item{grid-template-columns:1fr;gap:.3rem}
+  .pub-year-col,.pres-date-col{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;text-align:left;line-height:1.3;padding-top:0}
+  .pub-type-badge,.pres-type{display:inline-block;margin-top:0}
+  .pres-year-txt{display:inline}
+}

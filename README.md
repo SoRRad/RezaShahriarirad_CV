@@ -105,6 +105,10 @@ Valid publication types: `original`, `review`, `case`, `letter`.
 
 Use semicolon-separated category keys from `build/utils.py` for `cat` and `highlight_topics`. Preserve corresponding author markers such as `Shahriarirad R*`.
 
+For `url`, prefer the DOI form (`https://doi.org/10.xxxx/...`): it keeps working when a publisher moves or renames its site. Use a PubMed or publisher page only when the paper has no DOI.
+
+The website and the Word/PDF CV both list publications newest first (year, then month). The full list is written into `index.html` itself, so search engines and readers without JavaScript see every paper; the page script only handles filtering and "Show all".
+
 ### Presentations
 
 Edit `data/presentations.csv`. Required fields include `date`, `type`, `title`, `venue`, and `location`.
@@ -120,6 +124,7 @@ Edit `data/profile.csv`.
 - Cached metrics use `citations_cached`, `h_index_cached`, `peer_reviews`, `journals_reviewed`, `manuscripts_reviewed`, and `metrics_last_updated`.
 - `citations_cached` and `h_index_cached` can be refreshed automatically from Google Scholar via SerpApi — see "Keeping citation metrics current" below.
 - The public site does not fetch live Google Scholar data in the browser.
+- Sentences in `profile.csv` can use `{field}` tokens, for example `I have authored {pub_count} peer-reviewed publications` or `{peer_reviews} peer reviews for {journals_reviewed} journals`. Each token is replaced by that field's value at build time, so numbers in prose never go stale. The validator rejects a token that has no matching field.
 
 #### Keeping citation metrics current
 
@@ -182,6 +187,8 @@ If a generated file needs to change, update the relevant CSV or build source, th
 ## GitHub Actions And Pages
 
 `.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow. It validates CSV files, rebuilds all generated outputs, commits only when generated files changed, and deploys the public site to GitHub Pages.
+
+`.github/workflows/pr-check.yml` runs on every pull request: it validates the CSV files, runs the unit tests, does a full build and the smoke test, and attaches the built site to the run as a `site-preview` artifact. It never commits or deploys.
 
 The deployed public site includes:
 

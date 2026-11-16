@@ -212,12 +212,15 @@ function dedupeDisplayTags(values, limit=6){
   return out.slice(0, limit);
 }
 
+/* Chips shown under a publication: its keywords, minus any that only repeat the
+   article-type badge beside them. Topic labels fill in when keywords are sparse. */
 function pubDisplayTags(pub, typeMap){
+  const typeWords = new Set(Object.values(typeMap).map(v => v.toLowerCase()));
+  const keywords = (Array.isArray(pub.keywords) ? pub.keywords : [])
+    .filter(k => !typeWords.has(String(k || '').trim().toLowerCase()));
+  if(keywords.length >= 3) return dedupeDisplayTags(keywords, 5);
   const cats = normalizedArray(pub.cat).map(getCategoryLabel);
-  const highlights = normalizedArray(pub.highlight_topics).map(getCategoryLabel);
-  const keywords = Array.isArray(pub.keywords) ? pub.keywords : [];
-  const typeLabel = typeMap[String(pub.type || '').toLowerCase()] || '';
-  return dedupeDisplayTags([...keywords, ...cats, ...highlights, typeLabel], 6);
+  return dedupeDisplayTags([...keywords, ...cats], 5);
 }
 
 const pubTypeFilterLabels = {original:'Original',review:'Review',case:'Case Report',letter:'Letter'};
@@ -392,11 +395,13 @@ function renderPubs(){
     ];
   }
 
-  const displayed = showingAll ? filtered : filtered.slice(0, SHOW);
-  if(countEl) countEl.textContent = `Showing ${displayed.length} of ${filtered.length}`;
+  /* Every match stays in the page (search engines read the rendered list);
+     rows past the first SHOW are only hidden until "Show all" is pressed. */
+  const shownCount = showingAll ? filtered.length : Math.min(SHOW, filtered.length);
+  if(countEl) countEl.textContent = `Showing ${shownCount} of ${filtered.length}`;
   if(moreEl) moreEl.style.display = (filtered.length > SHOW && !showingAll) ? 'block' : 'none';
 
-  list.innerHTML = displayed.map(p => {
+  list.innerHTML = filtered.map((p, idx) => {
     const typeKey = String(p.type || '').toLowerCase();
     const ym    = p.month ? `${escapeHtml(p.month)} ${escapeHtml(p.year)}` : escapeHtml(p.year);
     const badge = `<span class="pub-type-badge ${classMap[typeKey]||'badge-original'}">${escapeHtml(typeMap[typeKey]||typeKey)}</span>`;
@@ -409,7 +414,7 @@ function renderPubs(){
       `<button type="button" class="pub-tag-chip" data-tag="${escapeHtml(tag)}" onclick="applyPubSearchTag(event,this)">${escapeHtml(tag)}</button>`
     ).join('');
     const tagRow = tagChips ? `<div class="pub-tags-row">${tagChips}</div>` : '';
-    return `<div class="pub-item">
+    return `<div class="pub-item${idx >= shownCount ? ' pub-hidden' : ''}">
       <div class="pub-year-col">${ym}${badge}${star}</div>
       <div>
         <div class="pub-title">${titleHtml}</div>
@@ -667,16 +672,8 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderJournals(){
   const el = document.getElementById('journal-grid');
   if(!el) return;
-  // Featured journals first (CSV order), then the rest behind a "show all" toggle.
-  const featured = journals.filter(j => j.featured);
-  const ordered = featured.length ? featured.concat(journals.filter(j => !j.featured)) : journals;
-  el.innerHTML = ordered.map((j, i) => {
-    const more = featured.length && i >= featured.length ? ' more-item' : '';
-    return j.url
-      ? `<a href="${j.url}" target="_blank" rel="noopener noreferrer" class="journal-pill${more}">${j.name} ↗</a>`
-      : `<span class="journal-pill${more}">${j.name}</span>`;
-  }).join('');
-  if (featured.length) addShowAll(el, `show_all_${journals.length}_journals`, 'show_fewer');
+  // build_html.py writes the pills into the page (featured first); add the toggle.
+  addShowAll(el, `show_all_${el.children.length}_journals`, 'show_fewer');
 }
 
 /* Collapse a grid's .more-item children behind a show_all / show_fewer button. */
@@ -860,14 +857,8 @@ function togglePresMore(event){
 function renderRefs(){
   const el = document.getElementById('refs-grid');
   if(!el) return;
-  const REFS_INITIAL_SHOW = 3;
-  el.innerHTML = refs.map((r, i)=>`
-  <div class="ref-card${i >= REFS_INITIAL_SHOW ? ' more-item' : ''}">
-    <div class="ref-name">${r.name}</div>
-    <div class="ref-role">${r.role}<br><em style="font-size:.73rem">${r.inst}</em></div>
-    <div class="ref-links" style="margin-top:.7rem">${r.links.map(l=>`<a href="${l.url}" target="_blank" rel="noopener noreferrer" class="ref-link">${l.label} ↗</a>`).join('')}</div>
-  </div>`).join('');
-  addShowAll(el, `show_all_${refs.length}_references`, 'show_fewer');
+  // build_html.py writes the cards into the page; add the toggle.
+  addShowAll(el, `show_all_${el.children.length}_references`, 'show_fewer');
 }
 
 /* ── OPEN SOURCE REPOS ── */
@@ -939,7 +930,8 @@ function countTextTotal(id){
 }
 
 function visibleCount(selector){
-  return [...document.querySelectorAll(selector)].filter(el => el.style.display !== 'none').length;
+  return [...document.querySelectorAll(selector)]
+    .filter(el => el.style.display !== 'none' && !el.classList.contains('pub-hidden')).length;
 }
 
 window.cvDiagnostics = function(){

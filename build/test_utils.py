@@ -7,7 +7,8 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import clean_url, has_tracking_params, parse_semicolon, author_tag_counts
+from utils import (clean_url, has_tracking_params, parse_semicolon, author_tag_counts,
+                   fill_placeholders, newest_first)
 import refresh_metrics as rm
 
 
@@ -84,6 +85,28 @@ def test_metrics_no_downgrade():
         {"citations_cached": "3600", "h_index_cached": "26"}
     assert rm.apply_no_downgrade([], prof, {"citations": 3400, "h_index": 23}) == {}
     assert rm.apply_no_downgrade([], prof, {"citations": 3496, "h_index": 24}) == {}
+
+
+def test_fill_placeholders():
+    facts = {"pub_count": "200", "title": "Instructor", "empty": ""}
+    assert fill_placeholders("I have authored {pub_count} papers as {title}.", facts) == \
+        "I have authored 200 papers as Instructor."
+    # Unknown or empty fields stay visible instead of silently disappearing.
+    assert fill_placeholders("{missing} and {empty}", facts) == "{missing} and {empty}"
+    assert fill_placeholders("no tokens, {Not_A_Token}", facts) == "no tokens, {Not_A_Token}"
+    assert fill_placeholders(None, facts) == ""
+
+
+def test_newest_first():
+    rows = [
+        {"n": "1", "year": "2024", "month": "Mar"},
+        {"n": "2", "year": "2026", "month": "Jan"},
+        {"n": "3", "year": "2026", "month": "Nov"},
+        {"n": "4", "year": "2026", "month": "Nov"},
+        {"n": "5", "year": "", "month": ""},
+    ]
+    # Newest first; papers that share a month keep their CSV order.
+    assert [r["n"] for r in newest_first(rows)] == ["3", "4", "2", "1", "5"]
 
 
 def main():

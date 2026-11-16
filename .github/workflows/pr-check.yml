@@ -1,0 +1,78 @@
+name: PR checks
+
+# Validates the data, runs the tests and does a full build on every pull request,
+# so a mistake is caught before it is merged and deployed. Nothing is committed
+# or published from here; the built site is attached to the run for preview.
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-check-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PDF build system dependencies
+        # Same non-interactive, retrying install as update-cv.yml.
+        timeout-minutes: 25
+        run: |
+          echo 'man-db man-db/auto-update boolean false' | sudo debconf-set-selections
+          sudo rm -f /var/lib/man-db/auto-update
+          APT="sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold"
+          for attempt in 1 2 3; do
+            if timeout 300 $APT update -qq && timeout 600 $APT install -y \
+                libreoffice-writer \
+                libpango-1.0-0 \
+                libpangocairo-1.0-0 \
+                libcairo2 \
+                libffi-dev; then
+              exit 0
+            fi
+            echo "::warning::apt attempt $attempt failed or timed out; retrying"
+            sleep 15
+          done
+          echo "::error::Could not install system packages after 3 attempts"
+          exit 1
+
+      - name: Install Python requirements
+        run: pip install -r build/requirements.txt
+
+      - name: Validate CSV data
+        run: python build/validate_data.py
+
+      - name: Run build unit tests
+        run: python build/test_utils.py
+
+      - name: Run CV build
+        run: python build/build.py
+
+      - name: Smoke test generated site
+        run: python build/smoke_test.py
+
+      - name: Attach the built site for preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            index.html
+            Shahriarirad_Reza_CV.pdf
+            Shahriarirad_Reza_Resume.pdf
+            assets/social-card.png
