@@ -200,7 +200,11 @@ def write_stable_pdf(document, out, source_html: str) -> None:
     Neither value is shown to readers; the PDFs carry no creation date.
     """
     os.environ.setdefault("SOURCE_DATE_EPOCH", "1767225600")  # font subset stamp only
-    identifier = hashlib.sha256(source_html.encode("utf-8")).hexdigest()[:32].encode("ascii")
+    # The font rules embed this checkout's absolute path; drop it so a CI runner
+    # and a laptop give the same identifier for the same content.
+    root = ROOT.resolve()
+    portable = source_html.replace(root.as_uri(), "").replace(str(root), "")
+    identifier = hashlib.sha256(portable.encode("utf-8")).hexdigest()[:32].encode("ascii")
     try:
         document.write_pdf(out, pdf_variant="pdf/ua-1", pdf_identifier=identifier)
     except Exception as exc:  # older WeasyPrint or a tagging failure: still ship a text PDF
