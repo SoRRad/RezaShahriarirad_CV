@@ -19,16 +19,9 @@ data/profile_private.csv
 # Optional, manually generated artifact (see build/build_biosketch.py)
 Shahriarirad_NIH_Biosketch_General.docx
 
-# Build output: generated from data/*.csv by build/build.py and published to
-# GitHub Pages by the workflow. Not stored in main.
-/index.html
+# The Word CV is build output and is not published: the workflow attaches it
+# as the word-cv artifact. Everything else the build writes at the repo root
+# (index.html, PDFs, JSON, sitemap, social card) IS tracked, because GitHub
+# Pages serves this site from the root of main.
 /Shahriarirad_Reza_CV.docx
-/Shahriarirad_Reza_CV.pdf
-/Shahriarirad_Reza_Resume.pdf
-/cv_pubs.json
-/cv_presentations.json
-/cv_journals.json
-/cv_live_stats.json
 /cv_pdf_build.json
-/sitemap.xml
-/assets/social-card.png

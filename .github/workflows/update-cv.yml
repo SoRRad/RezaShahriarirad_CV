@@ -154,19 +154,28 @@ jobs:
       - name: Smoke test generated site
         run: python build/smoke_test.py
 
-      - name: Commit refreshed metrics
-        # Only data that the refresh steps changed is committed. The site, PDFs
-        # and JSON are build output: they are published below, not stored in main.
+      - name: Commit generated site
+        # GitHub Pages serves this site from the root of main, so the built page,
+        # PDFs and JSON must be committed here. The Word CV is not (see below).
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/profile.csv
+          git add index.html \
+                  Shahriarirad_Reza_CV.pdf \
+                  Shahriarirad_Reza_Resume.pdf \
+                  assets/social-card.png \
+                  sitemap.xml \
+                  cv_pubs.json \
+                  cv_presentations.json \
+                  cv_journals.json \
+                  cv_live_stats.json \
+                  data/profile.csv
           if [ -f data/citations.csv ]; then git add data/citations.csv; fi
           if ! git diff --staged --quiet; then
-            git commit -m "Refresh citation metrics $(date +'%Y-%m-%d')"
-            git push || echo "::warning::Could not push refreshed metrics (main moved); the next run will retry."
+            git commit -m "Auto-update CV $(date +'%Y-%m-%d')"
+            git push || echo "::warning::Could not push the rebuilt site (main moved); the next run will retry."
           else
-            echo "No metric changes to commit"
+            echo "No changes to commit"
           fi
 
       - name: Attach the Word CV

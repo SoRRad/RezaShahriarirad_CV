@@ -206,9 +206,9 @@ If a generated file needs to change, update the relevant CSV or build source, th
 
 ## GitHub Actions And Pages
 
-`.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow, and once a week. It validates the CSV files, builds everything, and publishes the result to the `gh-pages` branch.
+`.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow, and once a week. It validates the CSV files, builds everything, commits the rebuilt site to `main`, and also publishes a clean copy to the `gh-pages` branch.
 
-**Generated files are not stored in `main`.** `index.html`, both PDFs, the Word CV, the JSON files, `sitemap.xml` and the link-preview image are build output (see `.gitignore`). Run `python build/build.py` to create them locally. The only thing the workflow commits is refreshed citation data (`data/profile.csv`, `data/citations.csv`). The editable Word CV is attached to each workflow run as the `word-cv` artifact (Actions → latest "Build & Deploy CV" run → Artifacts).
+**The built site is stored in `main`.** `index.html`, both PDFs, the JSON files, `sitemap.xml` and the link-preview image are committed by the workflow, because GitHub Pages currently serves this site from the root of `main`. Do not delete or git-ignore them, or the live site falls back to showing this README. The editable Word CV is the one exception: it is never committed or published, and is attached to each workflow run as the `word-cv` artifact (Actions → latest "Build & Deploy CV" run → Artifacts).
 
 `.github/workflows/pr-check.yml` runs on every pull request: it validates the CSV files, runs the unit tests, does a full build and the smoke test, and attaches the built site to the run as a `site-preview` artifact. It never commits or deploys.
 
@@ -223,7 +223,7 @@ The deployed public site includes:
 
 The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build. When cached metrics are more than 45 days old, the workflow emits a warning in the run summary as a reminder to update `data/profile.csv` manually (see "Keeping citation metrics current" above).
 
-GitHub Pages must be set to **Deploy from a branch -> `gh-pages` / root** (Settings -> Pages). If a build finishes but the live site looks stale, check that setting and your browser cache.
+GitHub Pages can serve this site from either **`main` / root** (the current setting) or **`gh-pages` / root** (Settings -> Pages); both are kept up to date. `gh-pages` holds only the public files. If a build finishes but the live site looks stale, check that setting and your browser cache.
 
 ## Legacy Local Admin
 
