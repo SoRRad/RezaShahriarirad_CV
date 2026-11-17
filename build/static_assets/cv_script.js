@@ -1214,7 +1214,8 @@ function pubBibtex(p){
   const key = ((authorsList[0] || 'paper').split(' ')[0] + p.year + 'n' + p.n).replace(/[^A-Za-z0-9]/g, '');
   const url = safeUrl(p.url);
   const doi = url && url.includes('doi.org/') ? url.split('doi.org/')[1] : '';
-  const esc = v => String(v || '').replace(/[{}]/g, '');
+  // Drop braces and escape TeX specials so the entry compiles as copied.
+  const esc = v => String(v || '').replace(/[{}\\]/g, '').replace(/([&%$#_])/g, '\\$1');
   return `@article{${key},\n  author  = {${esc(bibAuthors)}},\n  title   = {${esc(p.title)}},\n  journal = {${esc(p.journal)}},\n  year    = {${esc(p.year)}}` +
     (doi ? `,\n  doi     = {${doi}}` : (url ? `,\n  url     = {${url}}` : '')) + `\n}`;
 }
