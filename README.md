@@ -86,6 +86,8 @@ Use the CSV files in `data/`:
 | `data/leadership.csv` | Leadership and service |
 | `data/awards.csv` | Awards and honours |
 | `data/patents.csv` | Patents and innovations |
+| `data/grants.csv` | Grants and funding. Optional: the section stays hidden on the site, PDF and Word CV until the file has a row |
+| `data/invited_talks.csv` | Invited talks (grand rounds, keynotes, lectures). Optional: hidden until the file has a row |
 | `data/editorial.csv` | Editorial roles |
 | `data/journals.csv` | Journals reviewed |
 | `data/references.csv` | Professional references |

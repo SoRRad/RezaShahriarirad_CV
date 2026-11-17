@@ -1,0 +1,3 @@
+# COLUMN GUIDE: period=funding period (e.g. 2027-2029), title=grant or project title, funder=funding body, role=your role (PI / Co-I / Trainee), amount=award amount (optional), status=Active / Completed / Pending (optional), url=link (optional), public_visible=no hides the row
+# The Grants & Funding section appears on the site and in the CV only once this file has at least one visible row.
+period,title,funder,role,amount,status,url,public_visible

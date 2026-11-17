@@ -332,6 +332,27 @@ def _skills(doc, data):
     _table(doc, rows, widths=[1.7, 4.9])
 
 
+def _optional_table(doc, title, data, stem, columns, widths):
+    """Timeline table for an optional CSV; skipped entirely while it has no visible rows."""
+    df = data.get(stem)
+    if df is None or not len(df):
+        return
+    keep = df[[str(v).strip().lower() not in ("no", "false", "0") for v in df.get("public_visible", [""] * len(df))]]
+    keep = keep[[bool(str(v).strip()) for v in keep["title"]]]
+    if len(keep):
+        _timeline_table(doc, title, keep, columns, widths=widths)
+
+
+def _grants(doc, data):
+    _optional_table(doc, "Grants and Funding", data, "grants",
+                    [("period", "Period"), ("title", "Title"), ("funder", "Funder"), ("role", "Role")], [0.9, 3.2, 2.0, 1.1])
+
+
+def _invited_talks(doc, data):
+    _optional_table(doc, "Invited Talks", data, "invited_talks",
+                    [("date", "Date"), ("title", "Title"), ("host", "Host"), ("location", "Location")], [0.9, 3.2, 1.9, 1.2])
+
+
 def _patents(doc, data):
     _timeline_table(doc, "Patents and Innovations", data["patents"], [("date", "Date"), ("title", "Title"), ("issuer", "Issuer"), ("number", "Number")], widths=[0.9, 3.6, 0.8, 1.9])
 
@@ -519,6 +540,8 @@ def main():
     _timeline_table(doc, "Working and Professional Experience", data["experience"], [("period", "Period"), ("_role_org", "Role / organization"), ("city", "Location"), ("desc", "Description")], widths=[1.0, 2.3, 1.15, 2.75])
     _work_mayo_clinic(doc, profile)
     _awards(doc, data)
+    _grants(doc, data)
+    _invited_talks(doc, data)
     _leadership(doc, data)
     _skills(doc, data)
     _patents(doc, data)

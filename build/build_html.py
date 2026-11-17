@@ -295,8 +295,8 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <a class="skip-link" href="#main">Skip to content</a>"""
 
 
-def _nav() -> str:
-    return """
+def _nav(has_grants: bool = False) -> str:
+    html = """
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#main" aria-label="Reza Shahriarirad, M.D. — back to top">reza_shahriarirad</a>
@@ -307,6 +307,7 @@ def _nav() -> str:
     <li><a href="#leadership">Leadership</a></li>
     <li><a href="#publications">Publications</a></li>
     <li><a href="#awards">Awards</a></li>
+    <li><a href="#grants">Grants</a></li>
     <li><a href="#patents">Patents</a></li>
     <li><a href="#reviewer">Editorial</a></li>
     <li><a href="#presentations">Presentations</a></li>
@@ -327,6 +328,7 @@ def _nav() -> str:
   <a href="#leadership" onclick="closeMenu()">Leadership</a>
   <a href="#publications" onclick="closeMenu()">Publications</a>
   <a href="#awards" onclick="closeMenu()">Awards</a>
+  <a href="#grants" onclick="closeMenu()">Grants</a>
   <a href="#patents" onclick="closeMenu()">Patents</a>
   <a href="#reviewer" onclick="closeMenu()">Editorial</a>
   <a href="#presentations" onclick="closeMenu()">Presentations</a>
@@ -334,6 +336,10 @@ def _nav() -> str:
   <a href="#hobbies" onclick="closeMenu()">Hobbies</a>
   <a href="#references" onclick="closeMenu()">References</a>
 </div>"""
+    if not has_grants:
+        html = html.replace('    <li><a href="#grants">Grants</a></li>\n', "")
+        html = html.replace('  <a href="#grants" onclick="closeMenu()">Grants</a>\n', "")
+    return html
 
 
 def _output_curve_svg(pubs_df) -> str:
@@ -1197,6 +1203,80 @@ def _awards(awards_df) -> str:
 </div>"""
 
 
+def _visible_rows(df) -> list:
+    """Rows of an optional CSV, minus any marked public_visible=no."""
+    if df is None or not len(df):
+        return []
+    return [r for _, r in df.iterrows()
+            if str(r.get("public_visible", "")).strip().lower() not in ("no", "false", "0")
+            and str(r.get("title", "")).strip()]
+
+
+def _linked_title(title, url) -> str:
+    url = str(url or "").strip()
+    if not url:
+        return _e(title)
+    return f'<a href="{_e(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">{_e(title)} ↗</a>'
+
+
+def _grants(grants_df) -> str:
+    """Grants & Funding. Renders nothing until data/grants.csv has a visible row."""
+    rows = _visible_rows(grants_df)
+    if not rows:
+        return ""
+    items = []
+    for r in rows:
+        meta = " &nbsp;·&nbsp; ".join(
+            _e(str(r.get(k, "")).strip()) for k in ("funder", "role", "amount") if str(r.get(k, "")).strip()
+        )
+        status = str(r.get("status", "")).strip()
+        badge = f' <span class="entry-badge">{_e(status)}</span>' if status else ""
+        items.append(f"""    <div class="patent-item">
+      <div class="patent-date">{_e(str(r.get("period", "")).strip())}</div>
+      <div>
+        <div class="patent-title">{_linked_title(r.get("title", ""), r.get("url", ""))}{badge}</div>
+        <div class="patent-id">{meta}</div>
+      </div>
+    </div>""")
+    return f"""
+<!-- GRANTS -->
+<div id="grants">
+<div class="section-wrap section-wrap-follow">
+  <div class="section-label">Funding</div>
+  <h2>Grants &amp; Funding</h2>
+  <div class="patent-list">
+{''.join(items)}
+  </div>
+</div>
+</div>"""
+
+
+def _invited_talks(talks_df) -> str:
+    """Invited talks block for the top of Presentations; empty until there is data."""
+    rows = _visible_rows(talks_df)
+    if not rows:
+        return ""
+    items = []
+    for r in rows:
+        meta = " &nbsp;·&nbsp; ".join(
+            _e(str(r.get(k, "")).strip()) for k in ("kind", "host", "location") if str(r.get(k, "")).strip()
+        )
+        items.append(f"""    <div class="patent-item">
+      <div class="patent-date">{_e(str(r.get("date", "")).strip())}</div>
+      <div>
+        <div class="patent-title">{_linked_title(r.get("title", ""), r.get("url", ""))}</div>
+        <div class="patent-id">{meta}</div>
+      </div>
+    </div>""")
+    return f"""  <div class="invited-talks" id="invited-talks">
+    <h3 class="subsection-title">Invited Talks <span class="subsection-count">{len(rows)}</span></h3>
+    <div class="patent-list">
+{''.join(items)}
+    </div>
+  </div>
+"""
+
+
 _PATENT_ISSUER_LABELS = {"IR": "Iranian Patent", "US": "US Patent", "EP": "European Patent"}
 
 def _patents(patents_df) -> str:
@@ -1312,7 +1392,7 @@ def _pres_month_year(row):
     return str(row.get("date", "")).strip()
 
 
-def _presentations(pres_df) -> str:
+def _presentations(pres_df, invited_html: str = "") -> str:
     # Newest first: sort by year then month, descending. Stable sort keeps the
     # original CSV order among entries that share the same month and year.
     rows = list(pres_df.to_dict("records"))
@@ -1407,7 +1487,7 @@ def _presentations(pres_df) -> str:
 <div class="section-wrap">
   <div class="section-label">Academic Engagements</div>
   <h2>Presentations</h2>
-  <div class="pres-controls">
+{invited_html}  <div class="pres-controls">
     <!-- Left: filter sidebar -->
     <div class="pres-filter-sidebar">
       <div class="pres-filter-group">
@@ -1675,7 +1755,7 @@ def main():
 
     parts = [
         _head(css, profile, data["education"]),
-        _nav(),
+        _nav(has_grants=bool(_visible_rows(data.get("grants")))),
         '<main id="main" tabindex="-1">',
         _hero(profile, pub_count, photo_b64, data["publications"], _latest(data)),
         _about(profile),
@@ -1686,9 +1766,10 @@ def main():
         _leadership(data["leadership"]),
         _publications_section(data["publications"]),
         _awards(data["awards"]),
+        _grants(data.get("grants")),
         _patents(data["patents"]),
         _editorial(data["editorial"], profile, data["journals"]),
-        _presentations(data["presentations"]),
+        _presentations(data["presentations"], _invited_talks(data.get("invited_talks"))),
         _open_source(profile),
         _hobbies(data["hobbies"]),
         _references_section(data["references"]),

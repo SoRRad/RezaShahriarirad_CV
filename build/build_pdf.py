@@ -193,6 +193,29 @@ def _awards(data) -> str:
     return f"<h2>Awards and Honors</h2>{items}" if items else ""
 
 
+def _visible(rows):
+    return [r for r in rows if str(r.get("public_visible", "")).strip().lower() not in ("no", "false", "0")
+            and str(r.get("title", "")).strip()]
+
+
+def _grants(data) -> str:
+    items = "".join(
+        _entry(r.get("period", ""), r.get("title", ""),
+               " · ".join(str(r.get(k, "")).strip() for k in ("funder", "role", "amount", "status") if str(r.get(k, "")).strip()))
+        for r in _visible(_rows(data.get("grants")))
+    )
+    return f"<h2>Grants and Funding</h2>{items}" if items else ""
+
+
+def _invited_talks(data) -> str:
+    items = "".join(
+        _entry(r.get("date", ""), r.get("title", ""),
+               " · ".join(str(r.get(k, "")).strip() for k in ("kind", "host", "location") if str(r.get(k, "")).strip()))
+        for r in _visible(_rows(data.get("invited_talks")))
+    )
+    return f"<h2>Invited Talks</h2>{items}" if items else ""
+
+
 def _patents(data) -> str:
     items = "".join(
         _entry(r.get("date", ""), r.get("title", ""), f'Patent {str(r.get("issuer", "")).strip()} {str(r.get("number", "")).strip()}'.strip())
@@ -318,7 +341,7 @@ def build_html(data) -> str:
     name = profile.get("name", "Reza Shahriarirad, M.D.")
     body = "".join([
         _header(profile), _summary(profile), _metrics(profile, pubs), _experience(data), _education(data),
-        _mayo(profile), _awards(data), _patents(data), _leadership(data), _editorial(data, profile),
+        _mayo(profile), _awards(data), _grants(data), _invited_talks(data), _patents(data), _leadership(data), _editorial(data, profile),
         _skills(data, profile), _references(data), _publications(pubs), _journals(data), _presentations(data),
     ])
     return (

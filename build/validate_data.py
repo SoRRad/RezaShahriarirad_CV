@@ -22,6 +22,8 @@ REQUIRED_COLS = {
     "education": ["period", "degree", "org"],
     "awards": ["year", "title", "org"],
     "patents": ["date", "title", "issuer", "number"],
+    "grants": ["period", "title", "funder", "role"],
+    "invited_talks": ["date", "title", "host"],
     "editorial": ["role", "journal", "period"],
     "references": ["name", "role", "inst"],
     "leadership": ["period", "title", "org", "desc"],
