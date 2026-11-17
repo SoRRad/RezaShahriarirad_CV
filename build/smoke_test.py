@@ -7,6 +7,7 @@ import html
 import json
 import pathlib
 import re
+import subprocess
 import sys
 import zipfile
 
@@ -154,6 +155,32 @@ def _docx_text(path):
         xml = docx.read("word/document.xml").decode("utf-8", errors="ignore")
     xml = re.sub(r"<[^>]+>", " ", xml)
     return html.unescape(re.sub(r"\s+", " ", xml))
+
+
+def _without_scripts(text):
+    """The page markup with every inline <script> block removed."""
+    return re.sub(r"<script\b[^>]*>.*?</script>", "", text, flags=re.S | re.I)
+
+
+def _local_refs(text):
+    """Relative files the page loads or links to (images, fonts, PDFs)."""
+    refs = set(re.findall(r'(?:src|href)=["\']([^"\'#?]+)', _without_scripts(text)))
+    refs |= set(re.findall(r'url\(["\']?([^"\')]+)', text))
+    return sorted(r for r in refs if not re.match(r"^(?:[a-z][a-z0-9+.-]*:|//|#)", r, re.I) and "{" not in r)
+
+
+def _git_ignored(paths):
+    """Subset of paths that .gitignore would keep out of the repo; None without git."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(ROOT), "check-ignore", "--no-index", *paths],
+            capture_output=True, text=True, timeout=30,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return None
+    if result.returncode not in (0, 1):
+        return None
+    return set(result.stdout.split())
 
 
 def main():
@@ -367,7 +394,7 @@ def main():
     else:
         errors.append("Bariatric Surgery and Orthopaedic Surgery tags must both appear")
     invalid_data_cats = sorted({cat for cat, _ in research_tags if cat not in ALL_VALID_CAT_KEYS})
-    rendered_html = text.split("<script>", 1)[0]
+    rendered_html = _without_scripts(text)
     invalid_data_cats.extend(
         sorted(
             {
@@ -463,13 +490,32 @@ def main():
     if 'href="Shahriarirad_Reza_CV.docx"' in text or "Shahriarirad_Reza_CV.docx" in re.sub(r"cv_pdf_build\.json.*", "", text):
         errors.append("Website Word download link should not be visible on the public page")
 
+    # GitHub Pages serves this site from the root of main, so everything the page
+    # needs must be a real file that git will track. The Word CV must not be.
+    served = ["index.html", "Shahriarirad_Reza_CV.pdf", "Shahriarirad_Reza_Resume.pdf", "sitemap.xml",
+              "robots.txt", "assets/social-card.png", "cv_pubs.json", "cv_presentations.json",
+              "cv_journals.json", "cv_live_stats.json"]
+    served = sorted(set(served) | set(_local_refs(text)))
+    for rel in served:
+        if not (ROOT / rel).is_file():
+            errors.append(f"index.html needs '{rel}', which does not exist")
+    ignored = _git_ignored(served + ["Shahriarirad_Reza_CV.docx"])
+    if ignored is None:
+        print("[SMOKE] git not available; skipping the tracked-files check.")
+    else:
+        for rel in served:
+            if rel in ignored:
+                errors.append(f"'{rel}' is git-ignored, so GitHub Pages (served from main) would not have it")
+        if "Shahriarirad_Reza_CV.docx" not in ignored:
+            errors.append("Shahriarirad_Reza_CV.docx must stay git-ignored so it is never published")
+
     if errors:
         print("\n[SMOKE] FAILED:")
         for error in errors:
             print(f"  x {error}")
         return 1
 
-    print("[SMOKE] PASSED: public page links to the CV and compact resume PDFs only; DOCX remains generated in the repo, and JSON/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
+    print("[SMOKE] PASSED: public page links to the CV and compact resume PDFs only; every file the page needs exists and is tracked, the Word CV is not published, and JSON/PDF outputs, filters, tag chips, and lab logo markup passed checks.")
     return 0
 
 

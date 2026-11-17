@@ -17,7 +17,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import ROOT, author_tag_counts, get_profile, load_all_data  # noqa: E402
+from utils import ROOT, author_tag_counts, get_profile, load_all_data, write_stable_pdf  # noqa: E402
 
 OUT = ROOT / "Shahriarirad_Reza_Resume.pdf"
 FONTS = pathlib.Path(__file__).parent / "static_assets" / "fonts"
@@ -329,12 +329,9 @@ def render(data=None, out: pathlib.Path = OUT) -> int:
     """Write the resume PDF and return its page count."""
     from weasyprint import HTML
 
-    document = HTML(string=build_html(data or load_all_data()), base_url=str(ROOT)).render()
-    try:
-        document.write_pdf(out, pdf_variant="pdf/ua-1")
-    except Exception as exc:  # older WeasyPrint or a tagging failure: still ship a text PDF
-        print(f"  PDF/UA tagging unavailable ({exc}); writing an untagged PDF instead.")
-        document.write_pdf(out)
+    source = build_html(data or load_all_data())
+    document = HTML(string=source, base_url=str(ROOT)).render()
+    write_stable_pdf(document, out, source)
     return len(document.pages)
 
 
