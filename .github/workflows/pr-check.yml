@@ -37,7 +37,6 @@ jobs:
           APT="sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold"
           for attempt in 1 2 3; do
             if timeout 300 $APT update -qq && timeout 600 $APT install -y \
-                libreoffice-writer \
                 libpango-1.0-0 \
                 libpangocairo-1.0-0 \
                 libcairo2 \

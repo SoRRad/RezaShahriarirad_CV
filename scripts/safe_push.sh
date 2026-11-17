@@ -37,13 +37,9 @@ if ! python build/smoke_test.py; then
   exit 1
 fi
 
-echo "Staging CV data, build source, generated outputs, and workflow files..."
+echo "Staging CV data, build source, and workflow files..."
 git add \
   data/*.csv \
-  index.html \
-  Shahriarirad_Reza_CV.docx \
-  Shahriarirad_Reza_CV.pdf \
-  cv_*.json \
   build/*.py \
   build/static_assets/*.js \
   build/static_assets/*.css \

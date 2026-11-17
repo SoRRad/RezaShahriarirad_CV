@@ -18,3 +18,17 @@ site_public/
 data/profile_private.csv
 # Optional, manually generated artifact (see build/build_biosketch.py)
 Shahriarirad_NIH_Biosketch_General.docx
+
+# Build output: generated from data/*.csv by build/build.py and published to
+# GitHub Pages by the workflow. Not stored in main.
+/index.html
+/Shahriarirad_Reza_CV.docx
+/Shahriarirad_Reza_CV.pdf
+/Shahriarirad_Reza_Resume.pdf
+/cv_pubs.json
+/cv_presentations.json
+/cv_journals.json
+/cv_live_stats.json
+/cv_pdf_build.json
+/sitemap.xml
+/assets/social-card.png

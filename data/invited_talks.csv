@@ -1,0 +1,3 @@
+# COLUMN GUIDE: date=Mon YYYY, title=talk title, host=inviting department or organisation, location=city / virtual (optional), kind=Grand Rounds / Keynote / Invited Lecture / Panel (optional), url=link (optional), public_visible=no hides the row
+# The Invited Talks block appears on the site and in the CV only once this file has at least one visible row.
+date,title,host,location,kind,url,public_visible

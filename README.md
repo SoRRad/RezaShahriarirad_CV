@@ -86,6 +86,8 @@ Use the CSV files in `data/`:
 | `data/leadership.csv` | Leadership and service |
 | `data/awards.csv` | Awards and honours |
 | `data/patents.csv` | Patents and innovations |
+| `data/grants.csv` | Grants and funding. Optional: the section stays hidden on the site, PDF and Word CV until the file has a row |
+| `data/invited_talks.csv` | Invited talks (grand rounds, keynotes, lectures). Optional: hidden until the file has a row |
 | `data/editorial.csv` | Editorial roles |
 | `data/journals.csv` | Journals reviewed |
 | `data/references.csv` | Professional references |
@@ -142,6 +144,24 @@ Either way the refresh **never downgrades** a metric (a lower fetched value is t
 
 Authorship counts (`first`/`co-first`/`last`/`corresponding`) come from the explicit `tags` column in `data/publications.csv`, which is curated against full author lists. The website's authorship filter treats those tags as authoritative; keep them up to date when adding publications.
 
+### Flagship Projects
+
+`data/flagship.csv` drives the "Flagship projects" cards in the Research section: a name, a tagline, and one or two sentences each for problem, approach and result, plus optional paper/code/demo links. Each card shows a built-in line drawing (`icon`: `frame`, `steps` or `ecg`); to use a real figure instead, put the image in `assets/projects/` and name it in the `image` column.
+
+### Leadership Groups
+
+`data/leadership.csv` has a `kind` column: `teaching` rows appear under "Teaching & Mentorship", everything else under "Service & Community".
+
+### Per-paper Citation Counts
+
+The weekly build runs `build/refresh_citations.py`, which reads your Google Scholar profile through SerpApi (same `SERPAPI_KEY` secret), matches articles to `data/publications.csv` by title, and writes `data/citations.csv`. Publication rows then show "cited N". Without the key, or if the fetch fails, nothing changes.
+
+### Themes, Fonts and the Full CV PDF
+
+- The site has a light/dark toggle in the navigation bar. It follows the visitor's system setting on first visit and remembers their choice.
+- Fonts (Inter, Space Grotesk, JetBrains Mono; SIL Open Font License) are served from `assets/fonts/`, not from Google.
+- `build/build_pdf.py` typesets the full CV PDF directly from the CSV data with WeasyPrint, in the same style as the compact resume. `build/build_word.py` still produces the editable Word version.
+
 ### Research Themes
 
 The **Research Themes** section (after About) shows one card per row of `data/research_themes.csv`: a title, a one- or two-sentence summary, up to three highlighted papers (by publication number), and optional project chips. Each card's paper and talk counts are computed from its `filter`, a topic key such as `bariatric` or a whole group such as `group:ai`, and its **View papers** button applies that same filter to the Publications list. Topics not covered by a theme appear as "Broader and earlier work" chips. The optional `label` column sets the short mono tag on each card (for example `surgical_ai`). The validator rejects unknown filters and paper numbers that don't exist.
@@ -167,7 +187,7 @@ The resume is a text PDF (PDF/UA-tagged, ligatures off) so applicant-tracking sy
 These files are generated artifacts and should not be edited manually:
 
 - `index.html`
-- `Shahriarirad_Reza_CV.docx` (kept in the repo, **not** deployed publicly)
+- `Shahriarirad_Reza_CV.docx` (build output, attached to each workflow run; **not** deployed publicly)
 - `Shahriarirad_Reza_CV.pdf`
 - `Shahriarirad_Reza_Resume.pdf`
 - `cv_pubs.json`
@@ -182,11 +202,13 @@ If a generated file needs to change, update the relevant CSV or build source, th
 
 - The phone number is **not** stored in the repository. `data/profile.csv` keeps `phone` blank and `phone_public_visible,no`. If a private local phone is ever needed, put it in `data/profile_private.csv` (git-ignored) — never commit it.
 - Visitor statistics are **off** by default. To turn them on, create a free account at goatcounter.com (no cookies, no consent banner needed), then put your site code in `data/profile.csv` as `analytics_goatcounter` (e.g. `rezashahriarirad` for `rezashahriarirad.goatcounter.com`). Leave it blank to keep analytics off.
-- The Word CV (`Shahriarirad_Reza_CV.docx`) is generated and committed but is never copied into the public GitHub Pages payload; the public page links to the PDF only. The workflow fails if a DOCX ends up in the deployment payload.
+- The Word CV (`Shahriarirad_Reza_CV.docx`) is generated on every build but is never copied into the public GitHub Pages payload; the public page links to the PDF only. The workflow fails if a DOCX ends up in the deployment payload.
 
 ## GitHub Actions And Pages
 
-`.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow. It validates CSV files, rebuilds all generated outputs, commits only when generated files changed, and deploys the public site to GitHub Pages.
+`.github/workflows/update-cv.yml` runs on pushes to `main` that change CSV data, build sources, assets, or the workflow, and once a week. It validates the CSV files, builds everything, and publishes the result to the `gh-pages` branch.
+
+**Generated files are not stored in `main`.** `index.html`, both PDFs, the Word CV, the JSON files, `sitemap.xml` and the link-preview image are build output (see `.gitignore`). Run `python build/build.py` to create them locally. The only thing the workflow commits is refreshed citation data (`data/profile.csv`, `data/citations.csv`). The editable Word CV is attached to each workflow run as the `word-cv` artifact (Actions → latest "Build & Deploy CV" run → Artifacts).
 
 `.github/workflows/pr-check.yml` runs on every pull request: it validates the CSV files, runs the unit tests, does a full build and the smoke test, and attaches the built site to the run as a `site-preview` artifact. It never commits or deploys.
 
@@ -201,7 +223,7 @@ The deployed public site includes:
 
 The workflow attempts to refresh cached metrics, but scraping failures are non-fatal and should not break the site build. When cached metrics are more than 45 days old, the workflow emits a warning in the run summary as a reminder to update `data/profile.csv` manually (see "Keeping citation metrics current" above).
 
-Preferred GitHub Pages configuration is **Deploy from a branch -> `gh-pages` / root**. If the repository is instead configured to publish from `main` / root, the workflow still commits the rebuilt generated files back to `main`, so CSV-only pushes can update the live site after validation passes. If a valid build/deploy finishes but the live site is still stale, check **Settings -> Pages** and browser/CDN cache before editing generated files manually.
+GitHub Pages must be set to **Deploy from a branch -> `gh-pages` / root** (Settings -> Pages). If a build finishes but the live site looks stale, check that setting and your browser cache.
 
 ## Legacy Local Admin
 

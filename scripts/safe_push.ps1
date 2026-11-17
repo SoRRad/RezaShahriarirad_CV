@@ -48,13 +48,9 @@ Invoke-GitStep "Smoke test failed. Fix generated site or data issues before push
   python build/smoke_test.py
 }
 
-Write-Host "Staging CV data, build source, generated outputs, and workflow files..."
+Write-Host "Staging CV data, build source, and workflow files..."
 git add `
   data/*.csv `
-  index.html `
-  Shahriarirad_Reza_CV.docx `
-  Shahriarirad_Reza_CV.pdf `
-  cv_*.json `
   build/*.py `
   build/static_assets/*.js `
   build/static_assets/*.css `

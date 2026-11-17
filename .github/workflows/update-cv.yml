@@ -51,7 +51,6 @@ jobs:
           APT="sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get -o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold"
           for attempt in 1 2 3; do
             if timeout 300 $APT update -qq && timeout 600 $APT install -y \
-                libreoffice-writer \
                 libpango-1.0-0 \
                 libpangocairo-1.0-0 \
                 libcairo2 \
@@ -72,6 +71,13 @@ jobs:
         env:
           SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
         run: python build/refresh_metrics.py
+
+      - name: Refresh per-paper citation counts (weekly and manual runs only)
+        if: github.event_name != 'push'
+        continue-on-error: true
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+        run: python build/refresh_citations.py
 
       - name: Warn when cached metrics are stale
         continue-on-error: true
@@ -148,26 +154,29 @@ jobs:
       - name: Smoke test generated site
         run: python build/smoke_test.py
 
-      - name: Commit generated files
+      - name: Commit refreshed metrics
+        # Only data that the refresh steps changed is committed. The site, PDFs
+        # and JSON are build output: they are published below, not stored in main.
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html \
-                  Shahriarirad_Reza_CV.docx \
-                  Shahriarirad_Reza_CV.pdf \
-                  Shahriarirad_Reza_Resume.pdf \
-                  assets/social-card.png \
-                  cv_pubs.json \
-                  cv_presentations.json \
-                  cv_journals.json \
-                  cv_live_stats.json \
-                  data/profile.csv
+          git add data/profile.csv
+          if [ -f data/citations.csv ]; then git add data/citations.csv; fi
           if ! git diff --staged --quiet; then
-            git commit -m "Auto-update CV $(date +'%Y-%m-%d')"
-            git push
+            git commit -m "Refresh citation metrics $(date +'%Y-%m-%d')"
+            git push || echo "::warning::Could not push refreshed metrics (main moved); the next run will retry."
           else
-            echo "No changes to commit"
+            echo "No metric changes to commit"
           fi
+
+      - name: Attach the Word CV
+        # The editable Word version is not published on the site; download it here.
+        uses: actions/upload-artifact@v4
+        with:
+          name: word-cv
+          retention-days: 90
+          if-no-files-found: error
+          path: Shahriarirad_Reza_CV.docx
 
       - name: Prepare public site
         run: |

@@ -81,6 +81,11 @@ def _near_text(text, marker, before=900, after=650):
 
 def _has_logo_or_placeholder(text, marker, expected_initials):
     compact_text = re.sub(r'src=["\'][^"\']{200,}["\']', 'src="[asset]"', text)
+    # Organisation names also appear earlier on the page (research cards); the
+    # logos being checked live in the Experience section.
+    start = compact_text.find('id="experience"')
+    if start != -1:
+        compact_text = compact_text[start:]
     window = _near_text(compact_text, marker, before=1800, after=650)
     if not window:
         return False
@@ -418,12 +423,21 @@ def main():
         except json.JSONDecodeError:
             errors.append("PDF build metadata is not valid JSON")
             pdf_meta = {}
-        if not pdf_meta.get("converted_from_docx") and pdf_meta.get("method") != "libreoffice-docx-to-pdf":
-            errors.append("PDF build metadata does not confirm DOCX-to-PDF conversion")
-        if pdf_meta.get("method") != "libreoffice-docx-to-pdf" and pdf_meta.get("preferred_method") != "libreoffice-docx-to-pdf":
-            errors.append("PDF build metadata does not retain LibreOffice as the preferred conversion method")
-        if pdf_meta.get("source") != "Shahriarirad_Reza_CV.docx" or pdf_meta.get("output") != "Shahriarirad_Reza_CV.pdf":
-            errors.append("PDF build metadata source/output do not match the generated DOCX/PDF files")
+        if pdf_meta.get("method") != "weasyprint-html-to-pdf":
+            errors.append("PDF build metadata does not show the CV PDF was typeset from the CSV data")
+        if pdf_meta.get("output") != "Shahriarirad_Reza_CV.pdf":
+            errors.append("PDF build metadata output does not match the generated PDF file")
+    try:
+        from pypdf import PdfReader
+        pdf_text = " ".join((page.extract_text() or "") for page in PdfReader(str(pdf_path)).pages)
+        pdf_text = re.sub(r"\s+", " ", pdf_text)
+        newest = re.sub(r"\s+", " ", (pub_rows[-1].get("title") or "").strip())
+        if newest and newest[:60] not in pdf_text:
+            errors.append("Shahriarirad_Reza_CV.pdf does not include the newest publication title")
+        if phone and phone in pdf_text:
+            errors.append("Phone number is present in generated PDF")
+    except ImportError:
+        print("[SMOKE] pypdf not installed; skipping CV PDF text checks.")
     # SEO essentials generated for the public payload.
     robots_path = ROOT / "robots.txt"
     sitemap_path = ROOT / "sitemap.xml"
