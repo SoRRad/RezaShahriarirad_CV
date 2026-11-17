@@ -1,5 +1,5 @@
 """Shared utilities for all CV build scripts."""
-import csv, io, re, pathlib
+import csv, hashlib, io, os, re, pathlib
 import pandas as pd
 
 ROOT = pathlib.Path(__file__).parent.parent
@@ -189,6 +189,23 @@ def author_tag_counts(rows) -> dict:
             if tag in tags:
                 counts[tag] += 1
     return counts
+
+
+def write_stable_pdf(document, out, source_html: str) -> None:
+    """Write a WeasyPrint document so the same input always gives the same bytes.
+
+    Two things otherwise change on every run: the random file identifier, and
+    the "modified" stamp fontTools puts in each embedded font subset. Pinning
+    both means the workflow only commits a PDF when its content really changed.
+    Neither value is shown to readers; the PDFs carry no creation date.
+    """
+    os.environ.setdefault("SOURCE_DATE_EPOCH", "1767225600")  # font subset stamp only
+    identifier = hashlib.sha256(source_html.encode("utf-8")).hexdigest()[:32].encode("ascii")
+    try:
+        document.write_pdf(out, pdf_variant="pdf/ua-1", pdf_identifier=identifier)
+    except Exception as exc:  # older WeasyPrint or a tagging failure: still ship a text PDF
+        print(f"  PDF/UA tagging unavailable ({exc}); writing an untagged PDF instead.")
+        document.write_pdf(out, pdf_identifier=identifier)
 
 
 def html_escape(text: str) -> str:
