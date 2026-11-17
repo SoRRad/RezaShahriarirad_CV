@@ -10,6 +10,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from utils import (clean_url, has_tracking_params, parse_semicolon, author_tag_counts,
                    fill_placeholders, newest_first)
 import refresh_metrics as rm
+import refresh_citations as rc
 
 
 def test_clean_url_strips_tracking():
@@ -107,6 +108,23 @@ def test_newest_first():
     ]
     # Newest first; papers that share a month keep their CSV order.
     assert [r["n"] for r in newest_first(rows)] == ["3", "4", "2", "1", "5"]
+
+
+def test_citation_parse_and_match():
+    payload = {"articles": [
+        {"title": "Nerve Transfers to Rebalance the Spastic Wrist: an anatomical feasibility study", "cited_by": {"value": 3}},
+        {"title": "Przegląd of Something Else", "cited_by": {"value": None}},
+        {"title": "", "cited_by": {"value": 9}},
+    ]}
+    articles = rc.parse_articles(payload)
+    assert articles == [("Nerve Transfers to Rebalance the Spastic Wrist: an anatomical feasibility study", 3),
+                        ("Przegląd of Something Else", 0)]
+    pubs = [{"n": "194", "title": "Nerve Transfers to Rebalance the Spastic Wrist: An Anatomical Feasibility Study"},
+            {"n": "7", "title": "An unrelated paper"}]
+    # Case and punctuation differences still match; unmatched papers are left out.
+    assert rc.match_citations(pubs, articles) == {"194": 3}
+    assert rc.parse_articles({}) == []
+    assert rc.normalize_title("Przegląd: A–B") == "przeglad a b"
 
 
 def main():

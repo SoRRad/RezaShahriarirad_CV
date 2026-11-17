@@ -27,6 +27,7 @@ REQUIRED_COLS = {
     "leadership": ["period", "title", "org", "desc"],
     "resume": ["section", "item", "detail"],
     "research_themes": ["title", "summary", "filter", "papers"],
+    "flagship": ["name", "tagline", "problem", "approach"],
     "hobbies": ["name", "icon", "desc"],
     "journals": ["name"],
     "skills_computing": ["name", "level"],

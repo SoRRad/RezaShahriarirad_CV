@@ -174,7 +174,7 @@ def build_biosketch(project_name=None):
         )
     else:
         ps_intro = (
-            "As a physician-researcher and Research Fellow in the Department of Surgery - Surgical Innovation, Mayo Clinic, "
+            f"As a physician-researcher and {profile.get('title', 'Research Fellow')} at Mayo Clinic, "
             "I bring a broad background in surgical outcomes research, minimally invasive surgery, "
             "and the application of artificial intelligence to clinical problems."
         )

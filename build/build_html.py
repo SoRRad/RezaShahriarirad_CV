@@ -274,7 +274,7 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <meta name="theme-color" content="#0A0F1A">
 <link rel="canonical" href="{_e(canonical)}">
 <link rel="icon" href="{favicon}">
-<script>document.documentElement.classList.add('js')</script>
+<script>(function(d){{d.classList.add('js');try{{var t=localStorage.getItem('cv-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')d.setAttribute('data-theme','dark')}}catch(e){{}}}})(document.documentElement)</script>
 <meta property="og:title" content="{_e(title)}">
 <meta property="og:description" content="{_e(desc)}">
 <meta property="og:type" content="profile">
@@ -282,9 +282,8 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <meta name="twitter:card" content="{twitter_card}">
 <meta name="twitter:title" content="{_e(title)}">
 <meta name="twitter:description" content="{_e(desc)}">{og_image_tags}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/space-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
 {json.dumps(person, ensure_ascii=False, indent=2)}
 </script>
@@ -315,6 +314,10 @@ def _nav() -> str:
     <li><a href="#hobbies">Hobbies</a></li>
     <li><a href="#references">References</a></li>
   </ul>
+  <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
   <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-controls="mobile-menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
@@ -492,6 +495,7 @@ def _hero(profile: dict, pub_count: int, photo_b64: str, pubs_df=None, latest_ht
       <figure class="det">
         <img id="cv-headshot" class="hero-photo" src="data:image/jpeg;base64,{photo_b64}" alt="Dr. Reza Shahriarirad">
         <span class="det-box" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="det-scan" aria-hidden="true"></span>
         <span class="det-tag" aria-hidden="true">physician_scientist 0.99</span>
         <span class="det-tag2" aria-hidden="true">mayo_clinic</span>
       </figure>
@@ -826,8 +830,10 @@ def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research
 
 
 def _leadership(leadership_df) -> str:
-    cards = []
+    groups = {"teaching": [], "service": []}
     for _, r in leadership_df.iterrows():
+        kind = str(r.get("kind", "") or "").strip().lower()
+        cards = groups["teaching" if kind == "teaching" else "service"]
         url = str(r.get("url", "") or "").strip()
         title_html = (
             f'<a href="{_e(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">{_e(r["title"])} ↗</a>'
@@ -846,10 +852,13 @@ def _leadership(leadership_df) -> str:
 <div id="leadership">
 <div class="section-wrap">
   <div class="section-label">Leadership &amp; Service</div>
-  <h2>Leadership &amp; Community Service</h2>
+  <h2>Leadership, Teaching &amp; Service</h2>
+{"".join(
+    f'''  <h3 class="leadership-group">{label}</h3>
   <div class="leadership-grid">
-{''.join(cards)}
+{"".join(groups[key])}
   </div>
+''' for key, label in (("teaching", "Teaching &amp; Mentorship"), ("service", "Service &amp; Community")) if groups[key])}
 </div>
 </div>"""
 
@@ -904,6 +913,7 @@ def _research(data) -> str:
     pubs, pres = data["publications"], data.get("presentations")
     by_n = {str(r["n"]).strip(): r for r in pubs.to_dict("records")}
 
+    flagship_html = _flagship(data, by_n)
     cards, venues, covered = [], [], set()
     for t in themes.to_dict("records"):
         keys = _theme_filter_keys(t.get("filter", ""))
@@ -961,10 +971,67 @@ def _research(data) -> str:
   <p class="research-venues"><span class="research-venues-label">Recent work in</span> {venues_html}</p>
   <div class="theme-grid">
 {chr(10).join(cards)}
-  </div>
+  </div>{flagship_html}
   <div class="theme-broader"><span class="theme-broader-label">Broader and earlier work</span>{broader_html}</div>
 </div>
 </div>"""
+
+
+_FLAGSHIP_ICONS = {
+    # Small line drawings in the site's style; replaced by a real figure when
+    # the row names an image in assets/projects/.
+    "frame": '<svg viewBox="0 0 120 72" aria-hidden="true"><rect x="6" y="8" width="108" height="56" class="fi-dim"/><path d="M22 20v-6h10M88 14h10v6M98 52v6H88M32 58H22v-6" class="fi-a"/><rect x="36" y="24" width="30" height="24" class="fi-a"/><rect x="72" y="30" width="22" height="18" class="fi-b"/><text x="37" y="21" class="fi-t">go</text><text x="73" y="27" class="fi-t fi-tb">no-go</text></svg>',
+    "steps": '<svg viewBox="0 0 120 72" aria-hidden="true"><path d="M8 62h104" class="fi-dim"/><rect x="12" y="46" width="18" height="16" class="fi-a"/><rect x="38" y="36" width="18" height="26" class="fi-a"/><rect x="64" y="24" width="18" height="38" class="fi-a"/><rect x="90" y="12" width="18" height="50" class="fi-b"/><text x="15" y="43" class="fi-t">0</text><text x="41" y="33" class="fi-t">1</text><text x="67" y="21" class="fi-t">2</text><text x="93" y="9" class="fi-t fi-tb">3</text></svg>',
+    "ecg": '<svg viewBox="0 0 120 72" aria-hidden="true"><path d="M6 60h108M6 36h108M6 12h108" class="fi-dim"/><path d="M6 40h22l5-8 5 8h8l4 12 6-40 6 34 4-6h10l5-7 5 7h24" class="fi-a"/><circle cx="58" cy="12" r="3" class="fi-b"/></svg>',
+}
+
+
+def _flagship(data, pubs_by_n) -> str:
+    """Flagship project cards: problem, approach, result, with paper/code links."""
+    df = data.get("flagship")
+    if df is None or not len(df):
+        return ""
+    cards = []
+    for _, r in df.iterrows():
+        if not _yes(r.get("public_visible", "yes")):
+            continue
+        image = str(r.get("image", "")).strip()
+        image_path = ROOT / "assets" / "projects" / image if image else None
+        if image_path and image_path.is_file():
+            figure = f'<img src="assets/projects/{_e(image)}" alt="{_e(str(r.get("name", "")).strip())} figure" loading="lazy" decoding="async">'
+        else:
+            figure = _FLAGSHIP_ICONS.get(str(r.get("icon", "")).strip().lower(), _FLAGSHIP_ICONS["frame"])
+        rows = []
+        for key, label in (("problem", "problem"), ("approach", "approach"), ("result", "result")):
+            text = str(r.get(key, "")).strip()
+            if text:
+                rows.append(f'<div class="fl-row"><dt>{label}</dt><dd>{_e(text)}</dd></div>')
+        links = []
+        pub = pubs_by_n.get(str(r.get("paper", "")).strip())
+        if pub is not None and clean_url(str(pub.get("url", "")).strip()):
+            links.append(f'<a class="fl-link" href="{_e(clean_url(str(pub.get("url", "")).strip()))}" target="_blank" rel="noopener noreferrer">paper ↗</a>')
+        for key, label in (("code_url", "code ↗"), ("demo_url", "demo ↗")):
+            url = str(r.get(key, "")).strip()
+            if url:
+                links.append(f'<a class="fl-link" href="{_e(url)}" target="_blank" rel="noopener noreferrer">{label}</a>')
+        status = str(r.get("status", "")).strip()
+        cards.append(f"""    <article class="fl-card">
+      <div class="fl-figure">{figure}</div>
+      <div class="fl-body">
+        {f'<span class="fl-status">{_e(status.lower())}</span>' if status else ''}
+        <h4 class="fl-name">{_e(str(r.get("name", "")).strip())}</h4>
+        <p class="fl-tagline">{_e(str(r.get("tagline", "")).strip())}</p>
+        <dl class="fl-rows">{"".join(rows)}</dl>
+        {f'<div class="fl-links">{"".join(links)}</div>' if links else ''}
+      </div>
+    </article>""")
+    if not cards:
+        return ""
+    return f"""
+  <h3 class="fl-heading">Flagship projects</h3>
+  <div class="fl-grid">
+{chr(10).join(cards)}
+  </div>"""
 
 
 _PUB_TYPE_LABELS = {
@@ -1061,7 +1128,7 @@ def _publications_section(pubs_df) -> str:
     <div class="pub-filter-sidebar">
       <div class="pub-filter-group">
         <button class="filter-btn" type="button"
-          style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
+          style="width:100%;background:var(--gold);color:#fff;border-color:var(--gold);font-weight:500;text-align:center"
           onclick="resetPubFilters(event)" aria-label="Reset all publication filters">&#8635; Reset filters</button>
       </div>
       <div class="pub-filter-group">
@@ -1080,6 +1147,10 @@ def _publications_section(pubs_df) -> str:
     </div>
     <!-- Right: search + list -->
     <div class="pub-list-wrap">
+      <div class="pub-years" id="pub-years" hidden>
+        <div class="pub-years-head"><span class="pub-years-title">papers per year</span><span class="pub-years-hint">select a year to filter</span></div>
+        <div class="pub-years-bars" role="group" aria-label="Publications per year. Select a year to filter the list."></div>
+      </div>
       <div class="search-row">
         <label class="search-shell" for="pub-search">
           <span id="pub-search-prefix" class="search-filter-prefix" hidden></span>
@@ -1341,7 +1412,7 @@ def _presentations(pres_df) -> str:
     <div class="pres-filter-sidebar">
       <div class="pres-filter-group">
         <button class="filter-btn" type="button"
-          style="width:100%;background:var(--gold);color:var(--navy);border-color:var(--gold);font-weight:500;text-align:center"
+          style="width:100%;background:var(--gold);color:#fff;border-color:var(--gold);font-weight:500;text-align:center"
           id="pres-reset" aria-label="Reset all presentation filters" onclick="resetPresFilters(event)">&#8635; Reset filters</button>
       </div>
       <div class="pres-filter-group">
@@ -1528,8 +1599,15 @@ def _category_labels_js() -> str:
     return "const categoryLabels = " + json.dumps(payload, ensure_ascii=False, sort_keys=True) + ";"
 
 
-def _pubs_js(pubs_df) -> str:
+def _pubs_js(pubs_df, citations_df=None) -> str:
     """Generate const publications=[...] from the CSV."""
+    # Optional per-paper citation counts (data/citations.csv, refreshed weekly).
+    cites = {}
+    if citations_df is not None and len(citations_df):
+        for _, c in citations_df.iterrows():
+            value = str(c.get("citations", "")).strip()
+            if value.isdigit():
+                cites[str(c.get("n", "")).strip()] = int(value)
     entries = []
     for _, r in pubs_df.iterrows():
         n_raw = str(r.get("n", "")).strip()
@@ -1548,6 +1626,8 @@ def _pubs_js(pubs_df) -> str:
             "highlight_topics": [h.lower() for h in parse_semicolon(r.get("highlight_topics", ""))],
             "featured": "yes" if _yes(r.get("featured", "")) else "",
         })
+        if cites.get(n_raw):
+            entries[-1]["cites"] = cites[n_raw]
     return "const publications = " + json.dumps(entries, ensure_ascii=False, separators=(",", ":")) + ";"
 
 
@@ -1585,7 +1665,7 @@ def main():
 
     css = (ASSETS / "cv_style.css").read_text(encoding="utf-8")
     js  = (ASSETS / "cv_script.js").read_text(encoding="utf-8")
-    photo_b64 = (ASSETS / "headshot.b64").read_text(encoding="ascii").strip()
+    photo_b64 = base64.b64encode((ROOT / "assets" / "headshot.jpg").read_bytes()).decode("ascii")
 
     # Count publications excluding blank/comment rows
     pub_count = len(data["publications"])
@@ -1616,7 +1696,7 @@ def main():
         _footer(profile),
         '\n<script>',
         _category_labels_js(),
-        _pubs_js(data["publications"]),
+        _pubs_js(data["publications"], data.get("citations")),
         _repos_js(data["open_source"]),
         js,
         "</script>",

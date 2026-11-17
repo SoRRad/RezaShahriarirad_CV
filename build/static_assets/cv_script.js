@@ -93,6 +93,7 @@ let pubTagSelections   = [];  // [] = all
 let currentCat         = 'all';
 let currentSearch      = '';
 let showingAll         = false;
+let pubYear            = null;   // year picked on the papers-per-year chart
 const SHOW             = 25;
 
 function boldName(str){
@@ -272,6 +273,7 @@ function getPubActiveFilterLabel(){
     ...selectedFilterLabels(pubTypeSelections, pubTypeFilterLabels, 'pub-type-panel'),
     ...selectedFilterLabels(pubTagSelections, pubAuthFilterLabels, 'pub-auth-panel'),
     activeTopicLabel(currentCat),
+    pubYear === null ? '' : String(pubYear),
   ]);
 }
 
@@ -384,7 +386,8 @@ function renderPubs(){
       matchSearch = textMatchesSearch(searchText, q);
     }
 
-    return matchType && matchTag && matchCat && matchSearch;
+    const matchYear = pubYear === null || String(p.year) === String(pubYear);
+    return matchType && matchTag && matchCat && matchSearch && matchYear;
   });
 
   /* ── Highlight topics: sort matching pubs to top when cat filter active ── */
@@ -421,6 +424,11 @@ function renderPubs(){
         <div class="pub-authors">${authHtml}</div>
         <div class="pub-journal"><em>${escapeHtml(p.journal)}</em></div>
         ${tagRow}
+        <div class="pub-actions">
+          <button type="button" class="pub-act pub-cite" data-n="${p.n}" aria-expanded="false">cite</button>
+          ${p.cites ? `<span class="pub-cites" title="Citations on Google Scholar">cited ${p.cites}</span>` : ''}
+          <button type="button" class="pub-act pub-expand" aria-expanded="false">details <span aria-hidden="true">↓</span></button>
+        </div>
       </div>
     </div>`;
   }).join('');
@@ -434,7 +442,8 @@ function showAllPubs(event){
 
 function resetPubFilters(event){
   stopFilterEvent(event);
-  pubTypeSelections=[]; pubTagSelections=[]; currentCat='all'; currentSearch=''; showingAll=false;
+  pubTypeSelections=[]; pubTagSelections=[]; currentCat='all'; currentSearch=''; showingAll=false; pubYear=null;
+  syncYearChart();
   ['pub-type-panel','pub-auth-panel'].forEach(id=>{
     const panel=document.getElementById(id);
     if(!panel) return;
@@ -1129,4 +1138,148 @@ window.testPresFilters = function(){
   let t;
   window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(init, 200); });
   document.fonts?.ready.then(init);
+})();
+
+
+/* ── Light / dark theme toggle (choice remembered on this device) ── */
+(function(){
+  const root = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  if(!btn) return;
+  function sync(){
+    const dark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-pressed', String(dark));
+    btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+  btn.addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme') === 'dark';
+    if(dark) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', 'dark');
+    try { localStorage.setItem('cv-theme', dark ? 'light' : 'dark'); } catch(e) {}
+    sync();
+  });
+  sync();
+})();
+
+
+/* ── Papers per year: a bar per year; click one to filter the list ── */
+function syncYearChart(){
+  document.querySelectorAll('#pub-years .yr').forEach(b => {
+    const on = pubYear !== null && b.dataset.year === String(pubYear);
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+  const box = document.getElementById('pub-years');
+  if(box) box.classList.toggle('has-active', pubYear !== null);
+}
+(function(){
+  const box = document.getElementById('pub-years');
+  if(!box || typeof publications === 'undefined') return;
+  const counts = {};
+  publications.forEach(p => { const y = parseInt(p.year, 10); if(y) counts[y] = (counts[y] || 0) + 1; });
+  const years = Object.keys(counts).map(Number);
+  if(!years.length) return;
+  const first = Math.min(...years), last = Math.max(...years);
+  const max = Math.max(...Object.values(counts));
+  let html = '';
+  for(let y = first; y <= last; y++){
+    const n = counts[y] || 0;
+    const h = n ? Math.max(4, Math.round(n / max * 100)) : 0;
+    html += `<button type="button" class="yr" data-year="${y}" aria-pressed="false" ${n ? '' : 'disabled'}
+      aria-label="${y}: ${n} publication${n === 1 ? '' : 's'}" title="${y}: ${n} publication${n === 1 ? '' : 's'}">
+      <span class="yr-n">${n || ''}</span><span class="yr-bar" style="height:${h}%"></span><span class="yr-y">’${String(y).slice(2)}</span></button>`;
+  }
+  box.querySelector('.pub-years-bars').innerHTML = html;
+  box.hidden = false;
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.yr');
+    if(!b || b.disabled) return;
+    const y = b.dataset.year;
+    pubYear = (String(pubYear) === y) ? null : y;
+    showingAll = false;
+    syncYearChart();
+    updatePubSearchPrefix();
+    preserveScroll(renderPubs);
+  });
+})();
+
+/* ── Publication row actions: expand details (phones) and cite ── */
+function pubCitationText(p){
+  const authors = String(p.authors || '').replace(/\*/g, '');
+  const url = safeUrl(p.url);
+  return `${authors}. ${p.title}. ${p.journal}. ${p.year}.${url ? ' ' + url : ''}`;
+}
+function pubBibtex(p){
+  const authorsList = String(p.authors || '').replace(/\*/g, '').split(',').map(a => a.trim()).filter(a => a && a !== '…' && !/^et al/i.test(a));
+  const bibAuthors = authorsList.map(a => { const parts = a.split(' '); const initials = parts.length > 1 ? parts.pop() : ''; return initials ? `${parts.join(' ')}, ${initials.split('').join('. ')}.` : a; }).join(' and ');
+  const key = ((authorsList[0] || 'paper').split(' ')[0] + p.year + 'n' + p.n).replace(/[^A-Za-z0-9]/g, '');
+  const url = safeUrl(p.url);
+  const doi = url && url.includes('doi.org/') ? url.split('doi.org/')[1] : '';
+  const esc = v => String(v || '').replace(/[{}]/g, '');
+  return `@article{${key},\n  author  = {${esc(bibAuthors)}},\n  title   = {${esc(p.title)}},\n  journal = {${esc(p.journal)}},\n  year    = {${esc(p.year)}}` +
+    (doi ? `,\n  doi     = {${doi}}` : (url ? `,\n  url     = {${url}}` : '')) + `\n}`;
+}
+document.addEventListener('click', e => {
+  const exp = e.target.closest('.pub-expand');
+  if(exp){
+    const item = exp.closest('.pub-item');
+    const open = item.classList.toggle('open');
+    exp.setAttribute('aria-expanded', String(open));
+    exp.firstChild.textContent = open ? 'less ' : 'details ';
+    return;
+  }
+  const cite = e.target.closest('.pub-cite');
+  if(cite){
+    const item = cite.closest('.pub-item');
+    let box = item.querySelector('.cite-box');
+    if(box){ box.remove(); cite.setAttribute('aria-expanded', 'false'); return; }
+    const p = publications.find(x => String(x.n) === cite.dataset.n);
+    if(!p) return;
+    box = document.createElement('div');
+    box.className = 'cite-box';
+    box.innerHTML = `<p class="cite-text"></p><div class="cite-btns">
+      <button type="button" class="pub-act cite-copy" data-kind="text">copy citation</button>
+      <button type="button" class="pub-act cite-copy" data-kind="bibtex">copy BibTeX</button>
+      <span class="cite-status" role="status" aria-live="polite"></span></div>`;
+    box.querySelector('.cite-text').textContent = pubCitationText(p);
+    box._pub = p;
+    cite.closest('.pub-actions').after(box);
+    cite.setAttribute('aria-expanded', 'true');
+    return;
+  }
+  const copy = e.target.closest('.cite-copy');
+  if(copy){
+    const box = copy.closest('.cite-box');
+    const text = copy.dataset.kind === 'bibtex' ? pubBibtex(box._pub) : pubCitationText(box._pub);
+    const status = box.querySelector('.cite-status');
+    const done = ok => { status.textContent = ok ? 'copied' : 'press Ctrl+C to copy'; setTimeout(() => { status.textContent = ''; }, 2500); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(() => done(true), () => done(false));
+    } else {
+      const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select();
+      let ok = false; try { ok = document.execCommand('copy'); } catch(err) {}
+      ta.remove(); done(ok);
+    }
+  }
+});
+
+
+/* ── Hero metrics count up once on load (skipped for reduced motion) ── */
+(function(){
+  if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.hero-metrics .hm-v').forEach(el => {
+    const finalText = el.textContent.trim();
+    const target = parseInt(finalText.replace(/,/g, ''), 10);
+    if(!target || String(target) !== finalText.replace(/,/g, '')) return;
+    const grouped = finalText.includes(',');
+    const start = performance.now(), dur = 1100;
+    el.setAttribute('aria-label', finalText);
+    function tick(now){
+      const t = Math.min(1, (now - start) / dur), eased = 1 - Math.pow(1 - t, 3);
+      const v = Math.round(target * eased);
+      el.textContent = t < 1 ? (grouped ? v.toLocaleString('en-US') : String(v)) : finalText;
+      if(t < 1) requestAnimationFrame(tick);
+    }
+    el.textContent = '0';
+    requestAnimationFrame(tick);
+  });
 })();
