@@ -4,7 +4,7 @@ Reads cv_style.css and cv_script.js verbatim; all dynamic content comes from CSV
 """
 import base64, json, mimetypes, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import load_all_data, get_profile, parse_semicolon, clean_url, TAXONOMY, CAT_LABELS
+from utils import load_all_data, get_profile, parse_semicolon, clean_url, newest_first, TAXONOMY, CAT_LABELS
 
 ROOT   = pathlib.Path(__file__).parent.parent
 ASSETS = pathlib.Path(__file__).parent / "static_assets"
@@ -274,6 +274,7 @@ def _head(css: str, profile: dict, education_df=None) -> str:
 <meta name="theme-color" content="#0A0F1A">
 <link rel="canonical" href="{_e(canonical)}">
 <link rel="icon" href="{favicon}">
+<script>document.documentElement.classList.add('js')</script>
 <meta property="og:title" content="{_e(title)}">
 <meta property="og:description" content="{_e(desc)}">
 <meta property="og:type" content="profile">
@@ -605,7 +606,7 @@ def _logo_img_from_path(p, org_name="", class_name="timeline-logo"):
         return f'<img class="{_e(class_name)}" src="{_e(rel)}" alt="{alt}" loading="lazy" decoding="async">'
     mime = mimetypes.guess_type(str(p))[0] or "image/png"
     data = base64.b64encode(p.read_bytes()).decode("ascii")
-    return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" loading="lazy" decoding="async">'
+    return f'<img class="{_e(class_name)}" src="data:{mime};base64,{data}" alt="{alt}" decoding="async">'
 
 def _institutional_logo(logo_file, org_name="", class_name="timeline-logo"):
     """Return a local logo image, embedding small files and referencing larger ones."""
@@ -648,10 +649,19 @@ def _logo_placeholder(initials, org_name="", color="", class_name="timeline-logo
 
 
 def _experience(exp_df, edu_df, skills_comp_df, skills_inter_df, skills_research_df=None, aff_df=None) -> str:
+    # A row can carry another organisation's logo (the A-Star Lab appointment is
+    # held at Mayo Clinic), so name the image after the logo's owner when known.
+    logo_owner = {}
+    if aff_df is not None and len(aff_df):
+        for _, a in aff_df.iterrows():
+            key = str(a.get("logo_file", "")).strip().lower()
+            if key and str(a.get("name", "")).strip():
+                logo_owner.setdefault(key, str(a.get("name", "")).strip())
+
     def _logo_el(row, org_key="org"):
         logo_file = str(row.get("logo_file", "")).strip()
         org_name = str(row.get(org_key, "")).strip()
-        img = _institutional_logo(logo_file, org_name)
+        img = _institutional_logo(logo_file, logo_owner.get(logo_file.lower(), org_name))
         if img:
             return img
         return _logo_placeholder(row.get("logo_initials", ""), org_name, row.get("logo_color", ""))
@@ -957,7 +967,58 @@ def _research(data) -> str:
 </div>"""
 
 
-def _publications_section() -> str:
+_PUB_TYPE_LABELS = {
+    "original": "Original Article",
+    "review": "Review / Meta-analysis",
+    "case": "Case Report",
+    "letter": "Letter",
+}
+PUBS_INITIAL_SHOW = 25  # keep in sync with SHOW in cv_script.js
+
+
+def _pub_items_html(pubs_df) -> str:
+    """Every publication as plain HTML, newest first.
+
+    The list is in the page source so search engines, AI crawlers and visitors
+    without JavaScript see all of it. cv_script.js re-renders the same markup
+    when filters are used.
+    """
+    items = []
+    for idx, r in enumerate(newest_first(pubs_df.to_dict("records"))):
+        type_key = str(r.get("type", "")).strip().lower()
+        month, year = str(r.get("month", "")).strip(), str(r.get("year", "")).strip()
+        ym = f"{month} {year}".strip()
+        badge = (
+            f'<span class="pub-type-badge badge-{_e(type_key if type_key in _PUB_TYPE_LABELS else "original")}">'
+            f'{_e(_PUB_TYPE_LABELS.get(type_key, type_key))}</span>'
+        )
+        star = (
+            '<span class="pub-star-badge" title="Featured publication" aria-label="Featured publication">&#9733;</span>'
+            if _yes(r.get("featured", "")) else ""
+        )
+        title = _e(str(r.get("title", "")).strip())
+        url = clean_url(str(r.get("url", "")).strip())
+        title_html = (
+            f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer">{title}</a>'
+            if url.lower().startswith(("http://", "https://")) else title
+        )
+        authors = re.sub(r"(Shahriarirad R\*?)", r"<b>\1</b>", _e(str(r.get("authors", "")).strip()))
+        hidden = " pub-hidden" if idx >= PUBS_INITIAL_SHOW else ""
+        items.append(
+            f'<div class="pub-item{hidden}">'
+            f'<div class="pub-year-col">{_e(ym)}{badge}{star}</div>'
+            f'<div><div class="pub-title">{title_html}</div>'
+            f'<div class="pub-authors">{authors}</div>'
+            f'<div class="pub-journal"><em>{_e(str(r.get("journal", "")).strip())}</em></div></div>'
+            f'</div>'
+        )
+    return "\n".join(items)
+
+
+def _publications_section(pubs_df) -> str:
+    total = len(pubs_df)
+    shown = min(total, PUBS_INITIAL_SHOW)
+    pub_items = _pub_items_html(pubs_df)
     type_dropdown = _dropdown_html(
         "pub-type-btn", "pub-type-panel", "All Types",
         ["Original Articles", "Reviews & Meta-analyses", "Case Reports", "Letters / Editorials"],
@@ -1025,9 +1086,11 @@ def _publications_section() -> str:
           <input class="pub-search search-input" type="search" id="pub-search" aria-label="Search publications" placeholder="Search title, author, journal, keyword..."
             oninput="handlePubSearchInput(this.value)">
         </label>
-        <div id="pub-count" class="pub-count">—</div>
+        <div id="pub-count" class="pub-count">Showing {shown} of {total}</div>
       </div>
-      <div class="pub-list" id="pub-list"></div>
+      <div class="pub-list" id="pub-list">
+{pub_items}
+      </div>
     </div><!-- /pub-list-wrap -->
   </div><!-- /pub-controls -->
   <div style="text-align:center;padding:2rem 0 0" id="pub-more">
@@ -1093,7 +1156,27 @@ def _patents(patents_df) -> str:
 </div>"""
 
 
-def _editorial(editorial_df, profile: dict) -> str:
+def _journal_pills_html(journals_df) -> str:
+    """Journals reviewed for, featured ones first; the rest sit behind "show all"."""
+    if journals_df is None or not len(journals_df):
+        return ""
+    rows = journals_df.to_dict("records")
+    featured = [r for r in rows if str(r.get("featured", "")).strip().lower() == "yes"]
+    ordered = featured + [r for r in rows if r not in featured] if featured else rows
+    pills = []
+    for idx, r in enumerate(ordered):
+        more = " more-item" if featured and idx >= len(featured) else ""
+        name = _e(str(r.get("name", "")).strip())
+        url = str(r.get("url", "")).strip()
+        if url:
+            pills.append(f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="journal-pill{more}">{name} ↗</a>')
+        else:
+            pills.append(f'<span class="journal-pill{more}">{name}</span>')
+    return "".join(pills)
+
+
+def _editorial(editorial_df, profile: dict, journals_df=None) -> str:
+    journal_pills = _journal_pills_html(journals_df)
     editor_items = []
     for _, r in editorial_df.iterrows():
         url = r.get("url","").strip()
@@ -1132,7 +1215,7 @@ def _editorial(editorial_df, profile: dict) -> str:
         <div><div class="reviewer-stat-num">{_e(journals_cnt)}</div><div class="reviewer-stat-label">Journals</div></div>
       </div>
       <h4 class="ed-sub">Journals reviewed for</h4>
-      <div class="journal-grid" id="journal-grid"></div>
+      <div class="journal-grid is-collapsed" id="journal-grid">{journal_pills}</div>
     </section>
   </div>
 </div>
@@ -1348,14 +1431,35 @@ def _hobbies(hobbies_df) -> str:
 </div>"""
 
 
-def _references_section() -> str:
-    return """
+REFS_INITIAL_SHOW = 3
+
+
+def _references_section(refs_df=None) -> str:
+    cards = []
+    rows = refs_df.to_dict("records") if refs_df is not None else []
+    for idx, r in enumerate(rows):
+        links = []
+        for n in ("1", "2"):
+            label = str(r.get(f"link_label_{n}", "")).strip()
+            url = str(r.get(f"link_url_{n}", "")).strip()
+            if label and url:
+                links.append(f'<a href="{_e(url)}" target="_blank" rel="noopener noreferrer" class="ref-link">{_e(label)} ↗</a>')
+        more = " more-item" if idx >= REFS_INITIAL_SHOW else ""
+        cards.append(
+            f'<div class="ref-card{more}">'
+            f'<div class="ref-name">{_e(str(r.get("name", "")).strip())}</div>'
+            f'<div class="ref-role">{_e(str(r.get("role", "")).strip())}<br>'
+            f'<em style="font-size:.73rem">{_e(str(r.get("inst", "")).strip())}</em></div>'
+            f'<div class="ref-links" style="margin-top:.7rem">{"".join(links)}</div>'
+            f'</div>'
+        )
+    return f"""
 <!-- REFERENCES -->
 <div id="references">
 <div class="section-wrap">
   <div class="section-label">Professional Network</div>
   <h2>References</h2>
-  <div class="refs-grid" id="refs-grid"></div>
+  <div class="refs-grid is-collapsed" id="refs-grid">{"".join(cards)}</div>
 </div>
 </div>"""
 
@@ -1444,34 +1548,7 @@ def _pubs_js(pubs_df) -> str:
             "highlight_topics": [h.lower() for h in parse_semicolon(r.get("highlight_topics", ""))],
             "featured": "yes" if _yes(r.get("featured", "")) else "",
         })
-    return "const publications = " + json.dumps(entries, ensure_ascii=False, indent=2) + ";"
-
-
-def _journals_js(journals_df) -> str:
-    entries = []
-    for _, r in journals_df.iterrows():
-        url = r.get("url","").strip()
-        feat = ',featured:true' if str(r.get("featured", "")).strip().lower() == "yes" else ''
-        if url:
-            entries.append(f'{{name:"{_q(r["name"])}",url:"{_q(url)}"{feat}}}\n')
-        else:
-            entries.append(f'{{name:"{_q(r["name"])}"{feat}}}\n')
-    return "const journals=[\n  " + "  ,".join(entries) + "];"
-
-
-def _refs_js(refs_df) -> str:
-    entries = []
-    for _, r in refs_df.iterrows():
-        links = []
-        if r.get("link_label_1","").strip():
-            links.append(f'{{label:"{_q(r["link_label_1"])}",url:"{_q(r.get("link_url_1",""))}"}}\n    ')
-        if r.get("link_label_2","").strip():
-            links.append(f'{{label:"{_q(r["link_label_2"])}",url:"{_q(r.get("link_url_2",""))}"}}\n    ')
-        links_js = "[" + ",".join(l.strip() for l in links) + "]"
-        entries.append(
-            f'{{name:"{_q(r["name"])}",role:"{_q(r["role"])}",inst:"{_q(r["inst"])}",links:{links_js}}}'
-        )
-    return "const refs=[\n  " + ",\n  ".join(entries) + "\n];"
+    return "const publications = " + json.dumps(entries, ensure_ascii=False, separators=(",", ":")) + ";"
 
 
 def _repos_js(repos_df) -> str:
@@ -1527,21 +1604,19 @@ def main():
                     data["skills_computing"], data["skills_interpersonal"],
                     data.get("skills_research", None), aff_df),
         _leadership(data["leadership"]),
-        _publications_section(),
+        _publications_section(data["publications"]),
         _awards(data["awards"]),
         _patents(data["patents"]),
-        _editorial(data["editorial"], profile),
+        _editorial(data["editorial"], profile, data["journals"]),
         _presentations(data["presentations"]),
         _open_source(profile),
         _hobbies(data["hobbies"]),
-        _references_section(),
+        _references_section(data["references"]),
         "</main>",
         _footer(profile),
         '\n<script>',
         _category_labels_js(),
         _pubs_js(data["publications"]),
-        _journals_js(data["journals"]),
-        _refs_js(data["references"]),
         _repos_js(data["open_source"]),
         js,
         "</script>",

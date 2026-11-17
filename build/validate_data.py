@@ -441,6 +441,16 @@ def _validate_profile(rows, lines, errors):
         elif not profile[field]:
             errors.append(f"profile.csv: row {field_lines[field]} field '{field}' cannot be empty")
 
+    # {field} tokens in prose are filled from the matching profile field at build
+    # time; a token with no matching field would show up on the page as written.
+    for field, value in profile.items():
+        for token in re.findall(r"\{([a-z][a-z0-9_]*)\}", value):
+            if not profile.get(token):
+                errors.append(
+                    f"profile.csv: row {field_lines[field]} field '{field}' uses {{{token}}}, "
+                    f"but there is no '{token}' field with a value"
+                )
+
     for field in ("scholar_url", "pubmed_url", "scopus_url", "researchgate_url", "wos_url", "linkedin_url", "orcid_url", "github_url"):
         if field in profile:
             fake_row = {field: profile[field]}

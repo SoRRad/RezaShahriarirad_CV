@@ -7,7 +7,7 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from utils import author_tag_counts, get_profile, load_all_data, parse_semicolon  # noqa: E402
+from utils import author_tag_counts, get_profile, load_all_data, newest_first, parse_semicolon  # noqa: E402
 
 from docx import Document
 from docx.enum.section import WD_SECTION
@@ -420,12 +420,15 @@ def _appendix_publications(doc, pubs_df):
         if subset.empty:
             continue
         _subheading(doc, label)
-        for _, r in subset.iterrows():
+        # Newest first, numbered in reverse so the top entry carries the count
+        # for its group and the numbers never jump when a paper is added.
+        records = newest_first(subset.to_dict("records"))
+        for position, r in enumerate(records):
             p = doc.add_paragraph()
             p.paragraph_format.left_indent = Inches(0.25)
             p.paragraph_format.first_line_indent = Inches(-0.25)
             p.paragraph_format.space_after = Pt(2)
-            n = p.add_run(f"{r.get('n','')}. ")
+            n = p.add_run(f"{len(records) - position}. ")
             _set_run(n, size=8.4, bold=True, color=NAVY)
             _bold_author_name(p, r.get("authors", ""))
             title = p.add_run(f" {_clean(r.get('title',''))}. ")

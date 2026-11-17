@@ -77,10 +77,47 @@ def load_all_data() -> dict:
     return result
 
 
+_PLACEHOLDER_RE = re.compile(r"\{([a-z][a-z0-9_]*)\}")
+
+
+def fill_placeholders(text, facts: dict) -> str:
+    """Replace {field} tokens in profile prose with that field's value.
+
+    Lets sentences such as "I have authored {pub_count} peer-reviewed
+    publications" stay correct as the counts change. Unknown tokens are left
+    as written so a typo is visible on the page instead of silently vanishing.
+    """
+    def repl(match):
+        value = str(facts.get(match.group(1), "")).strip()
+        return value if value else match.group(0)
+    return _PLACEHOLDER_RE.sub(repl, str(text or ""))
+
+
 def get_profile(data: dict) -> dict:
-    """Return profile.csv as a flat dict field→value."""
+    """Return profile.csv as a flat dict field→value, with {field} tokens filled."""
     df = data["profile"]
-    return dict(zip(df["field"], df["value"]))
+    raw = dict(zip(df["field"], df["value"]))
+    return {field: fill_placeholders(value, raw) for field, value in raw.items()}
+
+
+_MONTH_ORDER = {m: i for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], start=1)}
+
+
+def newest_first(rows) -> list:
+    """Sort publication/presentation records newest first by year, then month.
+
+    The sort is stable, so entries that share a month keep their CSV order.
+    The website list and the Word/PDF CV both use it, so they always agree.
+    """
+    def key(row):
+        try:
+            year = int(str(row.get("year", "")).strip()[:4])
+        except ValueError:
+            year = 0
+        month = _MONTH_ORDER.get(str(row.get("month", "")).strip()[:3].lower(), 0)
+        return (-year, -month)
+    return sorted(list(rows), key=key)
 
 
 def format_authors_html(authors: str) -> str:

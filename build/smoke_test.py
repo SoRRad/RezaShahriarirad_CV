@@ -231,6 +231,13 @@ def main():
         errors.append("index.html does not appear to include the generated publications JavaScript array")
     if f'"n": {last_n}' not in text and f'"n":{last_n}' not in text:
         errors.append(f"index.html does not include newest publication number {last_n}")
+    # Publications must be in the page source itself (not only drawn by script),
+    # so search engines and no-JavaScript readers see the whole list.
+    static_pubs = len(re.findall(r'<div class="pub-item(?: pub-hidden)?">', text))
+    if static_pubs < len(pub_rows):
+        errors.append(f"index.html has {static_pubs} publications in its static HTML; expected {len(pub_rows)}")
+    if 'class="journal-pill' not in text or 'class="ref-card' not in text:
+        errors.append("index.html is missing the static journal or reference markup")
     if "pub-tag-chip" not in text:
         errors.append("index.html is missing publication tag chip markup/class")
     if "pres-tag-chip" not in text:
