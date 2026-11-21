@@ -5159,5 +5159,29 @@
     ],
     "highlight_topics": [],
     "featured": ""
+  },
+  {
+    "n": 202,
+    "year": "2026",
+    "month": "Nov",
+    "type": "original",
+    "tags": [],
+    "cat": [
+      "bariatric"
+    ],
+    "title": "The Mayo Obesity Staging Index (MOSI): A Novel Staging Framework for Metabolic Surgery",
+    "authors": "Alomar A, Shahriarirad R, Klim J, Tish S, El Ghazal N, Migliorini A, Mundi MS, Kellogg TA, Ghanem OM, Laplante S*",
+    "journal": "Obesity Surgery",
+    "url": "https://doi.org/10.1007/s11695-026-09052-y",
+    "keywords": [
+      "Bariatric surgery",
+      "Metabolic surgery",
+      "Obesity staging",
+      "MOSI",
+      "Risk stratification",
+      "Classification"
+    ],
+    "highlight_topics": [],
+    "featured": ""
   }
 ]
