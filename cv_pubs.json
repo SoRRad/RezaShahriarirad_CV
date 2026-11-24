@@ -5081,35 +5081,6 @@
     "n": 199,
     "year": "2026",
     "month": "Nov",
-    "type": "review",
-    "tags": [
-      "first",
-      "corresponding"
-    ],
-    "cat": [
-      "machine_learning",
-      "health_systems"
-    ],
-    "title": "Patients' Attitudes on Artificial Intelligence in Medicine: A Scoping Review of Influencing Domains, Trends, and Clinical Specialties",
-    "authors": "Shahriarirad R*, Banivaheb B, Lee F, Thiels CA, Arghami A",
-    "journal": "Journal of Patient-Centered Research and Reviews",
-    "url": "",
-    "keywords": [
-      "Artificial intelligence",
-      "Patient-centered care",
-      "Patient perception",
-      "Trust",
-      "Empathy",
-      "Scoping review",
-      "PRISMA-ScR"
-    ],
-    "highlight_topics": [],
-    "featured": ""
-  },
-  {
-    "n": 200,
-    "year": "2026",
-    "month": "Nov",
     "type": "original",
     "tags": [
       "first",
@@ -5136,7 +5107,7 @@
     "featured": ""
   },
   {
-    "n": 201,
+    "n": 200,
     "year": "2026",
     "month": "Nov",
     "type": "original",
@@ -5161,7 +5132,7 @@
     "featured": ""
   },
   {
-    "n": 202,
+    "n": 201,
     "year": "2026",
     "month": "Nov",
     "type": "original",
